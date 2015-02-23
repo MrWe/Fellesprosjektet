@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.net.*?>
+<?import java.lang.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0"
+	prefWidth="380.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="app.PopUpController">
+	<children>
+		<Text fx:id="text" text="Hei! 123" AnchorPane.leftAnchor="10.0"
+			AnchorPane.topAnchor="10.0" />
+		<Button AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0"
+			mnemonicParsing="false" onAction="#handleOk" prefHeight="24.0"
+			prefWidth="89.0" text="OK" />
+	</children>
+</AnchorPane>

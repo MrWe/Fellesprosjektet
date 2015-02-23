@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.net.*?>
+<?import java.lang.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="app.ToolbarController">
+	<HBox AnchorPane.topAnchor="2" AnchorPane.leftAnchor="2" spacing="10">
+		<Button text="Hjem" prefHeight="60" prefWidth="60"
+			contentDisplay="top" cancelButton="true" focusTraversable="false">
+			<graphic>
+				<ImageView fitHeight="32" fitWidth="32" pickOnBounds="true"
+					preserveRatio="true">
+					<Image url="app/hjemIkon.png" />
+				</ImageView>
+			</graphic>
+		</Button>
+		<Button text="Kart" prefHeight="60" prefWidth="60"
+			contentDisplay="top" focusTraversable="false">
+			<graphic>
+				<ImageView fitHeight="32" fitWidth="32" pickOnBounds="true"
+					preserveRatio="true">
+					<Image url="app/kartIkon.png" />
+				</ImageView>
+			</graphic>
+		</Button>
+		<Button text="Medlemmer" prefHeight="60" prefWidth="60"
+			contentDisplay="top" focusTraversable="false">
+			<font>
+				<Font size="8" />
+			</font>
+			<graphic>
+				<ImageView fitHeight="32" fitWidth="32" pickOnBounds="true"
+					preserveRatio="true">
+					<Image url="app/medlemIkon.png" />
+				</ImageView>
+			</graphic>
+		</Button>
+		<Button text="Logg ut" prefHeight="60" prefWidth="60"
+			contentDisplay="top" focusTraversable="false">
+			<graphic>
+				<ImageView fitHeight="32" fitWidth="32" pickOnBounds="true"
+					preserveRatio="true">
+					<Image url="app/logoutIkon.png" />
+				</ImageView>
+			</graphic>
+		</Button>
+	</HBox>
+	<Separator orientation="horizontal" AnchorPane.leftAnchor="0"
+		AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="-5" />
+</AnchorPane>
+

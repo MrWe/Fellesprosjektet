@@ -12,8 +12,6 @@
 	<Text fx:id="text" text="Hei på deg!" AnchorPane.leftAnchor="10.0"
 		AnchorPane.topAnchor="10.0" />
 	<HBox AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
-		<Button mnemonicParsing="false" onAction="#handlePopup"
-			text="Open popup" />
 		<Button mnemonicParsing="false" onAction="#gotoOverview2"
 			text="Open overview 2" />
 	</HBox>

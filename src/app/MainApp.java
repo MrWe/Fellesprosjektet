@@ -1,7 +1,6 @@
 package app;
 
 import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -37,7 +36,8 @@ public class MainApp extends Application {
 			rootLayout = (BorderPane) loader.load();
 
 			// Show the scene containing the root layout.
-			Scene scene = new Scene(rootLayout);
+			Scene scene = new Scene(rootLayout, 1280, 720);
+			
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (IOException e) {
@@ -69,13 +69,14 @@ public class MainApp extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("Overview2.fxml"));
 			AnchorPane overview2 = (AnchorPane) loader.load();
-
+			
 			// Set  overview into the center of root layout.
 			rootLayout.setCenter(overview2);
 
 			// Give the controller access to the main app.
 			OverviewController2 controller = loader.getController();
 			controller.setMainApp(this);
+			controller.fillCalendar();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -111,7 +112,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void showPopUp() {
+	public void showPopUp(CalendarSquarePane csp) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
@@ -127,6 +128,7 @@ public class MainApp extends Application {
 			popupStage.setScene(scene);
 			PopUpController controller = loader.getController();
 			controller.setPopupStage(popupStage);
+			controller.fillPopup(csp);
 
 			// Show the dialog and wait until the user closes it
 			popupStage.showAndWait();

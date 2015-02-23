@@ -28,11 +28,6 @@ public class OverviewController {
 	}
 	
 	@FXML
-	private void handlePopup() {
-		mainApp.showPopUp();
-	}
-	
-	@FXML
 	private void gotoOverview2() {
 		mainApp.showOverview2();
 	}

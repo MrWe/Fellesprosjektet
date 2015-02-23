@@ -9,7 +9,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="app.ToolbarController">
-	<HBox AnchorPane.topAnchor="2" AnchorPane.leftAnchor="2" spacing="10">
+	<HBox AnchorPane.topAnchor="2" AnchorPane.leftAnchor="2" AnchorPane.bottomAnchor="5" spacing="5">
 		<Button text="Hjem" prefHeight="60" prefWidth="60"
 			contentDisplay="top" cancelButton="true" focusTraversable="false">
 			<graphic>
@@ -19,7 +19,7 @@
 				</ImageView>
 			</graphic>
 		</Button>
-		<Button text="Kart" prefHeight="60" prefWidth="60"
+		<Button text="Varsler" prefHeight="60" prefWidth="60"
 			contentDisplay="top" focusTraversable="false">
 			<graphic>
 				<ImageView fitHeight="32" fitWidth="32" pickOnBounds="true"
@@ -28,11 +28,8 @@
 				</ImageView>
 			</graphic>
 		</Button>
-		<Button text="Medlemmer" prefHeight="60" prefWidth="60"
+		<Button text="Profil" prefHeight="60" prefWidth="60"
 			contentDisplay="top" focusTraversable="false">
-			<font>
-				<Font size="8" />
-			</font>
 			<graphic>
 				<ImageView fitHeight="32" fitWidth="32" pickOnBounds="true"
 					preserveRatio="true">
@@ -51,6 +48,6 @@
 		</Button>
 	</HBox>
 	<Separator orientation="horizontal" AnchorPane.leftAnchor="0"
-		AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="-5" />
+		AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0" />
 </AnchorPane>
 

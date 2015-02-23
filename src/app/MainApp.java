@@ -17,9 +17,9 @@ public class MainApp extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("BarebonesApp");
+		this.primaryStage.setTitle("Kalender");
 		initRootLayout();
-		showOverview();
+		showCalendar();
 		showToolbar();
 		showList();
 	}
@@ -37,7 +37,7 @@ public class MainApp extends Application {
 
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout, 1280, 720);
-			
+
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (IOException e) {
@@ -45,36 +45,18 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void showOverview() {
+	public void showCalendar() {
 		try {
 			// Load overview.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("Overview.fxml"));
-			AnchorPane overview = (AnchorPane) loader.load();
+			loader.setLocation(MainApp.class.getResource("Calendar.fxml"));
+			AnchorPane calendar = (AnchorPane) loader.load();
 
 			// Set  overview into the center of root layout.
-			rootLayout.setCenter(overview);
+			rootLayout.setCenter(calendar);
 
 			// Give the controller access to the main app.
-			OverviewController controller = loader.getController();
-			controller.setMainApp(this);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void showOverview2() {
-		try {
-			// Load overview.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("Overview2.fxml"));
-			AnchorPane overview2 = (AnchorPane) loader.load();
-			
-			// Set  overview into the center of root layout.
-			rootLayout.setCenter(overview2);
-
-			// Give the controller access to the main app.
-			OverviewController2 controller = loader.getController();
+			CalendarController controller = loader.getController();
 			controller.setMainApp(this);
 			controller.fillCalendar();
 		} catch (IOException e) {
@@ -121,9 +103,10 @@ public class MainApp extends Application {
 
 			// Create the dialog Stage.
 			Stage popupStage = new Stage();
-			popupStage.setTitle("Popup window");
+			popupStage.setTitle("Lag avtale for " + csp.getDate());
 			popupStage.initModality(Modality.WINDOW_MODAL);
 			popupStage.initOwner(primaryStage);
+			popupStage.setResizable(false);
 			Scene scene = new Scene(page);
 			popupStage.setScene(scene);
 			PopUpController controller = loader.getController();

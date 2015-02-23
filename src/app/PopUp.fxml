@@ -16,28 +16,35 @@
 	prefWidth="380.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="app.PopUpController">
 	<children>
-		<VBox spacing="5">
-			<Text fx:id="text" />
+		<VBox spacing="5" AnchorPane.topAnchor="5" AnchorPane.leftAnchor="5">
 			<HBox>
-				<Text text="Beskrivelse" />
+				<Label text="Beskrivelse" prefWidth="65" />
 				<TextField fx:id="descriptionField" />
 			</HBox>
 			<HBox>
-				<Text text="Sted" />
+				<Label text="Sted" prefWidth="65" />
 				<TextField fx:id="locationField" />
 			</HBox>
 			<HBox>
-				<Text text="Starttid" />
-				<TextField fx:id="startTimeField" />
+				<Label text="Starttid" prefWidth="65" />
+				<TextField fx:id="startTimeField" promptText="15:15"
+					prefWidth="50" />
 			</HBox>
 			<HBox>
-				<Text text="Sluttid" />
-				<TextField fx:id="endTimeField" />
+				<Label text="Sluttid" prefWidth="65" />
+				<TextField fx:id="endTimeField" promptText="15:15"
+					prefWidth="50" />
 			</HBox>
 		</VBox>
-		<VBox fx:id="members" AnchorPane.rightAnchor="10" />
-		<Button AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0"
-			mnemonicParsing="false" onAction="#handleOk" prefHeight="24.0"
-			prefWidth="89.0" text="OK" />
+		<VBox fx:id="members" AnchorPane.topAnchor="0"
+			AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="40" prefWidth="150" />
+		<HBox AnchorPane.bottomAnchor="7.5" AnchorPane.rightAnchor="5.0"
+			spacing="5">
+			<Button mnemonicParsing="false" onAction="#handleOk"
+				prefHeight="24.0" prefWidth="89.0" text="OK" />
+			<Button mnemonicParsing="false" onAction="#handleCancel"
+				prefHeight="24.0" prefWidth="89.0" text="Cancel" />
+		</HBox>
+
 	</children>
 </AnchorPane>

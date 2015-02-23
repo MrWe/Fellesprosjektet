@@ -19,7 +19,7 @@ import javafx.util.Callback;
 
 public class PopUpController {
 
-	@FXML private Text text;
+	//@FXML private Text text;
 	@FXML private TextField descriptionField;
 	@FXML private TextField locationField;
 	@FXML private TextField startTimeField;
@@ -38,11 +38,11 @@ public class PopUpController {
 	}
 
 	@FXML
-	private void handleOk() {
+	private void handleOk() { // when OK is clicked, create a new appointment with the info given and give it to the CalendarSquarePane that opened the popup
 		Appointment appointment = new Appointment(
 				descriptionField.getText(),
 				locationField.getText(),
-				LocalDate.parse(csp.getDate()),
+				LocalDate.parse(csp.getDate().substring(6) + "-" + csp.getDate().substring(3, 5) + "-" + csp.getDate().substring(0, 2)),
 				LocalTime.parse(startTimeField.getText()),
 				LocalTime.parse(endTimeField.getText()),
 				null,
@@ -51,18 +51,25 @@ public class PopUpController {
 		csp.addAppointment(appointment);
 		popupStage.close();
 	}
-	
-	public void fillPopup(CalendarSquarePane csp) {
-		text.setText("Lag avtale for " + csp.getDate());
+
+	@FXML
+	private void handleCancel() {
+		popupStage.close();
+	}
+
+	public void fillPopup(CalendarSquarePane csp) { // called whenever the popup is opened
+		//text.setText("Lag avtale for " + csp.getDate());
 		this.csp = csp;
-		memberList.addAll(new CheckListObject("hei"), new CheckListObject("på"), new CheckListObject("deg"));
+		memberList.addAll(new CheckListObject("Kristoffer Lervik"), new CheckListObject("Trym Nilsen"), new CheckListObject("Hoang Hai Nguyen"), new CheckListObject("Erik Wiker"), new CheckListObject("Patricia Zemer"));
+		memberList.addAll(new CheckListObject("Kristoffer Lervik"), new CheckListObject("Trym Nilsen"), new CheckListObject("Hoang Hai Nguyen"), new CheckListObject("Erik Wiker"), new CheckListObject("Patricia Zemer"));
+		memberList.addAll(new CheckListObject("Kristoffer Lervik"), new CheckListObject("Trym Nilsen"), new CheckListObject("Hoang Hai Nguyen"), new CheckListObject("Erik Wiker"), new CheckListObject("Patricia Zemer"));
 		ListView<CheckListObject> members = new ListView<CheckListObject>();
 		members.setPrefSize(200, 250);
 		members.setEditable(true);
 		members.setItems(memberList);
 		Callback<CheckListObject, ObservableValue<Boolean>> getProperty = new Callback<CheckListObject, ObservableValue<Boolean>>() {
-			public BooleanProperty call(CheckListObject layer) {
-				return layer.selectedProperty();
+			public BooleanProperty call(CheckListObject object) {
+				return object.selectedProperty();
 			}
 		};
 		Callback<ListView<CheckListObject>, ListCell<CheckListObject>> forListView = CheckBoxListCell.forListView(getProperty);

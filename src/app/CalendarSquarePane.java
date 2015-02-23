@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
@@ -21,7 +22,6 @@ public class CalendarSquarePane extends Pane {
 		super();
 		this.mainApp = mainApp;
 		text = new Text(date);
-		this.setPrefSize(prefWidth, prefHeight);
 		text.setLayoutX(5);
 		text.setLayoutY(15);
 		this.getChildren().add(text);
@@ -32,33 +32,19 @@ public class CalendarSquarePane extends Pane {
 				showPopup();
 			}
 		});
+		
 		appointmentList = new VBox();
 		appointmentList.getChildren().addAll(new Text("Hei"), new Text("på"), new Text("deg!"));
 		appointmentList.setLayoutX(1);
 		appointmentList.setLayoutY(20);
 		this.getChildren().add(appointmentList);
 		
-		
-//		appointments = new ListView<Appointment>();
-//		appointments.setPrefSize(100, 50);
-//		appointments.setLayoutX(1);
-//		appointments.setLayoutY(20);
-//		appointments.setItems(listItems);
-//		this.getChildren().add(appointments);
-		
-		
-//		this.widthProperty().addListener(new ChangeListener<Number>() {
-//		    @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldWidth, Number newWidth) {
-//		        System.out.println("Width: " + newWidth);
-//		        //onResize((double) newWidth, -1);
-//		    }
-//		});
-//		this.heightProperty().addListener(new ChangeListener<Number>() {
-//		    @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldHeight, Number newHeight) {
-//		        System.out.println("Height: " + newHeight);
-//		        //onResize(-1, (double) newHeight);
-//		    }
-//		});
+		Rectangle clipRectangle = new Rectangle();
+		this.setClip(clipRectangle);
+		this.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
+		    clipRectangle.setWidth(newValue.getWidth());
+		    clipRectangle.setHeight(newValue.getHeight());
+		});
 	}
 	
 	public String getDate() {
@@ -72,16 +58,5 @@ public class CalendarSquarePane extends Pane {
 	public void addAppointment(Appointment appointment) {
 		listItems.add(appointment);
 	}
-	
-
-//	private void onResize(double width, double height) {
-//		if (width != -1 && width / 8 >= 5) {
-//			text.setLayoutX(width / 8);
-//		}
-//		if (height!= -1 && height / 4 >= 15) {
-//			text.setLayoutY(height / 4);
-//		}
-//	}
-	
 
 }

@@ -19,10 +19,13 @@ public class MainApp extends Application {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Kalender");
 		initRootLayout();
-		showCalendar();
-		showToolbar();
-		showList();
+		showLogin();
+//		showCalendar();
+//		showToolbar();
+//		showList();
 	}
+
+
 
 	public Stage getPrimaryStage() {
 		return primaryStage;
@@ -43,6 +46,30 @@ public class MainApp extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void showLogin()	 {
+		try {
+			// Load overview.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("Login.fxml"));
+			AnchorPane login = (AnchorPane) loader.load();
+
+			// Set  overview into the center of root layout.
+			rootLayout.setCenter(login);
+			// Give the controller access to the main app.
+			LoginController controller = loader.getController();
+			controller.setMainApp(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void login() {
+		rootLayout.getChildren().clear();
+		showList();
+		showToolbar();
+		showCalendar();
 	}
 
 	public void showCalendar() {
@@ -94,7 +121,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void showPopUp(CalendarSquarePane csp) {
+	public void showPopUp(CalendarSquarePane csp, AppointmentSquarePane asp) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
@@ -103,7 +130,11 @@ public class MainApp extends Application {
 
 			// Create the dialog Stage.
 			Stage popupStage = new Stage();
-			popupStage.setTitle("Lag avtale for " + csp.getDate());
+			if (csp != null) {				
+				popupStage.setTitle("Lag avtale for " + csp.getDate());
+			} else {
+				popupStage.setTitle("Lag avtale for " + asp.getAppointment().getDate());
+			}
 			popupStage.initModality(Modality.WINDOW_MODAL);
 			popupStage.initOwner(primaryStage);
 			popupStage.setResizable(false);
@@ -111,7 +142,7 @@ public class MainApp extends Application {
 			popupStage.setScene(scene);
 			PopUpController controller = loader.getController();
 			controller.setPopupStage(popupStage);
-			controller.fillPopup(csp);
+			controller.fillPopup(csp, asp);
 
 			// Show the dialog and wait until the user closes it
 			popupStage.showAndWait();

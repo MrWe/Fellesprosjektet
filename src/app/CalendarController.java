@@ -3,6 +3,7 @@ package app;
 import java.util.Calendar;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -20,7 +21,6 @@ public class CalendarController {
 
 	@FXML
 	private void initialize() {
-
 	}
 
 	public void fillCalendar() {
@@ -36,14 +36,14 @@ public class CalendarController {
 			RowConstraints rowConstraints = new RowConstraints();
 			rowConstraints.setFillHeight(true);
 			rowConstraints.setVgrow(Priority.ALWAYS);
-			rowConstraints.setMinHeight(20);
+			rowConstraints.setMinHeight(80);
 			calendar.getRowConstraints().add(rowConstraints);
 		}
 		Calendar c = Calendar.getInstance(); // date today
 		for (int i = 0; i < 5; i++) {		// for each date: create string on the format dd/mm/yyyy
 			for (int j = 0; j < 7; j++){	// and create a new CalendarSquarePane object for each of them
 				String date = String.format("%02d", c.getTime().getDate()) + "/" + String.format("%02d", (c.getTime().getMonth() + 1)) + "/" + (c.getTime().getYear() + 1900);
-				calendar.add(new CalendarSquarePane(mainApp, 70, 70, date), j, i);
+				calendar.add(new CalendarSquarePane(mainApp, date), j, i);
 				c.add(Calendar.DATE, 1); // increase date by 1
 			}
 		}

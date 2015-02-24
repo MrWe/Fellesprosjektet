@@ -25,6 +25,10 @@ public class CheckListObject {
 	public SimpleBooleanProperty selectedProperty() {
 		return selected;
 	}
+	
+	public void setSelectedProperty(boolean b) {
+		selected.set(b);
+	}
 
 	@Override
 	public String toString() {

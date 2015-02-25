@@ -22,7 +22,7 @@
       <children>
       				<Label text="Kalender">
       					<font>
-      						<Font size="48" />
+      						<Font name="System Bold" size="48.0" />
       					</font>
       				</Label>
       </children>
@@ -38,30 +38,19 @@
    			</HBox>
    			<HBox>
       <children>
-      				<TextField fx:id="usernameField" opacity="0.86" prefHeight="45.0" prefWidth="300.0" promptText="Brukernavn" stylesheets="@login.css">
-                     <effect>
-                        <Lighting diffuseConstant="0.65" light="$null" specularConstant="0.0" specularExponent="6.51" surfaceScale="2.78">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                        </Lighting>
-                     </effect>
+      				<TextField fx:id="usernameField" nodeOrientation="LEFT_TO_RIGHT" opacity="0.86" pickOnBounds="false" prefHeight="45.0" prefWidth="300.0" promptText="Brukernavn" snapToPixel="false">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
+                     <cursor>
+                        <Cursor fx:constant="NONE" />
+                     </cursor>
                   </TextField>
       </children>
    			</HBox>
    			<HBox>
       <children>
                   <TextField fx:id="passwordField" opacity="0.86" prefHeight="45.0" prefWidth="300.0" promptText="Passord" stylesheets="@login.css">
-                     <effect>
-                        <Lighting diffuseConstant="0.65" light="$null" specularConstant="0.0" specularExponent="6.51" surfaceScale="2.78">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                        </Lighting>
-                     </effect>
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -76,7 +65,7 @@
                         <Font size="13.0" />
                      </font>
                      <effect>
-                        <DropShadow radius="11.4825" width="26.93" />
+                        <DropShadow color="#a4a4a4" height="25.45" radius="14.817499999999999" width="35.82" />
                      </effect>
                   </Button>
       				<Button mnemonicParsing="false" prefHeight="48" prefWidth="120.0" text="Ny bruker">

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
@@ -11,50 +14,79 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.ListView?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" 
-	minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8"
-	xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.LoginController" style="">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.LoginController">
 	<children>
 		<VBox spacing="5">
-			<HBox>
-				<Label text="Kalender">
-					<font>
-						<Font size="48" />
-					</font>
-				</Label>
-			</HBox>
-			<HBox>
-				<Text fx:id="dateText" >
-					<font>
-						<Font size="20" />
-					</font>
-				</Text>
-			</HBox>
-			<HBox>
-				<Label text="Brukernavn" prefWidth="120">
-					<font>
-						<Font size="20" />
-					</font>
-				</Label>
-				<TextField fx:id="usernameField" prefHeight="35"
-					prefWidth="250" />
-			</HBox>
-			<HBox>
-				<Label text="Passord" prefWidth="120">
-					<font>
-						<Font size="20" />
-					</font>
-				</Label>
-				<TextField fx:id="passwordField" prefHeight="35"
-					prefWidth="250" />
-			</HBox>
-			<Text fx:id="errorText" />
-			<HBox spacing="5">
-				<Button mnemonicParsing="false" prefHeight="48" prefWidth="185"
-					text="Logg inn" defaultButton="true" onAction="#login"/>
-				<Button mnemonicParsing="false" prefHeight="48" prefWidth="185"
-					text="Ny bruker" />
-			</HBox>
+   <children>
+   			<HBox>
+      <children>
+      				<Label text="Kalender">
+      					<font>
+      						<Font size="48" />
+      					</font>
+      				</Label>
+      </children>
+   			</HBox>
+   			<HBox>
+      <children>
+      				<Text fx:id="dateText">
+      					<font>
+      						<Font size="20" />
+      					</font>
+      				</Text>
+      </children>
+   			</HBox>
+   			<HBox>
+      <children>
+      				<TextField fx:id="usernameField" opacity="0.86" prefHeight="45.0" prefWidth="300.0" promptText="Brukernavn" stylesheets="@login.css">
+                     <effect>
+                        <Lighting diffuseConstant="0.65" light="$null" specularConstant="0.0" specularExponent="6.51" surfaceScale="2.78">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                        </Lighting>
+                     </effect>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </TextField>
+      </children>
+   			</HBox>
+   			<HBox>
+      <children>
+                  <TextField fx:id="passwordField" opacity="0.86" prefHeight="45.0" prefWidth="300.0" promptText="Passord" stylesheets="@login.css">
+                     <effect>
+                        <Lighting diffuseConstant="0.65" light="$null" specularConstant="0.0" specularExponent="6.51" surfaceScale="2.78">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                        </Lighting>
+                     </effect>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </TextField>
+      </children>
+   			</HBox>
+   			<Text fx:id="errorText" />
+   			<HBox spacing="5">
+      <children>
+      				<Button defaultButton="true" mnemonicParsing="false" onAction="#login" prefHeight="48" prefWidth="180.0" text="Logg inn">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                     <effect>
+                        <DropShadow radius="11.4825" width="26.93" />
+                     </effect>
+                  </Button>
+      				<Button mnemonicParsing="false" prefHeight="48" prefWidth="120.0" text="Ny bruker">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
+      </children>
+   			</HBox>
+   </children>
 		</VBox>
 
 	</children>

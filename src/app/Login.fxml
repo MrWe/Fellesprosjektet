@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.net.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ListView?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" 
+	minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8"
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.LoginController" style="">
+	<children>
+		<VBox spacing="5">
+			<HBox>
+				<Label text="Kalender">
+					<font>
+						<Font size="48" />
+					</font>
+				</Label>
+			</HBox>
+			<HBox>
+				<Text fx:id="dateText" >
+					<font>
+						<Font size="20" />
+					</font>
+				</Text>
+			</HBox>
+			<HBox>
+				<Label text="Brukernavn" prefWidth="120">
+					<font>
+						<Font size="20" />
+					</font>
+				</Label>
+				<TextField fx:id="usernameField" prefHeight="35"
+					prefWidth="250" />
+			</HBox>
+			<HBox>
+				<Label text="Passord" prefWidth="120">
+					<font>
+						<Font size="20" />
+					</font>
+				</Label>
+				<TextField fx:id="passwordField" prefHeight="35"
+					prefWidth="250" />
+			</HBox>
+			<Text fx:id="errorText" />
+			<HBox spacing="5">
+				<Button mnemonicParsing="false" prefHeight="48" prefWidth="185"
+					text="Logg inn" defaultButton="true" onAction="#login"/>
+				<Button mnemonicParsing="false" prefHeight="48" prefWidth="185"
+					text="Ny bruker" />
+			</HBox>
+		</VBox>
+
+	</children>
+</AnchorPane>

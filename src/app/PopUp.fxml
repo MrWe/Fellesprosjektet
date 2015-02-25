@@ -35,13 +35,23 @@
 				<TextField fx:id="endTimeField" promptText="15:15"
 					prefWidth="50" />
 			</HBox>
+			<HBox>
+				<Label text="Farge" prefWidth="65" />
+				<TextField fx:id="colorField" promptText="0066FF" />
+			</HBox>
+			<Text fx:id="errorText" />
 		</VBox>
-		<VBox fx:id="members" AnchorPane.topAnchor="0"
-			AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="40" prefWidth="150" />
+		<VBox spacing="5" AnchorPane.topAnchor="0"
+			AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="40" prefWidth="150">
+			<Label text="Inviter medlemmer" />
+			<VBox fx:id="members" />
+		</VBox>
 		<HBox AnchorPane.bottomAnchor="7.5" AnchorPane.rightAnchor="5.0"
 			spacing="5">
 			<Button mnemonicParsing="false" onAction="#handleOk"
-				prefHeight="24.0" prefWidth="89.0" text="OK" />
+				prefHeight="24.0" prefWidth="89.0" text="OK" defaultButton="true" />
+			<Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#handleDelete"
+				prefHeight="24.0" prefWidth="89.0" text="Delete" />
 			<Button mnemonicParsing="false" onAction="#handleCancel"
 				prefHeight="24.0" prefWidth="89.0" text="Cancel" />
 		</HBox>

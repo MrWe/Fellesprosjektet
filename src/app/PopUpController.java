@@ -2,12 +2,15 @@ package app;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -24,13 +27,20 @@ public class PopUpController {
 	@FXML private TextField locationField;
 	@FXML private TextField startTimeField;
 	@FXML private TextField endTimeField;
+	@FXML private TextField colorField;
+	@FXML private Button deleteBtn;
+	@FXML private Text errorText;
 	private Stage popupStage;
 	private ObservableList<CheckListObject> memberList = FXCollections.observableArrayList();
+	private ArrayList<String> allMembers; //temporary until database is up
 	private CalendarSquarePane csp;
+	private AppointmentSquarePane asp;
 	@FXML private VBox members;
+	private boolean editingExisting;
 
 	@FXML
 	private void initialize() {
+		allMembers = new ArrayList<String>(Arrays.asList("Kristoffer Lervik", "Trym Nilsen", "Hoang Hai Nguyen", "Erik Wiker", "Patricia Zemer", "Jens Stoltenberg", "Erna Solberg", "Kong Harald", "Madonna", "Will Smith", "Kanye West", "Julenissen", "Postman Pat"));
 	}
 
 	public void setPopupStage(Stage popupStage) {
@@ -39,30 +49,80 @@ public class PopUpController {
 
 	@FXML
 	private void handleOk() { // when OK is clicked, create a new appointment with the info given and give it to the CalendarSquarePane that opened the popup
-		Appointment appointment = new Appointment(
-				descriptionField.getText(),
-				locationField.getText(),
-				LocalDate.parse(csp.getDate().substring(6) + "-" + csp.getDate().substring(3, 5) + "-" + csp.getDate().substring(0, 2)),
-				LocalTime.parse(startTimeField.getText()),
-				LocalTime.parse(endTimeField.getText()),
-				null,
-				null,
-				null);
-		csp.addAppointment(appointment);
-		popupStage.close();
+		String validInput = isValidInput();
+		if (validInput.length() != 0) {
+			errorText.setVisible(true);
+			errorText.setText(validInput);
+			return;
+		}
+		ArrayList<String> invited = new ArrayList<String>();
+		for (CheckListObject clo : memberList) {
+			if (clo.getSelected()) {
+				invited.add(clo.getName());
+			}
+		}
+		if (!editingExisting) {
+			Appointment appointment = new Appointment(
+					descriptionField.getText(),
+					locationField.getText(),
+					LocalDate.parse(csp.getDate().substring(6) + "-" + csp.getDate().substring(3, 5) + "-" + csp.getDate().substring(0, 2)),
+					LocalTime.parse(startTimeField.getText()),
+					LocalTime.parse(endTimeField.getText()),
+					invited,
+					new ArrayList<String>(),
+					new ArrayList<String>(),
+					colorField.getText());
+			csp.addAppointment(appointment);
+			popupStage.close();
+		} else {
+			asp.getAppointment().setDescription(descriptionField.getText());
+			asp.getAppointment().setLocation(locationField.getText());
+			asp.getAppointment().setStartTime(LocalTime.parse(startTimeField.getText()));
+			asp.getAppointment().setEndTime(LocalTime.parse(endTimeField.getText()));
+			asp.getAppointment().setInvited(invited);
+			asp.getAppointment().setMembers(new ArrayList<String>());
+			asp.getAppointment().setAdmins(new ArrayList<String>());
+			asp.getAppointment().setColor(colorField.getText());
+			asp.update();
+			popupStage.close();
+		}
+	}
+	
+	private String isValidInput() {
+		String errorText = "";
+		if (descriptionField.getText().equals("")) {
+			errorText += "Beskrivelse kan ikke være tom\n";
+		}
+		if (locationField.getText().equals("")) {
+			errorText += "Sted kan ikke være tom\n";
+		}
+		if (!startTimeField.getText().matches("[0-9][0-9][:][0-9][0-9]")) {
+			errorText += "Ugyldig starttid\n";
+		}
+		if (!endTimeField.getText().matches("[0-9][0-9][:][0-9][0-9]")) {
+			errorText += "Ugyldig sluttid\n";
+		}
+		if (!colorField.getText().matches("[0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F]")) {
+			errorText += "Ugyldig farge";
+		}
+		return errorText;
 	}
 
 	@FXML
 	private void handleCancel() {
 		popupStage.close();
 	}
+	
+	@FXML
+	private void handleDelete() {
+		((VBox) asp.getParent()).getChildren().remove(asp);
+		popupStage.close();
+	}
 
-	public void fillPopup(CalendarSquarePane csp) { // called whenever the popup is opened
-		//text.setText("Lag avtale for " + csp.getDate());
-		this.csp = csp;
-		memberList.addAll(new CheckListObject("Kristoffer Lervik"), new CheckListObject("Trym Nilsen"), new CheckListObject("Hoang Hai Nguyen"), new CheckListObject("Erik Wiker"), new CheckListObject("Patricia Zemer"));
-		memberList.addAll(new CheckListObject("Kristoffer Lervik"), new CheckListObject("Trym Nilsen"), new CheckListObject("Hoang Hai Nguyen"), new CheckListObject("Erik Wiker"), new CheckListObject("Patricia Zemer"));
-		memberList.addAll(new CheckListObject("Kristoffer Lervik"), new CheckListObject("Trym Nilsen"), new CheckListObject("Hoang Hai Nguyen"), new CheckListObject("Erik Wiker"), new CheckListObject("Patricia Zemer"));
+	public void fillPopup(CalendarSquarePane csp, AppointmentSquarePane asp) { // called whenever the popup is opened
+		memberList.clear();
+		members.getChildren().clear();
+		
 		ListView<CheckListObject> members = new ListView<CheckListObject>();
 		members.setPrefSize(200, 250);
 		members.setEditable(true);
@@ -74,7 +134,33 @@ public class PopUpController {
 		};
 		Callback<ListView<CheckListObject>, ListCell<CheckListObject>> forListView = CheckBoxListCell.forListView(getProperty);
 		members.setCellFactory(forListView);
-		this.members.getChildren().add(members);
+		
+		if (csp != null) {
+			deleteBtn.setDisable(true);
+			editingExisting = false;
+			this.csp = csp;
+			for (String member : allMembers) {
+				memberList.add(new CheckListObject(member));
+			}
+			this.members.getChildren().add(members);
+		} else {
+			deleteBtn.setDisable(false);
+			editingExisting = true;
+			this.asp = asp;
+			descriptionField.setText(asp.getAppointment().getDescription());
+			locationField.setText(asp.getAppointment().getLocation());
+			startTimeField.setText(asp.getAppointment().getStartTime().toString());
+			endTimeField.setText(asp.getAppointment().getEndTime().toString());
+			colorField.setText(asp.getAppointment().getColor());
+			for (String member : allMembers) {
+				CheckListObject clo = new CheckListObject(member);
+				if (asp.getAppointment().getInvited().contains(member)) {
+					clo.setSelectedProperty(true);
+				}
+				memberList.add(clo);
+			}
+			this.members.getChildren().add(members);
+		}
 
 	}
 

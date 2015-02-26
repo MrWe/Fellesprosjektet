@@ -29,5 +29,9 @@ public class LoginController {
 	private void login() {
 		mainApp.login();
 	}
+	
+	@FXML private void register() {
+		mainApp.showRegister();
+	}
 
 }

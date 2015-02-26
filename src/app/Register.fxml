@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.net.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.PasswordField?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" style=""
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="app.RegisterController">
+	<children>
+		<VBox spacing="5">
+			<children>
+				<HBox>
+					<children>
+						<Label text="Kalender">
+							<font>
+								<Font name="System Bold" size="48.0" />
+							</font>
+						</Label>
+					</children>
+				</HBox>
+				<HBox>
+					<children>
+						<Text fx:id="dateText">
+							<font>
+								<Font size="20" />
+							</font>
+						</Text>
+					</children>
+				</HBox>
+				<HBox>
+					<children>
+						<TextField fx:id="usernameField" nodeOrientation="LEFT_TO_RIGHT"
+							opacity="0.86" pickOnBounds="false" prefHeight="45.0" prefWidth="300.0"
+							promptText="Brukernavn" snapToPixel="false">
+							<opaqueInsets>
+								<Insets />
+							</opaqueInsets>
+							<cursor>
+								<Cursor fx:constant="NONE" />
+							</cursor>
+						</TextField>
+					</children>
+				</HBox>
+				<HBox>
+					<children>
+						<PasswordField fx:id="passwordField" opacity="0.86"
+							prefHeight="45.0" prefWidth="300.0" promptText="Passord"
+							stylesheets="@login.css">
+							<opaqueInsets>
+								<Insets />
+							</opaqueInsets>
+						</PasswordField>
+					</children>
+				</HBox>
+
+				<HBox>
+					<children>
+						<PasswordField fx:id="repeatPasswordField" opacity="0.86"
+							prefHeight="45.0" prefWidth="300.0" promptText="Gjenta Passord"
+							stylesheets="@login.css">
+							<opaqueInsets>
+								<Insets />
+							</opaqueInsets>
+						</PasswordField>
+					</children>
+				</HBox>
+				<HBox>
+					<children>
+						<TextField fx:id="emailField" nodeOrientation="LEFT_TO_RIGHT"
+							opacity="0.86" pickOnBounds="false" prefHeight="45.0" prefWidth="300.0"
+							promptText="Brukernavn" snapToPixel="false">
+							<opaqueInsets>
+								<Insets />
+							</opaqueInsets>
+							<cursor>
+								<Cursor fx:constant="NONE" />
+							</cursor>
+						</TextField>
+					</children>
+				</HBox>
+				<HBox>
+					<children>
+						<DatePicker fx:id="birthdayDatePicker" nodeOrientation="LEFT_TO_RIGHT"
+							opacity="0.86" pickOnBounds="false" prefHeight="45.0" prefWidth="300.0"
+							 snapToPixel="false">
+							<opaqueInsets>
+								<Insets />
+							</opaqueInsets>
+							<cursor>
+								<Cursor fx:constant="NONE" />
+							</cursor>
+						</DatePicker>
+					</children>
+				</HBox>
+				<Text fx:id="errorText" />
+				<HBox spacing="5">
+					<children>
+						<Button defaultButton="true" mnemonicParsing="false"
+						 prefHeight="48" prefWidth="180.0" text="Registrer">
+							<font>
+								<Font size="13.0" />
+							</font>
+							<effect>
+								<DropShadow color="#a4a4a4" height="25.45"
+									radius="14.817499999999999" width="35.82" />
+							</effect>
+						</Button>
+						<Button mnemonicParsing="false" prefHeight="48" prefWidth="120.0"
+							text="Tilbake">
+							<font>
+								<Font size="13.0" />
+							</font>
+						</Button>
+					</children>
+				</HBox>
+			</children>
+		</VBox>
+
+	</children>
+</AnchorPane>

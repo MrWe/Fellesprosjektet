@@ -20,12 +20,7 @@ public class MainApp extends Application {
 		this.primaryStage.setTitle("Kalender");
 		initRootLayout();
 		showLogin();
-//		showCalendar();
-//		showToolbar();
-//		showList();
 	}
-
-
 
 	public Stage getPrimaryStage() {
 		return primaryStage;
@@ -59,6 +54,23 @@ public class MainApp extends Application {
 			rootLayout.setCenter(login);
 			// Give the controller access to the main app.
 			LoginController controller = loader.getController();
+			controller.setMainApp(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void showRegister()	 {
+		try {
+			// Load overview.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("Register.fxml"));
+			AnchorPane register = (AnchorPane) loader.load();
+
+			// Set  overview into the center of root layout.
+			rootLayout.setCenter(register);
+			// Give the controller access to the main app.
+			RegisterController controller = loader.getController();
 			controller.setMainApp(this);
 		} catch (IOException e) {
 			e.printStackTrace();

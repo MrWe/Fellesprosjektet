@@ -50,11 +50,11 @@
    			</HBox>
    			<HBox>
       <children>
-                  <TextField fx:id="passwordField" opacity="0.86" prefHeight="45.0" prefWidth="300.0" promptText="Passord">
+                  <PasswordField fx:id="passwordField" opacity="0.86" prefHeight="45.0" prefWidth="300.0" promptText="Passord">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
-                  </TextField>
+                  </PasswordField>
       </children>
    			</HBox>
    			<Text fx:id="errorText" />
@@ -68,7 +68,7 @@
                         <DropShadow color="#a4a4a4" height="25.45" radius="14.817499999999999" width="35.82" />
                      </effect>
                   </Button>
-      				<Button mnemonicParsing="false" prefHeight="48" prefWidth="120.0" text="Ny bruker">
+      				<Button mnemonicParsing="false" prefHeight="48" onAction="#register" prefWidth="120.0" text="Ny bruker">
                      <font>
                         <Font size="13.0" />
                      </font>

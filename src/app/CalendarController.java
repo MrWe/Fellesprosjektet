@@ -1,6 +1,7 @@
 package app;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -39,7 +40,21 @@ public class CalendarController {
 			rowConstraints.setMinHeight(80);
 			calendar.getRowConstraints().add(rowConstraints);
 		}
+		
+		
+		
+		int[] days = {
+			6,0,1,2,3,4,5
+		};
+		Calendar cal = Calendar.getInstance();
+		int today = cal.get(Calendar.DAY_OF_MONTH);
+		int total = today-1;
+		cal.add(Calendar.DAY_OF_MONTH, -(today-1));
+		int firstDay = cal.get(Calendar.DAY_OF_WEEK);
+		total += days[firstDay-1];
+		
 		Calendar c = Calendar.getInstance(); // date today
+		c.add(Calendar.DAY_OF_MONTH, -total);
 		for (int i = 0; i < 5; i++) {		// for each date: create string on the format dd/mm/yyyy
 			for (int j = 0; j < 7; j++){	// and create a new CalendarSquarePane object for each of them
 				String date = String.format("%02d", c.getTime().getDate()) + "/" + String.format("%02d", (c.getTime().getMonth() + 1)) + "/" + (c.getTime().getYear() + 1900);

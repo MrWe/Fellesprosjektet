@@ -16,24 +16,23 @@ public class ListController {
 
 	@FXML
 	private void initialize() {
-		Group rootGroup = new Group("Alle grupper", new ArrayList<String>(Arrays.asList("hei", "du")), new ArrayList<String>());
-		Group fproot = new Group("Fellesprosjekt", new ArrayList<String>(Arrays.asList("hei", "du")), new ArrayList<String>());
-		Group fp1 = new Group("Fellesprosjekt gruppe 1", new ArrayList<String>(Arrays.asList("hei", "du")), new ArrayList<String>());
-		Group fp2 = new Group("Fellesprosjekt gruppe 2", new ArrayList<String>(Arrays.asList("hei", "du")), new ArrayList<String>());
-		Group fp3 = new Group("Fellesprosjekt gruppe 3", new ArrayList<String>(Arrays.asList("hei", "du")), new ArrayList<String>());
-		Group abakus = new Group("Abakus", new ArrayList<String>(Arrays.asList("hei", "du")), new ArrayList<String>());
-		Group online = new Group("Online", new ArrayList<String>(Arrays.asList("hei", "du")), new ArrayList<String>());
-		Group triKom = new Group("triKom", new ArrayList<String>(Arrays.asList("hei", "du")), new ArrayList<String>());
+		Group rootGroup = new Group("Alle grupper", new ArrayList<String>(), new ArrayList<String>());
+		Group fproot = new Group("Fellesprosjekt", new ArrayList<String>(), new ArrayList<String>());
+		Group fp1 = new Group("Fellesprosjekt gruppe 1", new ArrayList<String>(), new ArrayList<String>());
+		Group fp2 = new Group("Fellesprosjekt gruppe 2", new ArrayList<String>(), new ArrayList<String>());
+		Group fp3 = new Group("Fellesprosjekt gruppe 3", new ArrayList<String>(), new ArrayList<String>());
+		Group abakus = new Group("Abakus", new ArrayList<String>(), new ArrayList<String>());
+		Group online = new Group("Online", new ArrayList<String>(), new ArrayList<String>());
+		Group triKom = new Group("triKom", new ArrayList<String>(), new ArrayList<String>());
 		rootGroup.addSubgroups(fproot, abakus, online);
 		fproot.addSubgroups(fp1, fp2, fp3);
 		online.addSubgroup(triKom);
 		
-		
 		treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                TreeItem treeItem = (TreeItem)newValue;
-                System.out.println("Selected item is" + treeItem);
+                TreeItem<Group> treeItem = (TreeItem<Group>)newValue;
+      
             }
         });
 
@@ -56,7 +55,17 @@ public class ListController {
 	
 	@FXML
 	private void newGroup() {
-		mainApp.showGroupPopup(treeView);
+		mainApp.showGroupPopup(treeView, null, false);
+	}
+	
+	@FXML
+	private void editGroup() {
+		mainApp.showGroupPopup(treeView, treeView.getSelectionModel().getSelectedItem(), false);
+	}
+	
+	@FXML
+	private void newSubGroup() {
+		mainApp.showGroupPopup(treeView, treeView.getSelectionModel().getSelectedItem(), true);
 	}
 
 }

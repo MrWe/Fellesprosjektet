@@ -22,6 +22,10 @@
 		AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" />
 	<Separator orientation="horizontal" AnchorPane.rightAnchor="0"
 		AnchorPane.leftAnchor="0" AnchorPane.bottomAnchor="100" />
-	<Button text="Ny gruppe" AnchorPane.bottomAnchor="35" AnchorPane.leftAnchor="85" onAction="#newGroup" />
+	<HBox AnchorPane.bottomAnchor="50">	
+		<Button text="Ny gruppe" onAction="#newGroup" />
+		<Button text="Endre gruppe" onAction="#editGroup" />
+		<Button text="Ny subgruppe" onAction="#newSubGroup" />
+	</HBox>
 </AnchorPane>
 

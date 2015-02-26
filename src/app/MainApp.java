@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -165,7 +166,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void showGroupPopup(TreeView<Group> treeView) {
+	public void showGroupPopup(TreeView<Group> treeView, TreeItem<Group> group, boolean createSub) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
@@ -174,7 +175,13 @@ public class MainApp extends Application {
 
 			// Create the dialog Stage.
 			Stage popupStage = new Stage();
-			popupStage.setTitle("Lag gruppe");
+			if (group == null) {				
+				popupStage.setTitle("Lag gruppe");
+			} else if (createSub){
+				popupStage.setTitle("Lag subgruppe for " + group.getValue().getName());
+			} else {
+				popupStage.setTitle("Endre på " + group.getValue().getName());
+			}
 			popupStage.initModality(Modality.WINDOW_MODAL);
 			popupStage.initOwner(primaryStage);
 			popupStage.setResizable(false);
@@ -183,7 +190,7 @@ public class MainApp extends Application {
 			GroupPopupController controller = loader.getController();
 			controller.setPopupStage(popupStage);
 			controller.setTreeView(treeView);
-			controller.fillPopup();
+			controller.fillPopup(group, createSub);
 			// Show the dialog and wait until the user closes it
 			popupStage.showAndWait();
 		} catch (IOException e) {

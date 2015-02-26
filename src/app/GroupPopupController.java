@@ -29,6 +29,9 @@ public class GroupPopupController {
 	private ArrayList<String> allMembers; //temporary until database is up
 	@FXML private VBox members;
 	private TreeView<Group> treeView;
+	private boolean editingExisting;
+	private boolean createSub;
+	private TreeItem<Group> group;
 
 	@FXML
 	private void initialize() {
@@ -57,9 +60,20 @@ public class GroupPopupController {
 				invited.add(clo.getName());
 			}
 		}
-		Group group = new Group(nameField.getText(),
-				invited, invited);
-		treeView.getRoot().getChildren().add(new TreeItem<Group>(group));
+		if (!editingExisting) {
+			Group group = new Group(nameField.getText(), invited, invited);
+			if (createSub) {
+				TreeItem<Group> newGroup = new TreeItem<Group>(group);
+				this.group.getChildren().add(newGroup);
+				this.group.setExpanded(true);
+				treeView.getSelectionModel().select(newGroup);
+			} else {				
+				treeView.getRoot().getChildren().add(new TreeItem<Group>(group));
+			}
+		} else {
+			group.getValue().setName(nameField.getText());
+			group.getValue().setMembers(invited);
+		}
 		popupStage.close();
 	}
 
@@ -76,7 +90,9 @@ public class GroupPopupController {
 		popupStage.close();
 	}
 
-	public void fillPopup() { // called whenever the popup is opened
+	public void fillPopup(TreeItem<Group> group, boolean createSub) { // called whenever the popup is opened
+		this.createSub = createSub;
+		this.group = group;
 		memberList.clear();
 		members.getChildren().clear();
 
@@ -92,10 +108,24 @@ public class GroupPopupController {
 		Callback<ListView<CheckListObject>, ListCell<CheckListObject>> forListView = CheckBoxListCell.forListView(getProperty);
 		members.setCellFactory(forListView);
 
-		for (String member : allMembers) {
-			memberList.add(new CheckListObject(member));
+		if (group != null && !createSub) {
+			editingExisting = true;
+			nameField.setText(group.getValue().getName());
+			for (String member : allMembers) {
+				CheckListObject clo = new CheckListObject(member);
+				if (group.getValue().getMembers().contains(member)) {
+					clo.setSelectedProperty(true);
+				}
+				memberList.add(clo);
+			}
+			this.members.getChildren().add(members);
+		} else {
+			editingExisting = false;
+			for (String member : allMembers) {
+				memberList.add(new CheckListObject(member));
+			}
+			this.members.getChildren().add(members);
 		}
-		this.members.getChildren().add(members);
 	}
 
 }

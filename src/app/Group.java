@@ -45,6 +45,14 @@ public class Group {
 		members.addAll(Arrays.asList(names));
 	}
 	
+	public void addMembers(ArrayList<String> names) {
+		members.addAll(names);
+	}
+	
+	public void setMembers(ArrayList<String> names) {
+		members = names;
+	}
+	
 	public void removeMember(String name) {
 		members.remove(name);
 	}

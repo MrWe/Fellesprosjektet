@@ -50,7 +50,7 @@
    			</HBox>
    			<HBox>
       <children>
-                  <TextField fx:id="passwordField" opacity="0.86" prefHeight="45.0" prefWidth="300.0" promptText="Passord" stylesheets="@login.css">
+                  <TextField fx:id="passwordField" opacity="0.86" prefHeight="45.0" prefWidth="300.0" promptText="Passord">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>

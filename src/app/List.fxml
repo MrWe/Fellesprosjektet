@@ -13,19 +13,15 @@
 	<VBox AnchorPane.leftAnchor="5" AnchorPane.rightAnchor="10">
 		<Label text="Mine grupper">
 			<font>
-				<Font size="18"/>
+				<Font size="18" />
 			</font>
 		</Label>
-		<Text text="Melk" />
-		<Text text="Egg" />
-		<Text text="Potetgull" />
-		<Text text="Brød" />
-		<Text text="Oppvaskmiddel" />
+		<TreeView fx:id="treeView" />
 	</VBox>
-	<TreeView fx:id="treeView" >
-	
-	</TreeView>
 	<Separator orientation="vertical" AnchorPane.rightAnchor="0"
 		AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" />
+	<Separator orientation="horizontal" AnchorPane.rightAnchor="0"
+		AnchorPane.leftAnchor="0" AnchorPane.bottomAnchor="100" />
+	<Button text="Ny gruppe" AnchorPane.bottomAnchor="35" AnchorPane.leftAnchor="85" onAction="#newGroup" />
 </AnchorPane>
 

@@ -3,6 +3,8 @@ package app;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -25,7 +27,15 @@ public class ListController {
 		rootGroup.addSubgroups(fproot, abakus, online);
 		fproot.addSubgroups(fp1, fp2, fp3);
 		online.addSubgroup(triKom);
-
+		
+		
+		treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                TreeItem treeItem = (TreeItem)newValue;
+                System.out.println("Selected item is" + treeItem);
+            }
+        });
 
 		TreeItem<Group> root = new TreeItem<Group>(rootGroup);
 		root.setExpanded(true);
@@ -36,12 +46,17 @@ public class ListController {
 		root.getChildren().get(0).getChildren().add(new TreeItem<Group>(fp2));
 		root.getChildren().get(0).getChildren().add(new TreeItem<Group>(fp3));
 		root.getChildren().get(2).getChildren().add(new TreeItem<Group>(triKom));
+		treeView.setShowRoot(false);
 		treeView.setRoot(root);
-
 	}
 
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
+	}
+	
+	@FXML
+	private void newGroup() {
+		mainApp.showGroupPopup(treeView);
 	}
 
 }

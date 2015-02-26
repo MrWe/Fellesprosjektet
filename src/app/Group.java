@@ -41,12 +41,20 @@ public class Group {
 		members.add(name);
 	}
 	
+	public void addMembers(String... names) {
+		members.addAll(Arrays.asList(names));
+	}
+	
 	public void removeMember(String name) {
 		members.remove(name);
 	}
 	
 	public void addAdmin(String name) {
 		admins.add(name);
+	}
+	
+	public void addAdmins(String... names) {
+		admins.addAll(Arrays.asList(names));
 	}
 	
 	public void removeAdmin(String name) {

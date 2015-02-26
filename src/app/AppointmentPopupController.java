@@ -20,7 +20,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-public class PopUpController {
+public class AppointmentPopupController {
 
 	//@FXML private Text text;
 	@FXML private TextField descriptionField;

@@ -81,7 +81,7 @@
 					<children>
 						<TextField fx:id="emailField" nodeOrientation="LEFT_TO_RIGHT"
 							opacity="0.86" pickOnBounds="false" prefHeight="45.0" prefWidth="300.0"
-							promptText="Brukernavn" snapToPixel="false">
+							promptText="Epost" snapToPixel="false">
 							<opaqueInsets>
 								<Insets />
 							</opaqueInsets>
@@ -109,7 +109,7 @@
 				<HBox spacing="5">
 					<children>
 						<Button defaultButton="true" mnemonicParsing="false"
-						 prefHeight="48" prefWidth="180.0" text="Registrer">
+						 prefHeight="48" prefWidth="180.0" text="Registrer" onAction="#register">
 							<font>
 								<Font size="13.0" />
 							</font>
@@ -119,7 +119,7 @@
 							</effect>
 						</Button>
 						<Button mnemonicParsing="false" prefHeight="48" prefWidth="120.0"
-							text="Tilbake">
+							text="Tilbake" onAction="#back">
 							<font>
 								<Font size="13.0" />
 							</font>

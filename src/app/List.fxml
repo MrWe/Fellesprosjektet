@@ -6,6 +6,7 @@
 <?import javafx.scene.image.*?>
 <?import java.net.*?>
 <?import java.lang.*?>
+<?import javafx.scene.control.TreeView?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="app.ListController">
@@ -21,6 +22,9 @@
 		<Text text="Brød" />
 		<Text text="Oppvaskmiddel" />
 	</VBox>
+	<TreeView fx:id="treeView" >
+	
+	</TreeView>
 	<Separator orientation="vertical" AnchorPane.rightAnchor="0"
 		AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" />
 </AnchorPane>

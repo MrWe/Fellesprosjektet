@@ -68,7 +68,7 @@
                         <DropShadow color="#a4a4a4" height="25.45" radius="14.817499999999999" width="35.82" />
                      </effect>
                   </Button>
-      				<Button mnemonicParsing="false" prefHeight="48" onAction="#register" prefWidth="120.0" text="Ny bruker">
+      				<Button mnemonicParsing="false" prefHeight="48" onAction="#showRegister" prefWidth="120.0" text="Ny bruker">
                      <font>
                         <Font size="13.0" />
                      </font>

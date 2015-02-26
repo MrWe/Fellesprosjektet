@@ -3,7 +3,6 @@ package app;
 import java.util.Calendar;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -30,7 +29,7 @@ public class LoginController {
 		mainApp.login();
 	}
 	
-	@FXML private void register() {
+	@FXML private void showRegister() {
 		mainApp.showRegister();
 	}
 

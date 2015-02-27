@@ -26,7 +26,7 @@ public class GroupPopupController {
 	@FXML private Text errorText;
 	private Stage popupStage;
 	private ObservableList<CheckListObject> memberList = FXCollections.observableArrayList();
-	private ArrayList<String> allMembers; //temporary until database is up
+	//private ArrayList<String> allMembers; //temporary until database is up
 	@FXML private VBox members;
 	private TreeView<Group> treeView;
 	private boolean editingExisting;
@@ -35,7 +35,7 @@ public class GroupPopupController {
 
 	@FXML
 	private void initialize() {
-		allMembers = new ArrayList<String>(Arrays.asList("Kristoffer Lervik", "Trym Nilsen", "Hoang Hai Nguyen", "Erik Wiker", "Patricia Zemer", "Jens Stoltenberg", "Erna Solberg", "Kong Harald", "Madonna", "Will Smith", "Kanye West", "Julenissen", "Postman Pat"));
+		//allMembers = new ArrayList<String>();
 	}
 
 	public void setPopupStage(Stage popupStage) {
@@ -54,10 +54,15 @@ public class GroupPopupController {
 			errorText.setText(validInput);
 			return;
 		}
+		
 		ArrayList<String> invited = new ArrayList<String>();
+		ArrayList<String> subgroupInvited = new ArrayList<String>();
 		for (CheckListObject clo : memberList) {
 			if (clo.getSelected()) {
 				invited.add(clo.getName());
+//				if (this.group.getValue().getMembers().contains(clo.getName())) {
+//					subgroupInvited,
+//				}
 			}
 		}
 		if (!editingExisting) {
@@ -91,6 +96,11 @@ public class GroupPopupController {
 	}
 
 	public void fillPopup(TreeItem<Group> group, boolean createSub) { // called whenever the popup is opened
+		if (group != null && group.getParent() != null) {
+			System.out.println(group.getParent());
+		} else {
+			System.out.println("parent null");
+		}
 		this.createSub = createSub;
 		this.group = group;
 		memberList.clear();
@@ -111,7 +121,7 @@ public class GroupPopupController {
 		if (group != null && !createSub) {
 			editingExisting = true;
 			nameField.setText(group.getValue().getName());
-			for (String member : allMembers) {
+			for (String member : group.getParent().getValue().getMembers()) {
 				CheckListObject clo = new CheckListObject(member);
 				if (group.getValue().getMembers().contains(member)) {
 					clo.setSelectedProperty(true);
@@ -121,8 +131,14 @@ public class GroupPopupController {
 			this.members.getChildren().add(members);
 		} else {
 			editingExisting = false;
-			for (String member : allMembers) {
-				memberList.add(new CheckListObject(member));
+			if (createSub) {
+				for (String member : this.group.getValue().getMembers()) {
+					memberList.add(new CheckListObject(member));
+				}
+			} else {				
+				for (String member : treeView.getRoot().getValue().getMembers()) {
+					memberList.add(new CheckListObject(member));
+				}
 			}
 			this.members.getChildren().add(members);
 		}

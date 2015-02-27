@@ -5,9 +5,12 @@ import java.util.Arrays;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.TreeView.EditEvent;
 
 public class ListController {
 
@@ -16,7 +19,7 @@ public class ListController {
 
 	@FXML
 	private void initialize() {
-		Group rootGroup = new Group("Alle grupper", new ArrayList<String>(), new ArrayList<String>());
+		Group rootGroup = new Group("Alle grupper", new ArrayList<String>(Arrays.asList("Kristoffer Lervik", "Trym Nilsen", "Hoang Hai Nguyen", "Erik Wiker", "Patricia Zemer", "Jens Stoltenberg", "Erna Solberg", "Kong Harald", "Madonna", "Will Smith", "Kanye West", "Julenissen", "Postman Pat")), new ArrayList<String>());
 		Group fproot = new Group("Fellesprosjekt", new ArrayList<String>(), new ArrayList<String>());
 		Group fp1 = new Group("Fellesprosjekt gruppe 1", new ArrayList<String>(), new ArrayList<String>());
 		Group fp2 = new Group("Fellesprosjekt gruppe 2", new ArrayList<String>(), new ArrayList<String>());
@@ -28,13 +31,14 @@ public class ListController {
 		fproot.addSubgroups(fp1, fp2, fp3);
 		online.addSubgroup(triKom);
 		
-		treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                TreeItem<Group> treeItem = (TreeItem<Group>)newValue;
-      
-            }
-        });
+		
+//		treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+//            @Override
+//            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+//                TreeItem<Group> treeItem = (TreeItem<Group>)newValue;
+//      
+//            }
+//        });
 
 		TreeItem<Group> root = new TreeItem<Group>(rootGroup);
 		root.setExpanded(true);

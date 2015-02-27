@@ -3,21 +3,62 @@
     src: url('resources/texgyreadventor-regular.otf');
 }
 
+
+
 #toolbar-button {
-    -fx-font: 10pt BestFont;
+    -fx-font: 10pt "BestFont";
    	-fx-background-color: #383838;
     -fx-text-fill: #FFFFFF;
 }
 
+#white-text{
+	-fx-font: 20pt BOLD;
+	-fx-text-fill: #FFFFFF;
+	-fx-text-alignment: "CENTER";
+	
+}
+
+#grey-bg{
+	-fx-background-color: #5a5a5b;
+}
 
 .separator *.line { 
 	-fx-border-style: solid;
 	-fx-border-width: 1px;
 
 }
+
+
 #sep {
 	-fx-background-color: #FFFF00;
 	-fx-background-radius: 2;
+}
+
+#greyBox{
+	-fx-background-color:#e7e7e7;
+	-fx-text-fill:#000000;
+}
+
+.tree-view{
+	-fx-border-style: none;
+}
+
+.tree-cell{
+	-fx-padding: 10 0 10 30;
+	-fx-background-color:#e7e7e7;
+	-fx-text-fill:#000000;
+	-fx-border-color: #FFFFFF;
+	-fx-border-width: 0.2;
+}
+
+.tree-cell:hover {
+    -fx-background-color: #000000 ;
+    -fx-text-fill: #FFFFFF ;
+}
+
+.tree-cell:hover .highlight-on-hover {
+    -fx-background-color: #000000 ;
+    -fx-text-fill: #FFFFFF ;
 }
 
  /*  -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 ); */

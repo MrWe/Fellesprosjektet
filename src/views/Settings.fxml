@@ -1,0 +1,132 @@
+@@ -0,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.net.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ListView?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" style="" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="">
+	<children>
+		<VBox spacing="5">
+   <children>
+            <HBox prefHeight="0.0" prefWidth="434.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Generelle instillinger" wrappingWidth="145.36328125">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox prefHeight="0.0" prefWidth="434.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="E-post addresse" textOrigin="CENTER" wrappingWidth="133.65234375" />
+                  <TextField fx:id="epostad" nodeOrientation="LEFT_TO_RIGHT" opacity="0.86" pickOnBounds="false" prefHeight="0.0" prefWidth="300.0" snapToPixel="false">
+                     <cursor>
+                        <Cursor fx:constant="NONE" />
+                     </cursor>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="0.0" prefWidth="434.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Endre tema" textOrigin="CENTER" wrappingWidth="133.65234375" />
+                  <MenuButton minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="193.0" text="Velg nytt tema">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Tema 1 - navn" />
+                      <MenuItem mnemonicParsing="false" text="Tema 2 - navn" />
+                    </items>
+                  </MenuButton>
+               </children>
+            </HBox>
+            <HBox prefHeight="13.0" prefWidth="434.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Varselsinstillinger">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox prefHeight="20.0" prefWidth="434.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Send meg x" textOrigin="CENTER" wrappingWidth="133.65234375" />
+                  <CheckBox mnemonicParsing="false" text="CheckBox" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="220.0" prefHeight="20.0" prefWidth="434.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Send meg y" textOrigin="CENTER" wrappingWidth="133.65234375" />
+                  <CheckBox mnemonicParsing="false" text="CheckBox" />
+               </children>
+            </HBox>
+   			<HBox>
+      <children>
+      				<Text fx:id="dateText">
+      					<font>
+      						<Font size="20" />
+      					</font>
+      				</Text>
+                  <HBox prefHeight="0.0" prefWidth="103.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Endre passord">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+      </children>
+   			</HBox>
+   			<HBox>
+      <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gammelt passord" textOrigin="CENTER" wrappingWidth="133.65234375">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Text>
+                  <PasswordField fx:id="oldpw" prefHeight="25.0" prefWidth="300.0" />
+      </children>
+   			</HBox>
+   			<HBox>
+      <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nytt passord" textOrigin="CENTER" wrappingWidth="133.65234375" />
+                  <PasswordField fx:id="newpw" prefHeight="25.0" prefWidth="300.0" />
+      </children>
+   			</HBox>
+   			<Text fx:id="errorText" />
+   			<HBox alignment="CENTER_RIGHT" spacing="5">
+      <children>
+      				<Button defaultButton="true" mnemonicParsing="false" onAction="#login" prefHeight="48" prefWidth="180.0" text="Lagre">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                     <effect>
+                        <DropShadow color="#a4a4a4" height="25.45" radius="14.817499999999999" width="35.82" />
+                     </effect>
+                  </Button>
+      				<Button mnemonicParsing="false" prefHeight="48" prefWidth="120.0" text="Avbryt">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
+      </children>
+   			</HBox>
+   </children>
+		</VBox>
+
+	</children>
+</AnchorPane>

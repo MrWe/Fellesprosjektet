@@ -6,12 +6,9 @@ import java.util.Arrays;
 import core.Group;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.control.TreeView.EditEvent;
 
 public class ListController {
 
@@ -31,15 +28,14 @@ public class ListController {
 		rootGroup.addSubgroups(fproot, abakus, online);
 		fproot.addSubgroups(fp1, fp2, fp3);
 		online.addSubgroup(triKom);
-		
-		
-//		treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-//            @Override
-//            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-//                TreeItem<Group> treeItem = (TreeItem<Group>)newValue;
-//      
-//            }
-//        });
+
+
+		treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Group>>() {
+			@Override
+			public void changed(ObservableValue<? extends TreeItem<Group>> observableValue, TreeItem<Group> oldValue, TreeItem<Group> newValue) {
+				mainApp.showCalendar(newValue.getValue());
+			}
+		});
 
 		TreeItem<Group> root = new TreeItem<Group>(rootGroup);
 		root.setExpanded(true);
@@ -57,17 +53,17 @@ public class ListController {
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}
-	
+
 	@FXML
 	private void newGroup() {
 		mainApp.showGroupPopup(treeView, null, false);
 	}
-	
+
 	@FXML
 	private void editGroup() {
 		mainApp.showGroupPopup(treeView, treeView.getSelectionModel().getSelectedItem(), false);
 	}
-	
+
 	@FXML
 	private void newSubGroup() {
 		mainApp.showGroupPopup(treeView, treeView.getSelectionModel().getSelectedItem(), true);

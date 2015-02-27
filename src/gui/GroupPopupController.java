@@ -1,9 +1,7 @@
 package gui;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import core.Group;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -19,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import core.Group;
 
 public class GroupPopupController {
 
@@ -57,25 +56,21 @@ public class GroupPopupController {
 		}
 		
 		ArrayList<String> invited = new ArrayList<String>();
-		ArrayList<String> subgroupInvited = new ArrayList<String>();
 		for (CheckListObject clo : memberList) {
 			if (clo.getSelected()) {
 				invited.add(clo.getName());
-//				if (this.group.getValue().getMembers().contains(clo.getName())) {
-//					subgroupInvited,
-//				}
 			}
 		}
 		if (!editingExisting) {
 			Group group = new Group(nameField.getText(), invited, invited);
+			TreeItem<Group> newGroup = new TreeItem<Group>(group);
 			if (createSub) {
-				TreeItem<Group> newGroup = new TreeItem<Group>(group);
 				this.group.getChildren().add(newGroup);
 				this.group.setExpanded(true);
-				treeView.getSelectionModel().select(newGroup);
-			} else {				
-				treeView.getRoot().getChildren().add(new TreeItem<Group>(group));
+			} else {
+				treeView.getRoot().getChildren().add(newGroup);
 			}
+			treeView.getSelectionModel().select(newGroup);
 		} else {
 			group.getValue().setName(nameField.getText());
 			group.getValue().setMembers(invited);

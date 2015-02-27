@@ -1,6 +1,13 @@
 package gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import core.Appointment;
+import core.Group;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -14,16 +21,33 @@ public class CalendarSquarePane extends Pane {
 	private Text text;
 	private MainApp mainApp;
 	private VBox appointmentList;
+	private Group group;
+	private ObservableList<Appointment> observableAppointments;
 	
-	public CalendarSquarePane(MainApp mainApp, String date) {
+	public CalendarSquarePane(MainApp mainApp, String date, Group group) {
 		super();
 		this.mainApp = mainApp;
+		this.group = group;
 		text = new Text(date);
 		text.setLayoutX(5);
 		text.setLayoutY(15);
 		text.setFill(Color.WHITE);
 		this.getChildren().add(text);
 		
+		List<Appointment> listAppointments = new ArrayList<Appointment>();
+		observableAppointments = FXCollections.observableList(listAppointments);
+		observableAppointments.addListener(new ListChangeListener<Appointment>() {
+
+			@Override
+			public void onChanged(
+					javafx.collections.ListChangeListener.Change<? extends Appointment> c) {
+					c.next();
+					System.out.println(c.getAddedSize());
+					System.out.println(c.getAddedSubList().get(0));
+				
+			}
+			
+		});
 		// border mellom datoene
 		this.setStyle("-fx-border-color: #333333;");
 		this.setOnMousePressed(new EventHandler<MouseEvent>() { // when a square is pressed
@@ -36,8 +60,7 @@ public class CalendarSquarePane extends Pane {
 					showPopup();
 				}
 			}
-		});
-		
+		});		
 		appointmentList = new VBox();
 		appointmentList.setLayoutX(1);
 		appointmentList.setLayoutY(20);
@@ -58,16 +81,17 @@ public class CalendarSquarePane extends Pane {
 	}
 	
 	private void showPopup() {
-		mainApp.showAppointmentPopup(this, null);
+		mainApp.showAppointmentPopup(this, null, group);
 	}
 	
 	private void showPopup(AppointmentSquarePane asp) {
-		mainApp.showAppointmentPopup(null, asp);
+		mainApp.showAppointmentPopup(null, asp, group);
 	}
 	
 	public void addAppointment(Appointment appointment) {
 		AppointmentSquarePane asp = new AppointmentSquarePane(appointment);
 		appointmentList.getChildren().add(asp);
+		observableAppointments.add(asp.getAppointment());
 	}
 
 }

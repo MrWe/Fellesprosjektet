@@ -9,12 +9,14 @@ public class Group {
 	private ArrayList<String> members;
 	private ArrayList<String> admins;
 	private ArrayList<Group> subGroups;
+	private ArrayList<Appointment> appointments;
 	
 	public Group(String name, ArrayList<String> members, ArrayList<String> admins) {
 		this.name = name;
 		this.members = members;
 		this.admins = admins;
 		subGroups = new ArrayList<Group>();
+		appointments = new ArrayList<Appointment>();
 	}
 
 	public String getName() {
@@ -79,6 +81,18 @@ public class Group {
 	
 	public void removeSubgroup(Group subGroup) {
 		subGroups.remove(subGroup);
+	}
+	
+	public void addAppointment(Appointment appointment) {
+		appointments.add(appointment);
+	}
+	
+	public ArrayList<Appointment> getAppointments() {
+		return appointments;
+	}
+	
+	public void removeAppointment(Appointment appointment) {
+		appointments.remove(appointment);
 	}
 	
 	@Override

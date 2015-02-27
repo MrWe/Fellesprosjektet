@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import core.Appointment;
+import core.Group;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -38,6 +39,7 @@ public class AppointmentPopupController {
 	private AppointmentSquarePane asp;
 	@FXML private VBox members;
 	private boolean editingExisting;
+	private Group group;
 
 	@FXML
 	private void initialize() {
@@ -72,8 +74,10 @@ public class AppointmentPopupController {
 					invited,
 					new ArrayList<String>(),
 					new ArrayList<String>(),
-					colorField.getText());
+					colorField.getText(),
+					group);
 			csp.addAppointment(appointment);
+			group.addAppointment(appointment);
 			popupStage.close();
 		} else {
 			asp.getAppointment().setDescription(descriptionField.getText());
@@ -104,7 +108,7 @@ public class AppointmentPopupController {
 			errorText += "Ugyldig sluttid\n";
 		}
 		if (!colorField.getText().matches("[0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F]")) {
-			errorText += "Ugyldig farge";
+			errorText += "Ugyldig farge\n";
 		}
 		return errorText;
 	}
@@ -117,10 +121,12 @@ public class AppointmentPopupController {
 	@FXML
 	private void handleDelete() {
 		((VBox) asp.getParent()).getChildren().remove(asp);
+		asp.getAppointment().getOwner().removeAppointment(asp.getAppointment());
 		popupStage.close();
 	}
 
-	public void fillPopup(CalendarSquarePane csp, AppointmentSquarePane asp) { // called whenever the popup is opened
+	public void fillPopup(CalendarSquarePane csp, AppointmentSquarePane asp, Group group) { // called whenever the popup is opened
+		this.group = group;
 		memberList.clear();
 		members.getChildren().clear();
 		

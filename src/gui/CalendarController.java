@@ -1,10 +1,9 @@
 package gui;
 
 import java.util.Calendar;
-import java.util.Date;
-
+import core.Appointment;
+import core.Group;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -24,7 +23,7 @@ public class CalendarController {
 	private void initialize() {
 	}
 
-	public void fillCalendar() {
+	public void fillCalendar(Group group) {
 		for (int i = 0; i < 7; i++) { // sets contraints on each of the 7 columns
 			ColumnConstraints columnConstraints = new ColumnConstraints();
 			columnConstraints.setFillWidth(true);
@@ -57,7 +56,14 @@ public class CalendarController {
 		for (int i = 0; i < 5; i++) {		// for each date: create string on the format dd/mm/yyyy
 			for (int j = 0; j < 7; j++){	// and create a new CalendarSquarePane object for each of them
 				String date = String.format("%02d", c.getTime().getDate()) + "/" + String.format("%02d", (c.getTime().getMonth() + 1)) + "/" + (c.getTime().getYear() + 1900);
-				calendar.add(new CalendarSquarePane(mainApp, date), j, i);
+				String date2 = (c.getTime().getYear() + 1900) + "-" + String.format("%02d", (c.getTime().getMonth() + 1)) + "-" + String.format("%02d", c.getTime().getDate());
+				CalendarSquarePane csp = new CalendarSquarePane(mainApp, date, group);
+				for (Appointment appointment : group.getAppointments()) {
+					if (appointment.getDate().toString().equals(date2)) {
+						csp.addAppointment(appointment);
+					}
+				}
+				calendar.add(csp, j, i);
 				c.add(Calendar.DATE, 1); // increase date by 1
 			}
 		}

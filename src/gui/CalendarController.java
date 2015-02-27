@@ -24,7 +24,6 @@ public class CalendarController {
 	}
 
 	public void fillCalendar() {
-		calendar.setStyle("-fx-border-color: #000000;");
 		for (int i = 0; i < 7; i++) { // sets contraints on each of the 7 columns
 			ColumnConstraints columnConstraints = new ColumnConstraints();
 			columnConstraints.setFillWidth(true);

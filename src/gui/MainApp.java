@@ -17,12 +17,14 @@ public class MainApp extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
+	private BorderPane loginLayout;
 
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Kalender");
 		initRootLayout();
+		initLoginLayout();
 		showLogin();
 	}
 
@@ -47,6 +49,22 @@ public class MainApp extends Application {
 		}
 	}
 
+	public void initLoginLayout() {
+		try {
+			// Load root layout from fxml file.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("/views/LoginLayout.fxml"));
+			loginLayout = (BorderPane) loader.load();
+
+			// Show the scene containing the root layout.
+			Scene scene = new Scene(loginLayout, 1280, 720);
+
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	public void showLogin()	 {
 		try {
 			// Load overview.
@@ -55,7 +73,7 @@ public class MainApp extends Application {
 			AnchorPane login = (AnchorPane) loader.load();
 
 			// Set  overview into the center of root layout.
-			rootLayout.setCenter(login);
+			loginLayout.setCenter(login);
 			// Give the controller access to the main app.
 			LoginController controller = loader.getController();
 			controller.setMainApp(this);
@@ -82,10 +100,13 @@ public class MainApp extends Application {
 	}
 
 	public void login() {
-		rootLayout.getChildren().clear();
+		System.out.println("naa tryker jeg paa login");
+		loginLayout.setVisible(false);
+		initRootLayout();
 		showList();
 		showToolbar();
 		showCalendar();
+		System.out.println("show list,toolbar,calendar happended");
 	}
 
 	public void showCalendar() {
@@ -181,7 +202,7 @@ public class MainApp extends Application {
 			} else if (createSub){
 				popupStage.setTitle("Lag subgruppe for " + group.getValue().getName());
 			} else {
-				popupStage.setTitle("Endre på " + group.getValue().getName());
+				popupStage.setTitle("Endre pï¿½ " + group.getValue().getName());
 			}
 			popupStage.initModality(Modality.WINDOW_MODAL);
 			popupStage.initOwner(primaryStage);

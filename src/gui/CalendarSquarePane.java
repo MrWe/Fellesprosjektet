@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
@@ -20,8 +21,11 @@ public class CalendarSquarePane extends Pane {
 		text = new Text(date);
 		text.setLayoutX(5);
 		text.setLayoutY(15);
+		text.setFill(Color.WHITE);
 		this.getChildren().add(text);
-		this.setStyle("-fx-border-color: #000000;");
+		
+		// border mellom datoene
+		this.setStyle("-fx-border-color: #333333;");
 		this.setOnMousePressed(new EventHandler<MouseEvent>() { // when a square is pressed
 			@Override
 			public void handle(MouseEvent event) {

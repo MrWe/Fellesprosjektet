@@ -14,7 +14,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
 	minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0"
 	prefWidth="380.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="app.GroupPopupController">
+	fx:controller="gui.GroupPopupController">
 	<children>
 		<VBox spacing="5" AnchorPane.topAnchor="5" AnchorPane.leftAnchor="5">
 			<HBox>

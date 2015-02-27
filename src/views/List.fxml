@@ -9,7 +9,7 @@
 <?import javafx.scene.control.TreeView?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="app.ListController">
+	fx:controller="gui.ListController">
 	<VBox AnchorPane.leftAnchor="5" AnchorPane.rightAnchor="10">
 		<Label text="Mine grupper">
 			<font>

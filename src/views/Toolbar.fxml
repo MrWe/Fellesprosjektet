@@ -8,14 +8,14 @@
 <?import java.lang.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="app.ToolbarController">
+	fx:controller="gui.ToolbarController">
 	<HBox AnchorPane.topAnchor="2" AnchorPane.leftAnchor="2" AnchorPane.bottomAnchor="5" spacing="5">
 		<Button text="Hjem" prefHeight="60" prefWidth="60"
 			contentDisplay="top" cancelButton="true" focusTraversable="false">
 			<graphic>
 				<ImageView fitHeight="32" fitWidth="32" pickOnBounds="true"
 					preserveRatio="true">
-					<Image url="app/hjemIkon.png" />
+					<Image url="Images/hjemIkon.png" />
 				</ImageView>
 			</graphic>
 		</Button>
@@ -24,7 +24,7 @@
 			<graphic>
 				<ImageView fitHeight="32" fitWidth="32" pickOnBounds="true"
 					preserveRatio="true">
-					<Image url="app/kartIkon.png" />
+					<Image url="Images/kartIkon.png" />
 				</ImageView>
 			</graphic>
 		</Button>
@@ -33,7 +33,7 @@
 			<graphic>
 				<ImageView fitHeight="32" fitWidth="32" pickOnBounds="true"
 					preserveRatio="true">
-					<Image url="app/medlemIkon.png" />
+					<Image url="Images/medlemIkon.png" />
 				</ImageView>
 			</graphic>
 		</Button>
@@ -42,7 +42,7 @@
 			<graphic>
 				<ImageView fitHeight="32" fitWidth="32" pickOnBounds="true"
 					preserveRatio="true">
-					<Image url="app/logoutIkon.png" />
+					<Image url="Images/logoutIkon.png" />
 				</ImageView>
 			</graphic>
 		</Button>

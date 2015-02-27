@@ -1,5 +1,6 @@
-package app;
+package gui;
 
+import core.Appointment;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;

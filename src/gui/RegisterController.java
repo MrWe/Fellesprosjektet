@@ -1,4 +1,4 @@
-package app;
+package gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;

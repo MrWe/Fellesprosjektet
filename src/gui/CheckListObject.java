@@ -1,4 +1,4 @@
-package app;
+package gui;
 
 import javafx.beans.property.SimpleBooleanProperty;
 

@@ -1,8 +1,9 @@
-package app;
+package gui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import core.Group;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;

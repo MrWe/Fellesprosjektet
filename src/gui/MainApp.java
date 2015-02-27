@@ -1,7 +1,8 @@
-package app;
+package gui;
 
 import java.io.IOException;
 
+import core.Group;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -33,7 +34,7 @@ public class MainApp extends Application {
 		try {
 			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("RootLayout.fxml"));
+			loader.setLocation(MainApp.class.getResource("/views/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
 
 			// Show the scene containing the root layout.
@@ -50,7 +51,7 @@ public class MainApp extends Application {
 		try {
 			// Load overview.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("Login.fxml"));
+			loader.setLocation(MainApp.class.getResource("/views/Login.fxml"));
 			AnchorPane login = (AnchorPane) loader.load();
 
 			// Set  overview into the center of root layout.
@@ -67,7 +68,7 @@ public class MainApp extends Application {
 		try {
 			// Load overview.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("Register.fxml"));
+			loader.setLocation(MainApp.class.getResource("/views/Register.fxml"));
 			AnchorPane register = (AnchorPane) loader.load();
 
 			// Set  overview into the center of root layout.
@@ -91,7 +92,7 @@ public class MainApp extends Application {
 		try {
 			// Load overview.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("Calendar.fxml"));
+			loader.setLocation(MainApp.class.getResource("/views/Calendar.fxml"));
 			AnchorPane calendar = (AnchorPane) loader.load();
 
 			// Set  overview into the center of root layout.
@@ -109,7 +110,7 @@ public class MainApp extends Application {
 	public void showToolbar() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("Toolbar.fxml"));
+			loader.setLocation(MainApp.class.getResource("/views/Toolbar.fxml"));
 			AnchorPane toolbar = (AnchorPane) loader.load();
 
 			rootLayout.setTop(toolbar);
@@ -124,7 +125,7 @@ public class MainApp extends Application {
 	public void showList() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("List.fxml"));
+			loader.setLocation(MainApp.class.getResource("/views/List.fxml"));
 			AnchorPane list = (AnchorPane) loader.load();
 
 			rootLayout.setLeft(list);
@@ -140,7 +141,7 @@ public class MainApp extends Application {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("AppointmentPopup.fxml"));
+			loader.setLocation(MainApp.class.getResource("/views/AppointmentPopup.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.
@@ -170,7 +171,7 @@ public class MainApp extends Application {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("GroupPopup.fxml"));
+			loader.setLocation(MainApp.class.getResource("/views/GroupPopup.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.

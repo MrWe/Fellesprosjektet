@@ -1,10 +1,11 @@
-package app;
+package gui;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import core.Appointment;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;

@@ -1,8 +1,8 @@
-package app;
+package gui;
 
 import javafx.fxml.FXML;
 
-public class ListController {
+public class ToolbarController {
 	
 	private MainApp mainApp;
 

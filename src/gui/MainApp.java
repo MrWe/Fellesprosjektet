@@ -1,9 +1,13 @@
-package app;
+package gui;
 
 import java.io.IOException;
+
+import core.Group;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -13,12 +17,14 @@ public class MainApp extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
+	private BorderPane loginLayout;
 
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Kalender");
 		initRootLayout();
+		initLoginLayout();
 		showLogin();
 	}
 
@@ -30,7 +36,7 @@ public class MainApp extends Application {
 		try {
 			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("RootLayout.fxml"));
+			loader.setLocation(MainApp.class.getResource("/views/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
 
 			// Show the scene containing the root layout.
@@ -42,16 +48,32 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public void initLoginLayout() {
+		try {
+			// Load root layout from fxml file.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("/views/LoginLayout.fxml"));
+			loginLayout = (BorderPane) loader.load();
+
+			// Show the scene containing the root layout.
+			Scene scene = new Scene(loginLayout, 1280, 720);
+
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	public void showLogin()	 {
 		try {
 			// Load overview.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("Login.fxml"));
+			loader.setLocation(MainApp.class.getResource("/views/Login.fxml"));
 			AnchorPane login = (AnchorPane) loader.load();
 
 			// Set  overview into the center of root layout.
-			rootLayout.setCenter(login);
+			loginLayout.setCenter(login);
 			// Give the controller access to the main app.
 			LoginController controller = loader.getController();
 			controller.setMainApp(this);
@@ -59,12 +81,12 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void showRegister()	 {
 		try {
 			// Load overview.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("Register.fxml"));
+			loader.setLocation(MainApp.class.getResource("/views/Register.fxml"));
 			AnchorPane register = (AnchorPane) loader.load();
 
 			// Set  overview into the center of root layout.
@@ -76,19 +98,22 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void login() {
-		rootLayout.getChildren().clear();
+		System.out.println("naa tryker jeg paa login");
+		loginLayout.setVisible(false);
+		initRootLayout();
 		showList();
 		showToolbar();
 		showCalendar();
+		System.out.println("show list,toolbar,calendar happended");
 	}
 
 	public void showCalendar() {
 		try {
 			// Load overview.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("Calendar.fxml"));
+			loader.setLocation(MainApp.class.getResource("/views/Calendar.fxml"));
 			AnchorPane calendar = (AnchorPane) loader.load();
 
 			// Set  overview into the center of root layout.
@@ -106,7 +131,7 @@ public class MainApp extends Application {
 	public void showToolbar() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("Toolbar.fxml"));
+			loader.setLocation(MainApp.class.getResource("/views/Toolbar.fxml"));
 			AnchorPane toolbar = (AnchorPane) loader.load();
 
 			rootLayout.setTop(toolbar);
@@ -121,7 +146,7 @@ public class MainApp extends Application {
 	public void showList() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("List.fxml"));
+			loader.setLocation(MainApp.class.getResource("/views/List.fxml"));
 			AnchorPane list = (AnchorPane) loader.load();
 
 			rootLayout.setLeft(list);
@@ -133,11 +158,11 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void showPopUp(CalendarSquarePane csp, AppointmentSquarePane asp) {
+	public void showAppointmentPopup(CalendarSquarePane csp, AppointmentSquarePane asp) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("PopUp.fxml"));
+			loader.setLocation(MainApp.class.getResource("/views/AppointmentPopup.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.
@@ -152,10 +177,42 @@ public class MainApp extends Application {
 			popupStage.setResizable(false);
 			Scene scene = new Scene(page);
 			popupStage.setScene(scene);
-			PopUpController controller = loader.getController();
+			AppointmentPopupController controller = loader.getController();
 			controller.setPopupStage(popupStage);
 			controller.fillPopup(csp, asp);
 
+			// Show the dialog and wait until the user closes it
+			popupStage.showAndWait();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void showGroupPopup(TreeView<Group> treeView, TreeItem<Group> group, boolean createSub) {
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("/views/GroupPopup.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage popupStage = new Stage();
+			if (group == null) {				
+				popupStage.setTitle("Lag gruppe");
+			} else if (createSub){
+				popupStage.setTitle("Lag subgruppe for " + group.getValue().getName());
+			} else {
+				popupStage.setTitle("Endre p� " + group.getValue().getName());
+			}
+			popupStage.initModality(Modality.WINDOW_MODAL);
+			popupStage.initOwner(primaryStage);
+			popupStage.setResizable(false);
+			Scene scene = new Scene(page);
+			popupStage.setScene(scene);
+			GroupPopupController controller = loader.getController();
+			controller.setPopupStage(popupStage);
+			controller.setTreeView(treeView);
+			controller.fillPopup(group, createSub);
 			// Show the dialog and wait until the user closes it
 			popupStage.showAndWait();
 		} catch (IOException e) {

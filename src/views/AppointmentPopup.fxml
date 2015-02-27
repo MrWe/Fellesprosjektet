@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.net.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ListView?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0"
+	prefWidth="380.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="gui.AppointmentPopupController">
+	<children>
+		<VBox spacing="5" AnchorPane.topAnchor="5" AnchorPane.leftAnchor="5">
+			<HBox>
+				<Label text="Beskrivelse" prefWidth="65" />
+				<TextField fx:id="descriptionField" />
+			</HBox>
+			<HBox>
+				<Label text="Sted" prefWidth="65" />
+				<TextField fx:id="locationField" />
+			</HBox>
+			<HBox>
+				<Label text="Starttid" prefWidth="65" />
+				<TextField fx:id="startTimeField" promptText="15:15"
+					prefWidth="50" />
+			</HBox>
+			<HBox>
+				<Label text="Sluttid" prefWidth="65" />
+				<TextField fx:id="endTimeField" promptText="15:15"
+					prefWidth="50" />
+			</HBox>
+			<HBox>
+				<Label text="Farge" prefWidth="65" />
+				<TextField fx:id="colorField" promptText="0066FF" />
+			</HBox>
+			<Text fx:id="errorText" />
+		</VBox>
+		<VBox spacing="5" AnchorPane.topAnchor="0"
+			AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="40" prefWidth="150">
+			<Label text="Inviter medlemmer" />
+			<VBox fx:id="members" />
+		</VBox>
+		<HBox AnchorPane.bottomAnchor="7.5" AnchorPane.rightAnchor="5.0"
+			spacing="5">
+			<Button mnemonicParsing="false" onAction="#handleOk"
+				prefHeight="24.0" prefWidth="89.0" text="OK" defaultButton="true" />
+			<Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#handleDelete"
+				prefHeight="24.0" prefWidth="89.0" text="Delete" />
+			<Button mnemonicParsing="false" onAction="#handleCancel"
+				prefHeight="24.0" prefWidth="89.0" text="Cancel" />
+		</HBox>
+
+	</children>
+</AnchorPane>

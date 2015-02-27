@@ -1,0 +1,23 @@
+@font-face {
+    font-family: BestFont;
+    src: url('resources/texgyreadventor-regular.otf');
+}
+
+#toolbar-button {
+    -fx-font: 10pt BestFont;
+   	-fx-background-color: #383838;
+    -fx-text-fill: #FFFFFF;
+}
+
+
+.separator *.line { 
+	-fx-border-style: solid;
+	-fx-border-width: 1px;
+
+}
+#sep {
+	-fx-background-color: #FFFF00;
+	-fx-background-radius: 2;
+}
+
+ /*  -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 ); */

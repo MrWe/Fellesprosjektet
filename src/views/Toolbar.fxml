@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.net.*?>
+<?import java.lang.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="gui.ToolbarController">	
+  	<stylesheets>
+    <URL value="@/styles/controlStyle.css" />
+  	</stylesheets>
+  	
+	<HBox AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.bottomAnchor="5" spacing="5">
+		<Button id="toolbar-button" text="Home" prefHeight="60" prefWidth="60"
+			contentDisplay="top" cancelButton="true" focusTraversable="false">
+			<graphic>
+				<ImageView fitHeight="55" fitWidth="55" pickOnBounds="true"
+					preserveRatio="true">
+					<Image url="Images/home_icon.png" />
+				</ImageView>
+			</graphic>
+		</Button>
+		<Button id="toolbar-button" text="Notice" prefHeight="60" prefWidth="60"
+			contentDisplay="top" focusTraversable="false">
+			<graphic>
+				<ImageView fitHeight="55" fitWidth="55" pickOnBounds="true"
+					preserveRatio="true">
+					<Image url="Images/noti_icon.png" />
+				</ImageView>
+			</graphic>
+		</Button>
+		<Button id="toolbar-button" text="Profile" prefHeight="60" prefWidth="60"
+			contentDisplay="top" focusTraversable="false">
+			<graphic>
+				<ImageView fitHeight="55" fitWidth="55" pickOnBounds="true"
+					preserveRatio="true">
+					<Image url="Images/profile_icon.png" />
+				</ImageView>
+			</graphic>
+		</Button>
+		<Button id="toolbar-button" text="Logg out" prefHeight="60" prefWidth="60"
+			contentDisplay="top" focusTraversable="false">
+			<graphic>
+				<ImageView fitHeight="55" fitWidth="55" pickOnBounds="true"
+					preserveRatio="true">
+					<Image url="Images/logout_icon.png" />
+				</ImageView>
+			</graphic>
+		</Button>
+	</HBox>
+	<Separator orientation="horizontal" AnchorPane.topAnchor="105" 
+		AnchorPane.leftAnchor="0"
+		AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0" 
+		/>
+</AnchorPane>
+

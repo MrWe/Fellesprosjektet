@@ -1,10 +1,11 @@
-package app;
+package gui;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import core.Appointment;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -20,7 +21,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-public class PopUpController {
+public class AppointmentPopupController {
 
 	//@FXML private Text text;
 	@FXML private TextField descriptionField;

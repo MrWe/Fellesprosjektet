@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.net.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.TreeView?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="gui.ListController">
+	<stylesheets>
+    <URL value="@controlStyle.css" />
+  	</stylesheets>
+	<VBox AnchorPane.leftAnchor="5" AnchorPane.rightAnchor="10">
+		<Label text="Mine grupper" style ="-fx-text-fill: #FFFFFF;">
+			<font>
+				<Font size="18" />
+			</font>
+		</Label>
+		<TreeView fx:id="treeView" />
+	</VBox>
+	<Separator orientation="vertical" AnchorPane.rightAnchor="0"
+		AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" />
+	<Separator orientation="horizontal" AnchorPane.rightAnchor="0"
+		AnchorPane.leftAnchor="0" AnchorPane.bottomAnchor="100" />
+	<HBox AnchorPane.bottomAnchor="50">	
+		<Button text="Ny gruppe" onAction="#newGroup" />
+		<Button text="Endre gruppe" onAction="#editGroup" />
+		<Button text="Ny subgruppe" onAction="#newSubGroup" />
+	</HBox>
+</AnchorPane>
+

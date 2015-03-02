@@ -112,7 +112,7 @@ public class Appointment {
 	
 	@Override
 	public String toString() {
-		return "Appointment:\n" + description + "\n" + location + "\nTime: " + date + " " + startTime + " " + endTime; 
+		return "Appointment:\n" + description + "\n" + location + "\nTime: " + date + " " + startTime + "-" + endTime; 
 	}
 
 }

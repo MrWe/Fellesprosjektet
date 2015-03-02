@@ -57,8 +57,7 @@
 				<HBox>
 					<children>
 						<PasswordField fx:id="passwordField" opacity="0.86"
-							prefHeight="45.0" prefWidth="300.0" promptText="Passord"
-							stylesheets="@login.css">
+							prefHeight="45.0" prefWidth="300.0" promptText="Passord">
 							<opaqueInsets>
 								<Insets />
 							</opaqueInsets>
@@ -69,8 +68,7 @@
 				<HBox>
 					<children>
 						<PasswordField fx:id="repeatPasswordField" opacity="0.86"
-							prefHeight="45.0" prefWidth="300.0" promptText="Gjenta Passord"
-							stylesheets="@login.css">
+							prefHeight="45.0" prefWidth="300.0" promptText="Gjenta Passord">
 							<opaqueInsets>
 								<Insets />
 							</opaqueInsets>
@@ -95,7 +93,7 @@
 					<children>
 						<DatePicker fx:id="birthdayDatePicker" nodeOrientation="LEFT_TO_RIGHT"
 							opacity="0.86" pickOnBounds="false" prefHeight="45.0" prefWidth="300.0"
-							 snapToPixel="false">
+							snapToPixel="false">
 							<opaqueInsets>
 								<Insets />
 							</opaqueInsets>
@@ -109,7 +107,7 @@
 				<HBox spacing="5">
 					<children>
 						<Button defaultButton="true" mnemonicParsing="false"
-						 prefHeight="48" prefWidth="180.0" text="Registrer" onAction="#register">
+							prefHeight="48" prefWidth="180.0" text="Registrer" onAction="#register">
 							<font>
 								<Font size="13.0" />
 							</font>

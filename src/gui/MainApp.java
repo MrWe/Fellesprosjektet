@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import core.Group;
+import core.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,6 +20,7 @@ public class MainApp extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 	private BorderPane loginLayout;
+	private User user;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -91,7 +93,7 @@ public class MainApp extends Application {
 			AnchorPane register = (AnchorPane) loader.load();
 
 			// Set  overview into the center of root layout.
-			rootLayout.setCenter(register);
+			loginLayout.setCenter(register);
 			// Give the controller access to the main app.
 			RegisterController controller = loader.getController();
 			controller.setMainApp(this);
@@ -102,6 +104,7 @@ public class MainApp extends Application {
 
 	public void login() {
 		System.out.println("naa tryker jeg paa login");
+		user = new User("test", "Test");
 		loginLayout.setVisible(false);
 		initRootLayout();
 		showList();

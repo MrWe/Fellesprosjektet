@@ -18,11 +18,11 @@ import javafx.scene.text.Text;
 
 public class CalendarSquarePane extends Pane {
 	
-	private Text text;
+	private Text text;				// displays the date
 	private MainApp mainApp;
-	private VBox appointmentList;
-	private Group group;
-	private ObservableList<Appointment> observableAppointments;
+	private VBox appointmentList;	// list of AppointmentSquarePane-objects
+	private Group group;			// the group that is currently selected in the list of groups
+	private ObservableList<Appointment> observableAppointments;  // list of appointments, currently does nothing
 	
 	public CalendarSquarePane(MainApp mainApp, String date, Group group) {
 		super();
@@ -34,21 +34,19 @@ public class CalendarSquarePane extends Pane {
 		text.setFill(Color.WHITE);
 		this.getChildren().add(text);
 		
-		List<Appointment> listAppointments = new ArrayList<Appointment>();
+		List<Appointment> listAppointments = new ArrayList<Appointment>();					// ignore this stuff
 		observableAppointments = FXCollections.observableList(listAppointments);
-		observableAppointments.addListener(new ListChangeListener<Appointment>() {
+		observableAppointments.addListener(new ListChangeListener<Appointment>() {			// can be used to listen for changes in the observableList
 
-			@Override
-			public void onChanged(
-					javafx.collections.ListChangeListener.Change<? extends Appointment> c) {
-					c.next();
+			@Override																		//
+			public void onChanged(ListChangeListener.Change<? extends Appointment> c) {
+					c.next();																//
 					System.out.println(c.getAddedSize());
-					System.out.println(c.getAddedSubList().get(0));
-				
+					System.out.println(c.getAddedSubList().get(0));							//
 			}
-			
-		});
-		// border mellom datoene
+		});																					//
+		
+		// border between squares
 		this.setStyle("-fx-border-color: #333333;");
 		this.setOnMousePressed(new EventHandler<MouseEvent>() { // when a square is pressed
 			@Override

@@ -3,6 +3,7 @@ package gui;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import database.DBConnection;
 
 public class RegisterController {
@@ -14,6 +15,7 @@ public class RegisterController {
 	@FXML private TextField fullNameField;
 	@FXML private TextField emailField;
 	@FXML private DatePicker birthdayDatePicker;
+	@FXML private Text errorText;
 	private DBConnection db;
 
 	@FXML
@@ -25,20 +27,20 @@ public class RegisterController {
 		this.mainApp = mainApp;
 	}
 
-	@FXML private void back() {
+	@FXML private void back() { // when back button is pressed
 		mainApp.showLogin();
 	}
 
-	@FXML private void register() {
+	@FXML private void register() { // when register button is pressed
 		String validInput = isValidInput();
 		if (validInput.length() != 0) {
-			System.out.println(validInput);
+			errorText.setText(validInput);
 		} else {
 			db.registerUser(usernameField.getText(), passwordField.getText(), fullNameField.getText(), birthdayDatePicker.getValue().toString(), emailField.getText());
 		}
 	}
 
-	private String isValidInput() {
+	private String isValidInput() { // if all the if-tests fail, the text will return empty (length = 0)
 		String errorText = "";
 		if (usernameField.getText().length() == 0) {
 			errorText += "Username can't be empty\n";

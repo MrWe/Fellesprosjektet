@@ -8,12 +8,11 @@ import java.sql.Statement;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 public class DB {
-	
+
 	private static String bruker = "fellesprosjekt";
 	private static String passord = "gruppe1";
 	private static String serverName = "188.166.34.46";
 	private static String databaseName = "Calendar";
-	//private static String url = "jdbc:mysql://188.166.34.46:22/sdfs";
 	private static Connection connection = null;
 	private static Statement statement;
 
@@ -26,7 +25,6 @@ public class DB {
 	 */
 	public DB() {
 		try {
-			//connection = DriverManager.getConnection(url, bruker, passord);
 			MysqlDataSource dataSource = new MysqlDataSource();
 			dataSource.setUser(bruker);
 			dataSource.setPassword(passord);
@@ -80,6 +78,5 @@ public class DB {
 			e.printStackTrace();
 		}
 	}
-
 
 }

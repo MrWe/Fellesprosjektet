@@ -15,11 +15,13 @@ public class LoginController {
 	
 	private MainApp mainApp;
 	@FXML private Text dateText;
+	@FXML private Text errorText;
 	@FXML private VBox vbox;
 	@FXML private TextField usernameField;
 	@FXML private PasswordField passwordField;
 	private DBConnection db;
 	
+	@SuppressWarnings("deprecation")
 	@FXML
 	private void initialize() {
 		db = new DBConnection();
@@ -34,27 +36,24 @@ public class LoginController {
 	}
 	
 	@FXML
-	private void login() {
+	private void login() { // when log in button is pressed
 		try {
-			ResultSet rs = db.login(usernameField.getText());
-			if (rs.next()) {
-				System.out.println(rs.getString(1) + " " + rs.getString(2));
-				if (rs.getString(2).equals(passwordField.getText())) {
-					System.out.println("logged in!");
+			ResultSet rs = db.login(usernameField.getText()); // gets all database entries with the given username
+			if (rs.next()) {								  // if a database entry with the username exists
+				if (rs.getString(2).equals(passwordField.getText())) { // if the password given matches the password in the database
 					mainApp.login();
 				} else {
-					System.out.println("error logging in");
+					errorText.setText("Error logging in"); // if password is wrong
 				}
 			} else {
-				System.out.println("username not found");
+				errorText.setText("Username not found"); // if username is not found
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	@FXML private void showRegister() {
+	@FXML private void showRegister() { // when new user button is pressed
 		mainApp.showRegister();
 	}
 

@@ -117,7 +117,6 @@
 						</DatePicker>
 					</children>
 				</HBox>
-				<Text fx:id="errorText" />
 				<HBox spacing="5">
 					<children>
 						<Button defaultButton="true" mnemonicParsing="false"
@@ -138,6 +137,7 @@
 						</Button>
 					</children>
 				</HBox>
+				<Text fx:id="errorText" />
 			</children>
 		</VBox>
 

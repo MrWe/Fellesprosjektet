@@ -14,16 +14,30 @@ public class DBConnection {
 		db = new DB();
 	}
 	
-	public DB getDB() {
-		return db;
-	}
-	
-	
-	
-	public ResultSet login(String username) throws SQLException {
+	public ResultSet login(String username) {
 		String q = "SELECT username, pswd FROM USER WHERE username = '"
 				+ username
 				+ "';";
+		return db.queryDB(q);
+	}
+	
+	public void registerUser(String username, String pswd, String fullName, String birthday, String email) {
+		String q = "INSERT INTO USER(username, pswd, fullName, birthday, email) VALUES ('"
+				+ username
+				+ "','"
+				+ pswd
+				+ "','"
+				+ fullName
+				+ "','"
+				+ birthday
+				+ "','"
+				+ email
+				+ "');";
+		db.updateDB(q);
+	}
+	
+	public ResultSet getAllUsers() {
+		String q = "SELECT * FROM USER;";
 		return db.queryDB(q);
 	}
 

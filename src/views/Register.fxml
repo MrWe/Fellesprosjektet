@@ -77,6 +77,20 @@
 				</HBox>
 				<HBox>
 					<children>
+						<TextField fx:id="fullNameField" nodeOrientation="LEFT_TO_RIGHT"
+							opacity="0.86" pickOnBounds="false" prefHeight="45.0" prefWidth="300.0"
+							promptText="Fullt navn" snapToPixel="false">
+							<opaqueInsets>
+								<Insets />
+							</opaqueInsets>
+							<cursor>
+								<Cursor fx:constant="NONE" />
+							</cursor>
+						</TextField>
+					</children>
+				</HBox>
+				<HBox>
+					<children>
 						<TextField fx:id="emailField" nodeOrientation="LEFT_TO_RIGHT"
 							opacity="0.86" pickOnBounds="false" prefHeight="45.0" prefWidth="300.0"
 							promptText="Epost" snapToPixel="false">

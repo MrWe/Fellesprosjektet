@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DBConnection {
+	
 	private DB db;
 
 	/**
@@ -16,6 +17,15 @@ public class DBConnection {
 	public DB getDB() {
 		return db;
 	}
+	
+	
+	
+	public ResultSet login(String username) throws SQLException {
+		String q = "SELECT username, pswd FROM USER WHERE username = '"
+				+ username
+				+ "';";
+		return db.queryDB(q);
+	}
 
 	/**
 	 * Returnerer et ResultSet med brukerinfo som hører til brukernavnet til den som prøver å logge inn
@@ -24,16 +34,16 @@ public class DBConnection {
 	 * @return ResultSet med en rad der col1 = brukernavn, col2 = passord, col3 = fullt navn, col4 = telefonnummer, col5 = epost, col6 = isAdmin
 	 * @throws SQLException
 	 */
-	public ResultSet login(String brukernavn) throws SQLException {
-		/*
+	/*public ResultSet login(String brukernavn) throws SQLException {
+		
 		String q = ("select Brukernavn, Passord, Navn, Tlf, Epost, isAdmin from Admin where Brukernavn = '"
 				+ brukernavn 
 				+ "';");
-				*/
+				
 		String q = ("INSERT INTO USER(username, pswd, fullName, birthday, email) VALUES('erik', 'kåre', 'Erik Kåre', '1995-01-22', 'lol@gmail.com');");
 		return db.sporDB(q);
 
-	}
+	}*/
 
 	/**
 	 * Registrerer en ny bruker i databasesystemet
@@ -60,7 +70,7 @@ public class DBConnection {
 				+ "0" // vanlig bruker (ikke admin)
 				+ "');");
 
-		db.oppdaterDB(q);
+		db.updateDB(q);
 	}
 
 	/**
@@ -87,7 +97,7 @@ public class DBConnection {
 				+ dato 
 				+ "');");
 
-		db.oppdaterDB(q);
+		db.updateDB(q);
 	}
 
 	/**
@@ -107,7 +117,7 @@ public class DBConnection {
 				+ koienavn 
 				+ "');");
 
-		db.oppdaterDB(q);
+		db.updateDB(q);
 	}
 
 	/**
@@ -123,7 +133,7 @@ public class DBConnection {
 				+ "' where KoieID = '"
 				+ koienavn + "';");
 
-		db.oppdaterDB(q);
+		db.updateDB(q);
 	}
 
 	/**
@@ -137,7 +147,7 @@ public class DBConnection {
 		String q = ("update Utstyr set stat = '" + (new String("" + status))
 				+ "' where UtstyrsID = '" + (new String("" + utstyrsID)) + "';");
 
-		db.oppdaterDB(q);
+		db.updateDB(q);
 	}
 
 	/**
@@ -152,7 +162,7 @@ public class DBConnection {
 				+ (new String("" + utstyrsID)) + "','"
 				+ (new String("" + rapportID)) + "');");
 
-		db.oppdaterDB(q);
+		db.updateDB(q);
 	}
 	
 	/**
@@ -166,7 +176,7 @@ public class DBConnection {
 	public void leggInnGjenglemteTing(String Navn, int rapportID, String koieID) throws SQLException {
 		String q = ("insert into Gjenglemt (Navn,RapportID,KoieID) values('" + Navn + "','" + rapportID + "','" + koieID + "');");
 		
-		db.oppdaterDB(q);
+		db.updateDB(q);
 	}
 	
 	/**
@@ -180,7 +190,7 @@ public class DBConnection {
 	public ResultSet getUtstyrID(String navn, String koie) throws SQLException {
 		String q = ("select UtstyrsID from Utstyr where Navn = '" + navn + "' and FraktesTilID = '" + koie + "';");
 
-		return db.sporDB(q);
+		return db.queryDB(q);
 	}
 
 	/**
@@ -191,7 +201,7 @@ public class DBConnection {
 	public ResultSet getMembers() {
 		String q = ("select Navn, Tlf, Epost, isAdmin from Admin");
 
-		return db.sporDB(q);
+		return db.queryDB(q);
 	}
 
 	/**
@@ -213,7 +223,7 @@ public class DBConnection {
 				+ vedstatus 
 				+ "';");
 
-		return db.sporDB(q);
+		return db.queryDB(q);
 	}
 
 	/**
@@ -229,7 +239,7 @@ public class DBConnection {
 	public void registrerUtstyr(String navn, String dato, int status, String adminID, String koie) throws SQLException {
 		String q = ("insert into Utstyr (Navn, Innkjopsdato, stat, AdminID, FraktesTilID) VALUES ('" + navn + "','" + dato + "','" + (new String("" + status)) + "','" + adminID + "','" + koie + "');");
 
-		db.oppdaterDB(q);
+		db.updateDB(q);
 	}
 
 	/**
@@ -247,7 +257,7 @@ public class DBConnection {
 				+ dato 
 				+ "';");
 
-		return db.sporDB(q);
+		return db.queryDB(q);
 	}
 
 	/**
@@ -262,7 +272,7 @@ public class DBConnection {
 				+ koieID 
 				+ "';");
 
-		return db.sporDB(q);
+		return db.queryDB(q);
 	}
 	
 	/**
@@ -276,7 +286,7 @@ public class DBConnection {
 	public ResultSet getDatoListe(String koieID, String dato) throws SQLException {
 		String q = ("select Dato, min(Vedstatus) from Rapport where Dato > '" + dato + "' and KoieRapportID = '" + koieID + "' group by Dato order by Dato desc limit 14;");
 		
-		return db.sporDB(q);
+		return db.queryDB(q);
 	}
 	
 	/**
@@ -289,7 +299,7 @@ public class DBConnection {
 	public ResultSet getOdelagt(String koieID) throws SQLException {
 		String q = ("select Navn from Utstyr where FraktesTilID = '" + koieID + "' and stat = '0';");
 
-		return db.sporDB(q);
+		return db.queryDB(q);
 	}
 	
 	/**
@@ -303,7 +313,7 @@ public class DBConnection {
 		
 		String q = ("select Navn from Gjenglemt where KoieID = '" + koieID + "';");
 		
-		return db.sporDB(q);
+		return db.queryDB(q);
 	}
 	
 	/**
@@ -315,10 +325,10 @@ public class DBConnection {
 	 */
 	public void fixUtstyr(String koie, String tingnavn) throws SQLException {
 		String q = ("delete from ErOdelagt where UtstyrsID = (select distinct UtstyrsID from Utstyr where Navn = '" + tingnavn + "' and FraktesTilID = '" + koie + "');");
-		db.oppdaterDB(q);
+		db.updateDB(q);
 		
 		q = ("update Utstyr set stat = '1' where Navn = '" + tingnavn + "' and FraktesTilID = '" + koie + "';");
-		db.oppdaterDB(q);
+		db.updateDB(q);
 	}
 	
 	/**
@@ -330,7 +340,7 @@ public class DBConnection {
 	public void funnetTing(String ting) throws SQLException {
 		String q = ("delete from Gjenglemt where navn = '" + ting + "';");
 		
-		db.oppdaterDB(q);
+		db.updateDB(q);
 	}
 	
 	/**
@@ -343,7 +353,7 @@ public class DBConnection {
 	public void datoVeddugnad(String koie, String dato) throws SQLException {
 		String q = ("update Koie set Veddugnad = '" + dato + "' where KoieID = '" + koie + "';");
 		
-		db.oppdaterDB(q);
+		db.updateDB(q);
 	}
 	
 	/**
@@ -356,7 +366,7 @@ public class DBConnection {
 	public ResultSet getForrigeVeddugnad(String koie) throws SQLException {
 		String q = ("select Veddugnad from Koie where KoieID = '" + koie + "';");
 		
-		return db.sporDB(q);
+		return db.queryDB(q);
 	}
 	
 	/**
@@ -369,7 +379,7 @@ public class DBConnection {
 	public ResultSet getAltUtstyr(String koie) throws SQLException {
 		String q = ("select Navn from Utstyr where FraktesTilID = '" + koie + "';");
 
-		return db.sporDB(q);
+		return db.queryDB(q);
 	}
 	
 	/**
@@ -382,7 +392,7 @@ public class DBConnection {
 	public ResultSet getReservasjonsEpostIDag(String koieID, String dato){
 		String q = ("select Epost from Reservasjon where ReservertKoieID = '" + koieID + "' and Dato = '" + dato + "' order by Dato asc;");
 		
-		return db.sporDB(q);
+		return db.queryDB(q);
 	}
 	
 	/**
@@ -395,6 +405,6 @@ public class DBConnection {
 	public ResultSet getReservasjonsEpostFremover(String koieID, String dato){
 		String q = ("select Epost from Reservasjon where ReservertKoieID = '" + koieID + "' and Dato >= '" + dato + "' order by Dato asc;");
 		
-		return db.sporDB(q);
+		return db.queryDB(q);
 	}
 }

@@ -26,7 +26,7 @@ public class ToolbarController {
 	}
 
 	@FXML
-	private void openProfile() {
+	private void openSettings() {
 
 	}
 

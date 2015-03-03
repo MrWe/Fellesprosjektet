@@ -137,11 +137,14 @@ public class MainApp extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("/views/Toolbar.fxml"));
+			
+			
 			AnchorPane toolbar = (AnchorPane) loader.load();
 
 			rootLayout.setTop(toolbar);
 
 			ToolbarController controller = loader.getController();
+
 			controller.setMainApp(this);
 		} catch (IOException e) {
 			e.printStackTrace();

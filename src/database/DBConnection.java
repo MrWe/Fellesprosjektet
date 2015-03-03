@@ -36,6 +36,13 @@ public class DBConnection {
 				+ "');";
 		db.updateDB(q);
 	}
+	
+	public ResultSet getUser(String username) {
+		String q = "SELECT * FROM USER WHERE username = '"
+				+ username
+				+"';";
+		return db.queryDB(q);
+	}
 
 	public ResultSet getAllUsers() {
 		String q = "SELECT * FROM USER;";

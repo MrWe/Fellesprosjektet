@@ -1,5 +1,8 @@
 package gui;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -42,6 +45,14 @@ public class RegisterController {
 
 	private String isValidInput() { // if all the if-tests fail, the text will return empty (length = 0)
 		String errorText = "";
+		ResultSet rs = db.getUser(usernameField.getText());
+		try {
+			if (rs.next()) {
+				errorText += "Username already exists\n";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		if (usernameField.getText().length() == 0) {
 			errorText += "Username can't be empty\n";
 		}

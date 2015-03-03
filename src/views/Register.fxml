@@ -15,10 +15,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.PasswordField?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
-	minHeight="-Infinity" minWidth="-Infinity" style=""
-	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="gui.RegisterController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.RegisterController">
 	<children>
 		<VBox spacing="5">
 			<children>
@@ -42,22 +39,19 @@
 				</HBox>
 				<HBox>
 					<children>
-						<TextField fx:id="usernameField" nodeOrientation="LEFT_TO_RIGHT"
-							opacity="0.86" pickOnBounds="false" prefHeight="45.0" prefWidth="300.0"
-							promptText="Brukernavn" snapToPixel="false">
+						<TextField fx:id="usernameField" nodeOrientation="LEFT_TO_RIGHT" opacity="0.86" pickOnBounds="false" prefHeight="45.0" prefWidth="300.0" promptText="Brukernavn" snapToPixel="false">
 							<opaqueInsets>
 								<Insets />
 							</opaqueInsets>
 							<cursor>
-								<Cursor fx:constant="NONE" />
+								<Cursor fx:constant="TEXT" />
 							</cursor>
 						</TextField>
 					</children>
 				</HBox>
 				<HBox>
 					<children>
-						<PasswordField fx:id="passwordField" opacity="0.86"
-							prefHeight="45.0" prefWidth="300.0" promptText="Passord">
+						<PasswordField fx:id="passwordField" opacity="0.86" prefHeight="45.0" prefWidth="300.0" promptText="Passord">
 							<opaqueInsets>
 								<Insets />
 							</opaqueInsets>
@@ -67,8 +61,7 @@
 
 				<HBox>
 					<children>
-						<PasswordField fx:id="repeatPasswordField" opacity="0.86"
-							prefHeight="45.0" prefWidth="300.0" promptText="Gjenta Passord">
+						<PasswordField fx:id="repeatPasswordField" opacity="0.86" prefHeight="45.0" prefWidth="300.0" promptText="Gjenta Passord">
 							<opaqueInsets>
 								<Insets />
 							</opaqueInsets>
@@ -77,60 +70,51 @@
 				</HBox>
 				<HBox>
 					<children>
-						<TextField fx:id="fullNameField" nodeOrientation="LEFT_TO_RIGHT"
-							opacity="0.86" pickOnBounds="false" prefHeight="45.0" prefWidth="300.0"
-							promptText="Fullt navn" snapToPixel="false">
+						<TextField fx:id="fullNameField" nodeOrientation="LEFT_TO_RIGHT" opacity="0.86" pickOnBounds="false" prefHeight="45.0" prefWidth="300.0" promptText="Fullt navn" snapToPixel="false">
 							<opaqueInsets>
 								<Insets />
 							</opaqueInsets>
 							<cursor>
-								<Cursor fx:constant="NONE" />
+								<Cursor fx:constant="TEXT" />
 							</cursor>
 						</TextField>
 					</children>
 				</HBox>
 				<HBox>
 					<children>
-						<TextField fx:id="emailField" nodeOrientation="LEFT_TO_RIGHT"
-							opacity="0.86" pickOnBounds="false" prefHeight="45.0" prefWidth="300.0"
-							promptText="Epost" snapToPixel="false">
+						<TextField fx:id="emailField" nodeOrientation="LEFT_TO_RIGHT" opacity="0.86" pickOnBounds="false" prefHeight="45.0" prefWidth="300.0" promptText="Epost" snapToPixel="false">
 							<opaqueInsets>
 								<Insets />
 							</opaqueInsets>
 							<cursor>
-								<Cursor fx:constant="NONE" />
+								<Cursor fx:constant="TEXT" />
 							</cursor>
 						</TextField>
 					</children>
 				</HBox>
 				<HBox>
 					<children>
-						<DatePicker fx:id="birthdayDatePicker" nodeOrientation="LEFT_TO_RIGHT"
-							opacity="0.86" pickOnBounds="false" prefHeight="45.0" prefWidth="300.0"
-							snapToPixel="false">
+						<DatePicker fx:id="birthdayDatePicker" nodeOrientation="LEFT_TO_RIGHT" opacity="0.86" pickOnBounds="false" prefHeight="45.0" prefWidth="300.0" snapToPixel="false">
 							<opaqueInsets>
 								<Insets />
 							</opaqueInsets>
 							<cursor>
-								<Cursor fx:constant="NONE" />
+								<Cursor fx:constant="DEFAULT" />
 							</cursor>
 						</DatePicker>
 					</children>
 				</HBox>
 				<HBox spacing="5">
 					<children>
-						<Button defaultButton="true" mnemonicParsing="false"
-							prefHeight="48" prefWidth="180.0" text="Registrer" onAction="#register">
+						<Button defaultButton="true" mnemonicParsing="false" onAction="#register" prefHeight="48" prefWidth="180.0" text="Registrer">
 							<font>
 								<Font size="13.0" />
 							</font>
 							<effect>
-								<DropShadow color="#a4a4a4" height="25.45"
-									radius="14.817499999999999" width="35.82" />
+								<DropShadow color="#a4a4a4" height="25.45" radius="14.817499999999999" width="35.82" />
 							</effect>
 						</Button>
-						<Button mnemonicParsing="false" prefHeight="48" prefWidth="120.0"
-							text="Tilbake" onAction="#back">
+						<Button mnemonicParsing="false" onAction="#back" prefHeight="48" prefWidth="120.0" text="Tilbake">
 							<font>
 								<Font size="13.0" />
 							</font>

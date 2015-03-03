@@ -3,6 +3,9 @@ package database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DBConnection {
 
@@ -60,6 +63,16 @@ public class DBConnection {
 		rs.next();
 		return Integer.parseInt(rs.getString(1));
 	}
+	
+	public int getGroupID(String groupName) throws SQLException {
+		String q = "SELECT usergroupID FROM Calendar.USERGROUP WHERE groupName = '"
+				+ groupName
+				+ "';";
+		System.out.println(groupName);
+		ResultSet rs = db.queryDB(q);
+		rs.next();
+		return Integer.parseInt(rs.getString(1));
+	}
 
 	public void createGroup(String groupName, int isPrivate, int superGroupID) {
 		String q = "INSERT INTO USERGROUP(isPrivate, groupName, USERGROUP_usergroupID) VALUES ('"
@@ -72,17 +85,33 @@ public class DBConnection {
 		db.updateDB(q);
 	}
 
-	public void addGroupMembers(String groupName, ArrayList<String> members) {
+	public void addGroupMembers(String groupName, ArrayList<String> members) throws SQLException {
+		int groupID = getGroupID(groupName);
+		ResultSet rs = getAllUsers();
+		Map<String, String> memberIDs = new HashMap<String, String>();
+		while (rs.next()) {
+			memberIDs.put(rs.getString(4), rs.getString(1));
+		}
 		for (String member : members) {
 			String q = "INSERT INTO USER_has_USERGROUP(groupAdmin, USER_userID, USERGROUP_usergroupID) VALUES ('"
 					+ 0
 					+ "',"
-					+ "(SELECT userID FROM Calendar.USER WHERE fullName = 'Kristoffer Lervik';)"
+					+ memberIDs.get(member)
 					+ ",'"
-					+ groupName
+					+ groupID
 					+ "');";
 			db.updateDB(q);
 		}
+	}
+	
+	public void editGroupName(String oldName, String newName) {
+		String q = "UPDATE USERGROUP SET groupName = '" + newName + "' WHERE groupName = '" + oldName + "';";
+		db.updateDB(q);
+	}
+	
+	public static void main(String[] args) {
+		DBConnection db = new DBConnection();
+		db.editGroupName("Abakus2", "AbakusTest");
 	}
 
 	/**

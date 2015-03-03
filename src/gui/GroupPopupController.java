@@ -71,15 +71,29 @@ public class GroupPopupController {
 			TreeItem<Group> newGroup = new TreeItem<Group>(group);
 			if (createSub) {				// if creating a new subgroup
 				this.group.getChildren().add(newGroup);
-				this.group.setExpanded(true);
+				try {
+					int superGroupID = db.getGroupID(this.group.getValue().getName());	// finds the usergroupID of the selected group when the popup was opened
+					db.createGroup(nameField.getText(), 0, superGroupID);	// sets the USERGROUP_usergroupID field of the new group equal to the number above
+					db.addGroupMembers(nameField.getText(), invited);
+					this.group.setExpanded(true);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			} else {						// if creating a new group
 				treeView.getRoot().getChildren().add(newGroup);
-				db.createGroup(nameField.getText(), 0, 0); // 0 is the id of the root group
+				try {
+					db.createGroup(nameField.getText(), 0, 0); // 0 is the id of the root group
+					db.addGroupMembers(nameField.getText(), invited);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 			treeView.getSelectionModel().select(newGroup);
 		} else {							// if editing a group
+			db.editGroupName(group.getValue().getName(), nameField.getText());
 			group.getValue().setName(nameField.getText());
 			group.getValue().setMembers(invited);
+			treeView.getSelectionModel().select(group);
 		}
 		popupStage.close();
 	}

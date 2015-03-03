@@ -3,7 +3,7 @@ package gui;
 import javafx.fxml.FXML;
 
 public class ToolbarController {
-	
+
 	private MainApp mainApp;
 
 	@FXML
@@ -15,4 +15,23 @@ public class ToolbarController {
 		this.mainApp = mainApp;
 	}
 
+	@FXML
+	private void openHome() {
+
+	}
+
+	@FXML
+	private void openNotice() {
+
+	}
+
+	@FXML
+	private void openProfile() {
+
+	}
+
+	@FXML
+	private void logOut() {
+
+	}
 }

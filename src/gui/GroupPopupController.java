@@ -1,9 +1,9 @@
 package gui;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import core.Group;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -19,6 +19,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import core.Group;
+import database.DBConnection;
 
 public class GroupPopupController {
 
@@ -33,10 +35,12 @@ public class GroupPopupController {
 	private boolean editingExisting;
 	private boolean createSub;
 	private TreeItem<Group> group;
+	private DBConnection db;
 
 	@FXML
 	private void initialize() {
 		//allMembers = new ArrayList<String>();
+		db = new DBConnection();
 	}
 
 	public void setPopupStage(Stage popupStage) {
@@ -57,26 +61,23 @@ public class GroupPopupController {
 		}
 		
 		ArrayList<String> invited = new ArrayList<String>();
-		ArrayList<String> subgroupInvited = new ArrayList<String>();
-		for (CheckListObject clo : memberList) {
+		for (CheckListObject clo : memberList) {			// gets all the names that have been selected in the list of members
 			if (clo.getSelected()) {
 				invited.add(clo.getName());
-//				if (this.group.getValue().getMembers().contains(clo.getName())) {
-//					subgroupInvited,
-//				}
 			}
 		}
-		if (!editingExisting) {
-			Group group = new Group(nameField.getText(), invited, invited);
-			if (createSub) {
-				TreeItem<Group> newGroup = new TreeItem<Group>(group);
+		if (!editingExisting) {				// if either creating a new group or a new subgroup
+			Group group = new Group(nameField.getText(), "0", invited, invited);
+			TreeItem<Group> newGroup = new TreeItem<Group>(group);
+			if (createSub) {				// if creating a new subgroup
 				this.group.getChildren().add(newGroup);
 				this.group.setExpanded(true);
-				treeView.getSelectionModel().select(newGroup);
-			} else {				
-				treeView.getRoot().getChildren().add(new TreeItem<Group>(group));
+			} else {						// if creating a new group
+				treeView.getRoot().getChildren().add(newGroup);
+				db.createGroup(nameField.getText(), 0, 0); // 0 is the id of the root group
 			}
-		} else {
+			treeView.getSelectionModel().select(newGroup);
+		} else {							// if editing a group
 			group.getValue().setName(nameField.getText());
 			group.getValue().setMembers(invited);
 		}
@@ -136,9 +137,14 @@ public class GroupPopupController {
 				for (String member : this.group.getValue().getMembers()) {
 					memberList.add(new CheckListObject(member));
 				}
-			} else {				
-				for (String member : treeView.getRoot().getValue().getMembers()) {
-					memberList.add(new CheckListObject(member));
+			} else {
+				ResultSet rs = db.getAllUsers();
+				try {
+					while (rs.next()) {
+						memberList.add(new CheckListObject(rs.getString(2)));
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
 				}
 			}
 			this.members.getChildren().add(members);

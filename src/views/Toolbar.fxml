@@ -15,7 +15,7 @@
   	
 	<HBox AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.bottomAnchor="5" spacing="5">
 		<Button id="toolbar-button" text="Home" prefHeight="60" prefWidth="60"
-			contentDisplay="top" cancelButton="true" focusTraversable="false">
+			contentDisplay="top" cancelButton="true" focusTraversable="false" onAction="#openHome">
 			<graphic>
 				<ImageView fitHeight="55" fitWidth="55" pickOnBounds="true"
 					preserveRatio="true">
@@ -24,7 +24,7 @@
 			</graphic>
 		</Button>
 		<Button id="toolbar-button" text="Notice" prefHeight="60" prefWidth="60"
-			contentDisplay="top" focusTraversable="false">
+			contentDisplay="top" focusTraversable="false" onAction="#openNotice">
 			<graphic>
 				<ImageView fitHeight="55" fitWidth="55" pickOnBounds="true"
 					preserveRatio="true">
@@ -33,7 +33,7 @@
 			</graphic>
 		</Button>
 		<Button id="toolbar-button" text="Profile" prefHeight="60" prefWidth="60"
-			contentDisplay="top" focusTraversable="false">
+			contentDisplay="top" focusTraversable="false" onAction="#openProfile">
 			<graphic>
 				<ImageView fitHeight="55" fitWidth="55" pickOnBounds="true"
 					preserveRatio="true">
@@ -42,7 +42,7 @@
 			</graphic>
 		</Button>
 		<Button id="toolbar-button" text="Logg out" prefHeight="60" prefWidth="60"
-			contentDisplay="top" focusTraversable="false">
+			contentDisplay="top" focusTraversable="false" onAction="#logOut">
 			<graphic>
 				<ImageView fitHeight="55" fitWidth="55" pickOnBounds="true"
 					preserveRatio="true">

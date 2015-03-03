@@ -15,8 +15,9 @@ public class Appointment {
 	ArrayList<String> members;
 	ArrayList<String> admins;
 	private String color;
+	private Group owner;
 	
-	public Appointment(String description, String location, LocalDate date, LocalTime startTime, LocalTime endTime, ArrayList<String> invited, ArrayList<String> members, ArrayList<String> admins, String color) {
+	public Appointment(String description, String location, LocalDate date, LocalTime startTime, LocalTime endTime, ArrayList<String> invited, ArrayList<String> members, ArrayList<String> admins, String color, Group owner) {
 		this.description = description;
 		this.location = location;
 		this.date = date;
@@ -26,6 +27,15 @@ public class Appointment {
 		this.members = members;
 		this.admins = admins;
 		this.color = color;
+		this.owner = owner;
+	}
+
+	public Group getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Group owner) {
+		this.owner = owner;
 	}
 
 	public String getDescription() {
@@ -98,6 +108,11 @@ public class Appointment {
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+	
+	@Override
+	public String toString() {
+		return "Appointment:\n" + description + "\n" + location + "\nTime: " + date + " " + startTime + "-" + endTime; 
 	}
 
 }

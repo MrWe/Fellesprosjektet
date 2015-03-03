@@ -1,8 +1,10 @@
 package gui;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import core.Group;
+import core.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,6 +20,7 @@ public class MainApp extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 	private BorderPane loginLayout;
+	private User user;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -90,7 +93,7 @@ public class MainApp extends Application {
 			AnchorPane register = (AnchorPane) loader.load();
 
 			// Set  overview into the center of root layout.
-			rootLayout.setCenter(register);
+			loginLayout.setCenter(register);
 			// Give the controller access to the main app.
 			RegisterController controller = loader.getController();
 			controller.setMainApp(this);
@@ -101,15 +104,16 @@ public class MainApp extends Application {
 
 	public void login() {
 		System.out.println("naa tryker jeg paa login");
+		user = new User("test", "Test");
 		loginLayout.setVisible(false);
 		initRootLayout();
 		showList();
 		showToolbar();
-		showCalendar();
+		showCalendar(new Group("", "0", new ArrayList<String>(), new ArrayList<String>()));
 		System.out.println("show list,toolbar,calendar happended");
 	}
 
-	public void showCalendar() {
+	public void showCalendar(Group group) {
 		try {
 			// Load overview.
 			FXMLLoader loader = new FXMLLoader();
@@ -122,7 +126,8 @@ public class MainApp extends Application {
 			// Give the controller access to the main app.
 			CalendarController controller = loader.getController();
 			controller.setMainApp(this);
-			controller.fillCalendar();
+			//group.addAppointment(new Appointment("hei", "du", LocalDate.now(), LocalTime.NOON, LocalTime.NOON, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), "FFFFFF"));
+			controller.fillCalendar(group);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -158,7 +163,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void showAppointmentPopup(CalendarSquarePane csp, AppointmentSquarePane asp) {
+	public void showAppointmentPopup(CalendarSquarePane csp, AppointmentSquarePane asp, Group group) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
@@ -179,7 +184,7 @@ public class MainApp extends Application {
 			popupStage.setScene(scene);
 			AppointmentPopupController controller = loader.getController();
 			controller.setPopupStage(popupStage);
-			controller.fillPopup(csp, asp);
+			controller.fillPopup(csp, asp, group);
 
 			// Show the dialog and wait until the user closes it
 			popupStage.showAndWait();

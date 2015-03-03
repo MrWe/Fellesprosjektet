@@ -109,7 +109,7 @@ public class MainApp extends Application {
 		initRootLayout();
 		showList();
 		showToolbar();
-		showCalendar(new Group("", new ArrayList<String>(), new ArrayList<String>()));
+		showCalendar(new Group("", "0", new ArrayList<String>(), new ArrayList<String>()));
 		System.out.println("show list,toolbar,calendar happended");
 	}
 

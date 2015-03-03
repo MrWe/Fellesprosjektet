@@ -2,9 +2,10 @@ package database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DBConnection {
-	
+
 	private DB db;
 
 	/**
@@ -13,14 +14,14 @@ public class DBConnection {
 	public DBConnection() {
 		db = new DB();
 	}
-	
+
 	public ResultSet login(String username) {
 		String q = "SELECT username, pswd FROM USER WHERE username = '"
 				+ username
 				+ "';";
 		return db.queryDB(q);
 	}
-	
+
 	public void registerUser(String username, String pswd, String fullName, String birthday, String email) {
 		String q = "INSERT INTO USER(username, pswd, fullName, birthday, email) VALUES ('"
 				+ username
@@ -35,10 +36,46 @@ public class DBConnection {
 				+ "');";
 		db.updateDB(q);
 	}
-	
+
 	public ResultSet getAllUsers() {
 		String q = "SELECT * FROM USER;";
 		return db.queryDB(q);
+	}
+
+	public ResultSet getAllGroups() {
+		String q = "SELECT * FROM USERGROUP;";
+		return db.queryDB(q);
+	}
+
+	public int getHighestGroupID() throws SQLException {
+		String q = "select MAX(usergroupID)from Calendar.USERGROUP;";
+		ResultSet rs = db.queryDB(q);
+		rs.next();
+		return Integer.parseInt(rs.getString(1));
+	}
+
+	public void createGroup(String groupName, int isPrivate, int superGroupID) {
+		String q = "INSERT INTO USERGROUP(isPrivate, groupName, USERGROUP_usergroupID) VALUES ('"
+				+ isPrivate
+				+ "','"
+				+ groupName
+				+ "','"
+				+ superGroupID
+				+ "');";
+		db.updateDB(q);
+	}
+
+	public void addGroupMembers(String groupName, ArrayList<String> members) {
+		for (String member : members) {
+			String q = "INSERT INTO USER_has_USERGROUP(groupAdmin, USER_userID, USERGROUP_usergroupID) VALUES ('"
+					+ 0
+					+ "',"
+					+ "(SELECT userID FROM Calendar.USER WHERE fullName = 'Kristoffer Lervik';)"
+					+ ",'"
+					+ groupName
+					+ "');";
+			db.updateDB(q);
+		}
 	}
 
 	/**
@@ -49,11 +86,11 @@ public class DBConnection {
 	 * @throws SQLException
 	 */
 	/*public ResultSet login(String brukernavn) throws SQLException {
-		
+
 		String q = ("select Brukernavn, Passord, Navn, Tlf, Epost, isAdmin from Admin where Brukernavn = '"
 				+ brukernavn 
 				+ "';");
-				
+
 		String q = ("INSERT INTO USER(username, pswd, fullName, birthday, email) VALUES('erik', 'kåre', 'Erik Kåre', '1995-01-22', 'lol@gmail.com');");
 		return db.sporDB(q);
 
@@ -178,7 +215,7 @@ public class DBConnection {
 
 		db.updateDB(q);
 	}
-	
+
 	/**
 	 * Legg inn gjenglemte ting
 	 * 
@@ -189,10 +226,10 @@ public class DBConnection {
 	 */
 	public void leggInnGjenglemteTing(String Navn, int rapportID, String koieID) throws SQLException {
 		String q = ("insert into Gjenglemt (Navn,RapportID,KoieID) values('" + Navn + "','" + rapportID + "','" + koieID + "');");
-		
+
 		db.updateDB(q);
 	}
-	
+
 	/**
 	 * Få et utstyrsID som matcher navn og Koie.
 	 * 
@@ -288,7 +325,7 @@ public class DBConnection {
 
 		return db.queryDB(q);
 	}
-	
+
 	/**
 	 * Returnerer en liste med datoer med laveste vedstatus for hver dag i synkende rekkefølge etter dato, starter etter innsendt dato
 	 * 
@@ -299,10 +336,10 @@ public class DBConnection {
 	 */
 	public ResultSet getDatoListe(String koieID, String dato) throws SQLException {
 		String q = ("select Dato, min(Vedstatus) from Rapport where Dato > '" + dato + "' and KoieRapportID = '" + koieID + "' group by Dato order by Dato desc limit 14;");
-		
+
 		return db.queryDB(q);
 	}
-	
+
 	/**
 	 * Returnerer liste med alt ødelagt utstyr på en koie
 	 * 
@@ -315,7 +352,7 @@ public class DBConnection {
 
 		return db.queryDB(q);
 	}
-	
+
 	/**
 	 * Returnerer en liste med gjenglemte ting på en koie
 	 * 
@@ -324,12 +361,12 @@ public class DBConnection {
 	 * @throws SQLException
 	 */
 	public ResultSet getGjenglemt(String koieID) throws SQLException {
-		
+
 		String q = ("select Navn from Gjenglemt where KoieID = '" + koieID + "';");
-		
+
 		return db.queryDB(q);
 	}
-	
+
 	/**
 	 * Fikser et utstyr 
 	 * 
@@ -340,11 +377,11 @@ public class DBConnection {
 	public void fixUtstyr(String koie, String tingnavn) throws SQLException {
 		String q = ("delete from ErOdelagt where UtstyrsID = (select distinct UtstyrsID from Utstyr where Navn = '" + tingnavn + "' and FraktesTilID = '" + koie + "');");
 		db.updateDB(q);
-		
+
 		q = ("update Utstyr set stat = '1' where Navn = '" + tingnavn + "' and FraktesTilID = '" + koie + "';");
 		db.updateDB(q);
 	}
-	
+
 	/**
 	 * Si ifra om at en ting er blitt funnet.
 	 * 
@@ -353,10 +390,10 @@ public class DBConnection {
 	 */
 	public void funnetTing(String ting) throws SQLException {
 		String q = ("delete from Gjenglemt where navn = '" + ting + "';");
-		
+
 		db.updateDB(q);
 	}
-	
+
 	/**
 	 * Oppdater dato for veddugnad i Koie 
 	 * 
@@ -366,10 +403,10 @@ public class DBConnection {
 	 */
 	public void datoVeddugnad(String koie, String dato) throws SQLException {
 		String q = ("update Koie set Veddugnad = '" + dato + "' where KoieID = '" + koie + "';");
-		
+
 		db.updateDB(q);
 	}
-	
+
 	/**
 	 * Få dato for veddugnad fra en Koie
 	 * 
@@ -379,10 +416,10 @@ public class DBConnection {
 	 */
 	public ResultSet getForrigeVeddugnad(String koie) throws SQLException {
 		String q = ("select Veddugnad from Koie where KoieID = '" + koie + "';");
-		
+
 		return db.queryDB(q);
 	}
-	
+
 	/**
 	 * Få alt utstyr fra ei Koie 
 	 * 
@@ -395,7 +432,7 @@ public class DBConnection {
 
 		return db.queryDB(q);
 	}
-	
+
 	/**
 	 * Returnerer en liste med eposter for innsendt dato.
 	 * 
@@ -405,10 +442,10 @@ public class DBConnection {
 	 */
 	public ResultSet getReservasjonsEpostIDag(String koieID, String dato){
 		String q = ("select Epost from Reservasjon where ReservertKoieID = '" + koieID + "' and Dato = '" + dato + "' order by Dato asc;");
-		
+
 		return db.queryDB(q);
 	}
-	
+
 	/**
 	 * Returnerer en liste med eposter for datoer fra innsendt dato.
 	 * 
@@ -418,7 +455,7 @@ public class DBConnection {
 	 */
 	public ResultSet getReservasjonsEpostFremover(String koieID, String dato){
 		String q = ("select Epost from Reservasjon where ReservertKoieID = '" + koieID + "' and Dato >= '" + dato + "' order by Dato asc;");
-		
+
 		return db.queryDB(q);
 	}
 }

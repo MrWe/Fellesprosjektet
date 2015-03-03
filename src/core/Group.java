@@ -6,13 +6,15 @@ import java.util.Arrays;
 public class Group {
 	
 	private String name;
+	private String supergroupID;
 	private ArrayList<String> members;
 	private ArrayList<String> admins;
 	private ArrayList<Group> subGroups;
 	private ArrayList<Appointment> appointments;
 	
-	public Group(String name, ArrayList<String> members, ArrayList<String> admins) {
+	public Group(String name, String supergroupID, ArrayList<String> members, ArrayList<String> admins) {
 		this.name = name;
+		this.supergroupID = supergroupID;
 		this.members = members;
 		this.admins = admins;
 		subGroups = new ArrayList<Group>();
@@ -25,6 +27,10 @@ public class Group {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getSupergroupID() {
+		return supergroupID;
 	}
 
 	public ArrayList<String> getMembers() {

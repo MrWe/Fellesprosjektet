@@ -1,5 +1,7 @@
 package gui;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javafx.beans.property.BooleanProperty;
@@ -18,6 +20,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import core.Group;
+import database.DBConnection;
 
 public class GroupPopupController {
 
@@ -32,10 +35,12 @@ public class GroupPopupController {
 	private boolean editingExisting;
 	private boolean createSub;
 	private TreeItem<Group> group;
+	private DBConnection db;
 
 	@FXML
 	private void initialize() {
 		//allMembers = new ArrayList<String>();
+		db = new DBConnection();
 	}
 
 	public void setPopupStage(Stage popupStage) {
@@ -56,22 +61,23 @@ public class GroupPopupController {
 		}
 		
 		ArrayList<String> invited = new ArrayList<String>();
-		for (CheckListObject clo : memberList) {
+		for (CheckListObject clo : memberList) {			// gets all the names that have been selected in the list of members
 			if (clo.getSelected()) {
 				invited.add(clo.getName());
 			}
 		}
-		if (!editingExisting) {
-			Group group = new Group(nameField.getText(), invited, invited);
+		if (!editingExisting) {				// if either creating a new group or a new subgroup
+			Group group = new Group(nameField.getText(), "0", invited, invited);
 			TreeItem<Group> newGroup = new TreeItem<Group>(group);
-			if (createSub) {
+			if (createSub) {				// if creating a new subgroup
 				this.group.getChildren().add(newGroup);
 				this.group.setExpanded(true);
-			} else {
+			} else {						// if creating a new group
 				treeView.getRoot().getChildren().add(newGroup);
+				db.createGroup(nameField.getText(), 0, 0); // 0 is the id of the root group
 			}
 			treeView.getSelectionModel().select(newGroup);
-		} else {
+		} else {							// if editing a group
 			group.getValue().setName(nameField.getText());
 			group.getValue().setMembers(invited);
 		}
@@ -131,9 +137,14 @@ public class GroupPopupController {
 				for (String member : this.group.getValue().getMembers()) {
 					memberList.add(new CheckListObject(member));
 				}
-			} else {				
-				for (String member : treeView.getRoot().getValue().getMembers()) {
-					memberList.add(new CheckListObject(member));
+			} else {
+				ResultSet rs = db.getAllUsers();
+				try {
+					while (rs.next()) {
+						memberList.add(new CheckListObject(rs.getString(2)));
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
 				}
 			}
 			this.members.getChildren().add(members);

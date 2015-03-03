@@ -24,7 +24,6 @@ public class CalendarController {
 	private void initialize() {
 	}
 
-
 	@SuppressWarnings("deprecation")
 	public void fillCalendar(Group group) {
 		for (int i = 0; i < 7; i++) { // sets contraints on each of the 7 columns

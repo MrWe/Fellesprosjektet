@@ -58,6 +58,7 @@ public class ListController {
 				mainApp.showCalendar(newValue.getValue());
 			}
 		});
+
 	}
 
 	public void setMainApp(MainApp mainApp) {

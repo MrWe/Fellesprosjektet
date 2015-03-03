@@ -103,14 +103,19 @@ public class MainApp extends Application {
 	}
 
 	public void login() {
-		System.out.println("naa tryker jeg paa login");
+		//System.out.println("naa tryker jeg paa login");
 		user = new User("test", "Test");
 		loginLayout.setVisible(false);
 		initRootLayout();
 		showList();
 		showToolbar();
+<<<<<<< HEAD
 		showCalendar(new Group("", "0", new ArrayList<String>(), new ArrayList<String>()));
 		System.out.println("show list,toolbar,calendar happended");
+=======
+		showCalendar(new Group("", new ArrayList<String>(), new ArrayList<String>()));
+		//System.out.println("show list,toolbar,calendar happended");
+>>>>>>> NotificationGui
 	}
 
 	public void showCalendar(Group group) {

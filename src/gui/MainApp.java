@@ -177,6 +177,19 @@ public class MainApp extends Application {
 		}
 	}
 	
+	public void showSettings(){
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("/views/Settings.fxml"));
+			AnchorPane settings = (AnchorPane) loader.load();
+
+			rootLayout.setCenter(settings);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void logOut(){
 		this.primaryStage.setTitle("Kalender");
 		initRootLayout();

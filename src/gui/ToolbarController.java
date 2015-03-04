@@ -32,7 +32,7 @@ public class ToolbarController {
 
 	@FXML
 	private void openSettings() {
-		//mainApp.showSettings();
+		mainApp.showSettings();
 		System.out.println("Opened Settings");
 	}
 

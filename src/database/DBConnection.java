@@ -114,7 +114,7 @@ public class DBConnection {
 	}
 
 	public int getHighestGroupID() throws SQLException {
-		String q = "select MAX(usergroupID)from Calendar.USERGROUP;";
+		String q = "select MAX(usergroupID)from USERGROUP;";
 		ResultSet rs = db.queryDB(q);
 		rs.next();
 		return Integer.parseInt(rs.getString(1));
@@ -139,6 +139,40 @@ public class DBConnection {
 				+ superGroupID
 				+ "');";
 		db.updateDB(q);
+	}
+	
+	// Add a new appointment
+	public void addAppointment(String description, String from, String to, String place, String appointmentType, int roomID, int usergroupID) {
+		String q = "INSERT INTO APPOINTMENT(description, timeFrom, timeTo, place, appointmentType, ROOM_roomID, USERGROUP_usergroupID) VALUES ('"
+				+ description
+				+ "','"
+				+ from
+				+ "','"
+				+ to
+				+ "','"
+				+ place
+				+ "','"
+				+ appointmentType
+				+ "','"
+				+ roomID
+				+ "','"
+				+ usergroupID
+				+ "');";
+		db.updateDB(q);
+	}
+	// Doesnt retrieve userID from calendar. Needs fix.
+	public void addAppointmentMembers(int appointmentID, ArrayList<String> members) {
+		for (String member : members) {
+			String q = "INSERT INTO APPOINTMENTMEMBERS(status, isAdmin, USER_userID, APPOINTMENT_appointmentID) VALUES ('"
+					+ "i',"
+					+ 0
+					+ ","
+					+ "(SELECT userID from Calendar.USER WHERE fullName =" + member + ";)"
+					+ ","
+					+ appointmentID
+					+ ");";
+			db.updateDB(q);
+		}
 	}
 
 	public void addGroupMembers(String groupName, ArrayList<String> members) throws SQLException {

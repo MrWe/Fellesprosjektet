@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import core.Appointment;
 import core.Group;
+import database.DBConnection;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -40,10 +41,17 @@ public class AppointmentPopupController {
 	@FXML private VBox members;
 	private boolean editingExisting;
 	private Group group;
+	private DBConnection db;
 
 	@FXML
 	private void initialize() {
+		db = new DBConnection();
 		allMembers = new ArrayList<String>(Arrays.asList("Kristoffer Lervik", "Trym Nilsen", "Hoang Hai Nguyen", "Erik Wiker", "Patricia Zemer", "Jens Stoltenberg", "Erna Solberg", "Kong Harald", "Madonna", "Will Smith", "Kanye West", "Julenissen", "Postman Pat"));
+	}
+	
+	private void addAppointment() {
+		db.addAppointment("Dette er en avtale", "2015-02-25 15:00:00", "2015-02-25 16:00:00",
+				"Skolen", "avtale", 1, 1);
 	}
 
 	public void setPopupStage(Stage popupStage) {
@@ -96,10 +104,10 @@ public class AppointmentPopupController {
 	private String isValidInput() {
 		String errorText = "";
 		if (descriptionField.getText().equals("")) {
-			errorText += "Beskrivelse kan ikke være tom\n";
+			errorText += "Beskrivelse kan ikke vï¿½re tom\n";
 		}
 		if (locationField.getText().equals("")) {
-			errorText += "Sted kan ikke være tom\n";
+			errorText += "Sted kan ikke vï¿½re tom\n";
 		}
 		if (!startTimeField.getText().matches("[0-9][0-9][:][0-9][0-9]")) {
 			errorText += "Ugyldig starttid\n";

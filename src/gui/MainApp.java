@@ -177,6 +177,13 @@ public class MainApp extends Application {
 		}
 	}
 	
+	public void logOut(){
+		this.primaryStage.setTitle("Kalender");
+		initRootLayout();
+		initLoginLayout();
+		showLogin();
+	}
+	
 	public void showAppointmentPopup(CalendarSquarePane csp, AppointmentSquarePane asp, Group group) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.

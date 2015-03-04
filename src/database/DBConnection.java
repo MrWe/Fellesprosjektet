@@ -104,6 +104,11 @@ public class DBConnection {
 		}
 	}
 	
+	public void setGroupMembers(String groupName, ArrayList<String> members) {
+		int groupID = getGroupID(groupName);
+		String q = "DELETE FROM USER_has_USERGROUP"
+	}
+	
 	public void editGroupName(String oldName, String newName) {
 		String q = "UPDATE USERGROUP SET groupName = '" + newName + "' WHERE groupName = '" + oldName + "';";
 		db.updateDB(q);

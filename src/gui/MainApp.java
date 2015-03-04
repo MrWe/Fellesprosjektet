@@ -257,7 +257,7 @@ public class MainApp extends Application {
 			GroupPopupController controller = loader.getController();
 			controller.setPopupStage(popupStage);
 			controller.setTreeView(treeView);
-			controller.fillPopup(group, createSub);
+			controller.fillPopup(group, createSub, this);
 			// Show the dialog and wait until the user closes it
 			popupStage.showAndWait();
 		} catch (IOException e) {

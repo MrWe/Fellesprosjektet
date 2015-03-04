@@ -33,10 +33,10 @@ public class ListController {
 				ResultSet groupMembersRS = db.getGroupMembers(AllGroupsRS.getString(1)); // gets all groupmembers of the current group
 				ArrayList<String> groupMembers = new ArrayList<String>();
 				while (groupMembersRS.next()) {
-					System.out.println(AllGroupsRS.getString(1) + " " + groupMembersRS.getString(1));
+					//System.out.println(AllGroupsRS.getString(1) + " " + groupMembersRS.getString(1));
 					groupMembers.add(groupMembersRS.getString(1));
 				}
-				System.out.println(groupMembers);
+				//System.out.println(groupMembers);
 				groups.put(AllGroupsRS.getString(1), new TreeItem<Group>(new Group(AllGroupsRS.getString(3), AllGroupsRS.getString(4), groupMembers, new ArrayList<String>())));
 			}
 			TreeItem<Group> root = groups.get("0"); // The root group is the one with usergroupID = 0
@@ -60,8 +60,10 @@ public class ListController {
 		treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Group>>() {
 			@Override
 			public void changed(ObservableValue<? extends TreeItem<Group>> observableValue, TreeItem<Group> oldValue, TreeItem<Group> newValue) {
-				//System.out.println(newValue);
 				// show the calendar of the chosen group
+				if (newValue == null) {
+					return;
+				}
 				mainApp.showCalendar(newValue.getValue());
 			}
 		});

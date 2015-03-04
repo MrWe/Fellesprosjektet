@@ -30,7 +30,7 @@
 		</VBox>
 		<HBox AnchorPane.bottomAnchor="7.5" AnchorPane.rightAnchor="5.0"
 			spacing="5">
-			<Button mnemonicParsing="false" onAction="#handleOk"
+			<Button fx:id="OKBtn" mnemonicParsing="false" onAction="#handleOk"
 				prefHeight="24.0" prefWidth="89.0" text="OK" defaultButton="true" />
 			<Button mnemonicParsing="false" onAction="#handleCancel"
 				prefHeight="24.0" prefWidth="89.0" text="Cancel" />

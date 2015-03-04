@@ -9,6 +9,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -32,6 +33,7 @@ public class GroupPopupController {
 	//private ArrayList<String> allMembers; //temporary until database is up
 	@FXML private VBox members;
 	@FXML private Text memberListText;
+	@FXML private Button OKBtn;
 	private TreeView<Group> treeView;
 	private boolean editingExisting;
 	private boolean createSub;
@@ -176,6 +178,11 @@ public class GroupPopupController {
 		} else {
 			editingExisting = false;
 			if (createSub) {
+				if (isPrivate) {
+					memberListText.setText("Kan ikke lage subgrupper av private grupper");
+					OKBtn.setDisable(true);
+					popupStage.close();
+				}
 				for (String member : this.group.getValue().getMembers()) {
 					memberList.add(new CheckListObject(member));
 				}

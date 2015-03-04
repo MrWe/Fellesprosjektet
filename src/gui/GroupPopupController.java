@@ -92,14 +92,13 @@ public class GroupPopupController {
 			treeView.getSelectionModel().select(newGroup);
 		} else {							// if editing a group
 			try {
-				db.editGroupName(group.getValue().getName(), nameField.getText());
-				db.setGroupMembers(nameField.getText(), invited);
+				db.editGroupName(group.getValue().getName(), nameField.getText());  // parameteres are oldName, newName
+				db.setGroupMembers(nameField.getText(), invited);					// deletes the current members of the group and adds all currently selected
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			group.getValue().setName(nameField.getText());
+			group.getValue().setName(nameField.getText());	// update values client-side as well
 			group.getValue().setMembers(invited);
-			treeView.getSelectionModel().select(group);
 		}
 		popupStage.close();
 	}

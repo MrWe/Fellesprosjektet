@@ -34,6 +34,10 @@ public class MainApp extends Application {
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
+	
+	public User getUser() {
+		return user;
+	}
 
 	public void initRootLayout() {
 		try {
@@ -102,8 +106,8 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void login() {
-		user = new User("test", "Test");
+	public void login(String username) {
+		user = new User(username);
 		loginLayout.setVisible(false);
 		initRootLayout();
 		showList();
@@ -159,6 +163,7 @@ public class MainApp extends Application {
 
 			ListController controller = loader.getController();
 			controller.setMainApp(this);
+			controller.init2();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

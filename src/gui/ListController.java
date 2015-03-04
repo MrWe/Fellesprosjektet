@@ -21,14 +21,16 @@ public class ListController {
 	@FXML private TreeView<Group> treeView;
 
 	@FXML
-	private void initialize() {
+	private void initialize() { // can't use this method since it is called before mainApp is set
+	}
+	
+	public void init2() {
 		db = new DBConnection();
-		ResultSet AllGroupsRS = db.getAllGroups();
+		ResultSet AllGroupsRS = db.getAllGroupsOfUser(mainApp.getUser().getUsername());
 		Map<String, TreeItem<Group>> groups = new HashMap<String, TreeItem<Group>>(); // HashMap that contains the usergroupID of a group and a TreeItem containing the group
 		try {
 			while (AllGroupsRS.next()) { // fills the HashMap with all the groups from the database
-				// TODO add group members registered in database
-				ResultSet groupMembersRS = db.getGroupMembers(AllGroupsRS.getString(1));
+				ResultSet groupMembersRS = db.getGroupMembers(AllGroupsRS.getString(1)); // gets all groupmembers of the current group
 				ArrayList<String> groupMembers = new ArrayList<String>();
 				while (groupMembersRS.next()) {
 					System.out.println(AllGroupsRS.getString(1) + " " + groupMembersRS.getString(1));
@@ -58,12 +60,11 @@ public class ListController {
 		treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Group>>() {
 			@Override
 			public void changed(ObservableValue<? extends TreeItem<Group>> observableValue, TreeItem<Group> oldValue, TreeItem<Group> newValue) {
-				System.out.println(newValue);
+				//System.out.println(newValue);
 				// show the calendar of the chosen group
 				mainApp.showCalendar(newValue.getValue());
 			}
 		});
-
 	}
 
 	public void setMainApp(MainApp mainApp) {

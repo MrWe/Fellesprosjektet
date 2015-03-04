@@ -79,6 +79,28 @@ public class DBConnection {
 		String q = "SELECT * FROM USERGROUP;";
 		return db.queryDB(q);
 	}
+	
+	public ResultSet getAllGroupsOfUser(String username) {
+		String q = "select usergroupID, isPrivate, groupName, Calendar.USERGROUP.USERGROUP_usergroupID "
+				+ "from Calendar.USER inner join Calendar.USER_has_USERGROUP inner join Calendar.USERGROUP "
+				+ "where Calendar.USER.userID = Calendar.USER_has_USERGROUP.USER_userID "
+				+ "AND Calendar.USERGROUP.usergroupID = Calendar.USER_has_USERGROUP.USERGROUP_usergroupID "
+				+ "AND username = '" + username + "';";
+		return db.queryDB(q);
+	}
+	
+	public static void main(String[] args) {
+		DBConnection db = new DBConnection();
+		ResultSet rs = db.getAllGroupsOfUser("hoanghn");
+		try {
+			while (rs.next()) {
+				System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public int getHighestGroupID() throws SQLException {
 		String q = "select MAX(usergroupID)from Calendar.USERGROUP;";
@@ -97,14 +119,6 @@ public class DBConnection {
 		return Integer.parseInt(rs.getString(1));
 	}
 	
-	public static void main(String[] args) {
-		DBConnection db = new DBConnection();
-		try {
-		System.out.println(db.getGroupID("Fellesprosjektet"));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public void createGroup(String groupName, int isPrivate, int superGroupID) {
 		String q = "INSERT INTO USERGROUP(isPrivate, groupName, USERGROUP_usergroupID) VALUES ('"

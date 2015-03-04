@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.net.*?>
+<?import java.lang.*?>
+
+<AnchorPane prefWidth="1000.0" xmlns="http://javafx.com/javafx/8"
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ToolbarController">
+	<stylesheets>
+		<URL value="@/styles/controlStyle.css" />
+	</stylesheets>
+	<children>
+
+		<HBox spacing="5" AnchorPane.bottomAnchor="5"
+			AnchorPane.leftAnchor="10" AnchorPane.topAnchor="10">
+			<children>
+				<HBox spacing="5">
+					<children>
+						<Button id="toolbar-button" cancelButton="true"
+							contentDisplay="top" focusTraversable="false" onAction="#openHome"
+							prefHeight="60" prefWidth="60" text="Home">
+							<graphic>
+								<ImageView fitHeight="55" fitWidth="55" pickOnBounds="true"
+									preserveRatio="true">
+									<image>
+										<Image url="Images/home_icon.png" />
+									</image>
+								</ImageView>
+							</graphic>
+						</Button>
+						<Button id="toolbar-button" contentDisplay="top"
+							focusTraversable="false" onAction="#openNotice" prefHeight="60"
+							prefWidth="60" text="Notice">
+							<graphic>
+								<ImageView fitHeight="55" fitWidth="55" pickOnBounds="true"
+									preserveRatio="true">
+									<image>
+										<Image url="Images/noti_icon.png" />
+									</image>
+								</ImageView>
+							</graphic>
+						</Button>
+						<Button id="toolbar-button" contentDisplay="top"
+							focusTraversable="false" onAction="#logOut" prefHeight="60"
+							prefWidth="60" text="Logg out">
+							<graphic>
+								<ImageView fitHeight="55" fitWidth="55" pickOnBounds="true"
+									preserveRatio="true">
+									<image>
+										<Image url="Images/logout_icon.png" />
+									</image>
+								</ImageView>
+							</graphic>
+						</Button>
+					</children>
+				</HBox>
+				<HBox>
+					<children>
+						<Button id="toolbar-button" contentDisplay="top"
+							focusTraversable="false" onAction="#logOut" prefHeight="60"
+							prefWidth="60" text="Settings">
+							<graphic>
+								<ImageView fitHeight="55" fitWidth="55" pickOnBounds="true"
+									preserveRatio="true">
+									<image>
+										<Image url="Images/setting_icon.png" />
+									</image>
+								</ImageView>
+							</graphic>
+						</Button>
+					</children>
+				</HBox>
+			</children>
+		</HBox>
+		<Separator orientation="horizontal" AnchorPane.bottomAnchor="0"
+			AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+			AnchorPane.topAnchor="105" />
+	</children>
+</AnchorPane>

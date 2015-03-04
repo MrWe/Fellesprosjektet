@@ -103,14 +103,12 @@ public class MainApp extends Application {
 	}
 
 	public void login() {
-		System.out.println("naa tryker jeg paa login");
 		user = new User("test", "Test");
 		loginLayout.setVisible(false);
 		initRootLayout();
 		showList();
 		showToolbar();
 		showCalendar(new Group("", "0", new ArrayList<String>(), new ArrayList<String>()));
-		System.out.println("show list,toolbar,calendar happended");
 	}
 
 	public void showCalendar(Group group) {
@@ -137,11 +135,14 @@ public class MainApp extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("/views/Toolbar.fxml"));
+			
+			
 			AnchorPane toolbar = (AnchorPane) loader.load();
 
 			rootLayout.setTop(toolbar);
 
 			ToolbarController controller = loader.getController();
+
 			controller.setMainApp(this);
 		} catch (IOException e) {
 			e.printStackTrace();

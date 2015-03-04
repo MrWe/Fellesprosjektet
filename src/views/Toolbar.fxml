@@ -1,59 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
 <?import java.net.*?>
 <?import java.lang.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="gui.ToolbarController">	
-  	<stylesheets>
-    <URL value="@/styles/controlStyle.css" />
-  	</stylesheets>
-  	
-	<HBox AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.bottomAnchor="5" spacing="5">
-		<Button id="toolbar-button" text="Home" prefHeight="60" prefWidth="60"
-			contentDisplay="top" cancelButton="true" focusTraversable="false" onAction="#openHome">
-			<graphic>
-				<ImageView fitHeight="55" fitWidth="55" pickOnBounds="true"
-					preserveRatio="true">
-					<Image url="Images/home_icon.png" />
-				</ImageView>
-			</graphic>
-		</Button>
-		<Button id="toolbar-button" text="Notice" prefHeight="60" prefWidth="60"
-			contentDisplay="top" focusTraversable="false" onAction="#openNotice">
-			<graphic>
-				<ImageView fitHeight="55" fitWidth="55" pickOnBounds="true"
-					preserveRatio="true">
-					<Image url="Images/noti_icon.png" />
-				</ImageView>
-			</graphic>
-		</Button>
-		<Button id="toolbar-button" text="Profile" prefHeight="60" prefWidth="60"
-			contentDisplay="top" focusTraversable="false" onAction="#openProfile">
-			<graphic>
-				<ImageView fitHeight="55" fitWidth="55" pickOnBounds="true"
-					preserveRatio="true">
-					<Image url="Images/profile_icon.png" />
-				</ImageView>
-			</graphic>
-		</Button>
-		<Button id="toolbar-button" text="Logg out" prefHeight="60" prefWidth="60"
-			contentDisplay="top" focusTraversable="false" onAction="#logOut">
-			<graphic>
-				<ImageView fitHeight="55" fitWidth="55" pickOnBounds="true"
-					preserveRatio="true">
-					<Image url="Images/logout_icon.png" />
-				</ImageView>
-			</graphic>
-		</Button>
-	</HBox>
-	<Separator orientation="horizontal" AnchorPane.topAnchor="105" 
-		AnchorPane.leftAnchor="0"
-		AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0" 
-		/>
-</AnchorPane>
+<AnchorPane prefHeight="100.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ToolbarController">
+	<stylesheets>
+		<URL value="@/styles/controlStyle.css" />
+	</stylesheets>
+	<children>
+		<HBox prefHeight="60.0" prefWidth="1280.0" spacing="5.0">
+			<children>
+				<Button id="toolbar-button" cancelButton="true" contentDisplay="top" focusTraversable="false" onAction="#openHome" prefHeight="60.0" prefWidth="60.0" text="Home">
+					<graphic>
+						<ImageView fitHeight="55" fitWidth="55" pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="Images/home_icon.png" />
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
 
+				<Button id="toolbar-button" cancelButton="true" contentDisplay="top" focusTraversable="false" onAction="#openNotice" prefHeight="60.0" prefWidth="60.0" text="Notice">
+					<graphic>
+						<ImageView fitHeight="55" fitWidth="55" pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="Images/noti_icon.png" />
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+
+				<Button id="toolbar-button" cancelButton="true" contentDisplay="top" focusTraversable="false" onAction="#logOut" prefHeight="60.0" prefWidth="60.0" text="Log out">
+					<graphic>
+						<ImageView fitHeight="55" fitWidth="55" pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="Images/logout_icon.png" />
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+
+				<HBox alignment="TOP_RIGHT" prefHeight="60.0" prefWidth="1077.0">
+					<children>
+						<Button id="toolbar-button" cancelButton="true" contentDisplay="top" focusTraversable="false" onAction="#openSettings" prefHeight="60.0" prefWidth="60.0" text="Settings">
+							<graphic>
+								<ImageView fitHeight="55" fitWidth="55" pickOnBounds="true" preserveRatio="true">
+									<image>
+										<Image url="Images/setting_icon.png" />
+									</image>
+								</ImageView>
+							</graphic>
+						</Button>
+					</children>
+				</HBox>
+			</children>
+			<padding>
+				<Insets left="5.0" top="5.0" />
+			</padding>
+		</HBox>
+      <Separator layoutY="99.0" prefHeight="1.0" prefWidth="1280.0" />
+	</children>
+</AnchorPane>

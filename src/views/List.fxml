@@ -11,22 +11,13 @@
 
 <AnchorPane stylesheets="@../../bin/styles/listStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ListController">
    <children>
-   
-   	<VBox AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="-2">
-      <children>
-      		<HBox>
-         <children>
-         			<Label id="white-text" text="MY GROUPS">
+			<Label id="white-text" prefHeight="30.0" text="MY GROUPS" AnchorPane.topAnchor="0.0">
 			</Label>
-         </children>
-      		</HBox>
-      
-            		<TreeView fx:id="treeView" focusTraversable="false" />
-      </children>
-   	</VBox>
+
+                  		<TreeView fx:id="treeView" focusTraversable="false" prefWidth="250.0" AnchorPane.bottomAnchor="81.0" AnchorPane.topAnchor="30.0" />
    
-               	<Separator orientation="vertical" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="-3" />
-   	<Separator orientation="horizontal" AnchorPane.bottomAnchor="100" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" />
+               	<Separator orientation="vertical" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="-3" />
+   	<Separator orientation="horizontal" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" />
    
                	<HBox AnchorPane.bottomAnchor="40.0">
       <children>

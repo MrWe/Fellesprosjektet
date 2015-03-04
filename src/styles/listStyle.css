@@ -15,7 +15,8 @@
     }
 
 .button:hover {
-    -fx-background-color : #01579B;
+    -fx-background-color : #FFFFFF;
+    -fx-text-fill        : #000000;
     }
 
 #white-text{
@@ -45,13 +46,13 @@
 }
 
 .tree-view{
-	-fx-border-style: none;
+	-fx-border-width: 0;
 }
 
 .tree-cell{
 	-fx-padding: 10 0 10 30;
-	-fx-background-color:#FFFFFF;
-	-fx-text-fill:#000000;
+	-fx-background-color:#000000;
+	-fx-text-fill:#FFFFFF;
 	-fx-border-color: #000000;
 	-fx-border-width: 0;
 }

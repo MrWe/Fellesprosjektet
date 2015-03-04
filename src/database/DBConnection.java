@@ -104,20 +104,24 @@ public class DBConnection {
 		}
 	}
 	
-	public void setGroupMembers(String groupName, ArrayList<String> members) {
+	public void setGroupMembers(String groupName, ArrayList<String> members) throws SQLException {
 		int groupID = getGroupID(groupName);
-		String q = "DELETE FROM USER_has_USERGROUP"
+		String q = "DELETE FROM USER_has_USERGROUP WHERE usergroupID='"
+				+ groupID
+				+"';";
+		db.updateDB(q);
+		addGroupMembers(groupName, members);
 	}
 	
 	public void editGroupName(String oldName, String newName) {
 		String q = "UPDATE USERGROUP SET groupName = '" + newName + "' WHERE groupName = '" + oldName + "';";
 		db.updateDB(q);
 	}
-	
-	public static void main(String[] args) {
-		DBConnection db = new DBConnection();
-		db.editGroupName("Abakus2", "AbakusTest");
-	}
+//	
+//	public static void main(String[] args) {
+//		DBConnection db = new DBConnection();
+//		db.editGroupName("Abakus2", "AbakusTest");
+//	}
 
 	/**
 	 * Returnerer et ResultSet med brukerinfo som hører til brukernavnet til den som prøver å logge inn

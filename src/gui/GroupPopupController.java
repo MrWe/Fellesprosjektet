@@ -90,7 +90,12 @@ public class GroupPopupController {
 			}
 			treeView.getSelectionModel().select(newGroup);
 		} else {							// if editing a group
-			db.editGroupName(group.getValue().getName(), nameField.getText());
+			try {
+				db.editGroupName(group.getValue().getName(), nameField.getText());
+				db.setGroupMembers(nameField.getText(), invited);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			group.getValue().setName(nameField.getText());
 			group.getValue().setMembers(invited);
 			treeView.getSelectionModel().select(group);
@@ -155,7 +160,7 @@ public class GroupPopupController {
 				ResultSet rs = db.getAllUsers();
 				try {
 					while (rs.next()) {
-						memberList.add(new CheckListObject(rs.getString(2)));
+						memberList.add(new CheckListObject(rs.getString(4)));
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();

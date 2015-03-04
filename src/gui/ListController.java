@@ -27,6 +27,7 @@ public class ListController {
 		Map<String, TreeItem<Group>> groups = new HashMap<String, TreeItem<Group>>(); // HashMap that contains the usergroupID of a group and a TreeItem containing the group
 		try {
 			while (rs.next()) { // fills the HashMap with all the groups from the database
+				// TODO add group members registered in database
 				groups.put(rs.getString(1), new TreeItem<Group>(new Group(rs.getString(3), rs.getString(4), new ArrayList<String>(), new ArrayList<String>())));
 			}
 			TreeItem<Group> root = groups.get("0"); // The root group is the one with usergroupID = 0

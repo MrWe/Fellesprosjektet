@@ -9,41 +9,32 @@
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane stylesheets="@../../bin/styles/listStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ListController">
-   <children>
-   
-   	<VBox AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="-2">
-      <children>
-      		<HBox>
-         <children>
-         			<Label text="MY GROUPS">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	stylesheets="@../../bin/styles/listStyle.css"
+	 fx:controller="gui.ListController">
+
+	<VBox AnchorPane.topAnchor="-2" AnchorPane.leftAnchor="0"
+		AnchorPane.rightAnchor="0">
+		<HBox id="grey-bg">
+			<Label text="MY GROUPS" id="white-text">
 			</Label>
-         </children>
-      		</HBox>
-      
-      		<TreeView fx:id="treeView" focusTraversable="false" prefHeight="525.0" prefWidth="250.0" />
-         
-               	<HBox prefHeight="40.0" prefWidth="248.0">
-            <children>
-                  <HBox prefHeight="40.0" prefWidth="200.0">
-                     <children>
-                  		<Button maxHeight="40.0" minWidth="250.0" mnemonicParsing="false" onAction="#newGroup" prefHeight="40.0" styleClass="bigFont" text="Ny Group">
+		</HBox>
+
+		<TreeView fx:id="treeView" focusTraversable="false" />
+	</VBox>
+
+	<Separator orientation="vertical" AnchorPane.rightAnchor="0"
+		AnchorPane.topAnchor="-3" AnchorPane.bottomAnchor="0" />
+	<Separator orientation="horizontal" AnchorPane.rightAnchor="0"
+		AnchorPane.leftAnchor="0" AnchorPane.bottomAnchor="100" />
+
+	<HBox AnchorPane.bottomAnchor="50">
+		<Button maxHeight="40.0" minWidth="180.0" mnemonicParsing="false"
+			prefHeight="40.0" styleClass="bigFont" text="Ny Group" onAction="#newGroup">
 		</Button>
-                     </children>
-                  </HBox>
-            </children>
-         	</HBox>
-            <HBox prefHeight="40.0" prefWidth="200.0">
-               <children>
-            		<Button focusTraversable="false" onAction="#editGroup" prefHeight="40.0" prefWidth="125.0" text="Endre gruppe" />
-            		<Button focusTraversable="false" onAction="#newSubGroup" prefHeight="40.0" prefWidth="125.0" text="Ny subgruppe" />
-               </children>
-            </HBox>
-      </children>
-   	</VBox>
-   
-   	<Separator orientation="vertical" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="-3" />
-   	<Separator layoutX="-6.0" layoutY="799.0" orientation="horizontal" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="-6.0" AnchorPane.rightAnchor="6.0" />
-   </children>
+		<Button focusTraversable="false" text="Endre gruppe" onAction="#editGroup" />
+		<Button focusTraversable="false" text="Ny subgruppe" onAction="#newSubGroup" />
+	</HBox>
 
 </AnchorPane>
+

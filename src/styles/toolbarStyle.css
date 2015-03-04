@@ -3,23 +3,19 @@
     src: url('texgyreadventor-regular.otf');
 }
 .thebackground {
-    -fx-background-color : #7FFFD4 ;
+    -fx-background-color : #000000;
 }
 
 .button {
-    -fx-background-color : #00C78C;
-    -fx-text-fill        : #DBFEF8 ;
-    -fx-font-weight      : 900;
+    -fx-background-color : #af392b;
+    -fx-text-fill        : #000000;
+    -fx-font-size		 : 11 pt;
+    -fx-font-weight      : 600;
     }
 
 .button:hover {
     -fx-background-color : #01579B;
     }
-    
-.label{
-	-fx-text-fill        : #DBFEF8;
-	-fx-fill: #DBFEF;
-}
 
 #white-text{
 	-fx-font: 20pt BOLD;
@@ -47,5 +43,26 @@
 	-fx-text-fill:#000000;
 }
 
+.tree-view{
+	-fx-border-style: none;
+}
+
+.tree-cell{
+	-fx-padding: 10 0 10 30;
+	-fx-background-color:#e7e7e7;
+	-fx-text-fill:#000000;
+	-fx-border-color: #FFFFFF;
+	-fx-border-width: 0.2;
+}
+
+.tree-cell:hover {
+    -fx-background-color: #000000 ;
+    -fx-text-fill: #FFFFFF ;
+}
+
+.tree-cell:hover .highlight-on-hover {
+    -fx-background-color: #000000 ;
+    -fx-text-fill: #FFFFFF ;
+}
 
  /*  -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 ); */

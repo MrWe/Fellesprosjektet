@@ -9,7 +9,8 @@
 	prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8"
 	xmlns:fx="http://javafx.com/fxml/1"
 	style= "-fx-background-color: 
-	#FFFFFF;"
+	#292929;"
+	
 >
 		
 </BorderPane>

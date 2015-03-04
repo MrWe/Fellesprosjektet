@@ -2,12 +2,20 @@
     font-family: BestFont;
     src: url('texgyreadventor-regular.otf');
 }
-
-#toolbar-button {
-    -fx-font: 10pt "BestFont";
-   	-fx-background-color: #383838;
-    -fx-text-fill: #FFFFFF;
+.thebackground {
+    -fx-background-color : #000000;
 }
+
+.button {
+    -fx-background-color : #af392b;
+    -fx-text-fill        : #000000;
+    -fx-font-size		 : 11 pt;
+    -fx-font-weight      : 600;
+    }
+
+.button:hover {
+    -fx-background-color : #01579B;
+    }
 
 #white-text{
 	-fx-font: 20pt BOLD;

@@ -9,30 +9,32 @@
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" 
-	xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	stylesheets="@../../bin/styles/listStyle.css"
-	fx:controller="gui.ListController">
+	 fx:controller="gui.ListController">
 
-	<VBox AnchorPane.topAnchor="-2" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
-		<HBox id ="grey-bg">
-			<Label text="MY GROUPS" id = "white-text">
+	<VBox AnchorPane.topAnchor="-2" AnchorPane.leftAnchor="0"
+		AnchorPane.rightAnchor="0">
+		<HBox id="grey-bg">
+			<Label text="MY GROUPS" id="white-text">
 			</Label>
 		</HBox>
-		
-		<TreeView fx:id="treeView" focusTraversable="false"/>
+
+		<TreeView fx:id="treeView" focusTraversable="false" />
 	</VBox>
-	
+
 	<Separator orientation="vertical" AnchorPane.rightAnchor="0"
 		AnchorPane.topAnchor="-3" AnchorPane.bottomAnchor="0" />
 	<Separator orientation="horizontal" AnchorPane.rightAnchor="0"
 		AnchorPane.leftAnchor="0" AnchorPane.bottomAnchor="100" />
-		
-	<HBox AnchorPane.bottomAnchor="50">	
-		<Button focusTraversable="false" text="Ny gruppe" onAction="#newGroup" />
+
+	<HBox AnchorPane.bottomAnchor="50">
+		<Button maxHeight="40.0" minWidth="180.0" mnemonicParsing="false"
+			prefHeight="40.0" styleClass="bigFont" text="Ny Group" onAction="#newGroup">
+		</Button>
 		<Button focusTraversable="false" text="Endre gruppe" onAction="#editGroup" />
 		<Button focusTraversable="false" text="Ny subgruppe" onAction="#newSubGroup" />
 	</HBox>
-	
+
 </AnchorPane>
 

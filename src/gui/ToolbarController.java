@@ -38,6 +38,7 @@ public class ToolbarController {
 
 	@FXML
 	private void logOut() {
+		mainApp.logOut();
 		System.out.println("Logged Out");
 	}
 }

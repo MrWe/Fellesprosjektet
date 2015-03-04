@@ -95,6 +95,14 @@ public class DBConnection {
 		String q = "SELECT * FROM USERGROUP;";
 		return db.queryDB(q);
 	}
+	
+	public ResultSet getPrivateGroup(String username) {
+		String q = "select usergroupID, groupName from Calendar.USER inner join Calendar.USER_has_USERGROUP inner join Calendar.USERGROUP "
+				+ "where userID = USER_userID and usergroupID = USER_has_USERGROUP.USERGROUP_usergroupID "
+				+ "and isPrivate = 1 "
+				+ "and username = '" + username + "';";
+		return db.queryDB(q);
+	}
 
 	public ResultSet getAllGroupsOfUser(String username) {
 		String q = "SELECT usergroupID, isPrivate, groupName, Calendar.USERGROUP.USERGROUP_usergroupID "
@@ -173,6 +181,10 @@ public class DBConnection {
 		String q = "UPDATE USERGROUP SET groupName = '" + newName + "' WHERE groupName = '" + oldName + "';";
 		db.updateDB(q);
 	}
+
+	////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Returnerer et ResultSet som sier hvor mange reservasjoner det er på en koie på en bestemt dato

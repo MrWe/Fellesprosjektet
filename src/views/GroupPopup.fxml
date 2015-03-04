@@ -25,7 +25,7 @@
 		</VBox>
 		<VBox spacing="5" AnchorPane.topAnchor="0"
 			AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="40" prefWidth="150">
-			<Label text="Inviter medlemmer" />
+			<Text fx:id="memberListText" text="Inviter medlemmer" />
 			<VBox fx:id="members" />
 		</VBox>
 		<HBox AnchorPane.bottomAnchor="7.5" AnchorPane.rightAnchor="5.0"

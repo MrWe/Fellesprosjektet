@@ -9,7 +9,9 @@
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane xmlns="http://javafx.com/javafx/8" 
+	xmlns:fx="http://javafx.com/fxml/1"
+	stylesheets="@../../bin/styles/listStyle.css"
 	fx:controller="gui.ListController">
 
 	<VBox AnchorPane.topAnchor="-2" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
@@ -31,8 +33,6 @@
 		<Button focusTraversable="false" text="Endre gruppe" onAction="#editGroup" />
 		<Button focusTraversable="false" text="Ny subgruppe" onAction="#newSubGroup" />
 	</HBox>
-	<stylesheets>
-    <URL value="@/styles/controlStyle.css" />
-  	</stylesheets>
+	
 </AnchorPane>
 

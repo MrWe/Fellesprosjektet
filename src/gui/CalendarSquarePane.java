@@ -31,7 +31,7 @@ public class CalendarSquarePane extends Pane {
 		text = new Text(date);
 		text.setLayoutX(5);
 		text.setLayoutY(15);
-		text.setFill(Color.WHITE);
+		text.setFill(Color.rgb(06, 84, 81));
 		this.getChildren().add(text);
 		
 		List<Appointment> listAppointments = new ArrayList<Appointment>();					// ignore this stuff

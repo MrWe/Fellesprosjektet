@@ -184,7 +184,8 @@ public class MainApp extends Application {
 			AnchorPane settings = (AnchorPane) loader.load();
 
 			rootLayout.setCenter(settings);
-
+			SettingsController controller = loader.getController();
+			controller.setMainApp(this);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

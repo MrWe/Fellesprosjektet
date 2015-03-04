@@ -15,8 +15,8 @@
 	-fx-font: 20pt BOLD;
 	-fx-text-fill: #FFFFFF;
 	-fx-text-alignment: "CENTER";
-	
 }
+
 
 #grey-bg{
 	-fx-background-color: #5a5a5b;
@@ -25,9 +25,7 @@
 .separator *.line { 
 	-fx-border-style: solid;
 	-fx-border-width: 1px;
-
 }
-
 
 #sep {
 	-fx-background-color: #FFFF00;

@@ -1,6 +1,9 @@
 package gui;
 
+import java.util.ArrayList;
+
 import javafx.fxml.FXML;
+import core.Group;
 
 public class ToolbarController {
 
@@ -17,21 +20,25 @@ public class ToolbarController {
 
 	@FXML
 	private void openHome() {
-
+		mainApp.showCalendar(new Group("", "0", new ArrayList<String>(), new ArrayList<String>()));
+		System.out.println("Opened Home");
 	}
 
 	@FXML
 	private void openNotice() {
-
+		mainApp.showNotification();
+		System.out.println("Opened Notice");
 	}
 
 	@FXML
 	private void openSettings() {
-
+		mainApp.showSettings();
+		System.out.println("Opened Settings");
 	}
 
 	@FXML
 	private void logOut() {
-
+		mainApp.logOut();
+		System.out.println("Logged Out");
 	}
 }

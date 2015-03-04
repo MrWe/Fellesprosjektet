@@ -163,7 +163,20 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	public void showNotification(){
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("/views/Notification.fxml"));
+			AnchorPane notification = (AnchorPane) loader.load();
 
+			rootLayout.setCenter(notification);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void showAppointmentPopup(CalendarSquarePane csp, AppointmentSquarePane asp, Group group) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.

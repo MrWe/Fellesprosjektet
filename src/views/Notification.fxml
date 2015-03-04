@@ -9,32 +9,30 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0"
-	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="gui.NotificationController">
+<AnchorPane prefHeight="500.0" prefWidth="700.0" stylesheets="@../../bin/styles/settingsStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.NotificationController">
 	<children>
 		<VBox prefHeight="500.0" prefWidth="700.0">
 			<children>
 				<HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0">
 					<children>
-						<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Today">
+						<Text id="bold-white-text" strokeType="OUTSIDE" strokeWidth="0.0" text="Today">
 							<HBox.margin>
 								<Insets left="20.0" />
 							</HBox.margin>
 						</Text>
 						<HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="643.0">
 							<children>
-								<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Accept">
+								<Text id="fill-white" strokeType="OUTSIDE" strokeWidth="0.0" text="Accept">
 									<HBox.margin>
 										<Insets right="20.0" />
 									</HBox.margin>
 								</Text>
-								<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Decline">
+								<Text id="fill-white" strokeType="OUTSIDE" strokeWidth="0.0" text="Decline">
 									<HBox.margin>
 										<Insets right="20.0" />
 									</HBox.margin>
 								</Text>
-								<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+								<Text id="fill-white" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
 									<HBox.margin>
 										<Insets right="20.0" />
 									</HBox.margin>
@@ -45,17 +43,17 @@
 				</HBox>
 				<HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
 					<children>
-						<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time">
+						<Text id="fill-white" strokeType="OUTSIDE" strokeWidth="0.0" text="Time">
 							<HBox.margin>
 								<Insets left="50.0" />
 							</HBox.margin>
 						</Text>
-						<Line endY="40.0" startY="10.0">
+						<Line id="fill-white" endY="40.0" fill="WHITE" startY="10.0" stroke="WHITE">
 							<HBox.margin>
 								<Insets left="40.0" />
 							</HBox.margin>
 						</Line>
-						<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description">
+						<Text id="fill-white" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Description">
 							<HBox.margin>
 								<Insets left="20.0" />
 							</HBox.margin>
@@ -64,20 +62,18 @@
 							<children>
 								<ImageView fitHeight="30.0" fitWidth="30.0">
 									<image>
-										<Image
-											url="@../../../../Fellesprosjektet/Design/Icon/decline_icon.png" />
+										<Image url="@../../../../Fellesprosjektet/Design/Icon/check_icon.png" />
 									</image>
 									<HBox.margin>
-										<Insets right="33.0" />
+										<Insets right="28.0" />
 									</HBox.margin>
 								</ImageView>
 								<ImageView fitHeight="30.0" fitWidth="30.0">
 									<image>
-										<Image
-											url="@../../../../Fellesprosjektet/Design/Icon/check_icon.png" />
+										<Image url="@../../../../Fellesprosjektet/Design/Icon/decline_icon.png" />
 									</image>
 									<HBox.margin>
-										<Insets right="28.0" />
+										<Insets right="33.0" />
 									</HBox.margin>
 								</ImageView>
 								<CheckBox mnemonicParsing="false">

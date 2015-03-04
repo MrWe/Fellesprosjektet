@@ -23,12 +23,19 @@ public class ListController {
 	@FXML
 	private void initialize() {
 		db = new DBConnection();
-		ResultSet rs = db.getAllGroups();
+		ResultSet AllGroupsRS = db.getAllGroups();
 		Map<String, TreeItem<Group>> groups = new HashMap<String, TreeItem<Group>>(); // HashMap that contains the usergroupID of a group and a TreeItem containing the group
 		try {
-			while (rs.next()) { // fills the HashMap with all the groups from the database
+			while (AllGroupsRS.next()) { // fills the HashMap with all the groups from the database
 				// TODO add group members registered in database
-				groups.put(rs.getString(1), new TreeItem<Group>(new Group(rs.getString(3), rs.getString(4), new ArrayList<String>(), new ArrayList<String>())));
+				ResultSet groupMembersRS = db.getGroupMembers(AllGroupsRS.getString(1));
+				ArrayList<String> groupMembers = new ArrayList<String>();
+				while (groupMembersRS.next()) {
+					System.out.println(AllGroupsRS.getString(1) + " " + groupMembersRS.getString(1));
+					groupMembers.add(groupMembersRS.getString(1));
+				}
+				System.out.println(groupMembers);
+				groups.put(AllGroupsRS.getString(1), new TreeItem<Group>(new Group(AllGroupsRS.getString(3), AllGroupsRS.getString(4), groupMembers, new ArrayList<String>())));
 			}
 			TreeItem<Group> root = groups.get("0"); // The root group is the one with usergroupID = 0
 			root.setExpanded(true);

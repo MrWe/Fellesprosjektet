@@ -39,7 +39,11 @@ public class RegisterController {
 		if (validInput.length() != 0) {
 			errorText.setText(validInput);
 		} else {
-			db.registerUser(usernameField.getText(), passwordField.getText(), fullNameField.getText(), birthdayDatePicker.getValue().toString(), emailField.getText());
+			try {
+				db.registerUser(usernameField.getText(), passwordField.getText(), fullNameField.getText(), birthdayDatePicker.getValue().toString(), emailField.getText());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

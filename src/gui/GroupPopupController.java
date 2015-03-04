@@ -73,6 +73,7 @@ public class GroupPopupController {
 				this.group.getChildren().add(newGroup);
 				try {
 					int superGroupID = db.getGroupID(this.group.getValue().getName());	// finds the usergroupID of the selected group when the popup was opened
+					System.out.println(nameField.getText());
 					db.createGroup(nameField.getText(), 0, superGroupID);	// sets the USERGROUP_usergroupID field of the new group equal to the number above
 					db.addGroupMembers(nameField.getText(), invited);
 					this.group.setExpanded(true);

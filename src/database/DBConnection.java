@@ -25,7 +25,7 @@ public class DBConnection {
 		return db.queryDB(q);
 	}
 
-	public void registerUser(String username, String pswd, String fullName, String birthday, String email) {
+	public void registerUser(String username, String pswd, String fullName, String birthday, String email) throws SQLException {
 		String q = "INSERT INTO USER(username, pswd, fullName, birthday, email) VALUES ('"
 				+ username
 				+ "','"
@@ -38,13 +38,36 @@ public class DBConnection {
 				+ email
 				+ "');";
 		db.updateDB(q);
+		int userID = getUserID(username);
+		System.out.println(userID);
+		// have to add the user to the root group
+		q = "INSERT INTO USER_has_USERGROUP(groupAdmin, USER_userID, USERGROUP_usergroupID) VALUES ('"
+			+ 0
+			+ "','"
+			+ userID
+			+ "','"
+			+ 0
+			+ "');";
+		System.out.println(q);
+		db.updateDB(q);
+			
 	}
+
 	
 	public ResultSet getUser(String username) {
 		String q = "SELECT * FROM USER WHERE username = '"
 				+ username
 				+"';";
 		return db.queryDB(q);
+	}
+	
+	public int getUserID(String username) throws SQLException {
+		String q = "SELECT userID from USER WHERE username = '"
+				+ username
+				+ "';";
+		ResultSet rs = db.queryDB(q);
+		rs.next();
+		return Integer.parseInt(rs.getString(1));
 	}
 
 	public ResultSet getAllUsers() {
@@ -65,13 +88,22 @@ public class DBConnection {
 	}
 	
 	public int getGroupID(String groupName) throws SQLException {
-		String q = "SELECT usergroupID FROM Calendar.USERGROUP WHERE groupName = '"
+		String q = "SELECT usergroupID FROM USERGROUP WHERE groupName = '"
 				+ groupName
 				+ "';";
 		System.out.println(groupName);
 		ResultSet rs = db.queryDB(q);
 		rs.next();
 		return Integer.parseInt(rs.getString(1));
+	}
+	
+	public static void main(String[] args) {
+		DBConnection db = new DBConnection();
+		try {
+		System.out.println(db.getGroupID("Fellesprosjektet"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void createGroup(String groupName, int isPrivate, int superGroupID) {
@@ -106,11 +138,19 @@ public class DBConnection {
 	
 	public void setGroupMembers(String groupName, ArrayList<String> members) throws SQLException {
 		int groupID = getGroupID(groupName);
-		String q = "DELETE FROM USER_has_USERGROUP WHERE usergroupID='"
+		String q = "DELETE FROM USER_has_USERGROUP WHERE USERGROUP_usergroupID='"
 				+ groupID
 				+"';";
 		db.updateDB(q);
 		addGroupMembers(groupName, members);
+	}
+	
+	public ResultSet getGroupMembers(String groupID) {
+		String q = "select fullName from Calendar.USER_has_USERGROUP join Calendar.USERGROUP join Calendar.USER "
+				+ "WHERE Calendar.USER_has_USERGROUP.USERGROUP_usergroupID = Calendar.USERGROUP.usergroupID "
+				+ "AND Calendar.USER_has_USERGROUP.USER_userID = Calendar.USER.userID "
+				+ "AND Calendar.USERGROUP.usergroupID = '" + groupID + "';";
+		return db.queryDB(q);
 	}
 	
 	public void editGroupName(String oldName, String newName) {

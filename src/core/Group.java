@@ -6,6 +6,7 @@ import java.util.Arrays;
 public class Group {
 	
 	private String name;
+	// TODO add groupID
 	private String supergroupID;
 	private ArrayList<String> members;
 	private ArrayList<String> admins;

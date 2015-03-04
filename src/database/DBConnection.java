@@ -3,7 +3,6 @@ package database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,6 +37,7 @@ public class DBConnection {
 				+ email
 				+ "');";
 		db.updateDB(q);
+		
 		int userID = getUserID(username);
 		System.out.println(userID);
 		// have to add the user to the root group
@@ -48,9 +48,26 @@ public class DBConnection {
 			+ "','"
 			+ 0
 			+ "');";
-		System.out.println(q);
 		db.updateDB(q);
-			
+		
+		q = "INSERT INTO USERGROUP(isPrivate, groupName, USERGROUP_usergroupID) VALUES ('"
+			+ 1
+			+ "','"
+			+ (username + "Private")
+			+ "','"
+			+ 0
+			+ "');";
+		db.updateDB(q);
+		
+		int groupID = getGroupID(username + "Private");
+		q = "INSERT INTO USER_has_USERGROUP(groupAdmin, USER_userID, USERGROUP_usergroupID) VALUES ('"
+				+ 1
+				+ "','"
+				+ userID
+				+ "','"
+				+ groupID
+				+ "');";
+			db.updateDB(q);
 	}
 
 	
@@ -81,26 +98,32 @@ public class DBConnection {
 	}
 	
 	public ResultSet getAllGroupsOfUser(String username) {
-		String q = "select usergroupID, isPrivate, groupName, Calendar.USERGROUP.USERGROUP_usergroupID "
-				+ "from Calendar.USER inner join Calendar.USER_has_USERGROUP inner join Calendar.USERGROUP "
-				+ "where Calendar.USER.userID = Calendar.USER_has_USERGROUP.USER_userID "
+		String q = "SELECT usergroupID, isPrivate, groupName, Calendar.USERGROUP.USERGROUP_usergroupID "
+				+ "FROM Calendar.USER INNER JOIN Calendar.USER_has_USERGROUP INNER JOIN Calendar.USERGROUP "
+				+ "WHERE Calendar.USER.userID = Calendar.USER_has_USERGROUP.USER_userID "
 				+ "AND Calendar.USERGROUP.usergroupID = Calendar.USER_has_USERGROUP.USERGROUP_usergroupID "
 				+ "AND username = '" + username + "';";
 		return db.queryDB(q);
 	}
 	
-	public static void main(String[] args) {
-		DBConnection db = new DBConnection();
-		ResultSet rs = db.getAllGroupsOfUser("hoanghn");
-		try {
-			while (rs.next()) {
-				System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		try {
+//		DBConnection db = new DBConnection();
+//		String username = "Nissen";
+//		int groupID = db.getGroupID(username + "Private");
+//		int userID = db.getUserID(username);
+//		String q = "INSERT INTO USER_has_USERGROUP(groupAdmin, USER_userID, USERGROUP_usergroupID) VALUES ('"
+//				+ 1
+//				+ "','"
+//				+ userID
+//				+ "','"
+//				+ groupID
+//				+ "');";
+//			db.db.updateDB(q);
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	public int getHighestGroupID() throws SQLException {
 		String q = "select MAX(usergroupID)from Calendar.USERGROUP;";

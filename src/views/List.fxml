@@ -9,30 +9,28 @@
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="gui.ListController">
-
-	<VBox AnchorPane.topAnchor="-2" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
-		<HBox id ="grey-bg">
-			<Label text="MY GROUPS" id = "white-text">
+<AnchorPane stylesheets="@../../bin/styles/listStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ListController">
+   <children>
+			<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="250.0" text="MY GROUPS" AnchorPane.topAnchor="0.0">
 			</Label>
-		</HBox>
-		
-		<TreeView fx:id="treeView" focusTraversable="false"/>
-	</VBox>
-	
-	<Separator orientation="vertical" AnchorPane.rightAnchor="0"
-		AnchorPane.topAnchor="-3" AnchorPane.bottomAnchor="0" />
-	<Separator orientation="horizontal" AnchorPane.rightAnchor="0"
-		AnchorPane.leftAnchor="0" AnchorPane.bottomAnchor="100" />
-		
-	<HBox AnchorPane.bottomAnchor="50">	
-		<Button focusTraversable="false" text="Ny gruppe" onAction="#newGroup" />
-		<Button focusTraversable="false" text="Endre gruppe" onAction="#editGroup" />
-		<Button focusTraversable="false" text="Ny subgruppe" onAction="#newSubGroup" />
-	</HBox>
-	<stylesheets>
-    <URL value="@/styles/controlStyle.css" />
-  	</stylesheets>
-</AnchorPane>
 
+                  		<TreeView fx:id="treeView" focusTraversable="false" prefWidth="250.0" AnchorPane.bottomAnchor="81.0" AnchorPane.topAnchor="30.0" />
+   
+               	<Separator orientation="vertical" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="-3" />
+   	<Separator orientation="horizontal" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" />
+   
+               	<HBox AnchorPane.bottomAnchor="40.0">
+      <children>
+      		<Button maxHeight="40.0" minWidth="250.0" mnemonicParsing="false" onAction="#newGroup" prefHeight="40.0" styleClass="bigFont" text="Ny Group">
+		</Button>
+      </children>
+   	</HBox>
+      <HBox AnchorPane.bottomAnchor="0.0">
+         <children>
+      		<Button focusTraversable="false" onAction="#editGroup" prefHeight="40.0" prefWidth="125.0" text="Endre gruppe" />
+      		<Button focusTraversable="false" onAction="#newSubGroup" prefHeight="40.0" prefWidth="125.0" text="Ny subgruppe" />
+         </children>
+      </HBox>
+   </children>
+
+</AnchorPane>

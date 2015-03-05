@@ -1,0 +1,76 @@
+@font-face {
+    font-family: BestFont;
+    src: url('texgyreadventor-regular.otf');
+}
+
+.bigFont{
+    -fx-font-size: 20px;
+    -fx-font-weight: bolder;
+    }
+
+.button {
+    -fx-background-color : #295A09;
+    -fx-text-fill        : #D5F2C2;
+    -fx-font-weight      : 900;
+    }
+
+.button:hover {
+    -fx-background-color : #0C1F00;
+   }
+   
+.label{
+	-fx-background-color : #D5F2C2;
+	-fx-fill        : #0C1F00;
+    -fx-font-weight      : 900;
+}
+
+
+#white-text{
+	-fx-font: 20pt BOLD;
+	-fx-text-fill: #FFFFFF;
+	-fx-text-alignment: "CENTER";
+}
+
+
+#grey-bg{
+	-fx-background-color: #000000;
+}
+
+.separator *.line { 
+	-fx-border-style: solid;
+	-fx-border-width: 1px;
+}
+
+#sep {
+	-fx-background-color: #FFFF00;
+	-fx-background-radius: 2;
+}
+
+#greyBox{
+	-fx-background-color:#e7e7e7;
+	-fx-text-fill:#000000;
+}
+
+.tree-view{
+	-fx-border-width: 0;
+}
+
+.tree-cell{
+	-fx-padding: 10 0 10 30;
+	-fx-background-color:#000000;
+	-fx-text-fill:#D5F2C2;
+	-fx-border-color: #000000;
+	-fx-border-width: 0;
+}
+
+.tree-cell:hover {
+    -fx-background-color: #FFFFFF  ;
+    -fx-text-fill: #0C1F00 ;
+}
+
+.tree-cell:hover .highlight-on-hover {
+    -fx-background-color: #FFFFFF ;
+    -fx-text-fill: #0C1F00 ;
+}
+
+ /*  -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 ); */

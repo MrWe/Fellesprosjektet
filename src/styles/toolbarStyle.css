@@ -2,14 +2,19 @@
     font-family: BestFont;
     src: url('texgyreadventor-regular.otf');
 }
-
-
-
-#toolbar-button {
-    -fx-font: 10pt "BestFont";
-   	-fx-background-color: #383838;
-    -fx-text-fill: #FFFFFF;
+.thebackground {
+    -fx-background-color : #292929;
 }
+
+.button {
+    -fx-background-color : #295A09;
+    -fx-text-fill        : #D5F2C2;
+    -fx-font-weight      : 900;
+    }
+
+.button:hover {
+    -fx-background-color : #0C1F00;
+   }
 
 #white-text{
 	-fx-font: 20pt BOLD;
@@ -59,4 +64,13 @@
     -fx-text-fill: #FFFFFF ;
 }
 
- /*  -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 ); */
+ /* #testButton{
+	
+}
+
+#testButton:hover{
+	-fx-graphic: url('home_icon_black.png');
+}
+  
+  * -fx-effect: #af392b  dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
+  */

@@ -123,7 +123,7 @@ public class GroupPopupController {
 		popupStage.close();
 	}
 
-	public void fillPopup(TreeItem<Group> group, boolean createSub, MainApp mainApp) { // called whenever the popup is opened
+	public void fillPopup(TreeItem<Group> group, boolean createSub, MainApp mainApp) { // called whenever the popup is opened		
 		this.mainApp = mainApp;
 		//		if (group != null && group.getParent() != null) {
 		//			System.out.println(group.getParent());
@@ -138,16 +138,16 @@ public class GroupPopupController {
 		ResultSet rs = db.getPrivateGroup(mainApp.getUser().getUsername());
 		try {
 			rs.next();
-			if (rs.getString(2).equals(group.getValue().getName())) {
+			if (group != null && rs.getString(2).equals(group.getValue().getName())) {
 				isPrivate = true;
+				System.out.println("true");
 			} else {
 				isPrivate = false;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-
+		
 		ListView<CheckListObject> members = new ListView<CheckListObject>();
 		members.setPrefSize(200, 250);
 		members.setEditable(true);
@@ -164,7 +164,7 @@ public class GroupPopupController {
 			nameField.setText(group.getValue().getName());
 
 			if (isPrivate) {
-				memberListText.setText("Dette er din private gruppe");
+				memberListText.setText("Dette er din private gruppe.\nDu er eneste medlem.");
 			} else {				
 				for (String member : group.getParent().getValue().getMembers()) {
 					CheckListObject clo = new CheckListObject(member);
@@ -179,12 +179,14 @@ public class GroupPopupController {
 			editingExisting = false;
 			if (createSub) {
 				if (isPrivate) {
-					memberListText.setText("Kan ikke lage subgrupper av private grupper");
+					memberListText.setText("Kan ikke lage subgrupper\nav private grupper.");
 					OKBtn.setDisable(true);
-					popupStage.close();
-				}
-				for (String member : this.group.getValue().getMembers()) {
-					memberList.add(new CheckListObject(member));
+					nameField.setDisable(true);
+				} else {
+					for (String member : this.group.getValue().getMembers()) {
+						memberList.add(new CheckListObject(member));
+					}
+					this.members.getChildren().add(members);
 				}
 			} else {
 				rs = db.getAllUsers();
@@ -192,11 +194,11 @@ public class GroupPopupController {
 					while (rs.next()) {
 						memberList.add(new CheckListObject(rs.getString(4)));
 					}
+					this.members.getChildren().add(members);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
-			this.members.getChildren().add(members);
 		}
 	}
 

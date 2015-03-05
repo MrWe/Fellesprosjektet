@@ -37,7 +37,8 @@ public class ListController {
 					groupMembers.add(groupMembersRS.getString(1));
 				}
 				//System.out.println(groupMembers);
-				groups.put(AllGroupsRS.getString(1), new TreeItem<Group>(new Group(AllGroupsRS.getString(3), AllGroupsRS.getString(4), groupMembers, new ArrayList<String>())));
+				TreeItem<Group> treeItem = new TreeItem<Group>(new Group(AllGroupsRS.getString(3), AllGroupsRS.getString(4), groupMembers, new ArrayList<String>()));
+				groups.put(AllGroupsRS.getString(1), treeItem);
 			}
 			TreeItem<Group> root = groups.get("0"); // The root group is the one with usergroupID = 0
 			root.setExpanded(true);

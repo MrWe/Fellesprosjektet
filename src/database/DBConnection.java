@@ -55,7 +55,7 @@ public class DBConnection {
 				+ "');";
 		db.updateDB(q);
 
-		// adds the user to the root group
+		// adds the user t workbeo the root group
 		int userID = getUserID(username);
 		q = "INSERT INTO USER_has_USERGROUP(groupAdmin, USER_userID, USERGROUP_usergroupID) VALUES ('"
 				+ 0
@@ -224,8 +224,9 @@ public class DBConnection {
 	 * @param appointmentType type of appointment
 	 * @param roomID the database id of the room
 	 * @param usergroupID the database id of the group
+	 * @throws SQLException 
 	 */
-	public void addAppointment(String description, String from, String to, String place, String appointmentType, int roomID, int usergroupID) {
+	public void addAppointment(String username, String description, String from, String to, String place, String appointmentType, int roomID, int usergroupID) throws SQLException {
 		String q = "INSERT INTO APPOINTMENT(description, timeFrom, timeTo, place, appointmentType, ROOM_roomID, USERGROUP_usergroupID) VALUES ('"
 				+ description
 				+ "','"
@@ -242,6 +243,27 @@ public class DBConnection {
 				+ usergroupID
 				+ "');";
 		db.updateDB(q);
+		
+		int lastId = getLastAppointment(); 
+		int userId = getUserID(username);
+		String qu = "INSERT INTO APPOINTMENTMEMBER(status, isAdmin, USER_userID, APPOINTMENT_appointmentID) Values ('"
+				+ "i"
+				+ "',"
+				+ 1
+				+ ","
+				+ userId
+				+ ","
+				+ lastId
+				+ ");";
+		System.out.println(qu);
+		db.updateDB(qu);
+	}
+	
+	public int getLastAppointment() throws SQLException {
+		String q = "SELECT LAST_INSERT_ID();";
+		ResultSet rs = db.queryDB(q);
+		rs.next();
+		return Integer.parseInt(rs.getString(1));
 	}
 	// Doesnt retrieve userID from calendar. Needs fix.
 	public void addAppointmentMembers(int appointmentID, ArrayList<String> members) {

@@ -34,7 +34,7 @@ public class MainApp extends Application {
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
-	
+
 	public User getUser() {
 		return user;
 	}
@@ -139,8 +139,8 @@ public class MainApp extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("/views/Toolbar.fxml"));
-			
-			
+
+
 			AnchorPane toolbar = (AnchorPane) loader.load();
 
 			rootLayout.setTop(toolbar);
@@ -168,7 +168,7 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void showNotification(){
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -181,7 +181,7 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void showSettings(){
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -195,14 +195,14 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void logOut(){
 		this.primaryStage.setTitle("Kalender");
 		initRootLayout();
 		initLoginLayout();
 		showLogin();
 	}
-	
+
 	public void showAppointmentPopup(CalendarSquarePane csp, AppointmentSquarePane asp, Group group) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
@@ -224,7 +224,7 @@ public class MainApp extends Application {
 			popupStage.setScene(scene);
 			AppointmentPopupController controller = loader.getController();
 			controller.setPopupStage(popupStage);
-			controller.fillPopup(csp, asp, group);
+			controller.fillPopup(csp, asp, group, getUser().getUsername());
 
 			// Show the dialog and wait until the user closes it
 			popupStage.showAndWait();
@@ -232,6 +232,7 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
+
 
 	public void showGroupPopup(TreeView<Group> treeView, TreeItem<Group> group, boolean createSub) {
 		try {

@@ -1,5 +1,6 @@
 package gui;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.Arrays;
 
 import core.Appointment;
 import core.Group;
+import core.User;
 import database.DBConnection;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ObservableValue;
@@ -42,16 +44,16 @@ public class AppointmentPopupController {
 	private boolean editingExisting;
 	private Group group;
 	private DBConnection db;
+	private String username;
 
 	@FXML
-	private void initialize() {
+	private void initialize() throws SQLException {
 		db = new DBConnection();
 		allMembers = new ArrayList<String>(Arrays.asList("Kristoffer Lervik", "Trym Nilsen", "Hoang Hai Nguyen", "Erik Wiker", "Patricia Zemer", "Jens Stoltenberg", "Erna Solberg", "Kong Harald", "Madonna", "Will Smith", "Kanye West", "Julenissen", "Postman Pat"));
 	}
 	
-	private void addAppointment() {
-		db.addAppointment("Dette er en avtale", "2015-02-25 15:00:00", "2015-02-25 16:00:00",
-				"Skolen", "avtale", 1, 1);
+	private void addAppointment(String username, String description, String from, String to, String place, String appointmentType, int roomID, int usergroupID) throws SQLException {
+		db.addAppointment(username, description, from, to, place, appointmentType, roomID, usergroupID);
 	}
 
 	public void setPopupStage(Stage popupStage) {
@@ -59,7 +61,7 @@ public class AppointmentPopupController {
 	}
 
 	@FXML
-	private void handleOk() { // when OK is clicked, create a new appointment with the info given and give it to the CalendarSquarePane that opened the popup
+	private void handleOk() throws SQLException { // when OK is clicked, create a new appointment with the info given and give it to the CalendarSquarePane that opened the popup
 		String validInput = isValidInput();
 		if (validInput.length() != 0) {
 			errorText.setVisible(true);
@@ -86,6 +88,7 @@ public class AppointmentPopupController {
 					group);
 			csp.addAppointment(appointment);
 			group.addAppointment(appointment);
+			addAppointment(username, appointment.getDescription(), appointment.getDate().toString() + " " + appointment.getStartTime().toString() + ":00", appointment.getDate().toString() + " " + appointment.getEndTime().toString() + ":00", null, null, 1, db.getGroupID(group.getName()));
 			popupStage.close();
 		} else {
 			asp.getAppointment().setDescription(descriptionField.getText());
@@ -99,6 +102,8 @@ public class AppointmentPopupController {
 			asp.update();
 			popupStage.close();
 		}
+		
+		
 	}
 	
 	private String isValidInput() {
@@ -133,7 +138,8 @@ public class AppointmentPopupController {
 		popupStage.close();
 	}
 
-	public void fillPopup(CalendarSquarePane csp, AppointmentSquarePane asp, Group group) { // called whenever the popup is opened
+	public void fillPopup(CalendarSquarePane csp, AppointmentSquarePane asp, Group group, String username) { // called whenever the popup is opened
+		this.username = username;
 		this.group = group;
 		memberList.clear();
 		members.getChildren().clear();

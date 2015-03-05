@@ -9,6 +9,7 @@
     }
 
 .button {
+	-fx-opacity			 : 1;
     -fx-background-color : #295A09;
     -fx-text-fill        : #D5F2C2;
     -fx-font-weight      : 900;
@@ -47,10 +48,6 @@
 	-fx-background-radius: 2;
 }
 
-#greyBox{
-	-fx-background-color:#e7e7e7;
-	-fx-text-fill:#000000;
-}
 
 .tree-view{
 	-fx-border-width: 0;

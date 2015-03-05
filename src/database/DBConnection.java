@@ -67,10 +67,12 @@ public class DBConnection {
 		db.updateDB(q);
 
 		// inserts a new private group for the user
-		q = "INSERT INTO USERGROUP(isPrivate, groupName, USERGROUP_usergroupID) VALUES ('"
+		q = "INSERT INTO USERGROUP(isPrivate, groupName, color, USERGROUP_usergroupID) VALUES ('"
 				+ 1
 				+ "','"
 				+ (username + "Private")
+				+ "','"
+				+ "FFFFFF"
 				+ "','"
 				+ 0
 				+ "');";
@@ -204,10 +206,12 @@ public class DBConnection {
 	 * @param superGroupID the id of the supergroup, 0 is the id of the root
 	 */
 	public void createGroup(String groupName, int isPrivate, int superGroupID) {
-		String q = "INSERT INTO USERGROUP(isPrivate, groupName, USERGROUP_usergroupID) VALUES ('"
+		String q = "INSERT INTO USERGROUP(isPrivate, groupName, color, USERGROUP_usergroupID) VALUES ('"
 				+ isPrivate
 				+ "','"
 				+ groupName
+				+ "','"
+				+ "FFFFFF"
 				+ "','"
 				+ superGroupID
 				+ "');";

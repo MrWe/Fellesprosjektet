@@ -69,7 +69,7 @@
     -fx-text-fill: #0C1F00 ;
 }
 
-.tree-cell:hover .highlight-on-hover {
+.tree-cell:selected {
     -fx-background-color: #FFFFFF ;
     -fx-text-fill: #0C1F00 ;
 }

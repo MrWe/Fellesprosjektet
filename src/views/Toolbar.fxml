@@ -10,18 +10,13 @@
 <?import java.net.*?>
 <?import java.lang.*?>
 
-<AnchorPane prefHeight="45.0" prefWidth="1280.0" styleClass="thebackground"
-	stylesheets="@../../bin/styles/toolbarStyle.css" xmlns="http://javafx.com/javafx/8"
-	xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ToolbarController">
+<AnchorPane prefHeight="45.0" styleClass="thebackground" stylesheets="@../../bin/styles/toolbarStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ToolbarController">
 	<children>
-		<HBox prefWidth="1280.0" spacing="5.0">
+		<HBox spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 			<children>
-				<Button id="testButton" cancelButton="true" contentDisplay="top"
-					focusTraversable="false" minHeight="-Infinity" minWidth="-Infinity"
-					onAction="#openHome" prefHeight="80.0" prefWidth="80.0" text="Home">
+				<Button id="testButton" cancelButton="true" contentDisplay="top" focusTraversable="false" minHeight="-Infinity" minWidth="-Infinity" onAction="#openHome" prefHeight="80.0" prefWidth="80.0" text="Home">
 					<graphic>
-						<ImageView fitHeight="45.0" fitWidth="45.0"
-							pickOnBounds="true" preserveRatio="true">
+						<ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
 							<image>
 								<Image url="Images/home_icon.png" />
 							</image>
@@ -29,12 +24,9 @@
 					</graphic>
 				</Button>
 
-				<Button id="notiButton" cancelButton="true" contentDisplay="top"
-					focusTraversable="false" minHeight="-Infinity" minWidth="-Infinity"
-					onAction="#openNotice" prefHeight="80.0" prefWidth="80.0" text="Notice">
+				<Button id="notiButton" cancelButton="true" contentDisplay="top" focusTraversable="false" minHeight="-Infinity" minWidth="-Infinity" onAction="#openNotice" prefHeight="80.0" prefWidth="80.0" text="Notice">
 					<graphic>
-						<ImageView fitHeight="45.0" fitWidth="45.0"
-							pickOnBounds="true" preserveRatio="true">
+						<ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
 							<image>
 								<Image url="Images/noti_icon.png" />
 							</image>
@@ -42,13 +34,9 @@
 					</graphic>
 				</Button>
 
-				<Button id="settingButton" cancelButton="true"
-					contentDisplay="top" focusTraversable="false" minHeight="-Infinity"
-					minWidth="-Infinity" onAction="#openSettings" prefHeight="80.0"
-					prefWidth="80.0" text="Settings">
+				<Button id="settingButton" cancelButton="true" contentDisplay="top" focusTraversable="false" minHeight="-Infinity" minWidth="-Infinity" onAction="#openSettings" prefHeight="80.0" prefWidth="80.0" text="Settings">
 					<graphic>
-						<ImageView fitHeight="45.0" fitWidth="45.0"
-							pickOnBounds="true" preserveRatio="true">
+						<ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
 							<image>
 								<Image url="Images/setting_icon.png" />
 							</image>
@@ -58,33 +46,28 @@
 						<Insets />
 					</HBox.margin>
 				</Button>
+			</children>
+			<padding>
+				<Insets bottom="8.0" left="5.0" top="5.0" />
+			</padding>
+		</HBox>
+		<Separator layoutY="80.0" prefHeight="1.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
 
-				<HBox alignment="TOP_RIGHT" prefWidth="1077.0">
+				<HBox alignment="TOP_RIGHT" AnchorPane.rightAnchor="0.0">
 					<children>
-						<Button id="logoutButton" cancelButton="true"
-							contentDisplay="top" focusTraversable="false" minHeight="-Infinity"
-							minWidth="-Infinity" onAction="#logOut" prefHeight="80.0"
-							prefWidth="80.0" text="Log out">
+						<Button id="logoutButton" cancelButton="true" contentDisplay="top" focusTraversable="false" minHeight="-Infinity" minWidth="-Infinity" onAction="#logOut" prefHeight="80.0" prefWidth="80.0" text="Log out">
 							<graphic>
-								<ImageView fitHeight="45.0" fitWidth="45.0"
-									pickOnBounds="true" preserveRatio="true">
+								<ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
 									<image>
 										<Image url="Images/logout_icon.png" />
 									</image>
 								</ImageView>
 							</graphic>
+               <HBox.margin>
+                  <Insets bottom="7.0" left="5.0" top="5.0" />
+               </HBox.margin>
 						</Button>
 					</children>
-					<HBox.margin>
-						<Insets right="5.0" />
-					</HBox.margin>
 				</HBox>
-			</children>
-			<padding>
-				<Insets bottom="7.0" left="5.0" top="5.0" />
-			</padding>
-		</HBox>
-		<Separator layoutY="80.0" prefHeight="1.0" prefWidth="1280.0"
-			AnchorPane.bottomAnchor="0.0" />
 	</children>
 </AnchorPane>

@@ -58,8 +58,14 @@ public class CalendarController {
 		for (int i = 0; i < 5; i++) {		// for each date: create string on the format dd/mm/yyyy and yyyy-mm-dd
 			for (int j = 0; j < 7; j++){	// and create a new CalendarSquarePane object for each of them
 				String date = String.format("%02d", c.getTime().getDate()) + "/" + String.format("%02d", (c.getTime().getMonth() + 1)) + "/" + (c.getTime().getYear() + 1900);
+				
+				//en annen format
 				String date2 = (c.getTime().getYear() + 1900) + "-" + String.format("%02d", (c.getTime().getMonth() + 1)) + "-" + String.format("%02d", c.getTime().getDate());
-				CalendarSquarePane csp = new CalendarSquarePane(mainApp, date, group);
+				
+				//kun dagnr
+				String dayNr = String.format("%02d", c.getTime().getDate());
+
+				CalendarSquarePane csp = new CalendarSquarePane(mainApp, dayNr, group);
 				for (Appointment appointment : group.getAppointments()) { // for each of the groups appointments
 					if (appointment.getDate().toString().equals(date2)) { // if the date of the appointment equals the current date in the for-loop
 						csp.addAppointment(appointment);				  // add the appointment to the calendar square corresponding to the current date in the for-loop

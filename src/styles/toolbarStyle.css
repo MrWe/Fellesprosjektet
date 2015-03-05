@@ -10,6 +10,7 @@
     -fx-background-color : #295A09;
     -fx-text-fill        : #D5F2C2;
     -fx-font-weight      : 900;
+    -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
     }
 
 .button:hover {

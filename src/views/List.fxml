@@ -21,14 +21,14 @@
    
                	<HBox AnchorPane.bottomAnchor="40.0">
       <children>
-      		<Button maxHeight="40.0" minWidth="250.0" mnemonicParsing="false" onAction="#newGroup" prefHeight="40.0" styleClass="bigFont" text="Ny Group">
+      		<Button maxHeight="40.0" minWidth="250.0" mnemonicParsing="false" onAction="#newGroup" prefHeight="40.0" styleClass="bigFont" text="New Group">
 		</Button>
       </children>
    	</HBox>
       <HBox AnchorPane.bottomAnchor="0.0">
          <children>
-      		<Button focusTraversable="false" onAction="#editGroup" prefHeight="40.0" prefWidth="125.0" text="Endre gruppe" />
-      		<Button focusTraversable="false" onAction="#newSubGroup" prefHeight="40.0" prefWidth="125.0" text="Ny subgruppe" />
+      		<Button focusTraversable="false" onAction="#editGroup" prefHeight="40.0" prefWidth="125.0" text="Edit Group" />
+      		<Button focusTraversable="false" onAction="#newSubGroup" prefHeight="40.0" prefWidth="125.0" text="New Subgroup" />
          </children>
       </HBox>
    </children>

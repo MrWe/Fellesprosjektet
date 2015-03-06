@@ -23,12 +23,14 @@ public class CalendarSquarePane extends Pane {
 	private VBox appointmentList;	// list of AppointmentSquarePane-objects
 	private Group group;			// the group that is currently selected in the list of groups
 	private ObservableList<Appointment> observableAppointments;  // list of appointments, currently does nothing
+	private String date;
 
 	public CalendarSquarePane(MainApp mainApp, String date, Group group) {
 		super();
+		this.date = date;
 		this.mainApp = mainApp;
 		this.group = group;
-		text = new Text(date);
+		text = new Text(date.substring(0, 2));
 		text.setLayoutX(5);
 		text.setLayoutY(15);
 		text.setFill(Color.WHITE);
@@ -76,7 +78,7 @@ public class CalendarSquarePane extends Pane {
 	}
 
 	public String getDate() {
-		return text.getText();
+		return date;
 	}
 
 	private void showPopup() {

@@ -65,7 +65,7 @@ public class CalendarController {
 				//kun dagnr
 				String dayNr = String.format("%02d", c.getTime().getDate());
 
-				CalendarSquarePane csp = new CalendarSquarePane(mainApp, dayNr, group);
+				CalendarSquarePane csp = new CalendarSquarePane(mainApp, date, group);
 				for (Appointment appointment : group.getAppointments()) { // for each of the groups appointments
 					if (appointment.getDate().toString().equals(date2)) { // if the date of the appointment equals the current date in the for-loop
 						csp.addAppointment(appointment);				  // add the appointment to the calendar square corresponding to the current date in the for-loop

@@ -350,7 +350,23 @@ public class DBConnection {
 		String q = "UPDATE USERGROUP SET groupName = '" + newName + "' WHERE groupName = '" + oldName + "';";
 		db.updateDB(q);
 	}
+	
+	public boolean isAdmin(String username, String groupName) throws SQLException {
+		int userID = getUserID(username);
+		int groupID = getGroupID(groupName);
+		String q = "SELECT groupAdmin from USER_has_USERGROUP where USER_userID = " + userID + " and USERGROUP_usergroupID = " + groupID + ";";
+		ResultSet rs = db.queryDB(q);
+		if (rs.next() && rs.getString(1).equals("1")) {
+			return true;
+		}
+		return false;
+	}
 
+	public static void main(String[] args) {
+		DBConnection db = new DBConnection();
+		
+	}
+	
 	////////////////////////////////////////////////////////////////////
 	///////////////////////IGNORE EVERYTHING BELOW//////////////////////
 	////////////////////////////////////////////////////////////////////

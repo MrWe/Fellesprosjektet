@@ -49,7 +49,7 @@ public class CalendarSquarePane extends Pane {
 		});																					//
 
 		// border between squares
-		this.setStyle("-fx-border-color: #333333;");
+		this.setStyle("-fx-border-color: #475947;");
 		//this.setStyle("-fx-border-width: 0.3;");
 		this.setOnMousePressed(new EventHandler<MouseEvent>() { // when a square is pressed
 			@Override
@@ -71,6 +71,7 @@ public class CalendarSquarePane extends Pane {
 		Rectangle clipRectangle = new Rectangle(); // makes sure the contents of a square is not shown when the square is too small to display it
 		this.setClip(clipRectangle);
 		this.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
+			text.setLayoutX(newValue.getWidth() - text.getLayoutBounds().getWidth() -2);
 			clipRectangle.setWidth(newValue.getWidth());
 			clipRectangle.setHeight(newValue.getHeight());
 			appointmentList.setPrefSize(newValue.getWidth() - 2, newValue.getHeight() - 2);

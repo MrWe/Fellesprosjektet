@@ -37,14 +37,15 @@ public class CalendarController {
 			RowConstraints rowConstraints = new RowConstraints();
 			rowConstraints.setFillHeight(true);
 			rowConstraints.setVgrow(Priority.ALWAYS);
+			rowConstraints.setPrefHeight(200);
 			rowConstraints.setMinHeight(80);
 			calendar.getRowConstraints().add(rowConstraints);
 		}
-		
-		
-		
+
+
+
 		int[] days = {
-			6,0,1,2,3,4,5
+				6,0,1,2,3,4,5
 		};
 		Calendar cal = Calendar.getInstance();
 		int today = cal.get(Calendar.DAY_OF_MONTH);
@@ -52,18 +53,18 @@ public class CalendarController {
 		cal.add(Calendar.DAY_OF_MONTH, -(today-1));
 		int firstDay = cal.get(Calendar.DAY_OF_WEEK);
 		total += days[firstDay-1];
-		
+
 		Calendar c = Calendar.getInstance(); // date today
 		c.add(Calendar.DAY_OF_MONTH, -total);
 		for (int i = 0; i < 5; i++) {		// for each date: create string on the format dd/mm/yyyy and yyyy-mm-dd
 			for (int j = 0; j < 7; j++){	// and create a new CalendarSquarePane object for each of them
 				String date = String.format("%02d", c.getTime().getDate()) + "/" + String.format("%02d", (c.getTime().getMonth() + 1)) + "/" + (c.getTime().getYear() + 1900);
-				
+
 				//en annen format
 				String date2 = (c.getTime().getYear() + 1900) + "-" + String.format("%02d", (c.getTime().getMonth() + 1)) + "-" + String.format("%02d", c.getTime().getDate());
-				
+
 				//kun dagnr
-				String dayNr = String.format("%02d", c.getTime().getDate());
+				String dayNr = c.getTime().getDate() + "";
 
 				CalendarSquarePane csp = new CalendarSquarePane(mainApp, date, group);
 				for (Appointment appointment : group.getAppointments()) { // for each of the groups appointments
@@ -75,10 +76,10 @@ public class CalendarController {
 				c.add(Calendar.DATE, 1); // increase date by 1
 			}
 		}
-		AnchorPane.setLeftAnchor(calendar, 5.0);
-		AnchorPane.setRightAnchor(calendar, 5.0);
-		AnchorPane.setTopAnchor(calendar, 5.0);
-		AnchorPane.setBottomAnchor(calendar, 40.0);
+		//AnchorPane.setLeftAnchor(calendar, 5.0);
+		//AnchorPane.setRightAnchor(calendar, 5.0);
+		//AnchorPane.setTopAnchor(calendar, 5.0);
+		AnchorPane.setBottomAnchor(calendar, 0.0);
 	}
 
 	public void setMainApp(MainApp mainApp) {

@@ -15,8 +15,6 @@
 			</Label>
 
                   		<TreeView fx:id="treeView" focusTraversable="false" prefWidth="250.0" AnchorPane.bottomAnchor="81.0" AnchorPane.topAnchor="30.0" />
-   
-               	<Separator orientation="vertical" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="-3" />
    	<Separator orientation="horizontal" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" />
    
                	<HBox AnchorPane.bottomAnchor="40.0">

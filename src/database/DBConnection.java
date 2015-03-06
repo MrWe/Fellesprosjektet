@@ -285,11 +285,11 @@ public class DBConnection {
 			db.updateDB(q);
 		}
 	}
-	
-	public static void main(String[] args) {
-		DBConnection db = new DBConnection();
-		db.addAppointmentMembers(appointmentID, members);
-	}
+//	
+//	public static void main(String[] args) {
+//		DBConnection db = new DBConnection();
+//		db.addAppointmentMembers(appointmentID, members);
+//	}
 
 	/**
 	 * For each member in the ArrayList, insert the user into the group specified with groupName

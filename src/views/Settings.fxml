@@ -152,7 +152,7 @@
 				</HBox>
 				<HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
 				<children>
-					<Text fx:id="errorText" id="fill-white" strokeType="OUTSIDE" strokeWidth="0.0">
+					<Text fx:id="errorText" id="fill-white" strokeType="OUTSIDE" strokeWidth="0.0" text="asdf">
 							<HBox.margin>
 								<Insets left="10.0" />
 							</HBox.margin>

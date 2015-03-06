@@ -66,6 +66,9 @@ public class SettingsController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		if (newPasswordField.getText().length() == 0) {
+			errorText += "Nytt passord er tomt";
+		}
 		if (!newPasswordField.getText().equals(repeatNewPasswordField.getText())) {
 			errorText += "Nytt passord og gjenta nytt passord matcher ikke\n";
 		}

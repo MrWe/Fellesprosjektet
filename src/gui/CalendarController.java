@@ -63,9 +63,6 @@ public class CalendarController {
 				//en annen format
 				String date2 = (c.getTime().getYear() + 1900) + "-" + String.format("%02d", (c.getTime().getMonth() + 1)) + "-" + String.format("%02d", c.getTime().getDate());
 
-				//kun dagnr
-				String dayNr = c.getTime().getDate() + "";
-
 				CalendarSquarePane csp = new CalendarSquarePane(mainApp, date, group);
 				for (Appointment appointment : group.getAppointments()) { // for each of the groups appointments
 					if (appointment.getDate().toString().equals(date2)) { // if the date of the appointment equals the current date in the for-loop

@@ -8,7 +8,6 @@ import java.util.Arrays;
 
 import core.Appointment;
 import core.Group;
-import core.User;
 import database.DBConnection;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ObservableValue;

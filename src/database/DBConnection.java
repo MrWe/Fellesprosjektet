@@ -3,6 +3,7 @@ package database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,10 +47,6 @@ public class DBConnection {
 	}
 	
 	
-	public static void main(String[] args) {
-		DBConnection db = new DBConnection();
-		db.setPassword("krislerv", "pass");
-	}
 
 
 	/**
@@ -297,19 +294,30 @@ public class DBConnection {
 	}
 	
 	// Doesnt retrieve userID from calendar. Needs fix.
-	public void addAppointmentMembers(int appointmentID, ArrayList<String> members) {
+	public void addAppointmentMembers(int appointmentID, ArrayList<String> members) throws SQLException {
 		for (String member : members) {
-			String q = "INSERT INTO APPOINTMENTMEMBERS(status, isAdmin, USER_userID, APPOINTMENT_appointmentID) VALUES ('"
+			int userID = getUserID(member);
+			String q = "INSERT INTO APPOINTMENTMEMBER(status, isAdmin, USER_userID, APPOINTMENT_appointmentID) VALUES ('"
 					+ "i',"
 					+ 0
 					+ ","
-					+ "(SELECT userID from Calendar.USER WHERE fullName =" + member + ";)"
+					+ userID
 					+ ","
 					+ appointmentID
 					+ ");";
 			db.updateDB(q);
 		}
 	}
+	
+	public static void main(String[] args) {
+		DBConnection db = new DBConnection();
+		try {
+			db.addAppointmentMembers(2, new ArrayList<String>(Arrays.asList("krislerv", "trymon")));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 
 	/**
 	 * For each member in the ArrayList, insert the user into the group specified with groupName

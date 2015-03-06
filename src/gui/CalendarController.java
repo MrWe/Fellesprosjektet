@@ -5,7 +5,6 @@ import java.util.Calendar;
 import core.Appointment;
 import core.Group;
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -42,8 +41,6 @@ public class CalendarController {
 			calendar.getRowConstraints().add(rowConstraints);
 		}
 
-
-
 		int[] days = {
 				6,0,1,2,3,4,5
 		};
@@ -73,10 +70,6 @@ public class CalendarController {
 				c.add(Calendar.DATE, 1); // increase date by 1
 			}
 		}
-		//AnchorPane.setLeftAnchor(calendar, 5.0);
-		//AnchorPane.setRightAnchor(calendar, 5.0);
-		//AnchorPane.setTopAnchor(calendar, 5.0);
-		AnchorPane.setBottomAnchor(calendar, 0.0);
 	}
 
 	public void setMainApp(MainApp mainApp) {

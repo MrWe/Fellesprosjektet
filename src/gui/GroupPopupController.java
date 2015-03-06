@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -29,8 +30,10 @@ public class GroupPopupController {
 	@FXML private Text errorText;
 	private Stage popupStage;
 	private ObservableList<CheckListObject> memberList = FXCollections.observableArrayList();
+	private ObservableList<CheckListObject> adminList = FXCollections.observableArrayList();
 	@FXML private VBox members;
-	@FXML private Text memberListText;
+	@FXML private VBox admins;
+	@FXML private Label memberListText;
 	@FXML private Button OKBtn;
 	private TreeView<Group> treeView;
 	private boolean editingExisting;
@@ -39,6 +42,8 @@ public class GroupPopupController {
 	private TreeItem<Group> group;
 	private DBConnection db;
 	private MainApp mainApp;
+	
+	
 
 	@FXML
 	private void initialize() {
@@ -147,17 +152,83 @@ public class GroupPopupController {
 			e.printStackTrace();
 		}
 
-		ListView<CheckListObject> members = new ListView<CheckListObject>();
-		members.setPrefSize(200, 250);
-		members.setEditable(true);
-		members.setItems(memberList);
-		Callback<CheckListObject, ObservableValue<Boolean>> getProperty = new Callback<CheckListObject, ObservableValue<Boolean>>() {
+		//for admins 
+		ListView<CheckListObject> admins = new ListView<CheckListObject>();
+		admins.setEditable(true);
+		adminList.add(new CheckListObject("Kristoffer"));
+		admins.setItems(adminList);
+		
+		Callback<CheckListObject, ObservableValue<Boolean>> 
+		getAdminProperty = new Callback<CheckListObject, ObservableValue<Boolean>>() {
 			public BooleanProperty call(CheckListObject object) {
 				return object.selectedProperty();
 			}
 		};
-		Callback<ListView<CheckListObject>, ListCell<CheckListObject>> forListView = CheckBoxListCell.forListView(getProperty);
+		Callback<ListView<CheckListObject>, 
+		ListCell<CheckListObject>> forAdminListView = CheckBoxListCell.forListView(getAdminProperty);
+		admins.setCellFactory(forAdminListView);
+		
+		if (group != null && !createSub) {
+			editingExisting = true;
+			nameField.setText(group.getValue().getName());
+
+			if (isPrivate) {
+				memberListText.setText("Dette er din private gruppe.\nDu er eneste medlem.");
+			} else {				
+				for (String member : group.getParent().getValue().getMembers()) {
+					CheckListObject clo = new CheckListObject(member);
+					if (group.getValue().getMembers().contains(member)) {
+						clo.setSelectedProperty(true);
+					}
+					memberList.add(clo);
+				}
+				this.admins.getChildren().add(admins);
+			}
+		}else {
+			editingExisting = false;
+			if (createSub) {
+				if (isPrivate) {
+					memberListText.setText("Kan ikke lage subgrupper\nav private grupper.");
+					OKBtn.setDisable(true);
+					nameField.setDisable(true);
+				} else {
+					for (String member : this.group.getValue().getMembers()) {
+						memberList.add(new CheckListObject(member));
+					}
+					this.admins.getChildren().add(admins);
+				}
+			} else {
+				rs = db.getAllUsers();
+				try {
+					while (rs.next()) {
+						memberList.add(new CheckListObject(rs.getString(4)));
+					}
+					this.admins.getChildren().add(admins);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	
+		
+		
+		
+		
+		//for members
+		ListView<CheckListObject> members = new ListView<CheckListObject>();
+		members.setEditable(true);
+		members.setItems(memberList);
+		
+		Callback<CheckListObject, ObservableValue<Boolean>> 
+		getProperty = new Callback<CheckListObject, ObservableValue<Boolean>>() {
+			public BooleanProperty call(CheckListObject object) {
+				return object.selectedProperty();
+			}
+		};
+		Callback<ListView<CheckListObject>, 
+		ListCell<CheckListObject>> forListView = CheckBoxListCell.forListView(getProperty);
 		members.setCellFactory(forListView);
+		
 		if (group != null && !createSub) {
 			editingExisting = true;
 			nameField.setText(group.getValue().getName());

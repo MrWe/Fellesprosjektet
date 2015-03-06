@@ -230,7 +230,8 @@ public class DBConnection {
 	 * @param usergroupID the database id of the group
 	 * @throws SQLException 
 	 */
-	public void addAppointment(String username, String description, String from, String to, String place, String appointmentType, int roomID, int usergroupID) throws SQLException {
+	public void addAppointment(String username, String description, String from, String to, String place, String appointmentType, int roomID, String groupName) throws SQLException {
+		int groupID = getGroupID(groupName);
 		String q = "INSERT INTO APPOINTMENT(description, timeFrom, timeTo, place, appointmentType, ROOM_roomID, USERGROUP_usergroupID) VALUES ('"
 				+ description
 				+ "','"
@@ -244,7 +245,7 @@ public class DBConnection {
 				+ "','"
 				+ roomID
 				+ "','"
-				+ usergroupID
+				+ groupID
 				+ "');";
 		db.updateDB(q);
 		
@@ -269,6 +270,7 @@ public class DBConnection {
 		rs.next();
 		return Integer.parseInt(rs.getString(1));
 	}
+	
 	// Doesnt retrieve userID from calendar. Needs fix.
 	public void addAppointmentMembers(int appointmentID, ArrayList<String> members) {
 		for (String member : members) {
@@ -283,6 +285,11 @@ public class DBConnection {
 			db.updateDB(q);
 		}
 	}
+//	
+//	public static void main(String[] args) {
+//		DBConnection db = new DBConnection();
+//		db.addAppointmentMembers(appointmentID, members);
+//	}
 
 	/**
 	 * For each member in the ArrayList, insert the user into the group specified with groupName
@@ -362,10 +369,7 @@ public class DBConnection {
 		return false;
 	}
 
-	public static void main(String[] args) {
-		DBConnection db = new DBConnection();
-		
-	}
+
 	
 	////////////////////////////////////////////////////////////////////
 	///////////////////////IGNORE EVERYTHING BELOW//////////////////////

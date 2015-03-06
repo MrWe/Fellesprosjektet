@@ -1,7 +1,3 @@
-@font-face {
-    font-family: BestFont;
-    src: url('texgyreadventor-regular.otf');
-}
 .thebackground {
     -fx-background-color : #292929;
 }

@@ -151,7 +151,6 @@ public class GroupPopupController {
 
 		//for admins 
 		ListView<CheckListObject> admins = new ListView<CheckListObject>();
-		admins.setPrefSize(200, 250);
 		admins.setEditable(true);
 		admins.setItems(memberList);
 		
@@ -213,7 +212,6 @@ public class GroupPopupController {
 		
 		//for members
 		ListView<CheckListObject> members = new ListView<CheckListObject>();
-		members.setPrefSize(200, 250);
 		members.setEditable(true);
 		members.setItems(memberList);
 		

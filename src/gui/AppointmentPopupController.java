@@ -52,8 +52,8 @@ public class AppointmentPopupController {
 		allMembers = new ArrayList<String>(Arrays.asList("Kristoffer Lervik", "Trym Nilsen", "Hoang Hai Nguyen", "Erik Wiker", "Patricia Zemer", "Jens Stoltenberg", "Erna Solberg", "Kong Harald", "Madonna", "Will Smith", "Kanye West", "Julenissen", "Postman Pat"));
 	}
 	
-	private void addAppointment(String username, String description, String from, String to, String place, String appointmentType, int roomID, int usergroupID) throws SQLException {
-		db.addAppointment(username, description, from, to, place, appointmentType, roomID, usergroupID);
+	private void addAppointment(String username, String description, String from, String to, String place, String appointmentType, int roomID, String groupName) throws SQLException {
+		db.addAppointment(username, description, from, to, place, appointmentType, roomID, groupName);
 	}
 
 	public void setPopupStage(Stage popupStage) {
@@ -88,7 +88,7 @@ public class AppointmentPopupController {
 					group);
 			csp.addAppointment(appointment);
 			group.addAppointment(appointment);
-			addAppointment(username, appointment.getDescription(), appointment.getDate().toString() + " " + appointment.getStartTime().toString() + ":00", appointment.getDate().toString() + " " + appointment.getEndTime().toString() + ":00", null, null, 1, db.getGroupID(group.getName()));
+			addAppointment(username, appointment.getDescription(), appointment.getDate().toString() + " " + appointment.getStartTime().toString() + ":00", appointment.getDate().toString() + " " + appointment.getEndTime().toString() + ":00", null, null, 1, group.getName());
 			popupStage.close();
 		} else {
 			asp.getAppointment().setDescription(descriptionField.getText());

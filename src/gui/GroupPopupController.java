@@ -147,7 +147,7 @@ public class GroupPopupController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		ListView<CheckListObject> members = new ListView<CheckListObject>();
 		members.setPrefSize(200, 250);
 		members.setEditable(true);

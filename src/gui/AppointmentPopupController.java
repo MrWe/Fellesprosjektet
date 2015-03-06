@@ -51,7 +51,7 @@ public class AppointmentPopupController {
 		db = new DBConnection();
 		allMembers = new ArrayList<String>(Arrays.asList("Kristoffer Lervik", "Trym Nilsen", "Hoang Hai Nguyen", "Erik Wiker", "Patricia Zemer", "Jens Stoltenberg", "Erna Solberg", "Kong Harald", "Madonna", "Will Smith", "Kanye West", "Julenissen", "Postman Pat"));
 	}
-	
+
 	private void addAppointment(String username, String description, String from, String to, String place, String appointmentType, int roomID, int usergroupID) throws SQLException {
 		db.addAppointment(username, description, from, to, place, appointmentType, roomID, usergroupID);
 	}
@@ -102,10 +102,10 @@ public class AppointmentPopupController {
 			asp.update();
 			popupStage.close();
 		}
-		
-		
+
+
 	}
-	
+
 	private String isValidInput() {
 		String errorText = "";
 		if (descriptionField.getText().equals("")) {
@@ -130,7 +130,7 @@ public class AppointmentPopupController {
 	private void handleCancel() {
 		popupStage.close();
 	}
-	
+
 	@FXML
 	private void handleDelete() {
 		((VBox) asp.getParent()).getChildren().remove(asp);
@@ -143,7 +143,7 @@ public class AppointmentPopupController {
 		this.group = group;
 		memberList.clear();
 		members.getChildren().clear();
-		
+
 		ListView<CheckListObject> members = new ListView<CheckListObject>();
 		members.setPrefSize(200, 250);
 		members.setEditable(true);
@@ -155,7 +155,7 @@ public class AppointmentPopupController {
 		};
 		Callback<ListView<CheckListObject>, ListCell<CheckListObject>> forListView = CheckBoxListCell.forListView(getProperty);
 		members.setCellFactory(forListView);
-		
+
 		if (csp != null) {
 			deleteBtn.setDisable(true);
 			editingExisting = false;

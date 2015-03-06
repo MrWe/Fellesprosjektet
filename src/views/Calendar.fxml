@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
@@ -8,18 +9,29 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.GridPane?>
 
-<AnchorPane stylesheets="@../../bin/styles/calendarStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CalendarController">
+<AnchorPane stylesheets="@../../bin/styles/calendarStyle.css"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="gui.CalendarController">
 	<children>
-		<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+		<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<children>
 				<HBox alignment="CENTER">
 					<children>
 						<Label text="March" />
+						<Label styleClass="thinLabel" text="2015">
+							<HBox.margin>
+								<Insets left="10.0" />
+							</HBox.margin>
+						</Label>
 					</children>
 				</HBox>
 				<AnchorPane>
 					<children>
-						<GridPane fx:id="calendar" alignment="BOTTOM_CENTER" style="-fx-border-color: #475947" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+						<GridPane fx:id="calendar" alignment="BOTTOM_CENTER"
+							style="-fx-border-color: #475947" AnchorPane.bottomAnchor="0.0"
+							AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0"
+							AnchorPane.topAnchor="0.0" />
 					</children>
 				</AnchorPane>
 			</children>

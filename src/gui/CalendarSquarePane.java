@@ -30,13 +30,9 @@ public class CalendarSquarePane extends Pane {
 		this.date = date;
 		this.mainApp = mainApp;
 		this.group = group;
-<<<<<<< HEAD
-		text = new Text(date);
-		//text.setLayoutX(this.widthProperty());
-=======
 		text = new Text(date.substring(0, 2));
 		text.setLayoutX(5);
->>>>>>> Group-admin-privileges
+
 		text.setLayoutY(15);
 		text.setFill(Color.WHITE);
 		this.getChildren().add(text);

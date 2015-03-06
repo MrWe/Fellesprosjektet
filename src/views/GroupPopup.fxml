@@ -26,11 +26,12 @@
 					</VBox.margin>
 				</HBox>
 				<Text fx:id="errorText" />
+            <VBox fx:id="admins" prefHeight="200.0" prefWidth="100.0" />
 			</children>
 		</VBox>
 		<VBox spacing="5" AnchorPane.bottomAnchor="40" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
 			<children>
-				<Label fx:id="memberListText" text="Medllemmer" />
+				<Label fx:id="memberListText" text="Medlemmer" />
 				<VBox fx:id="members" />
 			</children>
 			<padding>

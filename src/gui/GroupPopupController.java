@@ -25,12 +25,10 @@ import database.DBConnection;
 
 public class GroupPopupController {
 
-	//@FXML private Text text;
 	@FXML private TextField nameField;
 	@FXML private Text errorText;
 	private Stage popupStage;
 	private ObservableList<CheckListObject> memberList = FXCollections.observableArrayList();
-	//private ArrayList<String> allMembers; //temporary until database is up
 	@FXML private VBox members;
 	@FXML private Text memberListText;
 	@FXML private Button OKBtn;
@@ -44,7 +42,6 @@ public class GroupPopupController {
 
 	@FXML
 	private void initialize() {
-		//allMembers = new ArrayList<String>();
 		db = new DBConnection();
 	}
 
@@ -125,11 +122,13 @@ public class GroupPopupController {
 
 	public void fillPopup(TreeItem<Group> group, boolean createSub, MainApp mainApp) { // called whenever the popup is opened		
 		this.mainApp = mainApp;
-		//		if (group != null && group.getParent() != null) {
-		//			System.out.println(group.getParent());
-		//		} else {
-		//			System.out.println("parent null");
-		//		}
+		try {
+			if(group != null) {				
+				System.out.println("isAdmin " + db.isAdmin(mainApp.getUser().getUsername(), group.getValue().getName()));
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 		this.createSub = createSub;
 		this.group = group;
 		memberList.clear();
@@ -140,7 +139,7 @@ public class GroupPopupController {
 			rs.next();
 			if (group != null && rs.getString(2).equals(group.getValue().getName())) {
 				isPrivate = true;
-				System.out.println("true");
+				System.out.println("isPrivate true");
 			} else {
 				isPrivate = false;
 			}

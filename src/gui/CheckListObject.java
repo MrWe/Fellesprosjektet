@@ -3,7 +3,7 @@ package gui;
 import javafx.beans.property.SimpleBooleanProperty;
 
 /**
- * Klasse som brukes av GUIController for å lage en check-liste
+ * Klasse som brukes av GUIController for ï¿½ lage en check-liste
  */
 public class CheckListObject {
 	private final SimpleBooleanProperty selected;

@@ -113,7 +113,7 @@ public class GroupPopupController {
 	private String isValidInput() {
 		String errorText = "";
 		if (nameField.getText().equals("")) {
-			errorText += "Beskrivelse kan ikke være tom\n";
+			errorText += "Beskrivelse kan ikke vï¿½re tom\n";
 		}
 		return errorText;
 	}

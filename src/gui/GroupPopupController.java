@@ -30,6 +30,7 @@ public class GroupPopupController {
 	@FXML private Text errorText;
 	private Stage popupStage;
 	private ObservableList<CheckListObject> memberList = FXCollections.observableArrayList();
+	private ObservableList<CheckListObject> adminList = FXCollections.observableArrayList();
 	@FXML private VBox members;
 	@FXML private VBox admins;
 	@FXML private Label memberListText;
@@ -41,6 +42,8 @@ public class GroupPopupController {
 	private TreeItem<Group> group;
 	private DBConnection db;
 	private MainApp mainApp;
+	
+	
 
 	@FXML
 	private void initialize() {
@@ -152,7 +155,8 @@ public class GroupPopupController {
 		//for admins 
 		ListView<CheckListObject> admins = new ListView<CheckListObject>();
 		admins.setEditable(true);
-		admins.setItems(memberList);
+		adminList.add(new CheckListObject("Kristoffer"));
+		admins.setItems(adminList);
 		
 		Callback<CheckListObject, ObservableValue<Boolean>> 
 		getAdminProperty = new Callback<CheckListObject, ObservableValue<Boolean>>() {

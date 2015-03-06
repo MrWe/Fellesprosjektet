@@ -20,12 +20,37 @@ public class DBConnection {
 	 * @param username username of the user
 	 * @return a ResultSet with username and password for the username specified
 	 */
-	public ResultSet login(String username) {
+	public ResultSet getLoginInfo(String username) {
 		String q = "SELECT username, pswd FROM USER WHERE username = '"
 				+ username
 				+ "';";
 		return db.queryDB(q);
 	}
+	
+	public void setEmail(String username, String email) {
+		String q = "UPDATE USER SET email = '"
+				+ email
+				+ "' WHERE username = '"
+				+ username
+				+ "';";
+		db.updateDB(q);
+	}
+	
+	public void setPassword(String username, String password) {
+		String q = "UPDATE USER SET pswd = '"
+				+ password
+				+ "' WHERE username = '"
+				+ username
+				+ "';";
+		db.updateDB(q);
+	}
+	
+	
+	public static void main(String[] args) {
+		DBConnection db = new DBConnection();
+		db.setPassword("krislerv", "pass");
+	}
+
 
 	/**
 	 * Inserts a new user into the database, 
@@ -285,11 +310,6 @@ public class DBConnection {
 			db.updateDB(q);
 		}
 	}
-//	
-//	public static void main(String[] args) {
-//		DBConnection db = new DBConnection();
-//		db.addAppointmentMembers(appointmentID, members);
-//	}
 
 	/**
 	 * For each member in the ArrayList, insert the user into the group specified with groupName
@@ -368,8 +388,6 @@ public class DBConnection {
 		}
 		return false;
 	}
-
-
 	
 	////////////////////////////////////////////////////////////////////
 	///////////////////////IGNORE EVERYTHING BELOW//////////////////////

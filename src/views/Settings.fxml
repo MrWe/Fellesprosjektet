@@ -29,7 +29,7 @@
 								<Insets left="10.0" />
 							</HBox.margin>
 						</Text>
-						<TextField prefWidth="300.0">
+						<TextField  fx:id = "emailField" prefWidth="300.0">
 							<opaqueInsets>
 								<Insets />
 							</opaqueInsets>
@@ -83,14 +83,14 @@
 								<Insets left="10.0" />
 							</HBox.margin>
 						</Text>
-						<TextField prefWidth="300.0">
+						<PasswordField fx:id="oldPasswordField" prefWidth="300.0">
 							<opaqueInsets>
 								<Insets />
 							</opaqueInsets>
 							<HBox.margin>
 								<Insets left="50.0" />
 							</HBox.margin>
-						</TextField>
+						</PasswordField>
 					</children>
 					<VBox.margin>
 						<Insets left="30.0" />
@@ -103,14 +103,14 @@
 								<Insets left="10.0" />
 							</HBox.margin>
 						</Text>
-						<TextField prefWidth="300.0">
+						<PasswordField fx:id="newPasswordField" prefWidth="300.0">
 							<opaqueInsets>
 								<Insets />
 							</opaqueInsets>
 							<HBox.margin>
 								<Insets left="80.0" />
 							</HBox.margin>
-						</TextField>
+						</PasswordField>
 					</children>
 					<VBox.margin>
 						<Insets left="30.0" />
@@ -123,14 +123,14 @@
 								<Insets left="10.0" />
 							</HBox.margin>
 						</Text>
-						<TextField prefWidth="300.0">
+						<PasswordField fx:id="repeatNewPasswordField" prefWidth="300.0">
 							<opaqueInsets>
 								<Insets />
 							</opaqueInsets>
 							<HBox.margin>
 								<Insets left="40.0" />
 							</HBox.margin>
-						</TextField>
+						</PasswordField>
 					</children>
 					<VBox.margin>
 						<Insets left="30.0" />
@@ -138,17 +138,26 @@
 				</HBox>
 				<HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
 					<children>
-						<Button mnemonicParsing="false" text="Lagre">
+						<Button mnemonicParsing="false" text="Lagre" onAction="#changeValues">
 							<HBox.margin>
 								<Insets right="10.0" />
 							</HBox.margin>
 						</Button>
-						<Button mnemonicParsing="false" text="Avbryt">
+						<Button mnemonicParsing="false" text="Avbryt" onAction="#goHome">
 							<HBox.margin>
 								<Insets left="10.0" />
 							</HBox.margin>
 						</Button>
 					</children>
+				</HBox>
+				<HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+				<children>
+					<Text fx:id="errorText" id="fill-white" strokeType="OUTSIDE" strokeWidth="0.0">
+							<HBox.margin>
+								<Insets left="10.0" />
+							</HBox.margin>
+						</Text>
+				</children>
 				</HBox>
 			</children>
 		</VBox>

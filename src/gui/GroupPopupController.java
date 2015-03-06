@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -30,7 +31,7 @@ public class GroupPopupController {
 	private Stage popupStage;
 	private ObservableList<CheckListObject> memberList = FXCollections.observableArrayList();
 	@FXML private VBox members;
-	@FXML private Text memberListText;
+	@FXML private Label memberListText;
 	@FXML private Button OKBtn;
 	private TreeView<Group> treeView;
 	private boolean editingExisting;

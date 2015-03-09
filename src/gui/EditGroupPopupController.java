@@ -38,6 +38,7 @@ public class EditGroupPopupController {
 	@FXML private Label memberListText;
 	@FXML private Label invitableMemberListText;
 	@FXML private Button OKBtn;
+	@FXML private Button inviteBtn;
 	private TreeView<Group> treeView;
 	private boolean editingExisting;
 	private boolean createSub;
@@ -61,8 +62,10 @@ public class EditGroupPopupController {
 		this.treeView = treeView;
 	}
 
+	
 	@FXML
-	private void handleOk() { // when OK is clicked, create a new appointment with the info given and give it to the CalendarSquarePane that opened the popup
+	private void handleInvite() { //handle the invite button
+		System.out.println("jeg trykker paa handleInvite knappen");
 		String validInput = isValidInput();
 		if (validInput.length() != 0) {
 			errorText.setVisible(true);
@@ -104,15 +107,29 @@ public class EditGroupPopupController {
 			try {
 				db.editGroupName(group.getValue().getName(), nameField.getText());  // parameteres are oldName, newName
 				if (!isPrivate) {					
-					db.setGroupMembers(nameField.getText(), invited);					// deletes the current members of the group and adds all currently selected
+					db.addGroupMembers(nameField.getText(), invited);					// deletes the current members of the group and adds all currently selected
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			group.getValue().setName(nameField.getText());	// update values client-side as well
-			group.getValue().setMembers(invited);
+			group.getValue().addMembers(invited);
 		}
-		popupStage.close();
+		
+		
+		ListView<String> members = new ListView<String>();
+		members.setEditable(true);
+		members.setItems(memberList);
+		memberList.clear();
+		
+		for (String member : group.getValue().getMembers()) {
+			memberList.add(member);
+		}
+
+		this.members.getChildren().clear();
+		this.members.getChildren().add(members);
+		
+		
 	}
 
 	private String isValidInput() {
@@ -124,7 +141,7 @@ public class EditGroupPopupController {
 	}
 
 	@FXML
-	private void handleCancel() {
+	private void handleOK() {
 		popupStage.close();
 	}
 
@@ -163,17 +180,12 @@ public class EditGroupPopupController {
 		this.admins.getChildren().add(admins);
 
 
-		//for members
+		//Show members
 		ListView<String> members = new ListView<String>();
 		members.setEditable(true);
 		members.setItems(memberList);
 		
-		
 		for (String member : group.getValue().getMembers()) {
-//			String clo = new String(member);
-//			if (group.getValue().getMembers().contains(member)) {
-//				clo.setSelectedProperty(true);
-//			}
 			memberList.add(member);
 		}
 		this.members.getChildren().add(members);
@@ -204,10 +216,9 @@ public class EditGroupPopupController {
 			} else {				
 				for (String member : group.getParent().getValue().getMembers()) {
 					CheckListObject clo = new CheckListObject(member);
-					if (group.getValue().getMembers().contains(member)) {
-						clo.setSelectedProperty(true);
+					if (!group.getValue().getMembers().contains(member)) {
+						invitableMemberList.add(clo);
 					}
-					invitableMemberList.add(clo);
 				}
 				this.invitableMembers.getChildren().add(invitableMembers);
 			}
@@ -228,7 +239,9 @@ public class EditGroupPopupController {
 				rs = db.getAllUsers();
 				try {
 					while (rs.next()) {
-						invitableMemberList.add(new CheckListObject(rs.getString(4)));
+						if(!memberList.contains(rs.getString(4))){
+							invitableMemberList.add(new CheckListObject(rs.getString(4)));
+						}
 					}
 					this.invitableMembers.getChildren().add(invitableMembers);
 				} catch (SQLException e) {

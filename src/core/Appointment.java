@@ -1,8 +1,11 @@
 package core;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+
+import core.Group;
 
 public class Appointment {
 	
@@ -29,6 +32,7 @@ public class Appointment {
 		this.color = color;
 		this.owner = owner;
 	}
+
 
 	public Group getOwner() {
 		return owner;

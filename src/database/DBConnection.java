@@ -120,6 +120,13 @@ public class DBConnection {
 				+"';";
 		return db.queryDB(q);
 	}
+	
+	public String getUsername(int userId) throws SQLException {
+		String q = "SELECT * FROM USER WHERE userID = " + userId;
+		ResultSet rs = db.queryDB(q);
+		rs.next();
+		return rs.getString(4);
+	}
 
 	/**
 	 * Returns the userID of the specified username as an int
@@ -156,6 +163,7 @@ public class DBConnection {
 		String q = "SELECT * FROM USERGROUP;";
 		return db.queryDB(q);
 	}
+	
 
 	/**
 	 * Returns a ResultSet with the id and name of the private group of the specified user
@@ -221,6 +229,11 @@ public class DBConnection {
 		ResultSet rs = db.queryDB(q);
 		rs.next();
 		return rs.getString(1);
+	}
+	
+	public ResultSet getAppointmentMembers(int appointmentId) {
+		String q = "SELECT * FROM APPOINTMENTMEMBER WHERE APPOINTMENT_appointmentID = " + appointmentId;
+		return db.queryDB(q);
 	}
 
 	/**
@@ -296,8 +309,8 @@ public class DBConnection {
 		return Integer.parseInt(rs.getString(1));
 	}
 	
-	public ResultSet getAppointmentsByGroupId(int usergroupID) {
-		String q = "SELECT * FROM APPOINTMENT WHERE USERGROUP_usergroupID = " + usergroupID;
+	public ResultSet getAppointmentsWithGroup(int group) {
+		String q = "SELECT * FROM APPOINTMENT AS A JOIN USERGROUP AS U ON(A.USERGROUP_usergroupID = U.usergroupID) WHERE A.USERGROUP_usergroupID = " + group;
 		return db.queryDB(q);
 	}
 

@@ -58,6 +58,7 @@ public class ListController {
 						groups.get("" + i).getChildren().add(groups.get("" + j));
 						if (groups.get("" + j).getValue().isPrivateGroup()) {
 							treeView.getSelectionModel().select(groups.get("" + j));
+							mainApp.showCalendar(groups.get("" + j).getValue());
 						}
 					}
 				}
@@ -70,19 +71,23 @@ public class ListController {
 			@Override
 			public void changed(ObservableValue<? extends TreeItem<Group>> observableValue, TreeItem<Group> oldValue, TreeItem<Group> newValue) {
 				// show the calendar of the chosen group
+				System.out.println("hei");
 				if (newValue == null) {
 					return;
 				}
-<<<<<<< HEAD
-				System.out.println(newValue.getValue().getName() + " " + newValue.getValue().getGroupID());
-=======
+
 				if(newValue.getValue().isPrivateGroup() == true){
 					editGroupBtn.setDisable(true);
 				}else{
 					editGroupBtn.setDisable(false);
 				}
->>>>>>> GroupPopup-
 				mainApp.showCalendar(newValue.getValue());
+				try {
+					mainApp.showCalendar(newValue.getValue());
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 	}

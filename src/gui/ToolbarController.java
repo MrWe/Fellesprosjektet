@@ -1,5 +1,6 @@
 package gui;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javafx.fxml.FXML;
@@ -19,7 +20,7 @@ public class ToolbarController {
 	}
 
 	@FXML
-	private void openHome() {
+	private void openHome() throws SQLException {
 		mainApp.showCalendar(new Group("",false, "0", "0", new ArrayList<String>(), new ArrayList<String>()));
 		System.out.println("Opened Home");
 	}

@@ -76,7 +76,7 @@ public class SettingsController {
 	}
 
 	@FXML
-	private void goHome() {
+	private void goHome() throws SQLException {
 		mainApp.showCalendar(new Group("", false, "0", "0", new ArrayList<String>(), new ArrayList<String>()));
 	}
 }

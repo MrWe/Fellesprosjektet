@@ -1,6 +1,7 @@
 package gui;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -106,7 +107,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void login(String username) {
+	public void login(String username) throws SQLException {
 		user = new User(username);
 		loginLayout.setVisible(false);
 		initRootLayout();
@@ -115,7 +116,7 @@ public class MainApp extends Application {
 		showToolbar();
 	}
 
-	public void showCalendar(Group group) {
+	public void showCalendar(Group group) throws SQLException {
 		try {
 			// Load overview.
 			FXMLLoader loader = new FXMLLoader();

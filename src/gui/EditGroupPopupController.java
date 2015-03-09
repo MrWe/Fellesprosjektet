@@ -116,12 +116,11 @@ public class EditGroupPopupController {
 			group.getValue().addMembers(invited);
 		}
 		
-		
+		//update memberlist
 		ListView<String> members = new ListView<String>();
 		members.setEditable(true);
 		members.setItems(memberList);
 		memberList.clear();
-		
 		for (String member : group.getValue().getMembers()) {
 			memberList.add(member);
 		}
@@ -129,7 +128,35 @@ public class EditGroupPopupController {
 		this.members.getChildren().clear();
 		this.members.getChildren().add(members);
 		
+		updateInvitableMemberList();
 		
+		
+		
+	}
+	
+	private void updateInvitableMemberList(){
+		ListView<CheckListObject> invitableMembers = new ListView<CheckListObject>();
+		invitableMembers.setEditable(true);
+		invitableMembers.setItems(invitableMemberList);
+		invitableMemberList.clear();
+		Callback<CheckListObject, ObservableValue<Boolean>> 
+		getProperty = new Callback<CheckListObject, ObservableValue<Boolean>>() {
+			public BooleanProperty call(CheckListObject object) {
+				return object.selectedProperty();
+			}
+		};
+		Callback<ListView<CheckListObject>, 
+		ListCell<CheckListObject>> forListView = CheckBoxListCell.forListView(getProperty);
+		invitableMembers.setCellFactory(forListView);
+		
+		for (String member : group.getParent().getValue().getMembers()) {
+			CheckListObject clo = new CheckListObject(member);
+			if (!group.getValue().getMembers().contains(member)) {
+				invitableMemberList.add(clo);
+			}
+		}
+		this.invitableMembers.getChildren().clear();
+		this.invitableMembers.getChildren().add(invitableMembers);
 	}
 
 	private String isValidInput() {

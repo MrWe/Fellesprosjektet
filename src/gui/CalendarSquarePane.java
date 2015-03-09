@@ -95,5 +95,10 @@ public class CalendarSquarePane extends Pane {
 		appointmentList.getChildren().add(asp);
 		observableAppointments.add(asp.getAppointment());
 	}
+	
+	@Override
+	public String toString() {
+		return super.toString() + " " + date;
+	}
 
 }

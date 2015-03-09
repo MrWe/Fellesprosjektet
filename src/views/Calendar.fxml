@@ -18,13 +18,13 @@
 			<children>
 				<HBox alignment="CENTER">
 					<children>
-						<Button text="left" onActiom="#goLeft">
+						<Button text="left" onAction="#goLeft">
 							<HBox.margin>
 								<Insets right="100" />
 							</HBox.margin>
 						</Button>
-						<Label text="March" />
-						<Label styleClass="thinLabel" text="2015">
+						<Text fx:id="monthText" text="March" />
+						<Text fx:id="yearText" styleClass="thinLabel" text="2015">
 							<HBox.margin>
 								<Insets left="10.0" />
 							</HBox.margin>

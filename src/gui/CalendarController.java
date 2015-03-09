@@ -4,7 +4,6 @@ import java.util.Calendar;
 
 import core.Appointment;
 import core.Group;
-import database.DB;
 import database.DBConnection;
 import javafx.fxml.FXML;
 import javafx.scene.layout.ColumnConstraints;
@@ -15,8 +14,10 @@ import javafx.scene.text.Text;
 
 public class CalendarController {
 
-	@FXML private Text text;
+	@FXML private Text monthText;
+	@FXML private Text yearText;
 	@FXML private GridPane calendar;
+	@FXML private Group group;
 
 	// Reference to the main application.
 	private MainApp mainApp;
@@ -28,6 +29,7 @@ public class CalendarController {
 
 	@SuppressWarnings("deprecation")
 	public void fillCalendar(Group group) {
+		this.group = group;
 		for (int i = 0; i < 7; i++) { // sets contraints on each of the 7 columns
 			ColumnConstraints columnConstraints = new ColumnConstraints();
 			columnConstraints.setFillWidth(true);
@@ -78,12 +80,12 @@ public class CalendarController {
 	
 	@FXML
 	private void goLeft() {
-		
+		mainApp.showCalendar(group);
 	}
 	
 	@FXML
 	private void goRight() {
-		
+		mainApp.showCalendar(group);
 	}
 
 	public void setMainApp(MainApp mainApp) {

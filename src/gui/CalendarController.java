@@ -4,6 +4,8 @@ import java.util.Calendar;
 
 import core.Appointment;
 import core.Group;
+import database.DB;
+import database.DBConnection;
 import javafx.fxml.FXML;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -18,6 +20,7 @@ public class CalendarController {
 
 	// Reference to the main application.
 	private MainApp mainApp;
+	private DBConnection dbConnection = new DBConnection();
 
 	@FXML
 	private void initialize() {
@@ -53,6 +56,7 @@ public class CalendarController {
 
 		Calendar c = Calendar.getInstance(); // date today
 		c.add(Calendar.DAY_OF_MONTH, -total);
+		// ResultSet rs = dbConnection.getAppointmentsByGroupId();
 		for (int i = 0; i < 5; i++) {		// for each date: create string on the format dd/mm/yyyy and yyyy-mm-dd
 			for (int j = 0; j < 7; j++){	// and create a new CalendarSquarePane object for each of them
 				String date = String.format("%02d", c.getTime().getDate()) + "/" + String.format("%02d", (c.getTime().getMonth() + 1)) + "/" + (c.getTime().getYear() + 1900);

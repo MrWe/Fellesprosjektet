@@ -295,6 +295,11 @@ public class DBConnection {
 		rs.next();
 		return Integer.parseInt(rs.getString(1));
 	}
+	
+	public ResultSet getAppointmentsByGroupId(int usergroupID) {
+		String q = "SELECT * FROM APPOINTMENT WHERE USERGROUP_usergroupID = " + usergroupID;
+		return db.queryDB(q);
+	}
 
 	// Doesnt retrieve userID from calendar. Needs fix.
 	public void addAppointmentMembers(int appointmentID, ArrayList<String> members) throws SQLException {

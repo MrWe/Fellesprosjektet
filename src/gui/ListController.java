@@ -11,6 +11,7 @@ import database.DBConnection;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 
@@ -19,12 +20,14 @@ public class ListController {
 	private MainApp mainApp;
 	private DBConnection db;
 	@FXML private TreeView<Group> treeView;
+	@FXML private Button editGroupBtn;
 
 	@FXML
 	private void initialize() { // can't use this method since it is called before mainApp is set
 	}
-	
+
 	public void init2() {
+		editGroupBtn.setDisable(true); //dårlig løsning til editBtn
 		db = new DBConnection();
 		ResultSet AllGroupsRS = db.getAllGroupsOfUser(mainApp.getUser().getUsername());
 		Map<String, TreeItem<Group>> groups = new HashMap<String, TreeItem<Group>>(); // HashMap that contains the usergroupID of a group and a TreeItem containing the group
@@ -70,11 +73,20 @@ public class ListController {
 				if (newValue == null) {
 					return;
 				}
+<<<<<<< HEAD
 				System.out.println(newValue.getValue().getName() + " " + newValue.getValue().getGroupID());
+=======
+				if(newValue.getValue().isPrivateGroup() == true){
+					editGroupBtn.setDisable(true);
+				}else{
+					editGroupBtn.setDisable(false);
+				}
+>>>>>>> GroupPopup-
 				mainApp.showCalendar(newValue.getValue());
 			}
 		});
 	}
+
 
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
@@ -87,7 +99,7 @@ public class ListController {
 
 	@FXML
 	private void editGroup() {
-		mainApp.showGroupPopup(treeView, treeView.getSelectionModel().getSelectedItem(), false);
+		mainApp.showEditGroupPopup(treeView, treeView.getSelectionModel().getSelectedItem(), false);
 	}
 
 	@FXML

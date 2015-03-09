@@ -12,50 +12,56 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.ListView?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" styleClass="theBackground" stylesheets="@../../bin/styles/groupPopupStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GroupPopupController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+	prefWidth="500.0" styleClass="theBackground" stylesheets="@../../bin/styles/groupPopupStyle.css"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="gui.GroupPopupController">
 	<children>
-				<HBox alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-					<children>
-						<Label prefWidth="65" text="Navn" />
-						<TextField fx:id="nameField">
-               <HBox.margin>
-                  <Insets bottom="2.0" top="2.0" />
-               </HBox.margin>
-            </TextField>
-					</children>
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-				</HBox>
-      <HBox AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
-         <children>
-      		<VBox alignment="TOP_CENTER" prefHeight="300.0" prefWidth="250.0" spacing="5">
-      			<children>
-                  <Label text="Admins" />
-                  <VBox fx:id="admins" />
-      			</children>
-      		</VBox>
-      		<VBox alignment="TOP_CENTER" prefHeight="300.0" prefWidth="250.0" spacing="5">
-      			<children>
-      				<Label fx:id="memberListText" alignment="CENTER" text="Medlemmer" />
-      				<VBox fx:id="members" />
-      			</children>
-      		</VBox>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <children>
-      				<Text fx:id="errorText" text="Hei jeg er en tilbakemelding!">
-               <HBox.margin>
-                  <Insets bottom="2.0" top="2.0" />
-               </HBox.margin>
-            </Text>
-         </children>
-      </HBox>
-		<HBox alignment="CENTER_RIGHT" spacing="5" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0">
+		<HBox alignment="CENTER" AnchorPane.leftAnchor="0.0"
+			AnchorPane.rightAnchor="0.0">
 			<children>
-				<Button fx:id="OKBtn" defaultButton="true" mnemonicParsing="false" onAction="#handleOk" prefHeight="24.0" prefWidth="89.0" text="OK" />
-				<Button mnemonicParsing="false" onAction="#handleCancel" prefHeight="24.0" prefWidth="89.0" text="Cancel" />
+				<Label prefWidth="65" text="Navn" />
+				<TextField fx:id="nameField">
+					<HBox.margin>
+						<Insets bottom="2.0" top="2.0" />
+					</HBox.margin>
+				</TextField>
+			</children>
+			<padding>
+				<Insets left="10.0" />
+			</padding>
+		</HBox>
+		<HBox alignment="TOP_CENTER" AnchorPane.leftAnchor="0.0"
+			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+			<children>
+				<VBox alignment="TOP_CENTER" prefHeight="300.0" prefWidth="250.0"
+					spacing="5">
+					<children>
+						<Label fx:id="memberListText" alignment="CENTER" text="Inviter medlemmer" />
+						<VBox fx:id="members" />
+					</children>
+				</VBox>
+			</children>
+		</HBox>
+		<HBox alignment="CENTER" AnchorPane.bottomAnchor="34.0"
+			AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+			<children>
+				<Text fx:id="errorText" text="Hei jeg er en tilbakemelding!">
+					<HBox.margin>
+						<Insets bottom="2.0" top="2.0" />
+					</HBox.margin>
+				</Text>
+			</children>
+		</HBox>
+		<HBox alignment="CENTER_RIGHT" spacing="5"
+			AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="0.0"
+			AnchorPane.rightAnchor="5.0">
+			<children>
+				<Button fx:id="OKBtn" defaultButton="true" mnemonicParsing="false"
+					onAction="#handleOk" prefHeight="24.0" prefWidth="89.0" text="OK" />
+				<Button mnemonicParsing="false" onAction="#handleCancel"
+					prefHeight="24.0" prefWidth="89.0" text="Cancel" />
 			</children>
 		</HBox>
 

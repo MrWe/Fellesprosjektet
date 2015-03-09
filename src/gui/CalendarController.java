@@ -75,6 +75,16 @@ public class CalendarController {
 			}
 		}
 	}
+	
+	@FXML
+	private void goLeft() {
+		
+	}
+	
+	@FXML
+	private void goRight() {
+		
+	}
 
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;

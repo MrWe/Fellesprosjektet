@@ -18,12 +18,22 @@
 			<children>
 				<HBox alignment="CENTER">
 					<children>
+						<Button text="left" onActiom="#goLeft">
+							<HBox.margin>
+								<Insets right="100" />
+							</HBox.margin>
+						</Button>
 						<Label text="March" />
 						<Label styleClass="thinLabel" text="2015">
 							<HBox.margin>
 								<Insets left="10.0" />
 							</HBox.margin>
 						</Label>
+						<Button text="right" onAction="#goRight">
+							<HBox.margin>
+								<Insets left="100" />
+							</HBox.margin>
+						</Button>
 					</children>
 				</HBox>
 				<AnchorPane>

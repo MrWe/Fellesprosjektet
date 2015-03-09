@@ -74,7 +74,7 @@ public class GroupPopupController {
 			}
 		}
 		if (!editingExisting) {				// if either creating a new group or a new subgroup
-			Group group = new Group(nameField.getText(), false, "0", invited, invited);
+			Group group = new Group(nameField.getText(), false, "0", "0", invited, invited);
 			TreeItem<Group> newGroup = new TreeItem<Group>(group);
 			if (createSub) {				// if creating a new subgroup
 				this.group.getChildren().add(newGroup);
@@ -82,6 +82,7 @@ public class GroupPopupController {
 					int superGroupID = db.getGroupID(this.group.getValue().getName());	// finds the usergroupID of the selected group when the popup was opened
 					//System.out.println(nameField.getText());
 					db.createGroup(nameField.getText(), 0, superGroupID);	// sets the USERGROUP_usergroupID field of the new group equal to the number above
+					group.setGroupID(db.getLastGroupID());
 					db.addGroupMembers(nameField.getText(), invited);
 					this.group.setExpanded(true);
 				} catch (SQLException e) {

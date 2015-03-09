@@ -111,7 +111,7 @@ public class MainApp extends Application {
 		loginLayout.setVisible(false);
 		initRootLayout();
 		showList();
-		showCalendar(new Group("", false,  "0", new ArrayList<String>(), new ArrayList<String>()));
+		showCalendar(new Group("", false, "0", "0", new ArrayList<String>(), new ArrayList<String>()));
 		showToolbar();
 	}
 

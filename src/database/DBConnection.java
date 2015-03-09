@@ -215,6 +215,13 @@ public class DBConnection {
 		rs.next();
 		return Integer.parseInt(rs.getString(1));
 	}
+	
+	public String getLastGroupID() throws SQLException {
+		String q = "SELECT MAX(usergroupID) from USERGROUP;";
+		ResultSet rs = db.queryDB(q);
+		rs.next();
+		return rs.getString(1);
+	}
 
 	/**
 	 * Inserts a new group into the database

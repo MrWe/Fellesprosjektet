@@ -77,6 +77,6 @@ public class SettingsController {
 
 	@FXML
 	private void goHome() {
-		mainApp.showCalendar(new Group("", false, "0", new ArrayList<String>(), new ArrayList<String>()));
+		mainApp.showCalendar(new Group("", false, "0", "0", new ArrayList<String>(), new ArrayList<String>()));
 	}
 }

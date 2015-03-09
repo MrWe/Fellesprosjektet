@@ -6,17 +6,18 @@ import java.util.Arrays;
 public class Group {
 	
 	private String name;
-	// TODO add groupID
 	private boolean privateGroup;
+	private String groupID;
 	private String supergroupID;
 	private ArrayList<String> members;
 	private ArrayList<String> admins;
 	private ArrayList<Group> subGroups;
 	private ArrayList<Appointment> appointments;
 	
-	public Group(String name, boolean privateGroup, String supergroupID, ArrayList<String> members, ArrayList<String> admins) {
+	public Group(String name, boolean privateGroup, String groupID, String supergroupID, ArrayList<String> members, ArrayList<String> admins) {
 		this.name = name;
 		this.privateGroup = privateGroup;
+		this.groupID = groupID;
 		this.supergroupID = supergroupID;
 		this.members = members;
 		this.admins = admins;
@@ -34,6 +35,14 @@ public class Group {
 	
 	public boolean isPrivateGroup() {
 		return privateGroup;
+	}
+	
+	public String getGroupID() {
+		return groupID;
+	}
+	
+	public void setGroupID(String groupID) {
+		this.groupID = groupID;
 	}
 	
 	public String getSupergroupID() {

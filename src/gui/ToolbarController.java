@@ -20,7 +20,7 @@ public class ToolbarController {
 
 	@FXML
 	private void openHome() {
-		mainApp.showCalendar(new Group("",false, "0", new ArrayList<String>(), new ArrayList<String>()));
+		mainApp.showCalendar(new Group("",false, "0", "0", new ArrayList<String>(), new ArrayList<String>()));
 		System.out.println("Opened Home");
 	}
 

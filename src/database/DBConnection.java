@@ -389,4 +389,27 @@ public class DBConnection {
 		}
 		return false;
 	}
+	
+	public void editGroupAdminRights(String groupName, String username, int adminStatus) throws SQLException {
+		int groupID = getGroupID(groupName);
+		int userID = getUserID(username);
+		String q = "UPDATE USER_has_USERGROUP SET groupAdmin = '"
+				+ adminStatus
+				+ "' WHERE USERGROUP_usergroupID = "
+				+ groupID
+				+ " AND USER_userID = "
+				+ userID
+				+ ";";
+		db.updateDB(q);
+	}
+	
+	public static void main(String[] args) {
+		DBConnection db = new DBConnection();
+		try {
+			db.editGroupAdminRights("Abakus", "krislerv", 0);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

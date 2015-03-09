@@ -81,12 +81,11 @@ public class ListController {
 				}else{
 					editGroupBtn.setDisable(false);
 				}
-				mainApp.showCalendar(newValue.getValue());
 				try {
 					mainApp.showCalendar(newValue.getValue());
-				} catch (SQLException e) {
+				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					e1.printStackTrace();
 				}
 			}
 		});

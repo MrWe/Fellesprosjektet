@@ -122,12 +122,12 @@ public class CalendarController {
 	}
 	
 	@FXML
-	private void goLeft() {
+	private void goLeft() throws SQLException {
 		mainApp.showCalendar(group);
 	}
 	
 	@FXML
-	private void goRight() {
+	private void goRight() throws SQLException {
 		mainApp.showCalendar(group);
 	}
 

@@ -7,14 +7,16 @@ public class Group {
 	
 	private String name;
 	// TODO add groupID
+	private boolean privateGroup;
 	private String supergroupID;
 	private ArrayList<String> members;
 	private ArrayList<String> admins;
 	private ArrayList<Group> subGroups;
 	private ArrayList<Appointment> appointments;
 	
-	public Group(String name, String supergroupID, ArrayList<String> members, ArrayList<String> admins) {
+	public Group(String name, boolean privateGroup, String supergroupID, ArrayList<String> members, ArrayList<String> admins) {
 		this.name = name;
+		this.privateGroup = privateGroup;
 		this.supergroupID = supergroupID;
 		this.members = members;
 		this.admins = admins;
@@ -28,6 +30,10 @@ public class Group {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public boolean isPrivateGroup() {
+		return privateGroup;
 	}
 	
 	public String getSupergroupID() {

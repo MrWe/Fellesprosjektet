@@ -37,7 +37,9 @@ public class ListController {
 					groupMembers.add(groupMembersRS.getString(1));
 				}
 				//System.out.println(groupMembers);
-				TreeItem<Group> treeItem = new TreeItem<Group>(new Group(AllGroupsRS.getString(3), AllGroupsRS.getString(4), groupMembers, new ArrayList<String>()));
+				System.out.println(AllGroupsRS.getString(3) + " " + AllGroupsRS.getString(2));
+				TreeItem<Group> treeItem = new TreeItem<Group>(new Group(AllGroupsRS.getString(3), AllGroupsRS.getString(2).equals("1") ? true : false, AllGroupsRS.getString(4), groupMembers, new ArrayList<String>()));
+				System.out.println(treeItem.getValue().isPrivateGroup());
 				groups.put(AllGroupsRS.getString(1), treeItem);
 			}
 			TreeItem<Group> root = groups.get("0"); // The root group is the one with usergroupID = 0
@@ -51,6 +53,9 @@ public class ListController {
 					if (groups.containsKey("" + i) && groups.containsKey("" + j) && groups.get("" + j).getValue().getSupergroupID() != null && groups.get("" + j).getValue().getSupergroupID().equals("" + i)) {
 						// add the TreeItem of group j to the children of the TreeItem of grup i	
 						groups.get("" + i).getChildren().add(groups.get("" + j));
+						if (groups.get("" + j).getValue().isPrivateGroup()) {
+							treeView.getSelectionModel().select(groups.get("" + j));
+						}
 					}
 				}
 			}

@@ -3,7 +3,6 @@ package database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,7 +26,7 @@ public class DBConnection {
 				+ "';";
 		return db.queryDB(q);
 	}
-	
+
 	public void setEmail(String username, String email) {
 		String q = "UPDATE USER SET email = '"
 				+ email
@@ -36,7 +35,7 @@ public class DBConnection {
 				+ "';";
 		db.updateDB(q);
 	}
-	
+
 	public void setPassword(String username, String password) {
 		String q = "UPDATE USER SET pswd = '"
 				+ password
@@ -45,9 +44,6 @@ public class DBConnection {
 				+ "';";
 		db.updateDB(q);
 	}
-	
-	
-
 
 	/**
 	 * Inserts a new user into the database, 
@@ -160,7 +156,7 @@ public class DBConnection {
 		String q = "SELECT * FROM USERGROUP;";
 		return db.queryDB(q);
 	}
-	
+
 	/**
 	 * Returns a ResultSet with the id and name of the private group of the specified user
 	 * 
@@ -239,7 +235,7 @@ public class DBConnection {
 				+ "');";
 		db.updateDB(q);
 	}
-	
+
 	/**
 	 * Inserts an appointment into the database
 	 * 
@@ -270,7 +266,7 @@ public class DBConnection {
 				+ groupID
 				+ "');";
 		db.updateDB(q);
-		
+
 		int lastId = getLastAppointment(); 
 		int userId = getUserID(username);
 		String qu = "INSERT INTO APPOINTMENTMEMBER(status, isAdmin, USER_userID, APPOINTMENT_appointmentID) Values ('"
@@ -285,14 +281,14 @@ public class DBConnection {
 		System.out.println(qu);
 		db.updateDB(qu);
 	}
-	
+
 	public int getLastAppointment() throws SQLException {
 		String q = "SELECT LAST_INSERT_ID();";
 		ResultSet rs = db.queryDB(q);
 		rs.next();
 		return Integer.parseInt(rs.getString(1));
 	}
-	
+
 	// Doesnt retrieve userID from calendar. Needs fix.
 	public void addAppointmentMembers(int appointmentID, ArrayList<String> members) throws SQLException {
 		for (String member : members) {
@@ -308,16 +304,6 @@ public class DBConnection {
 			db.updateDB(q);
 		}
 	}
-	
-	public static void main(String[] args) {
-		DBConnection db = new DBConnection();
-		try {
-			db.addAppointmentMembers(2, new ArrayList<String>(Arrays.asList("krislerv", "trymon")));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
 
 	/**
 	 * For each member in the ArrayList, insert the user into the group specified with groupName
@@ -385,7 +371,7 @@ public class DBConnection {
 		String q = "UPDATE USERGROUP SET groupName = '" + newName + "' WHERE groupName = '" + oldName + "';";
 		db.updateDB(q);
 	}
-	
+
 	public boolean isAdmin(String username, String groupName) throws SQLException {
 		int userID = getUserID(username);
 		int groupID = getGroupID(groupName);
@@ -396,42 +382,4 @@ public class DBConnection {
 		}
 		return false;
 	}
-	
-	////////////////////////////////////////////////////////////////////
-	///////////////////////IGNORE EVERYTHING BELOW//////////////////////
-	////////////////////////////////////////////////////////////////////
-
-	/**
-	 * Returnerer et ResultSet som sier hvor mange reservasjoner det er på en koie på en bestemt dato
-	 * 
-	 * @param koieID Koien informasjonen skal hentes fra
-	 * @param dato Den aktuelle datoen
-	 * @return ResultSet med antall reservasjoner (kun et tall, ikke informasjon om reservasjonene)
-	 * @throws SQLException
-	 */
-	public ResultSet getReservertePlasser(String koieID, String dato) throws SQLException {
-		String q = ("select count(*) from Reservasjon where ReservertKoieID = '" 
-				+ koieID 
-				+ "' and Dato = '" 
-				+ dato 
-				+ "';");
-
-		return db.queryDB(q);
-	}
-
-	/**
-	 * Fikser et utstyr 
-	 * 
-	 * @param koie Koien det gjelder.
-	 * @param tingnavn Utstyret som skal fikses.
-	 * @throws SQLException
-	 */
-	public void fixUtstyr(String koie, String tingnavn) throws SQLException {
-		String q = ("delete from ErOdelagt where UtstyrsID = (select distinct UtstyrsID from Utstyr where Navn = '" + tingnavn + "' and FraktesTilID = '" + koie + "');");
-		db.updateDB(q);
-
-		q = ("update Utstyr set stat = '1' where Navn = '" + tingnavn + "' and FraktesTilID = '" + koie + "';");
-		db.updateDB(q);
-	}
-
 }

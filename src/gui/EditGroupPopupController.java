@@ -116,7 +116,12 @@ public class EditGroupPopupController {
 			group.getValue().addMembers(invited);
 		}
 		
-		//update memberlist
+		updateMemberList();
+		updateInvitableMemberList();
+		
+	}
+	
+	private void updateMemberList(){
 		ListView<String> members = new ListView<String>();
 		members.setEditable(true);
 		members.setItems(memberList);
@@ -127,11 +132,6 @@ public class EditGroupPopupController {
 
 		this.members.getChildren().clear();
 		this.members.getChildren().add(members);
-		
-		updateInvitableMemberList();
-		
-		
-		
 	}
 	
 	private void updateInvitableMemberList(){
@@ -239,7 +239,7 @@ public class EditGroupPopupController {
 			nameField.setText(group.getValue().getName());
 
 			if (isPrivate) {
-				invitableMemberListText.setText("Dette er din private gruppe.\nDu er eneste medlem.");
+				//
 			} else {				
 				for (String member : group.getParent().getValue().getMembers()) {
 					CheckListObject clo = new CheckListObject(member);

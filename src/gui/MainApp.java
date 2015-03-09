@@ -282,16 +282,22 @@ public class MainApp extends Application {
 			} else {
 				popupStage.setTitle("Endre p� " + group.getValue().getName());
 			}
+			
+			
 			popupStage.initModality(Modality.WINDOW_MODAL);
 			popupStage.initOwner(primaryStage);
 			popupStage.setResizable(false);
 			Scene scene = new Scene(page);
 			popupStage.setScene(scene);
 			EditGroupPopupController controller = loader.getController();
+			
 			controller.setPopupStage(popupStage);
+			
 			controller.setTreeView(treeView);
+			System.out.println("here");
 			controller.fillPopup(group, createSub, this);
 			// Show the dialog and wait until the user closes it
+			
 			popupStage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();

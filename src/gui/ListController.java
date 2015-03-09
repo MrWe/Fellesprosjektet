@@ -91,7 +91,7 @@ public class ListController {
 
 	@FXML
 	private void newSubGroup() {
-		mainApp.showEditGroupPopup(treeView, treeView.getSelectionModel().getSelectedItem(), true);
+		mainApp.showGroupPopup(treeView, treeView.getSelectionModel().getSelectedItem(), true);
 	}
 
 }

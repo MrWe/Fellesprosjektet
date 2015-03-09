@@ -23,7 +23,7 @@ public class ListController {
 	@FXML
 	private void initialize() { // can't use this method since it is called before mainApp is set
 	}
-	
+
 	public void init2() {
 		db = new DBConnection();
 		ResultSet AllGroupsRS = db.getAllGroupsOfUser(mainApp.getUser().getUsername());
@@ -86,12 +86,12 @@ public class ListController {
 
 	@FXML
 	private void editGroup() {
-		mainApp.showGroupPopup(treeView, treeView.getSelectionModel().getSelectedItem(), false);
+		mainApp.showEditGroupPopup(treeView, treeView.getSelectionModel().getSelectedItem(), false);
 	}
 
 	@FXML
 	private void newSubGroup() {
-		mainApp.showGroupPopup(treeView, treeView.getSelectionModel().getSelectedItem(), true);
+		mainApp.showEditGroupPopup(treeView, treeView.getSelectionModel().getSelectedItem(), true);
 	}
 
 }

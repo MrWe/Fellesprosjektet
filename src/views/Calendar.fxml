@@ -24,13 +24,8 @@
 								<Insets bottom="1.0" right="20.0" />
 							</HBox.margin>
 						</Button>
-<<<<<<< HEAD
-						<Text fx:id="monthText"/>
-						<Text fx:id="yearText" styleClass="thinLabel">
-=======
 						<Text fx:id="monthText" styleClass="bigText" text="March" />
 						<Text fx:id="yearText" styleClass="thinBigText" text="2015">
->>>>>>> deleteMember
 							<HBox.margin>
 								<Insets left="10.0" />
 							</HBox.margin>

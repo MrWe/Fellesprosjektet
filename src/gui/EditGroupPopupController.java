@@ -185,7 +185,6 @@ public class EditGroupPopupController {
 		updateInvitableMemberList();
 	}
 	
-	
 	@FXML
 	private void makeAdmin(){
 		System.out.println("I'm making an member a admin");

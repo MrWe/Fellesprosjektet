@@ -35,7 +35,6 @@ public class GroupPopupController {
 	@FXML private Label memberListText;
 	@FXML private Button OKBtn;
 	private TreeView<Group> treeView;
-	private boolean editingExisting;
 	private boolean createSub;
 	private boolean isPrivate;
 	private TreeItem<Group> group;
@@ -73,45 +72,33 @@ public class GroupPopupController {
 				invited.add(clo.getName());
 			}
 		}
-		if (!editingExisting) {				// if either creating a new group or a new subgroup
-			System.out.println("hei"+ mainApp.getUser().getName());
-			Group group = new Group(nameField.getText(), false, "0", "0", invited, admins);
-			TreeItem<Group> newGroup = new TreeItem<Group>(group);
-			if (createSub) {				// if creating a new subgroup
-				this.group.getChildren().add(newGroup);
-				try {
-					int superGroupID = db.getGroupID(this.group.getValue().getName());	// finds the usergroupID of the selected group when the popup was opened
-					
-					
-					db.createGroup(nameField.getText(), 0, superGroupID, mainApp.getUser().getUsername());	// sets the USERGROUP_usergroupID field of the new group equal to the number above
-					group.setGroupID(db.getLastGroupID());
-					db.addGroupMembers(nameField.getText(), invited);
-					this.group.setExpanded(true);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			} else {						// if creating a new group
-				treeView.getRoot().getChildren().add(newGroup);
-				try {
-					db.createGroup(nameField.getText(), 0, 0, mainApp.getUser().getUsername()); // 0 is the id of the root group
-					db.addGroupMembers(nameField.getText(), invited);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			treeView.getSelectionModel().select(newGroup);
-		} else {							// if editing a group
+		System.out.println("hei"+ mainApp.getUser().getName());
+		Group group = new Group(nameField.getText(), false, "0", "0", invited, admins);
+		TreeItem<Group> newGroup = new TreeItem<Group>(group);
+		if (createSub) {				// if creating a new subgroup
+			this.group.getChildren().add(newGroup);
 			try {
-				db.editGroupName(group.getValue().getName(), nameField.getText());  // parameteres are oldName, newName
-				if (!isPrivate) {					
-					db.setGroupMembers(nameField.getText(), invited);					// deletes the current members of the group and adds all currently selected
-				}
+				int superGroupID = db.getGroupID(this.group.getValue().getName());	// finds the usergroupID of the selected group when the popup was opened
+
+
+				db.createGroup(nameField.getText(), 0, superGroupID, mainApp.getUser().getUsername());	// sets the USERGROUP_usergroupID field of the new group equal to the number above
+				group.setGroupID(db.getLastGroupID());
+				db.addGroupMembers(nameField.getText(), invited);
+				this.group.setExpanded(true);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			group.getValue().setName(nameField.getText());	// update values client-side as well
-			group.getValue().setMembers(invited);
+		} else {						// if creating a new group
+			treeView.getRoot().getChildren().add(newGroup);
+			try {
+				db.createGroup(nameField.getText(), 0, 0, mainApp.getUser().getUsername()); // 0 is the id of the root group
+				db.addGroupMembers(nameField.getText(), invited);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
+		treeView.getSelectionModel().select(newGroup);
+
 		popupStage.close();
 	}
 
@@ -171,47 +158,31 @@ public class GroupPopupController {
 		ListCell<CheckListObject>> forListView = CheckBoxListCell.forListView(getProperty);
 		members.setCellFactory(forListView);
 
-		if (group != null && !createSub) {
-			editingExisting = true;
-			nameField.setText(group.getValue().getName());
-
+		if (createSub) {
 			if (isPrivate) {
-				memberListText.setText("Dette er din private gruppe.\nDu er eneste medlem.");
-			} else {				
-				for (String member : group.getParent().getValue().getMembers()) {
-					CheckListObject clo = new CheckListObject(member);
-					if (group.getValue().getMembers().contains(member)) {
-						clo.setSelectedProperty(true);
-					}
-					memberList.add(clo);
+				memberListText.setText("Kan ikke lage subgrupper\nav private grupper.");
+				OKBtn.setDisable(true);
+				nameField.setDisable(true);
+			} else {
+				for (String member : this.group.getValue().getMembers()) {
+					memberList.add(new CheckListObject(member));
 				}
 				this.members.getChildren().add(members);
 			}
 		} else {
-			editingExisting = false;
-			if (createSub) {
-				if (isPrivate) {
-					memberListText.setText("Kan ikke lage subgrupper\nav private grupper.");
-					OKBtn.setDisable(true);
-					nameField.setDisable(true);
-				} else {
-					for (String member : this.group.getValue().getMembers()) {
-						memberList.add(new CheckListObject(member));
-					}
-					this.members.getChildren().add(members);
-				}
-			} else {
-				rs = db.getAllUsers();
-				try {
-					while (rs.next()) {
+			rs = db.getAllUsers();
+			try {
+				while (rs.next()) {
+					if(!rs.getString(4).equals(mainApp.getUser().getName())){
 						memberList.add(new CheckListObject(rs.getString(4)));
 					}
-					this.members.getChildren().add(members);
-				} catch (SQLException e) {
-					e.printStackTrace();
 				}
+				this.members.getChildren().add(members);
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
 		}
 	}
+
 
 }

@@ -26,7 +26,6 @@ public class CalendarController {
 	@FXML private Group group;
 	private int currentYear, currentMonth;
 
-	// Reference to the main application.
 	private MainApp mainApp;
 	private DBConnection dbConnection = new DBConnection();
 
@@ -42,7 +41,6 @@ public class CalendarController {
 		monthText.setText(new DateFormatSymbols().getMonths()[currentMonth]);
 		yearText.setText("" + currentYear);
 		
-		//System.out.println(currentYear + " " + currentMonth);
 		for (int i = 0; i < 7; i++) { // sets contraints on each of the 7 columns
 			ColumnConstraints columnConstraints = new ColumnConstraints();
 			columnConstraints.setFillWidth(true);
@@ -70,7 +68,7 @@ public class CalendarController {
 		
 		int day = c1.get(Calendar.DAY_OF_WEEK);
 		c1.add(Calendar.DATE, -1);
-		day = c1.get(Calendar.DAY_OF_WEEK);
+		day = c1.get(Calendar.DAY_OF_WEEK); // the last monday of the month before the current month (first date to make a square for)
 	    while (day != 2) {
 	        c1.add(Calendar.DATE, -1);
 	        day = c1.get(Calendar.DAY_OF_WEEK);
@@ -85,14 +83,12 @@ public class CalendarController {
 			for (int j = 0; j < 7; j++){	// and create a new CalendarSquarePane object for each of them
 				String date = String.format("%02d", c1.getTime().getDate()) + "/" + String.format("%02d", (c1.getTime().getMonth() + 1)) + "/" + (c1.getTime().getYear() + 1900);
 
-				//en annen format
+				//et annet format
 				String date2 = (c1.getTime().getYear() + 1900) + "-" + String.format("%02d", (c1.getTime().getMonth() + 1)) + "-" + String.format("%02d", c1.getTime().getDate());
 				
 				CalendarSquarePane csp = new CalendarSquarePane(mainApp, date, group);
 				
-				if (!(group.getName().equals(""))) {
-				
-					
+				if (!(group.getName().equals(""))) {	
 					while (rs != null && rs.next()) {
 						if (!date2.equals(rs.getString(3).substring(0, 10))) {
 							continue;
@@ -121,8 +117,6 @@ public class CalendarController {
 						memberRs.beforeFirst(); 
 						csp.addAppointment(appointment);
 					}
-
-					
 				}
 				for (Appointment appointment : group.getAppointments()) { // for each of the groups appointments
 					if (appointment.getDate().toString().equals(date2)) { // if the date of the appointment equals the current date in the for-loop

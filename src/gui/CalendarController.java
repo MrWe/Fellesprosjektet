@@ -1,12 +1,12 @@
 package gui;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
-
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.ColumnConstraints;
@@ -65,7 +65,9 @@ public class CalendarController {
 
 		Calendar c = Calendar.getInstance(); // date today
 		c.add(Calendar.DAY_OF_MONTH, -total);
+		
 		ResultSet rs = null;
+		// Henter avtalene til gruppen som er markert. 
 		if (!(group.getName().equals(""))) {
 			rs = dbConnection.getAppointmentsWithGroup(Integer.parseInt(group.getGroupID()));
 		}
@@ -77,7 +79,10 @@ public class CalendarController {
 				String date2 = (c.getTime().getYear() + 1900) + "-" + String.format("%02d", (c.getTime().getMonth() + 1)) + "-" + String.format("%02d", c.getTime().getDate());
 				
 				CalendarSquarePane csp = new CalendarSquarePane(mainApp, date, group);
+				
 				if (!(group.getName().equals(""))) {
+				
+					
 					while (rs != null && rs.next()) {
 						if (!date2.equals(rs.getString(3).substring(0, 10))) {
 							continue;

@@ -23,7 +23,7 @@ public class DBConnection {
 	 * @return a ResultSet with username and password for the username specified
 	 */
 	public ResultSet getLoginInfo(String username) {
-		String q = "SELECT username, pswd FROM USER WHERE username = '"
+		String q = "SELECT username, pswd, fullName FROM USER WHERE username = '"
 				+ username
 				+ "';";
 		return db.queryDB(q);

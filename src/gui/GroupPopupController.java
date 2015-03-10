@@ -3,6 +3,7 @@ package gui;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ObservableValue;
@@ -65,6 +66,7 @@ public class GroupPopupController {
 			return;
 		}
 
+		ArrayList<String> admins = new ArrayList<String>(Arrays.asList(mainApp.getUser().getName()));
 		ArrayList<String> invited = new ArrayList<String>();
 		for (CheckListObject clo : memberList) {			// gets all the names that have been selected in the list of members
 			if (clo.getSelected()) {
@@ -72,13 +74,15 @@ public class GroupPopupController {
 			}
 		}
 		if (!editingExisting) {				// if either creating a new group or a new subgroup
-			Group group = new Group(nameField.getText(), false, "0", "0", invited, invited);
+			System.out.println("hei"+ mainApp.getUser().getName());
+			Group group = new Group(nameField.getText(), false, "0", "0", invited, admins);
 			TreeItem<Group> newGroup = new TreeItem<Group>(group);
 			if (createSub) {				// if creating a new subgroup
 				this.group.getChildren().add(newGroup);
 				try {
 					int superGroupID = db.getGroupID(this.group.getValue().getName());	// finds the usergroupID of the selected group when the popup was opened
-					//System.out.println(nameField.getText());
+					
+					
 					db.createGroup(nameField.getText(), 0, superGroupID, mainApp.getUser().getUsername());	// sets the USERGROUP_usergroupID field of the new group equal to the number above
 					group.setGroupID(db.getLastGroupID());
 					db.addGroupMembers(nameField.getText(), invited);
@@ -156,7 +160,7 @@ public class GroupPopupController {
 		ListView<CheckListObject> members = new ListView<CheckListObject>();
 		members.setEditable(true);
 		members.setItems(memberList);
-		
+
 		Callback<CheckListObject, ObservableValue<Boolean>> 
 		getProperty = new Callback<CheckListObject, ObservableValue<Boolean>>() {
 			public BooleanProperty call(CheckListObject object) {

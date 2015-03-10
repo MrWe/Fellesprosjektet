@@ -32,11 +32,11 @@
 				<VBox alignment="TOP_CENTER" prefHeight="300.0" prefWidth="250.0" spacing="5">
 					<children>
 						<Label text="Admins" />
-						<VBox fx:id="admins" prefHeight="300.0">
-							<VBox.margin>
-								<Insets left="10.0" right="10.0" />
-							</VBox.margin>
-						</VBox>
+                  <ListView fx:id="admins" prefHeight="300.0" prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
+                  </ListView>
 						<HBox alignment="CENTER" spacing="5">
 							<children>
 								<Button fx:id="deleteAdminButton" defaultButton="true" mnemonicParsing="false" onAction="#deleteAdmin" prefHeight="24.0" prefWidth="110.0" text="Slett admin" />
@@ -47,7 +47,10 @@
 				<VBox alignment="TOP_CENTER" prefHeight="300.0" prefWidth="250.0" spacing="5">
 					<children>
 						<Label fx:id="memberListText" alignment="CENTER" text="Medlemmer" />
-                  <ListView fx:id="members" minHeight="300.0" prefHeight="300.0" />
+                  <ListView fx:id="members" minHeight="300.0" prefHeight="300.0">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin></ListView>
 						<HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
 							<children>
 								<Button fx:id="deleteMemberButton" defaultButton="true" mnemonicParsing="false" onAction="#deleteMember" prefHeight="24.0" prefWidth="110.0" text="Slett medlem">

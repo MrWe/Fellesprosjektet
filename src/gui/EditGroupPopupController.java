@@ -32,8 +32,8 @@ public class EditGroupPopupController {
 	private ObservableList<CheckListObject> invitableMemberList = FXCollections.observableArrayList();
 	private ObservableList<String> adminList = FXCollections.observableArrayList();
 	private ObservableList<String> memberList = FXCollections.observableArrayList();
-	@FXML private VBox admins,invitableMembers;
-	@FXML private ListView<String> members;
+	@FXML private VBox invitableMembers;
+	@FXML private ListView<String> members,admins;
 	@FXML private Label memberListText, invitableMemberListText;
 	@FXML private Button OKBtn, inviteBtn, deleteMemberButton, deleteAdminButton, makeAdminButton;
 	private TreeView<Group> treeView;
@@ -121,21 +121,17 @@ public class EditGroupPopupController {
 			memberList.add(member);
 		}
 
-//		this.members.getChildren().clear();
-//		this.members.getChildren().add(members);
 	}
 	
 	private void updateAdminList(){
-		ListView<String> admins = new ListView<String>();
 		admins.setEditable(true);
 		admins.setItems(adminList);
 		adminList.clear();
+		
 		for (String admin : group.getValue().getAdmins()) {
 			adminList.add(admin);
-		}
-
-		this.admins.getChildren().clear();
-		this.admins.getChildren().add(admins);
+		};
+		System.out.println(group.getValue().getAdmins());
 	}
 	
 	private void updateInvitableMemberList(){
@@ -172,13 +168,23 @@ public class EditGroupPopupController {
 	
 	@FXML
 	private void deleteMember(){
-
 		
 		String memberToDelete = new String();
 		memberToDelete = members.getSelectionModel().getSelectedItem();
 		System.out.println("I'm deleting a member");
 		System.out.println(memberToDelete);
+		
+		ArrayList<String> members = new ArrayList<String>();
+		for (String member : memberList) {
+			if(member != memberToDelete ){
+				members.add(member);
+			}
+		}
+		group.getValue().setMembers(members);
+		updateMemberList();
+		updateInvitableMemberList();
 	}
+	
 	
 	@FXML
 	private void makeAdmin(){
@@ -209,8 +215,6 @@ public class EditGroupPopupController {
 		}
 		this.createSub = createSub;
 		this.group = group;
-		memberList.clear();
-//		members.getChildren().clear();
 
 		ResultSet rs = db.getPrivateGroup(mainApp.getUser().getUsername());
 		try {
@@ -226,14 +230,7 @@ public class EditGroupPopupController {
 		}
 
 		//for admins 
-		//updateAdminList(); - Uncomment this after the admin table in database works.
-		
-		ListView<String> admins = new ListView<String>();
-		admins.setEditable(true);
-		adminList.addAll("Kristoffer","The Mountain","The Rock");
-		admins.setItems(adminList);
-		this.admins.getChildren().add(admins);
-
+		updateAdminList(); 
 
 		//Show members
 		updateMemberList();
@@ -257,32 +254,17 @@ public class EditGroupPopupController {
 		if (group != null && !createSub) {
 			editingExisting = true;
 			nameField.setText(group.getValue().getName());
-
-			if (isPrivate) {
-				//
-			} else {				
+					
 				for (String member : group.getParent().getValue().getMembers()) {
-					CheckListObject clo = new CheckListObject(member);
-					if (!group.getValue().getMembers().contains(member)) {
-						invitableMemberList.add(clo);
-					}
+				CheckListObject clo = new CheckListObject(member);
+				if (!group.getValue().getMembers().contains(member)) {
+					invitableMemberList.add(clo);
 				}
-				this.invitableMembers.getChildren().add(invitableMembers);
 			}
-		} else {
+			this.invitableMembers.getChildren().add(invitableMembers);
+		}
+		else {
 			editingExisting = false;
-			if (createSub) {
-				if (isPrivate) {
-					invitableMemberListText.setText("Kan ikke lage subgrupper\nav private grupper.");
-					OKBtn.setDisable(true);
-					nameField.setDisable(true);
-				} else {
-					for (String member : this.group.getValue().getMembers()) {
-						invitableMemberList.add(new CheckListObject(member));
-					}
-					this.invitableMembers.getChildren().add(invitableMembers);
-				}
-			} else {
 				rs = db.getAllUsers();
 				try {
 					while (rs.next()) {
@@ -293,7 +275,7 @@ public class EditGroupPopupController {
 					this.invitableMembers.getChildren().add(invitableMembers);
 				} catch (SQLException e) {
 					e.printStackTrace();
-				}
+				
 			}
 		}
 	}

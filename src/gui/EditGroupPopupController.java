@@ -38,7 +38,7 @@ public class EditGroupPopupController {
 	@FXML private Label memberListText;
 	@FXML private Label invitableMemberListText;
 	@FXML private Button OKBtn;
-	@FXML private Button inviteBtn;
+	@FXML private Button inviteBtn, deleteMemberButton, deleteAdminButton, makeAdminButton;
 	private TreeView<Group> treeView;
 	private boolean editingExisting;
 	private boolean createSub;
@@ -121,6 +121,7 @@ public class EditGroupPopupController {
 		
 	}
 	
+	@FXML
 	private void updateMemberList(){
 		ListView<String> members = new ListView<String>();
 		members.setEditable(true);
@@ -132,6 +133,21 @@ public class EditGroupPopupController {
 
 		this.members.getChildren().clear();
 		this.members.getChildren().add(members);
+	}
+	
+	@FXML
+	private void deleteAdmin(){
+		System.out.println("I'm deleting an admin");
+	}
+	
+	@FXML
+	private void deleteMember(){
+		System.out.println("I'm deleting a member");
+	}
+	
+	@FXML
+	private void makeAdmin(){
+		System.out.println("I'm making an member a admin");
 	}
 	
 	private void updateInvitableMemberList(){

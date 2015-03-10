@@ -71,7 +71,7 @@ public class ListController {
 			@Override
 			public void changed(ObservableValue<? extends TreeItem<Group>> observableValue, TreeItem<Group> oldValue, TreeItem<Group> newValue) {
 				// show the calendar of the chosen group
-				System.out.println("hei");
+				System.out.println("chose another group");
 				if (newValue == null) {
 					return;
 				}

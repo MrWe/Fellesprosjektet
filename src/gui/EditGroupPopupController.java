@@ -32,25 +32,17 @@ public class EditGroupPopupController {
 	private ObservableList<CheckListObject> invitableMemberList = FXCollections.observableArrayList();
 	private ObservableList<String> adminList = FXCollections.observableArrayList();
 	private ObservableList<String> memberList = FXCollections.observableArrayList();
-	@FXML private VBox members;
-	@FXML private VBox admins;
-	@FXML private VBox invitableMembers;
-	@FXML private Label memberListText;
-	@FXML private Label invitableMemberListText;
-	@FXML private Button OKBtn;
-	@FXML private Button inviteBtn, deleteMemberButton, deleteAdminButton, makeAdminButton;
+	@FXML private VBox members, admins,invitableMembers;
+	@FXML private Label memberListText, invitableMemberListText;
+	@FXML private Button OKBtn, inviteBtn, deleteMemberButton, deleteAdminButton, makeAdminButton;
 	private TreeView<Group> treeView;
-	private boolean editingExisting;
-	private boolean createSub;
-	private boolean isPrivate;
+	private boolean editingExisting, createSub, isPrivate;;
 	private TreeItem<Group> group;
 	private DBConnection db;
 	private MainApp mainApp;
 
-
-
 	@FXML
-	private void initialize() {
+	private void initialize() {// Setter opp dbConnection
 		db = new DBConnection();
 	}
 
@@ -62,7 +54,6 @@ public class EditGroupPopupController {
 		this.treeView = treeView;
 	}
 
-	
 	@FXML
 	private void handleInvite() { //handle the invite button
 		System.out.println("jeg trykker paa handleInvite knappen");
@@ -121,7 +112,6 @@ public class EditGroupPopupController {
 		
 	}
 	
-	@FXML
 	private void updateMemberList(){
 		ListView<String> members = new ListView<String>();
 		members.setEditable(true);
@@ -135,19 +125,17 @@ public class EditGroupPopupController {
 		this.members.getChildren().add(members);
 	}
 	
-	@FXML
-	private void deleteAdmin(){
-		System.out.println("I'm deleting an admin");
-	}
-	
-	@FXML
-	private void deleteMember(){
-		System.out.println("I'm deleting a member");
-	}
-	
-	@FXML
-	private void makeAdmin(){
-		System.out.println("I'm making an member a admin");
+	private void updateAdminList(){
+		ListView<String> admins = new ListView<String>();
+		admins.setEditable(true);
+		admins.setItems(adminList);
+		adminList.clear();
+		for (String admin : group.getValue().getAdmins()) {
+			adminList.add(admin);
+		}
+
+		this.admins.getChildren().clear();
+		this.admins.getChildren().add(admins);
 	}
 	
 	private void updateInvitableMemberList(){
@@ -174,11 +162,28 @@ public class EditGroupPopupController {
 		this.invitableMembers.getChildren().clear();
 		this.invitableMembers.getChildren().add(invitableMembers);
 	}
+	
+	
+	//buttons in EditGroupPopup.fxml
+	@FXML
+	private void deleteAdmin(){
+		System.out.println("I'm deleting an admin");
+	}
+	
+	@FXML
+	private void deleteMember(){
+		System.out.println("I'm deleting a member");
+	}
+	
+	@FXML
+	private void makeAdmin(){
+		System.out.println("I'm making an member a admin");
+	}
 
 	private String isValidInput() {
 		String errorText = "";
 		if (nameField.getText().equals("")) {
-			errorText += "Beskrivelse kan ikke v�re tom\n";
+			errorText += "Beskrivelse kan ikke vaere tom\n";
 		}
 		return errorText;
 	}
@@ -216,6 +221,8 @@ public class EditGroupPopupController {
 		}
 
 		//for admins 
+		//updateAdminList(); - Uncomment this after the admin table in database works.
+		
 		ListView<String> admins = new ListView<String>();
 		admins.setEditable(true);
 		adminList.addAll("Kristoffer","The Mountain","The Rock");
@@ -224,15 +231,7 @@ public class EditGroupPopupController {
 
 
 		//Show members
-		ListView<String> members = new ListView<String>();
-		members.setEditable(true);
-		members.setItems(memberList);
-		
-		for (String member : group.getValue().getMembers()) {
-			memberList.add(member);
-		}
-		this.members.getChildren().add(members);
-
+		updateMemberList();
 
 
 		//for invite members

@@ -423,7 +423,7 @@ public class DBConnection {
 	 * @return a ResultSet with the full name of every member of the group specified
 	 */
 	public ResultSet getGroupMembers(String groupID) {
-		String q = "select fullName from Calendar.USER_has_USERGROUP join Calendar.USERGROUP join Calendar.USER "
+		String q = "select fullName, groupAdmin from Calendar.USER_has_USERGROUP join Calendar.USERGROUP join Calendar.USER "
 				+ "WHERE Calendar.USER_has_USERGROUP.USERGROUP_usergroupID = Calendar.USERGROUP.usergroupID "
 				+ "AND Calendar.USER_has_USERGROUP.USER_userID = Calendar.USER.userID "
 				+ "AND Calendar.USERGROUP.usergroupID = '" + groupID + "';";

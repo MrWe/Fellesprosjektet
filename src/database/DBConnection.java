@@ -122,7 +122,7 @@ public class DBConnection {
 				+"';";
 		return db.queryDB(q);
 	}
-	
+
 	public String getUsername(int userId) throws SQLException {
 		String q = "SELECT * FROM USER WHERE userID = " + userId;
 		ResultSet rs = db.queryDB(q);
@@ -165,7 +165,6 @@ public class DBConnection {
 		String q = "SELECT * FROM USERGROUP;";
 		return db.queryDB(q);
 	}
-	
 
 	/**
 	 * Returns a ResultSet with the id and name of the private group of the specified user
@@ -225,14 +224,14 @@ public class DBConnection {
 		rs.next();
 		return Integer.parseInt(rs.getString(1));
 	}
-	
+
 	public String getLastGroupID() throws SQLException {
 		String q = "SELECT MAX(usergroupID) from USERGROUP;";
 		ResultSet rs = db.queryDB(q);
 		rs.next();
 		return rs.getString(1);
 	}
-	
+
 	public ResultSet getAppointmentMembers(int appointmentId) {
 		String q = "SELECT * FROM APPOINTMENTMEMBER WHERE APPOINTMENT_appointmentID = " + appointmentId;
 		return db.queryDB(q);
@@ -256,7 +255,7 @@ public class DBConnection {
 				+ superGroupID
 				+ "');";
 		db.updateDB(q);
-		
+
 		String groupID = getLastGroupID();
 		int userID = getUserID(username);
 		q = "INSERT INTO USER_has_USERGROUP(groupAdmin, USER_userID, USERGROUP_usergroupID) values ("
@@ -268,7 +267,7 @@ public class DBConnection {
 				+ ");";
 		db.updateDB(q);
 	}
-	
+
 	public static void main(String[] args) {
 		DBConnection db = new DBConnection();
 		try {
@@ -331,7 +330,7 @@ public class DBConnection {
 		rs.next();
 		return Integer.parseInt(rs.getString(1));
 	}
-	
+
 	public ResultSet getAppointmentsWithGroup(int group) {
 		String q = "SELECT * FROM APPOINTMENT AS A JOIN USERGROUP AS U ON(A.USERGROUP_usergroupID = U.usergroupID) WHERE A.USERGROUP_usergroupID = " + group;
 		return db.queryDB(q);
@@ -352,8 +351,7 @@ public class DBConnection {
 			db.updateDB(q);
 		}
 	}
-	
-	
+
 	//Returns ArrayList with all available rooms at the given time and date
 	public ArrayList<String> getAvailableRooms(String date, LocalTime from, LocalTime to) throws SQLException {
 		String q = "SELECT R.roomName, A.timeFrom, A.timeTo "
@@ -451,7 +449,7 @@ public class DBConnection {
 		}
 		return false;
 	}
-	
+
 	public void editGroupAdminRights(String groupName, String username, int adminStatus) throws SQLException {
 		int groupID = getGroupID(groupName);
 		int userID = getUserID(username);

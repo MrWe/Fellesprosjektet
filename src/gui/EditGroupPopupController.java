@@ -37,7 +37,7 @@ public class EditGroupPopupController {
 	@FXML private Label memberListText, invitableMemberListText;
 	@FXML private Button OKBtn, inviteBtn, deleteMemberButton, deleteAdminButton, makeAdminButton;
 	private TreeView<Group> treeView;
-	private boolean editingExisting, createSub, isPrivate;;
+	private boolean editingExisting, createSub, isPrivate;
 	private TreeItem<Group> group;
 	private DBConnection db;
 	private MainApp mainApp;

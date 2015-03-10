@@ -80,7 +80,7 @@ public class EditGroupPopupController {
 			}
 		}
 		if (!editingExisting) {				// if either creating a new group or a new subgroup
-			Group group = new Group(nameField.getText(), false, "0", invited, invited);
+			Group group = new Group(nameField.getText(), false, "0", "0", invited, invited);
 			TreeItem<Group> newGroup = new TreeItem<Group>(group);
 			if (createSub) {				// if creating a new subgroup
 				this.group.getChildren().add(newGroup);

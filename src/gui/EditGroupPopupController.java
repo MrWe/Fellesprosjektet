@@ -32,7 +32,8 @@ public class EditGroupPopupController {
 	private ObservableList<CheckListObject> invitableMemberList = FXCollections.observableArrayList();
 	private ObservableList<String> adminList = FXCollections.observableArrayList();
 	private ObservableList<String> memberList = FXCollections.observableArrayList();
-	@FXML private VBox members, admins,invitableMembers;
+	@FXML private VBox admins,invitableMembers;
+	@FXML private ListView<String> members;
 	@FXML private Label memberListText, invitableMemberListText;
 	@FXML private Button OKBtn, inviteBtn, deleteMemberButton, deleteAdminButton, makeAdminButton;
 	private TreeView<Group> treeView;
@@ -98,7 +99,7 @@ public class EditGroupPopupController {
 			try {
 				db.editGroupName(group.getValue().getName(), nameField.getText());  // parameteres are oldName, newName
 				if (!isPrivate) {					
-					db.addGroupMembers(nameField.getText(), invited);					// deletes the current members of the group and adds all currently selected
+					db.addGroupMembers(nameField.getText(), invited);// deletes the current members of the group and adds all currently selected
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -113,7 +114,6 @@ public class EditGroupPopupController {
 	}
 	
 	private void updateMemberList(){
-		ListView<String> members = new ListView<String>();
 		members.setEditable(true);
 		members.setItems(memberList);
 		memberList.clear();
@@ -121,8 +121,8 @@ public class EditGroupPopupController {
 			memberList.add(member);
 		}
 
-		this.members.getChildren().clear();
-		this.members.getChildren().add(members);
+//		this.members.getChildren().clear();
+//		this.members.getChildren().add(members);
 	}
 	
 	private void updateAdminList(){
@@ -172,7 +172,12 @@ public class EditGroupPopupController {
 	
 	@FXML
 	private void deleteMember(){
+
+		
+		String memberToDelete = new String();
+		memberToDelete = members.getSelectionModel().getSelectedItem();
 		System.out.println("I'm deleting a member");
+		System.out.println(memberToDelete);
 	}
 	
 	@FXML
@@ -205,7 +210,7 @@ public class EditGroupPopupController {
 		this.createSub = createSub;
 		this.group = group;
 		memberList.clear();
-		members.getChildren().clear();
+//		members.getChildren().clear();
 
 		ResultSet rs = db.getPrivateGroup(mainApp.getUser().getUsername());
 		try {

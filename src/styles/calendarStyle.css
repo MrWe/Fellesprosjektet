@@ -1,9 +1,31 @@
-.label{
+.bigText{
 	-fx-font-size   : 30px;
-	-fx-text-fill        : #D5F2C2 !important;
+	-fx-fill        : #D5F2C2 ;
     -fx-font-weight      : 900;
 }
 
-.thinLabel{
+.thinBigText{
+	-fx-font-size   : 30px;
+	-fx-fill        : #D5F2C2 ;
 	-fx-font-weight: 100;
 }
+
+#rightTriangle.button {
+    -fx-shape: "M 0,0 L 1,0.5 0,1 Z";
+	-fx-background-color : #295A09;
+}
+
+#rightTriangle.button:hover{
+	 -fx-background-color : #D5F2C2;
+}
+
+#leftTriangle.button {
+ 	-fx-shape: "M 0,0 L -1,0.5 0,1 Z";
+	-fx-background-color : #295A09;
+}
+
+#leftTriangle.button:hover{
+	-fx-background-color : #D5F2C2;
+}
+
+/*-fx-background-insets: 0, 20 20 10 20; */

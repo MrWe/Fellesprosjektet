@@ -35,13 +35,18 @@ public class ListController {
 			while (AllGroupsRS.next()) { // fills the HashMap with all the groups from the database
 				ResultSet groupMembersRS = db.getGroupMembers(AllGroupsRS.getString(1)); // gets all groupmembers of the current group
 				ArrayList<String> groupMembers = new ArrayList<String>();
+				ArrayList<String> groupAdmins = new ArrayList<String>();
 				while (groupMembersRS.next()) {
-					//System.out.println(AllGroupsRS.getString(1) + " " + groupMembersRS.getString(1));
-					groupMembers.add(groupMembersRS.getString(1));
+					if(groupMembersRS.getString(2).equals("0")){
+						groupMembers.add(groupMembersRS.getString(1));
+					}else{
+						groupAdmins.add(groupMembersRS.getString(1));
+					}
+					
 				}
 				//System.out.println(groupMembers);
 				//System.out.println(AllGroupsRS.getString(1) + " " + AllGroupsRS.getString(2) + " " + AllGroupsRS.getString(3) + " " + AllGroupsRS.getString(4));
-				TreeItem<Group> treeItem = new TreeItem<Group>(new Group(AllGroupsRS.getString(3), AllGroupsRS.getString(2).equals("1") ? true : false, AllGroupsRS.getString(1), AllGroupsRS.getString(4), groupMembers, new ArrayList<String>()));
+				TreeItem<Group> treeItem = new TreeItem<Group>(new Group(AllGroupsRS.getString(3), AllGroupsRS.getString(2).equals("1") ? true : false, AllGroupsRS.getString(1), AllGroupsRS.getString(4), groupMembers, groupAdmins));
 				//System.out.println(treeItem.getValue().isPrivateGroup());
 				groups.put(AllGroupsRS.getString(1), treeItem);
 			}

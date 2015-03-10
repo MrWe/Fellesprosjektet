@@ -107,8 +107,8 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void login(String username) throws SQLException {
-		user = new User(username);
+	public void login(String username, String name) throws SQLException {
+		user = new User(username, name);
 		loginLayout.setVisible(false);
 		initRootLayout();
 		showList();
@@ -233,7 +233,6 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
-
 
 	public void showGroupPopup(TreeView<Group> treeView, TreeItem<Group> group, boolean createSub) {
 		try {

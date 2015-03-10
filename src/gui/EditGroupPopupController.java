@@ -79,7 +79,7 @@ public class EditGroupPopupController {
 				try {
 					int superGroupID = db.getGroupID(this.group.getValue().getName());	// finds the usergroupID of the selected group when the popup was opened
 					//System.out.println(nameField.getText());
-					db.createGroup(nameField.getText(), 0, superGroupID);	// sets the USERGROUP_usergroupID field of the new group equal to the number above
+					db.createGroup(nameField.getText(), 0, superGroupID, mainApp.getUser().getUsername());	// sets the USERGROUP_usergroupID field of the new group equal to the number above
 					db.addGroupMembers(nameField.getText(), invited);
 					this.group.setExpanded(true);
 				} catch (SQLException e) {
@@ -88,7 +88,7 @@ public class EditGroupPopupController {
 			} else {						// if creating a new group
 				treeView.getRoot().getChildren().add(newGroup);
 				try {
-					db.createGroup(nameField.getText(), 0, 0); // 0 is the id of the root group
+					db.createGroup(nameField.getText(), 0, 0, mainApp.getUser().getUsername()); // 0 is the id of the root group
 					db.addGroupMembers(nameField.getText(), invited);
 				} catch (SQLException e) {
 					e.printStackTrace();

@@ -243,7 +243,7 @@ public class DBConnection {
 	 * @param isPrivate if the group is private
 	 * @param superGroupID the id of the supergroup, 0 is the id of the root
 	 */
-	public void createGroup(String groupName, int isPrivate, int superGroupID) {
+	public void createGroup(String groupName, int isPrivate, int superGroupID, String username) throws SQLException {
 		String q = "INSERT INTO USERGROUP(isPrivate, groupName, color, USERGROUP_usergroupID) VALUES ('"
 				+ isPrivate
 				+ "','"
@@ -254,6 +254,27 @@ public class DBConnection {
 				+ superGroupID
 				+ "');";
 		db.updateDB(q);
+		
+		String groupID = getLastGroupID();
+		int userID = getUserID(username);
+		q = "INSERT INTO USER_has_USERGROUP(groupAdmin, USER_userID, USERGROUP_usergroupID) values ("
+				+ 1
+				+ ","
+				+ userID
+				+ ","
+				+ groupID
+				+ ");";
+		db.updateDB(q);
+	}
+	
+	public static void main(String[] args) {
+		DBConnection db = new DBConnection();
+		try {
+			db.createGroup("testheihei123", 0, 0, "krislerv");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -420,14 +441,5 @@ public class DBConnection {
 				+ ";";
 		db.updateDB(q);
 	}
-	
-	public static void main(String[] args) {
-		DBConnection db = new DBConnection();
-		try {
-			db.editGroupAdminRights("Abakus", "krislerv", 0);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
 }

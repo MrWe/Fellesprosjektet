@@ -156,7 +156,7 @@ public class GroupPopupController {
 		ListView<CheckListObject> members = new ListView<CheckListObject>();
 		members.setEditable(true);
 		members.setItems(memberList);
-
+		
 		Callback<CheckListObject, ObservableValue<Boolean>> 
 		getProperty = new Callback<CheckListObject, ObservableValue<Boolean>>() {
 			public BooleanProperty call(CheckListObject object) {

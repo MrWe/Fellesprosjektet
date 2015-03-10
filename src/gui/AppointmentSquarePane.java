@@ -20,7 +20,7 @@ public class AppointmentSquarePane extends Pane {
 		text.setLayoutY(15);
 		text.setDisable(true); // so that mouseEvent.getTarget() in CalendarSquarePane will return the appointmentSquarePane object instead of the text object
 		this.getChildren().add(text);
-		System.out.println(color);
+		//System.out.println(color);
 		this.setStyle("-fx-background-color: #" + color + ";");
 		this.setOnMousePressed(new EventHandler<MouseEvent>() { // when a square is pressed
 			@Override

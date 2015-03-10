@@ -43,8 +43,8 @@ public class CalendarSquarePane extends Pane {
 			@Override																		//
 			public void onChanged(ListChangeListener.Change<? extends Appointment> c) {
 				c.next();																//
-				System.out.println(c.getAddedSize());
-				System.out.println(c.getAddedSubList().get(0));							//
+				//System.out.println(c.getAddedSize());
+				//System.out.println(c.getAddedSubList().get(0));							//
 			}
 		});																					//
 
@@ -54,7 +54,7 @@ public class CalendarSquarePane extends Pane {
 		this.setOnMousePressed(new EventHandler<MouseEvent>() { // when a square is pressed
 			@Override
 			public void handle(MouseEvent event) {
-				System.out.println(event.getSource() + " " + event.getTarget());
+				//.out.println(event.getSource() + " " + event.getTarget());
 				if (event.getTarget() instanceof AppointmentSquarePane) {
 					showPopup((AppointmentSquarePane) event.getTarget());
 				} else {					

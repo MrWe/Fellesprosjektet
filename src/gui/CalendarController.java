@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 
+
 import javafx.fxml.FXML;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -24,6 +25,7 @@ public class CalendarController {
 	@FXML private Text yearText;
 	@FXML private GridPane calendar;
 	@FXML private Group group;
+	private int currentYear, currentMonth;
 
 	// Reference to the main application.
 	private MainApp mainApp;
@@ -33,10 +35,11 @@ public class CalendarController {
 	private void initialize() {
 	}
 
-	@SuppressWarnings("deprecation")
-
 	public void fillCalendar(Group group) throws SQLException {
-		System.out.println(group.getName());
+		this.group = group;
+		currentYear = Calendar.getInstance().get(Calendar.YEAR);
+		currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+		//System.out.println(currentYear + " " + currentMonth);
 		for (int i = 0; i < 7; i++) { // sets contraints on each of the 7 columns
 			ColumnConstraints columnConstraints = new ColumnConstraints();
 			columnConstraints.setFillWidth(true);
@@ -44,7 +47,7 @@ public class CalendarController {
 			columnConstraints.setMinWidth(75);
 			calendar.getColumnConstraints().add(columnConstraints);
 		}
-		for (int i = 0; i < 5; i++) { // sets contraints on each of the 5 rows
+		for (int i = 0; i < 6; i++) { // sets contraints on each of the 5 rows
 			RowConstraints rowConstraints = new RowConstraints();
 			rowConstraints.setFillHeight(true);
 			rowConstraints.setVgrow(Priority.ALWAYS);
@@ -52,29 +55,39 @@ public class CalendarController {
 			rowConstraints.setMinHeight(80);
 			calendar.getRowConstraints().add(rowConstraints);
 		}
-
-		int[] days = {
-				6,0,1,2,3,4,5
-		};
-		Calendar cal = Calendar.getInstance();
-		int today = cal.get(Calendar.DAY_OF_MONTH);
-		int total = today-1;
-		cal.add(Calendar.DAY_OF_MONTH, -(today-1));
-		int firstDay = cal.get(Calendar.DAY_OF_WEEK);
-		total += days[firstDay-1];
-
-		Calendar c = Calendar.getInstance(); // date today
-		c.add(Calendar.DAY_OF_MONTH, -total);
+		constructCalendar(group, currentYear, currentMonth);
+	}
+	
+	@SuppressWarnings("deprecation")
+	private void constructCalendar(Group group, int year, int month) throws SQLException {
+		calendar.getChildren().clear();
+		System.out.println(year + " " + month);
+		
+		Calendar c1 = Calendar.getInstance();
+		c1.set(year, month, 1);
+		//System.out.println(c1.getTime().toString());
+		
+		int day = c1.get(Calendar.DAY_OF_WEEK);
+		//System.out.println("start " + day);
+		c1.add(Calendar.DATE, -1);
+		day = c1.get(Calendar.DAY_OF_WEEK);
+	    while (day != 2) {
+	    	//System.out.println(day);
+	        c1.add(Calendar.DATE, -1);
+	        day = c1.get(Calendar.DAY_OF_WEEK);
+	    }
+	    System.out.println(c1.getTime().toString());
+		
 		ResultSet rs = null;
 		if (!(group.getName().equals(""))) {
 			rs = dbConnection.getAppointmentsWithGroup(Integer.parseInt(group.getGroupID()));
 		}
-		for (int i = 0; i < 5; i++) {		// for each date: create string on the format dd/mm/yyyy and yyyy-mm-dd
+		for (int i = 0; i < 6; i++) {		// for each date: create string on the format dd/mm/yyyy and yyyy-mm-dd
 			for (int j = 0; j < 7; j++){	// and create a new CalendarSquarePane object for each of them
-				String date = String.format("%02d", c.getTime().getDate()) + "/" + String.format("%02d", (c.getTime().getMonth() + 1)) + "/" + (c.getTime().getYear() + 1900);
+				String date = String.format("%02d", c1.getTime().getDate()) + "/" + String.format("%02d", (c1.getTime().getMonth() + 1)) + "/" + (c1.getTime().getYear() + 1900);
 
 				//en annen format
-				String date2 = (c.getTime().getYear() + 1900) + "-" + String.format("%02d", (c.getTime().getMonth() + 1)) + "-" + String.format("%02d", c.getTime().getDate());
+				String date2 = (c1.getTime().getYear() + 1900) + "-" + String.format("%02d", (c1.getTime().getMonth() + 1)) + "-" + String.format("%02d", c1.getTime().getDate());
 				
 				CalendarSquarePane csp = new CalendarSquarePane(mainApp, date, group);
 				if (!(group.getName().equals(""))) {
@@ -115,20 +128,32 @@ public class CalendarController {
 					}
 				}
 				calendar.add(csp, j, i); // adds the calendar square to the calendar gridPane
-				c.add(Calendar.DATE, 1); // increase date by 1
-				if (rs != null) {rs.beforeFirst();}
+				c1.add(Calendar.DATE, 1); // increase date by 1
+				if (rs != null) {
+					rs.beforeFirst();
+				}
 			}
 		}
 	}
 	
 	@FXML
 	private void goLeft() throws SQLException {
-		mainApp.showCalendar(group);
+		if (currentMonth == 0) {
+			currentYear--;
+			currentMonth = 11;
+		} else {
+			currentMonth--;
+		}
+		constructCalendar(group, currentYear, currentMonth);
 	}
 	
 	@FXML
 	private void goRight() throws SQLException {
-		mainApp.showCalendar(group);
+		if (currentMonth == 11) {
+			
+		}
+		currentMonth++;
+		constructCalendar(group, currentYear, currentMonth);
 	}
 
 	public void setMainApp(MainApp mainApp) {

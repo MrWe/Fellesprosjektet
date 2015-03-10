@@ -2,6 +2,8 @@ package database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -349,6 +351,27 @@ public class DBConnection {
 					+ ");";
 			db.updateDB(q);
 		}
+	}
+	
+	
+	//Returns ArrayList with all available rooms at the given time and date
+	public ArrayList<String> getAvailableRooms(String date, LocalTime from, LocalTime to) throws SQLException {
+		String q = "SELECT R.roomName, A.timeFrom, A.timeTo "
+				+ "FROM ROOM as R JOIN APPOINTMENT AS A ON(R.roomID = A.ROOM_roomID)"
+				+ "WHERE DATE_FORMAT(A.timeFrom, '%Y-%m-%d') = '" + date + "';";
+		ResultSet rs = db.queryDB(q);
+		ArrayList<String> al = new ArrayList<String>();
+		while(rs.next()) {
+			if (ChronoUnit.MINUTES.between(to, LocalTime.parse(rs.getString(2).substring(11, 16))) >=
+					0 
+					|| ChronoUnit.MINUTES.between(from, LocalTime.parse(rs.getString(3).substring(11, 16))) <= 0) {
+				String name = rs.getString(1);
+				if (!al.contains(name)) {
+					al.add(name);
+				}
+			}
+		}
+		return al;
 	}
 
 	/**

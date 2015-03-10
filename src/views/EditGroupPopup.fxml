@@ -12,9 +12,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.ListView?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" styleClass="theBackground" stylesheets="@../../bin/styles/groupPopupStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.EditGroupPopupController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
+	prefWidth="750.0" styleClass="theBackground" stylesheets="@../../bin/styles/groupPopupStyle.css"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="gui.EditGroupPopupController">
 	<children>
-		<HBox alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+		<HBox alignment="CENTER" AnchorPane.leftAnchor="0.0"
+			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
 			<children>
 				<Label prefWidth="65" text="Navn" />
 				<TextField fx:id="nameField">
@@ -27,38 +32,48 @@
 				<Insets left="10.0" />
 			</padding>
 		</HBox>
-		<HBox AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
+		<HBox AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0"
+			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
 			<children>
-				<VBox alignment="TOP_CENTER" prefHeight="300.0" prefWidth="250.0" spacing="5">
+				<VBox alignment="TOP_CENTER" prefHeight="300.0" prefWidth="250.0"
+					spacing="5">
 					<children>
 						<Label text="Admins" />
-                  <ListView fx:id="admins" prefHeight="300.0" prefWidth="200.0">
-                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </VBox.margin>
-                  </ListView>
+						<ListView fx:id="admins" prefHeight="300.0" prefWidth="200.0">
+							<VBox.margin>
+								<Insets left="10.0" right="10.0" />
+							</VBox.margin>
+						</ListView>
 						<HBox alignment="CENTER" spacing="5">
 							<children>
-								<Button fx:id="deleteAdminButton" defaultButton="true" mnemonicParsing="false" onAction="#deleteAdmin" prefHeight="24.0" prefWidth="110.0" text="Slett admin" />
+								<Button fx:id="deleteAdminButton" defaultButton="true"
+									mnemonicParsing="false" onAction="#deleteAdmin" prefHeight="24.0"
+									prefWidth="110.0" text="Slett admin" />
 							</children>
 						</HBox>
 					</children>
 				</VBox>
-				<VBox alignment="TOP_CENTER" prefHeight="300.0" prefWidth="250.0" spacing="5">
+				<VBox alignment="TOP_CENTER" prefHeight="300.0" prefWidth="250.0"
+					spacing="5">
 					<children>
 						<Label fx:id="memberListText" alignment="CENTER" text="Medlemmer" />
-                  <ListView fx:id="members" minHeight="300.0" prefHeight="300.0">
-                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </VBox.margin></ListView>
+						<ListView fx:id="members" minHeight="300.0" prefHeight="300.0">
+							<VBox.margin>
+								<Insets left="10.0" right="10.0" />
+							</VBox.margin>
+						</ListView>
 						<HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
 							<children>
-								<Button fx:id="deleteMemberButton" defaultButton="true" mnemonicParsing="false" onAction="#deleteMember" prefHeight="24.0" prefWidth="110.0" text="Slett medlem">
+								<Button fx:id="deleteMemberButton" defaultButton="true"
+									mnemonicParsing="false" onAction="#deleteMember" prefHeight="24.0"
+									prefWidth="110.0" text="Slett medlem">
 									<HBox.margin>
 										<Insets right="2.0" />
 									</HBox.margin>
 								</Button>
-								<Button fx:id="makeAdminButton" defaultButton="true" mnemonicParsing="false" onAction="#makeAdmin" prefHeight="24.0" prefWidth="110.0" text="Gjør admin">
+								<Button fx:id="makeAdminButton" defaultButton="true"
+									mnemonicParsing="false" onAction="#makeAdmin" prefHeight="24.0"
+									prefWidth="110.0" text="Gjør admin">
 									<HBox.margin>
 										<Insets left="2.0" />
 									</HBox.margin>
@@ -67,25 +82,35 @@
 						</HBox>
 					</children>
 				</VBox>
-				<VBox alignment="TOP_CENTER" prefHeight="300.0" prefWidth="250.0" spacing="5">
+				<VBox alignment="TOP_CENTER" prefHeight="300.0" prefWidth="250.0"
+					spacing="5">
 					<children>
-						<Label fx:id="invitableMembersText" alignment="CENTER" text="Inviter medlemmer" />
+						<Label fx:id="invitableMembersText" alignment="CENTER"
+							text="Inviter medlemmer" />
 						<VBox fx:id="invitableMembers" prefHeight="300.0">
 							<VBox.margin>
 								<Insets left="10.0" right="10.0" />
 							</VBox.margin>
 						</VBox>
-						<Button fx:id="inviteBtn" defaultButton="true" mnemonicParsing="false" onAction="#handleInvite" prefHeight="24.0" prefWidth="110.0" text="Inviter" />
+						<Button fx:id="inviteBtn" defaultButton="true"
+							mnemonicParsing="false" onAction="#handleInvite" prefHeight="24.0"
+							prefWidth="110.0" text="Inviter" />
 					</children>
 				</VBox>
 			</children>
 		</HBox>
-		<HBox alignment="CENTER" spacing="5" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0">
+		<HBox alignment="CENTER" spacing="5" AnchorPane.bottomAnchor="40.0"
+			AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0">
 			<children>
-				<Button fx:id="OKBtn" defaultButton="true" mnemonicParsing="false" onAction="#handleOK" prefHeight="30.0" prefWidth="90.0" text="OK" />
+				<Button fx:id="OKBtn" defaultButton="true" mnemonicParsing="false"
+					onAction="#handleOK" prefHeight="30.0" prefWidth="100.0" text="OK" />
+				<Button styleClass="redButton" fx:id="deleteGroupButton"
+					defaultButton="true" mnemonicParsing="false" onAction="#handleDeleteGroupButton"
+					prefHeight="30.0" prefWidth="100.0" text="Slett gruppe" />
 			</children>
 		</HBox>
-		<HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+		<HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0"
+			AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 			<children>
 				<Text fx:id="errorText">
 					<HBox.margin>

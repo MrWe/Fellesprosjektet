@@ -18,20 +18,22 @@
 			<children>
 				<HBox alignment="CENTER">
 					<children>
-						<Button text="left" onAction="#goLeft">
+						<Button id="leftTriangle" minHeight="-Infinity" minWidth="-Infinity"
+							onAction="#goLeft" prefHeight="20.0" prefWidth="15.0">
 							<HBox.margin>
-								<Insets right="100" />
+								<Insets bottom="1.0" right="20.0" />
 							</HBox.margin>
 						</Button>
-						<Text fx:id="monthText" text="March" />
-						<Text fx:id="yearText" styleClass="thinLabel" text="2015">
+						<Text fx:id="monthText" styleClass="bigText" text="March" />
+						<Text fx:id="yearText" styleClass="thinBigText" text="2015">
 							<HBox.margin>
 								<Insets left="10.0" />
 							</HBox.margin>
 						</Text>
-						<Button text="right" onAction="#goRight">
+						<Button id="rightTriangle" minHeight="-Infinity" minWidth="-Infinity"
+							onAction="#goRight" prefHeight="20.0" prefWidth="15.0">
 							<HBox.margin>
-								<Insets left="100" />
+								<Insets bottom="1.0" left="20.0" />
 							</HBox.margin>
 						</Button>
 					</children>

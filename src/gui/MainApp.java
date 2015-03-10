@@ -234,7 +234,6 @@ public class MainApp extends Application {
 		}
 	}
 
-
 	public void showGroupPopup(TreeView<Group> treeView, TreeItem<Group> group, boolean createSub) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.

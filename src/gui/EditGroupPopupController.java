@@ -35,7 +35,7 @@ public class EditGroupPopupController {
 	@FXML private VBox invitableMembers;
 	@FXML private ListView<String> members,admins;
 	@FXML private Label memberListText, invitableMemberListText;
-	@FXML private Button OKBtn, inviteBtn, deleteMemberButton, deleteAdminButton, makeAdminButton;
+	@FXML private Button OKBtn, inviteBtn, deleteMemberButton, deleteAdminButton, makeAdminButton,deleteGroupButton;
 	private TreeView<Group> treeView;
 	private boolean editingExisting, createSub, isPrivate;;
 	private TreeItem<Group> group;
@@ -186,6 +186,11 @@ public class EditGroupPopupController {
 	}
 	
 	@FXML
+	private void handleDeleteGroupButton(){
+		
+	}
+	
+	@FXML
 	private void makeAdmin(){
 		System.out.println("I'm making an member a admin");
 	}
@@ -250,33 +255,18 @@ public class EditGroupPopupController {
 		ListCell<CheckListObject>> forListView = CheckBoxListCell.forListView(getProperty);
 		invitableMembers.setCellFactory(forListView);
 
-		if (group != null && !createSub) {
-			editingExisting = true;
-			nameField.setText(group.getValue().getName());
+		
+		editingExisting = true;
+		nameField.setText(group.getValue().getName());
 					
-				for (String member : group.getParent().getValue().getMembers()) {
-				CheckListObject clo = new CheckListObject(member);
-				if (!group.getValue().getMembers().contains(member)) {
-					invitableMemberList.add(clo);
+		for (String member : group.getParent().getValue().getMembers()) {
+			CheckListObject clo = new CheckListObject(member);
+			if (!group.getValue().getMembers().contains(member) && !member.equals(mainApp.getUser().getName())) {
+				invitableMemberList.add(clo);
 				}
 			}
 			this.invitableMembers.getChildren().add(invitableMembers);
 		}
-		else {
-			editingExisting = false;
-				rs = db.getAllUsers();
-				try {
-					while (rs.next()) {
-						if(!memberList.contains(rs.getString(4))){
-							invitableMemberList.add(new CheckListObject(rs.getString(4)));
-						}
-					}
-					this.invitableMembers.getChildren().add(invitableMembers);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				
-			}
-		}
-	}
+	
 
 }

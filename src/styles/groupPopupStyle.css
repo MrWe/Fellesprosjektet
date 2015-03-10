@@ -9,6 +9,19 @@
 .button:hover {
     -fx-background-color : #0C1F00;
    }
+   
+.redButton {
+	-fx-opacity			 : 1;
+    -fx-background-color : #ff0000;
+    -fx-text-fill        : #ffeded;
+    -fx-font-weight      : 900;
+    
+}
+
+.Button:hover {
+    -fx-background-color : #b30000;
+
+   }
 
 .bigFont{
     -fx-font-size: 20px;

@@ -72,7 +72,7 @@ public class GroupPopupController {
 				invited.add(clo.getName());
 			}
 		}
-		System.out.println("hei"+ mainApp.getUser().getName());
+		
 		Group group = new Group(nameField.getText(), false, "0", "0", invited, admins);
 		TreeItem<Group> newGroup = new TreeItem<Group>(group);
 		if (createSub) {				// if creating a new subgroup

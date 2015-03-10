@@ -23,8 +23,8 @@
 								<Insets right="100" />
 							</HBox.margin>
 						</Button>
-						<Text fx:id="monthText" text="March" />
-						<Text fx:id="yearText" styleClass="thinLabel" text="2015">
+						<Text fx:id="monthText"/>
+						<Text fx:id="yearText" styleClass="thinLabel">
 							<HBox.margin>
 								<Insets left="10.0" />
 							</HBox.margin>

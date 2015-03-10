@@ -1,8 +1,8 @@
 package gui;
 
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -38,6 +38,10 @@ public class CalendarController {
 		this.group = group;
 		currentYear = Calendar.getInstance().get(Calendar.YEAR);
 		currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+		
+		monthText.setText(new DateFormatSymbols().getMonths()[currentMonth]);
+		yearText.setText("" + currentYear);
+		
 		//System.out.println(currentYear + " " + currentMonth);
 		for (int i = 0; i < 7; i++) { // sets contraints on each of the 7 columns
 			ColumnConstraints columnConstraints = new ColumnConstraints();
@@ -60,22 +64,17 @@ public class CalendarController {
 	@SuppressWarnings("deprecation")
 	private void constructCalendar(Group group, int year, int month) throws SQLException {
 		calendar.getChildren().clear();
-		System.out.println(year + " " + month);
 		
 		Calendar c1 = Calendar.getInstance();
 		c1.set(year, month, 1);
-		//System.out.println(c1.getTime().toString());
 		
 		int day = c1.get(Calendar.DAY_OF_WEEK);
-		//System.out.println("start " + day);
 		c1.add(Calendar.DATE, -1);
 		day = c1.get(Calendar.DAY_OF_WEEK);
 	    while (day != 2) {
-	    	//System.out.println(day);
 	        c1.add(Calendar.DATE, -1);
 	        day = c1.get(Calendar.DAY_OF_WEEK);
 	    }
-	    System.out.println(c1.getTime().toString());
 		
 		ResultSet rs = null;
 		// Henter avtalene til gruppen som er markert. 
@@ -144,18 +143,24 @@ public class CalendarController {
 		if (currentMonth == 0) {
 			currentYear--;
 			currentMonth = 11;
+			yearText.setText("" + currentYear);
 		} else {
 			currentMonth--;
 		}
+		monthText.setText(new DateFormatSymbols().getMonths()[currentMonth]);
 		constructCalendar(group, currentYear, currentMonth);
 	}
 	
 	@FXML
 	private void goRight() throws SQLException {
 		if (currentMonth == 11) {
-			
+			currentYear++;
+			currentMonth = 0;
+			yearText.setText("" + currentYear);
+		} else {
+			currentMonth++;
 		}
-		currentMonth++;
+		monthText.setText(new DateFormatSymbols().getMonths()[currentMonth]);
 		constructCalendar(group, currentYear, currentMonth);
 	}
 

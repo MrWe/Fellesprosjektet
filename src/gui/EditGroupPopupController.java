@@ -164,7 +164,13 @@ public class EditGroupPopupController {
 
 	@FXML
 	private void handleDeleteGroupButton(){
+<<<<<<< HEAD
 		System.out.println("im deleting the group: " + group.getValue());
+=======
+		db.deleteGroup(group.getValue().getGroupID());
+		group.getParent().getChildren().remove(group);
+		popupStage.close();
+>>>>>>> origin/master
 	}
 
 	@FXML
@@ -199,9 +205,14 @@ public class EditGroupPopupController {
 		popupStage.close();
 	}
 
+<<<<<<< HEAD
 	public void fillPopup(TreeItem<Group> group, boolean createSub, MainApp mainApp) { // called whenever the popup is opened		
 
 		//Check if you are an admin
+=======
+	public void fillPopup(TreeItem<Group> group, boolean createSub, MainApp mainApp) { // called whenever the popup is opened
+		System.out.println(group.getValue().getName() + " " + group.getValue().getGroupID());
+>>>>>>> origin/master
 		this.mainApp = mainApp;
 		try {
 			if(group != null) {				

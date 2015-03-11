@@ -92,6 +92,7 @@ public class GroupPopupController {
 			treeView.getRoot().getChildren().add(newGroup);
 			try {
 				db.createGroup(nameField.getText(), 0, 0, mainApp.getUser().getUsername()); // 0 is the id of the root group
+				group.setGroupID(db.getLastGroupID());
 				db.addGroupMembers(nameField.getText(), invited);
 			} catch (SQLException e) {
 				e.printStackTrace();

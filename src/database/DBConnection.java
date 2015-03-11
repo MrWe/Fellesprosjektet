@@ -462,5 +462,15 @@ public class DBConnection {
 				+ ";";
 		db.updateDB(q);
 	}
+	
+	/**
+	 * Deletes the specified group from the database. Because of the ON DELETE CASCADE property, all subgroups will also be deleted
+	 * 
+	 * @param groupID group name of the group to be deleted
+	 */
+	public void deleteGroup(String groupID) {
+		String q = "DELETE FROM USERGROUP WHERE usergroupID = '" + groupID + "';";
+		db.updateDB(q);
+	}
 
 }

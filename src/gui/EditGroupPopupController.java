@@ -75,6 +75,11 @@ public class EditGroupPopupController {
 		}
 		group.getValue().setName(nameField.getText());	// update values client-side as well
 		group.getValue().addMembers(invited);
+		try {
+		db.addGroupMembers(nameField.getText(), invited);
+			} catch (SQLException e) {
+				e.printStackTrace();
+		}
 		updateMemberList();
 		updateInvitableMemberList();
 	}
@@ -172,7 +177,9 @@ public class EditGroupPopupController {
 
 	@FXML
 	private void makeAdmin(){
-		System.out.println("I'm making an member a admin");
+		String newAdmin = new String();
+		newAdmin = members.getSelectionModel().getSelectedItem();
+		System.out.println("I'm making " + newAdmin + " an member a admin");
 	}
 
 	private String isValidInput() {

@@ -168,7 +168,6 @@ public class EditGroupPopupController {
 		db.deleteGroup(group.getValue().getGroupID());
 		group.getParent().getChildren().remove(group);
 		popupStage.close();
-
 	}
 
 	@FXML
@@ -202,9 +201,6 @@ public class EditGroupPopupController {
 
 		popupStage.close();
 	}
-
-	public void fillPopup(TreeItem<Group> group, boolean createSub, MainApp mainApp) { // called whenever the popup is opened		
-
 		//Check if you are an admin
 
 	public void fillPopup(TreeItem<Group> group, boolean createSub, MainApp mainApp) { // called whenever the popup is opened

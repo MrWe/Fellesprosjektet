@@ -57,50 +57,28 @@ public class EditGroupPopupController {
 
 	@FXML
 	private void handleInvite() { //handle the invite button
-		
-		
-		System.out.println("jeg trykker paa handleInvite knappen");
-		String validInput = isValidInput();
-		if (validInput.length() != 0) {
-			errorText.setVisible(true);
-			errorText.setText(validInput);
-			return;
-		}
 
-//		ArrayList<String> invited = new ArrayList<String>();
-//		for (CheckListObject clo : invitableMemberList) {			// gets all the names that have been selected in the list of members
-//			if (clo.getSelected()) {
-//				invited.add(clo.getName());
-//			}
-//		}
-//				// if editing a group
-//		try {
-//			db.editGroupName(group.getValue().getName(), nameField.getText());  // parameteres are oldName, newName			
-//			db.addGroupMembers(nameField.getText(), invited);// deletes the current members of the group and adds all currently selected
-//							}
-//			catch (SQLException e) {
-//				e.printStackTrace();
-//		}
-		
+		//				// if editing a group
+		//		try {
+		//			db.editGroupName(group.getValue().getName(), nameField.getText());  // parameteres are oldName, newName			
+		//			db.addGroupMembers(nameField.getText(), invited);// deletes the current members of the group and adds all currently selected
+		//							}
+		//			catch (SQLException e) {
+		//				e.printStackTrace();
+		//		}
+
 		ArrayList<String> invited = new ArrayList<String>();
 		for (CheckListObject clo : invitableMemberList) {			// gets all the names that have been selected in the list of members
-		if (clo.getSelected()) {
-			System.out.println("haha" + clo);
-			invited.add(clo.getName());
+			if (clo.getSelected()) {
+				invited.add(clo.getName());
 			}
 		}
-		
-//		for (CheckListObject clo2 : invitableMemberList) {			// gets all the names that have been selected in the list of members
-//			if (!memberList.contains(clo2.getName())) {
-//				invited.add(clo2.getName());	
-//			}
-//		}
 		group.getValue().setName(nameField.getText());	// update values client-side as well
 		group.getValue().addMembers(invited);
 		updateMemberList();
 		updateInvitableMemberList();
 	}
-	
+
 	private void updateMemberList(){
 		members.setEditable(true);
 		members.setItems(memberList);
@@ -110,19 +88,28 @@ public class EditGroupPopupController {
 			memberList.add(member);
 		}
 
+		//skjuler admins i memberList
+		for(String admin: group.getValue().getAdmins()){
+			for(String member: memberList){
+				if(member == admin){
+					memberList.remove(member);
+				}
+			}
+		}
+
 	}
-	
+
 	private void updateAdminList(){
 		admins.setEditable(true);
 		admins.setItems(adminList);
 		adminList.clear();
-		
+
 		for (String admin : group.getValue().getAdmins()) {
 			adminList.add(admin);
 		};
-		System.out.println(group.getValue().getAdmins());
+		System.out.println("Group admins:" + group.getValue().getAdmins());
 	}
-	
+
 	private void updateInvitableMemberList(){
 		ListView<CheckListObject> invitableMembers = new ListView<CheckListObject>();
 		invitableMembers.setEditable(true);
@@ -138,33 +125,32 @@ public class EditGroupPopupController {
 		Callback<ListView<CheckListObject>, 
 		ListCell<CheckListObject>> forListView = CheckBoxListCell.forListView(getProperty);
 		invitableMembers.setCellFactory(forListView);
-					
+
 		for (String member : group.getParent().getValue().getMembers()) {
-		CheckListObject clo = new CheckListObject(member);
-		if (!group.getValue().getMembers().contains(member) && !member.equals(mainApp.getUser().getName())) {
-					invitableMemberList.add(clo);
-				}
+			CheckListObject clo = new CheckListObject(member);
+			if (!group.getValue().getMembers().contains(member) && !group.getValue().getAdmins().contains(member)) {
+				invitableMemberList.add(clo);
+			}
 		}
-		this.invitableMembers.getChildren().add(invitableMembers);
+
+		//!member.equals(mainApp.getUser().getName())
 		this.invitableMembers.getChildren().clear();
 		this.invitableMembers.getChildren().add(invitableMembers);
 	}
-	
-	
+
 	//buttons in EditGroupPopup.fxml
+
 	@FXML
 	private void deleteAdmin(){
 		System.out.println("I'm deleting an admin");
 	}
-	
+
 	@FXML
 	private void deleteMember(){
-		
+
 		String memberToDelete = new String();
 		memberToDelete = members.getSelectionModel().getSelectedItem();
-		System.out.println("I'm deleting a member");
-		System.out.println(memberToDelete);
-		
+
 		ArrayList<String> members = new ArrayList<String>();
 		for (String member : memberList) {
 			if(member != memberToDelete ){
@@ -175,12 +161,12 @@ public class EditGroupPopupController {
 		updateMemberList();
 		updateInvitableMemberList();
 	}
-	
+
 	@FXML
 	private void handleDeleteGroupButton(){
-		
+		System.out.println("im deleting the group: " + group.getValue());
 	}
-	
+
 	@FXML
 	private void makeAdmin(){
 		System.out.println("I'm making an member a admin");
@@ -195,15 +181,31 @@ public class EditGroupPopupController {
 	}
 
 	@FXML
-	private void handleOK() {
+	private void handleOK() {//change name doesnt work
+		String validInput = isValidInput();
+		if (validInput.length() != 0) {
+			errorText.setVisible(true);
+			errorText.setText(validInput);
+			return;
+		}
+
+		//System.out.println("Old group name: " + group.getValue().getName());
+		//db.editGroupName(group.getValue().getName(), nameField.getText());
+		//group.getValue().setName(nameField.getText());
+		//System.out.println("New group name: " + group.getValue().getName());
+		//db.editGroupName(group.getValue().getName(), nameField.getText());  // parameteres are oldName, newName			
+		//db.addGroupMembers(nameField.getText(), invited);// deletes the current members of the group and adds all currently selected
+
 		popupStage.close();
 	}
 
 	public void fillPopup(TreeItem<Group> group, boolean createSub, MainApp mainApp) { // called whenever the popup is opened		
+
+		//Check if you are an admin
 		this.mainApp = mainApp;
 		try {
 			if(group != null) {				
-				System.out.println("isAdmin " + db.isAdmin(mainApp.getUser().getUsername(), group.getValue().getName()));
+				System.out.println("You are an admin: " + db.isAdmin(mainApp.getUser().getUsername(), group.getValue().getName()) + "  Src: EditGroupPOPUP");
 			}
 		} catch (SQLException e1) {
 			e1.printStackTrace();
@@ -211,6 +213,7 @@ public class EditGroupPopupController {
 		this.createSub = createSub;
 		this.group = group;
 
+		//Check if group is Private
 		ResultSet rs = db.getPrivateGroup(mainApp.getUser().getUsername());
 		try {
 			rs.next();
@@ -224,40 +227,13 @@ public class EditGroupPopupController {
 			e.printStackTrace();
 		}
 
-		//for admins 
-		updateAdminList(); 
 
-		//Show members
-		updateMemberList();
+		updateAdminList(); 				//for admins 
+		updateMemberList();  			//Show members	
+		updateInvitableMemberList(); 	//Show invitable Members();
 
-
-		//for invite members
-		ListView<CheckListObject> invitableMembers = new ListView<CheckListObject>();
-		invitableMembers.setEditable(true);
-		invitableMembers.setItems(invitableMemberList);
-
-		Callback<CheckListObject, ObservableValue<Boolean>> 
-		getProperty = new Callback<CheckListObject, ObservableValue<Boolean>>() {
-			public BooleanProperty call(CheckListObject object) {
-				return object.selectedProperty();
-			}
-		};
-		Callback<ListView<CheckListObject>, 
-		ListCell<CheckListObject>> forListView = CheckBoxListCell.forListView(getProperty);
-		invitableMembers.setCellFactory(forListView);
-
-		
-		editingExisting = true;
 		nameField.setText(group.getValue().getName());
-					
-		for (String member : group.getParent().getValue().getMembers()) {
-		CheckListObject clo = new CheckListObject(member);
-		if (!group.getValue().getMembers().contains(member) && !member.equals(mainApp.getUser().getName())) {
-					invitableMemberList.add(clo);
-				}
-		}
-		this.invitableMembers.getChildren().add(invitableMembers);
-		
+
 	}
 
 }

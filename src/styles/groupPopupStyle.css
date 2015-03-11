@@ -18,7 +18,7 @@
     
 }
 
-.Button:hover {
+.redButton:hover {
     -fx-background-color : #b30000;
 
    }

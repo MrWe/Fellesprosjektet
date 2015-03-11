@@ -204,7 +204,7 @@ public class EditGroupPopupController {
 		//Check if you are an admin
 
 	public void fillPopup(TreeItem<Group> group, boolean createSub, MainApp mainApp) { // called whenever the popup is opened
-		System.out.println(group.getValue().getName() + " " + group.getValue().getGroupID());
+		System.out.println(group.getValue().getName() + " with ID:" + group.getValue().getGroupID() + " Src: fillPopUp-EditGroupPopup");
 		this.mainApp = mainApp;
 		try {
 			if(group != null) {				

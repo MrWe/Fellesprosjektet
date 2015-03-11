@@ -248,7 +248,7 @@ public class MainApp extends Application {
 			} else if (createSub){
 				popupStage.setTitle("Lag subgruppe for " + group.getValue().getName());
 			} else {
-				popupStage.setTitle("Endre p� " + group.getValue().getName());
+				popupStage.setTitle("Endre på:  " + group.getValue().getName());
 			}
 			popupStage.initModality(Modality.WINDOW_MODAL);
 			popupStage.initOwner(primaryStage);
@@ -280,7 +280,7 @@ public class MainApp extends Application {
 			} else if (createSub){
 				popupStage.setTitle("Lag subgruppe for " + group.getValue().getName());
 			} else {
-				popupStage.setTitle("Endre p� " + group.getValue().getName());
+				popupStage.setTitle("Endre på: " + group.getValue().getName());
 			}
 
 
@@ -294,7 +294,6 @@ public class MainApp extends Application {
 			controller.setPopupStage(popupStage);
 
 			controller.setTreeView(treeView);
-			System.out.println("here");
 			controller.fillPopup(group, createSub, this);
 			// Show the dialog and wait until the user closes it
 

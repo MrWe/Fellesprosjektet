@@ -178,7 +178,9 @@ public class EditGroupPopupController {
 	
 	@FXML
 	private void handleDeleteGroupButton(){
-		
+		db.deleteGroup(group.getValue().getGroupID());
+		group.getParent().getChildren().remove(group);
+		popupStage.close();
 	}
 	
 	@FXML
@@ -199,7 +201,8 @@ public class EditGroupPopupController {
 		popupStage.close();
 	}
 
-	public void fillPopup(TreeItem<Group> group, boolean createSub, MainApp mainApp) { // called whenever the popup is opened		
+	public void fillPopup(TreeItem<Group> group, boolean createSub, MainApp mainApp) { // called whenever the popup is opened
+		System.out.println(group.getValue().getName() + " " + group.getValue().getGroupID());
 		this.mainApp = mainApp;
 		try {
 			if(group != null) {				

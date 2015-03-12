@@ -28,4 +28,10 @@
 	-fx-background-color : #D5F2C2;
 }
 
+.label{
+	-fx-font-size   		: 15px;
+	-fx-text-fill        : #D5F2C2 ;
+    -fx-font-weight      : 900;
+}
+
 /*-fx-background-insets: 0, 20 20 10 20; */

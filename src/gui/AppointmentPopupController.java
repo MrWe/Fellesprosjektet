@@ -131,7 +131,6 @@ public class AppointmentPopupController {
 
 	}
 
-
 	private void addAppointmentToCalendar(String description, String location, LocalDate date, LocalTime startTime, LocalTime endTime, 
 			ArrayList<String> invited, ArrayList<String> members, ArrayList<String> admins, String color, Group owner, int addToDatabase) throws SQLException {
 

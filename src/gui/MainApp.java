@@ -150,6 +150,7 @@ public class MainApp extends Application {
 			ToolbarController controller = loader.getController();
 
 			controller.setMainApp(this);
+			//controller.setKeyEventHandler(primaryStage.getScene());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -18,6 +18,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.media.AudioClip;
 import javafx.scene.text.Text;
 import core.Appointment;
 import core.Group;
@@ -52,6 +53,8 @@ public class CalendarController {
 				if (keyCode.getCode().equals(konamiCode[konamiCodeCounter])) {
 					if (konamiCodeCounter == 9) {
 						((BorderPane) scene.getRoot()).setCenter(new SecretPane());
+						AudioClip ac = new AudioClip(CalendarController.class.getResource("/res/secret.mp3").toString());
+						ac.play();
 					} else {
 						konamiCodeCounter++;
 					}

@@ -130,19 +130,19 @@ public class AppointmentPopupController {
 
 
 	}
-	
-	
-	
+
+
 	private void addAppointmentToCalendar(String description, String location, LocalDate date, LocalTime startTime, LocalTime endTime, 
 			ArrayList<String> invited, ArrayList<String> members, ArrayList<String> admins, String color, Group owner, int addToDatabase) throws SQLException {
-		
+
 		Appointment appointment = new Appointment(description, location, date, startTime, endTime, invited, members, admins, color, owner);
 		csp.addAppointment(appointment);
 		group.addAppointment(appointment);
-		
+
 		if (addToDatabase == 1) {
 			System.out.println("groupName " + group.getName());
-			addAppointment(username, appointment.getDescription(), appointment.getDate().toString() + " " + appointment.getStartTime().toString() + ":00", appointment.getDate().toString() + " " + appointment.getEndTime().toString() + ":00", null, null, 1, group.getName());
+			db.addAppointment(username, appointment.getDescription(), appointment.getDate().toString() + " " + appointment.getStartTime().toString() + ":00", appointment.getDate().toString() + " " + appointment.getEndTime().toString() + ":00", null, null, 1, group.getName());
+			appointment.setAppointmentID(db.getLastAppointmentID());
 		}
 	}
 

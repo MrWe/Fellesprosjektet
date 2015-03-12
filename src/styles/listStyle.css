@@ -10,6 +10,10 @@
     -fx-font-weight      : 900;
     
     }
+    
+.button:disabled {
+	-fx-opacity			 : 0.5;
+}
 
 .button:hover {
     -fx-background-color : #0C1F00;

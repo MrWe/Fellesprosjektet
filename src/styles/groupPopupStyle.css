@@ -3,8 +3,12 @@
     -fx-background-color : #295A09;
     -fx-text-fill        : #D5F2C2;
     -fx-font-weight      : 900;
-    
+        
     }
+
+.button:disabled {
+	-fx-opacity			 : 0.5;
+}
 
 .button:hover {
     -fx-background-color : #0C1F00;

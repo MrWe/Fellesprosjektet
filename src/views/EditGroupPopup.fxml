@@ -85,7 +85,7 @@
 				<VBox alignment="TOP_CENTER" prefHeight="300.0" prefWidth="250.0"
 					spacing="5" focusTraversable="false">
 					<children>
-						<Label fx:id="invitableMembersText" alignment="CENTER"
+						<Label alignment="CENTER"
 							text="Inviter medlemmer" />
 						<VBox fx:id="invitableMembers" prefHeight="300.0" focusTraversable="false">
 							<VBox.margin>

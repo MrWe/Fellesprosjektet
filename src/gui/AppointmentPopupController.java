@@ -52,10 +52,6 @@ public class AppointmentPopupController {
 		allMembers = new ArrayList<String>(Arrays.asList("Kristoffer Lervik", "Trym Nilsen", "Hoang Hai Nguyen", "Erik Wiker", "Patricia Zemer", "Jens Stoltenberg", "Erna Solberg", "Kong Harald", "Madonna", "Will Smith", "Kanye West", "Julenissen", "Postman Pat"));
 	}
 	
-	private void addAppointment(String username, String description, String from, String to, String place, String appointmentType, int roomID, String groupName) throws SQLException {
-		db.addAppointment(username, description, from, to, place, appointmentType, roomID, groupName);
-	}
-	
 	private void updateAppointment(String description, String location, LocalDate date, LocalTime startTime, LocalTime endTime, 
 			ArrayList<String> invited, ArrayList<String> members, ArrayList<String> admins, String color, Group owner) throws SQLException {
 		

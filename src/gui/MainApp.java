@@ -40,13 +40,13 @@ public class MainApp extends Application {
 		return user;
 	}
 
-	public void initRootLayout() {
+	public void initRootLayout() {		
 		try {
 			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("/views/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
-
+			
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout, 1280, 720);
 
@@ -131,6 +131,7 @@ public class MainApp extends Application {
 			controller.setMainApp(this);
 			//group.addAppointment(new Appointment("hei", "du", LocalDate.now(), LocalTime.NOON, LocalTime.NOON, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), "FFFFFF"));
 			controller.fillCalendar(group);
+			controller.setKeyEventHandler(primaryStage.getScene());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -309,7 +309,7 @@ public class DBConnection {
 				+ "');";
 		db.updateDB(q);
 
-		int lastId = getLastAppointment(); 
+		String lastId = getLastAppointmentID(); 
 		int userId = getUserID(username);
 		String qu = "INSERT INTO APPOINTMENTMEMBER(status, isAdmin, USER_userID, APPOINTMENT_appointmentID) Values ('"
 				+ "i"
@@ -324,11 +324,11 @@ public class DBConnection {
 		db.updateDB(qu);
 	}
 
-	public int getLastAppointment() throws SQLException {
-		String q = "SELECT LAST_INSERT_ID();";
+	public String getLastAppointmentID() throws SQLException {
+		String q = "SELECT MAX(appointmentID) from APPOINTMENT;";
 		ResultSet rs = db.queryDB(q);
 		rs.next();
-		return Integer.parseInt(rs.getString(1));
+		return rs.getString(1);
 	}
 
 	public ResultSet getAppointmentsWithGroup(int group) {

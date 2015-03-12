@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import core.Group;
 
 public class Appointment {
-	
+
 	String description;
 	String location;
 	private LocalDate date;
@@ -19,7 +19,8 @@ public class Appointment {
 	ArrayList<String> admins;
 	private String color;
 	private Group owner;
-	
+	private String appointmentID;
+
 	public Appointment(String description, String location, LocalDate date, LocalTime startTime, LocalTime endTime, ArrayList<String> invited, ArrayList<String> members, ArrayList<String> admins, String color, Group owner) {
 		this.description = description;
 		this.location = location;
@@ -73,7 +74,7 @@ public class Appointment {
 	public ArrayList<String> getAdmins() {
 		return admins;
 	}
-	
+
 	public String getColor() {
 		return color;
 	}
@@ -113,7 +114,15 @@ public class Appointment {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	
+
+	public void setAppointmentID(String appointmentID) {
+		this.appointmentID = appointmentID;
+	}
+
+	public String getAppointmentID() {
+		return appointmentID;
+	}
+
 	@Override
 	public String toString() {
 		return "Appointment:\n" + description + "\n" + location + "\nTime: " + date + " " + startTime + "-" + endTime; 

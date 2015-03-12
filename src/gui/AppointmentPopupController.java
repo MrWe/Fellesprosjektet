@@ -51,10 +51,6 @@ public class AppointmentPopupController {
 		db = new DBConnection();
 		allMembers = new ArrayList<String>(Arrays.asList("Kristoffer Lervik", "Trym Nilsen", "Hoang Hai Nguyen", "Erik Wiker", "Patricia Zemer", "Jens Stoltenberg", "Erna Solberg", "Kong Harald", "Madonna", "Will Smith", "Kanye West", "Julenissen", "Postman Pat"));
 	}
-	
-	private void addAppointment(String username, String description, String from, String to, String place, String appointmentType, int roomID, String groupName) throws SQLException {
-		db.addAppointment(username, description, from, to, place, appointmentType, roomID, groupName);
-	}
 
 	public void setPopupStage(Stage popupStage) {
 		this.popupStage = popupStage;
@@ -101,17 +97,18 @@ public class AppointmentPopupController {
 
 
 	}
-	
+
 	private void addAppointmentToCalendar(String description, String location, LocalDate date, LocalTime startTime, LocalTime endTime, 
 			ArrayList<String> invited, ArrayList<String> members, ArrayList<String> admins, String color, Group owner, int addToDatabase) throws SQLException {
-		
+
 		Appointment appointment = new Appointment(description, location, date, startTime, endTime, invited, members, admins, color, owner);
 		csp.addAppointment(appointment);
 		group.addAppointment(appointment);
-		
+
 		if (addToDatabase == 1) {
 			System.out.println("groupName " + group.getName());
-			addAppointment(username, appointment.getDescription(), appointment.getDate().toString() + " " + appointment.getStartTime().toString() + ":00", appointment.getDate().toString() + " " + appointment.getEndTime().toString() + ":00", null, null, 1, group.getName());
+			db.addAppointment(username, appointment.getDescription(), appointment.getDate().toString() + " " + appointment.getStartTime().toString() + ":00", appointment.getDate().toString() + " " + appointment.getEndTime().toString() + ":00", null, null, 1, group.getName());
+			appointment.setAppointmentID(db.getLastAppointmentID());
 		}
 	}
 

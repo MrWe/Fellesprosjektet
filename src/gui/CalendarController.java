@@ -143,6 +143,7 @@ public class CalendarController {
 								admins,
 								rs.getString(11),
 								group);
+						appointment.setAppointmentID(rs.getString(1));
 						memberRs.beforeFirst(); 
 						csp.addAppointment(appointment);
 					}

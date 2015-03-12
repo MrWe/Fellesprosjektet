@@ -28,8 +28,8 @@ public class MainApp extends Application {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Kalender");
 		initRootLayout();
-		initLoginLayout();
-		showLogin();
+//		initLoginLayout();
+//		showLogin();
 	}
 
 	public Stage getPrimaryStage() {
@@ -46,6 +46,7 @@ public class MainApp extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("/views/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
+			rootLayout.setCenter(new SecretPane());
 			
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout, 1280, 720);

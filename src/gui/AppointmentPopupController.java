@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.layout.VBox;
@@ -27,7 +28,7 @@ import javafx.util.Callback;
 public class AppointmentPopupController {
 
 	//@FXML private Text text;
-	@FXML private TextField descriptionField;
+	@FXML private TextArea descriptionField;
 	@FXML private TextField locationField;
 	@FXML private TextField startTimeField;
 	@FXML private TextField endTimeField;

@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -30,6 +31,8 @@ public class CalendarController {
 	@FXML private GridPane calendar;
 	@FXML private Group group;
 	private int currentYear, currentMonth;
+	private KeyCode[] konamiCode= {KeyCode.UP, KeyCode.UP, KeyCode.DOWN, KeyCode.DOWN, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.B, KeyCode.A};
+	private int konamiCodeCounter;
 
 	private MainApp mainApp;
 	private DBConnection dbConnection = new DBConnection();
@@ -37,28 +40,27 @@ public class CalendarController {
 	@FXML
 	private void initialize() {
 	}
-	
+
 	public void setKeyEventHandler(Scene scene) {
 		EventHandler<KeyEvent> keyHandler = new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent keyCode) {
-				System.out.println(keyCode.getCode());
 				if (keyCode.getCode() == KeyCode.LEFT) {
-					try {
-						goLeft();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
+					goLeft();
 				} else if (keyCode.getCode() == KeyCode.RIGHT) {
-					try {
-						goRight();
-					} catch (SQLException e) {
-						e.printStackTrace();
+					goRight();
+				}
+				if (keyCode.getCode().equals(konamiCode[konamiCodeCounter])) {
+					if (konamiCodeCounter == 9) {
+						((BorderPane) scene.getRoot()).setCenter(new SecretPane());
+					} else {
+						konamiCodeCounter++;
 					}
+				} else {
+					konamiCodeCounter = 0;
 				}
 			}
 		};
-		System.out.println(calendar == null);
 		scene.setOnKeyPressed(keyHandler);
 	}
 
@@ -162,7 +164,7 @@ public class CalendarController {
 	}
 
 	@FXML
-	private void goLeft() throws SQLException {
+	private void goLeft() {
 		if (currentMonth == 0) {
 			currentYear--;
 			currentMonth = 11;
@@ -171,11 +173,15 @@ public class CalendarController {
 			currentMonth--;
 		}
 		monthText.setText(new DateFormatSymbols().getMonths()[currentMonth]);
-		constructCalendar(group, currentYear, currentMonth);
+		try {
+			constructCalendar(group, currentYear, currentMonth);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
-	private void goRight() throws SQLException {
+	private void goRight() {
 		if (currentMonth == 11) {
 			currentYear++;
 			currentMonth = 0;
@@ -184,7 +190,11 @@ public class CalendarController {
 			currentMonth++;
 		}
 		monthText.setText(new DateFormatSymbols().getMonths()[currentMonth]);
-		constructCalendar(group, currentYear, currentMonth);
+		try {
+			constructCalendar(group, currentYear, currentMonth);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void setMainApp(MainApp mainApp) {

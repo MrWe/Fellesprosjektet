@@ -9,6 +9,9 @@ import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class SecretPane extends Pane {
@@ -16,11 +19,21 @@ public class SecretPane extends Pane {
 	private ImageView imageView = new ImageView();
 	private int timerDelay, xSpeed, ySpeed;
 	private double rotationDegree;
+	private Text text;
 	
 	public SecretPane() {
 		super();
+		text = new Text(":D");
+		text.setFont(new Font(72));
+		text.setFill(Paint.valueOf("WHITE"));
+		//text.setStyle("-fx-font-color: #FFFFFF;");
+		text.setLayoutX(550);
+		text.setLayoutY(500);
+		text.setVisible(false);
 		imageView.setImage(new Image("/Images/secret.gif"));
-		this.getChildren().add(imageView);
+		imageView.setLayoutX(-500);
+		imageView.setLayoutY(200);
+		this.getChildren().addAll(imageView, text);
 		Random rng = new Random();
 		rotationDegree = rng.nextInt(360);
 //		System.out.println(rotationDegree);
@@ -60,6 +73,15 @@ public class SecretPane extends Pane {
 		}));
 		trailTimer.setCycleCount(Timeline.INDEFINITE);
 		trailTimer.play();
+		
+		Timeline happyTimer = new Timeline(new KeyFrame(Duration.millis(timerDelay * 150), new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				text.setVisible(true);
+			}
+		}));
+		happyTimer.setCycleCount(Timeline.INDEFINITE);
+		happyTimer.play();
 		
 	}
 	

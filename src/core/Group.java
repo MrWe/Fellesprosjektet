@@ -21,6 +21,11 @@ public class Group {
 		this.supergroupID = supergroupID;
 		this.members = members;
 		this.admins = admins;
+		for (String member : admins) {
+			if (!members.contains(member)) {
+				members.add(member);
+			}
+		}
 		subGroups = new ArrayList<Group>();
 		appointments = new ArrayList<Appointment>();
 	}
@@ -82,10 +87,16 @@ public class Group {
 	}
 	
 	public void addAdmin(String name) {
+		if (!members.contains(name)) {
+			members.add(name);
+		}
 		admins.add(name);
 	}
 	
 	public void addAdmins(String... names) {
+		if (!members.contains(names)) {
+			members.addAll(Arrays.asList(names));
+		}
 		admins.addAll(Arrays.asList(names));
 	}
 	

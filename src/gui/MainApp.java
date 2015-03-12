@@ -266,7 +266,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void showEditGroupPopup(TreeView<Group> treeView, TreeItem<Group> group, boolean createSub) {
+	public void showEditGroupPopup(TreeItem<Group> group) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
@@ -275,15 +275,7 @@ public class MainApp extends Application {
 
 			// Create the dialog Stage.
 			Stage popupStage = new Stage();
-			if (group == null) {				
-				popupStage.setTitle("Lag gruppe");
-			} else if (createSub){
-				popupStage.setTitle("Lag subgruppe for " + group.getValue().getName());
-			} else {
-				popupStage.setTitle("Endre på: " + group.getValue().getName());
-			}
-
-
+			popupStage.setTitle("Endre paa: " + group.getValue().getName());
 			popupStage.initModality(Modality.WINDOW_MODAL);
 			popupStage.initOwner(primaryStage);
 			popupStage.setResizable(false);
@@ -293,10 +285,9 @@ public class MainApp extends Application {
 
 			controller.setPopupStage(popupStage);
 
-			controller.setTreeView(treeView);
-			controller.fillPopup(group, createSub, this);
+			//controller.setTreeView(treeView);
+			controller.fillPopup(group, user.getUsername());
 			// Show the dialog and wait until the user closes it
-
 			popupStage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();

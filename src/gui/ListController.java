@@ -89,7 +89,6 @@ public class ListController {
 				try {
 					mainApp.showCalendar(newValue.getValue());
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -107,7 +106,7 @@ public class ListController {
 
 	@FXML
 	private void editGroup() {
-		mainApp.showEditGroupPopup(treeView, treeView.getSelectionModel().getSelectedItem(), false);
+		mainApp.showEditGroupPopup(treeView.getSelectionModel().getSelectedItem());
 	}
 
 	@FXML

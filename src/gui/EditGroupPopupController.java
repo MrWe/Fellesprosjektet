@@ -1,6 +1,5 @@
 package gui;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -15,7 +14,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -36,11 +34,8 @@ public class EditGroupPopupController {
 	@FXML private ListView<String> members,admins;
 	@FXML private Label memberListText, invitableMemberListText;
 	@FXML private Button OKBtn, inviteBtn, deleteMemberButton, deleteAdminButton, makeAdminButton,deleteGroupButton;
-	private TreeView<Group> treeView;
-	private boolean editingExisting, createSub, isPrivate;
 	private TreeItem<Group> group;
 	private DBConnection db;
-	private MainApp mainApp;
 
 	@FXML
 	private void initialize() {// Setter opp dbConnection
@@ -49,10 +44,6 @@ public class EditGroupPopupController {
 
 	public void setPopupStage(Stage popupStage) {
 		this.popupStage = popupStage;
-	}
-
-	public void setTreeView(TreeView<Group> treeView) {
-		this.treeView = treeView;
 	}
 
 	@FXML
@@ -91,8 +82,9 @@ public class EditGroupPopupController {
 
 		//skjuler admins i memberList
 		for(String admin: group.getValue().getAdmins()){
-			for(String member: memberList){
-				if(member == admin){
+			//for(String member: memberList){
+			for (String member : group.getValue().getMembers()) {
+				if(member.equals(admin)){
 					memberList.remove(member);
 				}
 			}
@@ -134,7 +126,6 @@ public class EditGroupPopupController {
 			}
 		}
 
-		//!member.equals(mainApp.getUser().getName())
 		this.invitableMembers.getChildren().clear();
 		this.invitableMembers.getChildren().add(invitableMembers);
 	}
@@ -143,12 +134,17 @@ public class EditGroupPopupController {
 
 	@FXML
 	private void deleteAdmin(){
+		String admin = admins.getSelectionModel().getSelectedItem();
+		adminList.remove(admin);
+		memberList.add(admin);
+		group.getValue().removeAdmin(admin);
 		System.out.println("I'm deleting an admin");
+		updateMemberList();
+		updateInvitableMemberList();
 	}
 
 	@FXML
 	private void deleteMember(){
-
 		String memberToDelete = new String();
 		memberToDelete = members.getSelectionModel().getSelectedItem();
 
@@ -177,6 +173,7 @@ public class EditGroupPopupController {
 		newAdmin = members.getSelectionModel().getSelectedItem();
 		adminList.add(newAdmin);
 		System.out.println("I'm making " + newAdmin + "a admin");
+		group.getValue().addAdmin(newAdmin);
 		updateMemberList();
 		updateInvitableMemberList();
 	}
@@ -191,7 +188,7 @@ public class EditGroupPopupController {
 
 	@FXML
 	private void handleOK() {//change name doesnt work
-		updateAdminList(); 	
+		updateAdminList();
 		String validInput = isValidInput();
 		if (validInput.length() != 0) {
 			errorText.setVisible(true);
@@ -240,42 +237,28 @@ public class EditGroupPopupController {
 		
 		popupStage.close();
 	}
-		//Check if you are an admin
 
-	public void fillPopup(TreeItem<Group> group, boolean createSub, MainApp mainApp) { // called whenever the popup is opened
-		System.out.println(group.getValue().getName() + " with ID:" + group.getValue().getGroupID() + " Src: fillPopUp-EditGroupPopup");
-		this.mainApp = mainApp;
+	public void fillPopup(TreeItem<Group> group, String username) { // called whenever the popup is opened
 		try {
-			if(group != null) {				
-				System.out.println("You are an admin: " + db.isAdmin(mainApp.getUser().getUsername(), group.getValue().getName()) + "  Src: EditGroupPOPUP");
-			}
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		this.createSub = createSub;
-		this.group = group;
-
-		//Check if group is Private
-		ResultSet rs = db.getPrivateGroup(mainApp.getUser().getUsername());
-		try {
-			rs.next();
-			if (group != null && rs.getString(2).equals(group.getValue().getName())) {
-				isPrivate = true;
-				System.out.println("isPrivate true");
-			} else {
-				isPrivate = false;
+			if (!db.isAdmin(username, group.getValue().getName())) { // if not admin
+				invitableMembers.setDisable(true);
+				nameField.setDisable(true);
+				inviteBtn.setDisable(true);
+				deleteMemberButton.setDisable(true);
+				deleteAdminButton.setDisable(true);
+				makeAdminButton.setDisable(true);
+				deleteGroupButton.setDisable(true);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		this.group = group;
 
 		updateAdminList(); 				//for admins 
 		updateMemberList();  			//Show members	
 		updateInvitableMemberList(); 	//Show invitable Members();
 
 		nameField.setText(group.getValue().getName());
-
 	}
 
 }

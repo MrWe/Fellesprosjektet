@@ -36,10 +36,10 @@
 			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
 			<children>
 				<VBox alignment="TOP_CENTER" prefHeight="300.0" prefWidth="250.0"
-					spacing="5">
+					spacing="5" focusTraversable="false">
 					<children>
 						<Label text="Admins" />
-						<ListView fx:id="admins" prefHeight="300.0" prefWidth="200.0">
+						<ListView fx:id="admins" prefHeight="300.0" prefWidth="200.0" focusTraversable="false">
 							<VBox.margin>
 								<Insets left="10.0" right="10.0" />
 							</VBox.margin>
@@ -54,10 +54,10 @@
 					</children>
 				</VBox>
 				<VBox alignment="TOP_CENTER" prefHeight="300.0" prefWidth="250.0"
-					spacing="5">
+					spacing="5" focusTraversable="false">
 					<children>
 						<Label fx:id="memberListText" alignment="CENTER" text="Medlemmer" />
-						<ListView fx:id="members" minHeight="300.0" prefHeight="300.0">
+						<ListView fx:id="members" minHeight="300.0" prefHeight="300.0" focusTraversable="false">
 							<VBox.margin>
 								<Insets left="10.0" right="10.0" />
 							</VBox.margin>
@@ -83,11 +83,11 @@
 					</children>
 				</VBox>
 				<VBox alignment="TOP_CENTER" prefHeight="300.0" prefWidth="250.0"
-					spacing="5">
+					spacing="5" focusTraversable="false">
 					<children>
 						<Label fx:id="invitableMembersText" alignment="CENTER"
 							text="Inviter medlemmer" />
-						<VBox fx:id="invitableMembers" prefHeight="300.0">
+						<VBox fx:id="invitableMembers" prefHeight="300.0" focusTraversable="false">
 							<VBox.margin>
 								<Insets left="10.0" right="10.0" />
 							</VBox.margin>

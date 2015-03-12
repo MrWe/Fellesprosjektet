@@ -3,7 +3,11 @@ package gui;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import core.Group;
 
 public class ToolbarController {
@@ -20,8 +24,12 @@ public class ToolbarController {
 	}
 
 	@FXML
-	private void openHome() throws SQLException {
-		mainApp.showCalendar(new Group("",false, "0", "0", new ArrayList<String>(), new ArrayList<String>()));
+	private void openHome() {
+		try {
+			mainApp.showCalendar(new Group("",false, "0", "0", new ArrayList<String>(), new ArrayList<String>()));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		System.out.println("Opened Home");
 	}
 
@@ -41,5 +49,22 @@ public class ToolbarController {
 	private void logOut() {
 		mainApp.logOut();
 		System.out.println("Logged Out");
+	}
+
+	public void setKeyEventHandler(Scene scene) {
+		EventHandler<KeyEvent> keyHandler = new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent keyCode) {
+				System.out.println(keyCode.getCode());
+				if (keyCode.getCode() == KeyCode.H) {
+					openHome();
+				} else if (keyCode.getCode() == KeyCode.N) {
+					openNotice();
+				} else if (keyCode.getCode() == KeyCode.S) {
+					openSettings();
+				}
+			}
+		};
+		scene.setOnKeyPressed(keyHandler);
 	}
 }

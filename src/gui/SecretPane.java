@@ -17,8 +17,9 @@ import javafx.util.Duration;
 public class SecretPane extends Pane {
 	
 	private ImageView imageView = new ImageView();
-	private int timerDelay, xSpeed, ySpeed;
-	private double rotationDegree;
+	private int timerDelay;
+//	private int xSpeed, ySpeed;
+//	private double rotationDegree;
 	private Text text;
 	
 	public SecretPane() {
@@ -35,7 +36,7 @@ public class SecretPane extends Pane {
 		imageView.setLayoutY(200);
 		this.getChildren().addAll(imageView, text);
 		Random rng = new Random();
-		rotationDegree = rng.nextInt(360);
+//		rotationDegree = rng.nextInt(360);
 //		System.out.println(rotationDegree);
 //		System.out.println(Math.sin(Math.toRadians(rotationDegree)) + " " + Math.cos(Math.toRadians(rotationDegree)));
 		double rng2 = rng.nextDouble();

@@ -452,7 +452,7 @@ public class DBConnection {
 
 	public void editGroupAdminRights(String groupName, String username, int adminStatus) throws SQLException {
 		int groupID = getGroupID(groupName);
-		int userID = getUserID(username);
+		int userID = getFullNameUserID(username);
 		String q = "UPDATE USER_has_USERGROUP SET groupAdmin = '"
 				+ adminStatus
 				+ "' WHERE USERGROUP_usergroupID = "
@@ -462,6 +462,16 @@ public class DBConnection {
 				+ ";";
 		db.updateDB(q);
 	}
+	
+	public int getFullNameUserID(String name) throws SQLException {
+		String q = "SELECT userID from USER WHERE fullName = '"
+				+ name
+				+ "';";
+		ResultSet rs = db.queryDB(q);
+		rs.next();
+		return Integer.parseInt(rs.getString(1));
+	}
+
 	
 	/**
 	 * Deletes the specified group from the database. Because of the ON DELETE CASCADE property, all subgroups will also be deleted

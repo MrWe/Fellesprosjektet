@@ -75,11 +75,7 @@ public class EditGroupPopupController {
 		}
 		group.getValue().setName(nameField.getText());	// update values client-side as well
 		group.getValue().addMembers(invited);
-		try {
-		db.addGroupMembers(nameField.getText(), invited);
-			} catch (SQLException e) {
-				e.printStackTrace();
-		}
+		
 		updateMemberList();
 		updateInvitableMemberList();
 	}
@@ -179,7 +175,10 @@ public class EditGroupPopupController {
 	private void makeAdmin(){
 		String newAdmin = new String();
 		newAdmin = members.getSelectionModel().getSelectedItem();
-		System.out.println("I'm making " + newAdmin + " an member a admin");
+		adminList.add(newAdmin);
+		System.out.println("I'm making " + newAdmin + "a admin");
+		updateMemberList();
+		updateInvitableMemberList();
 	}
 
 	private String isValidInput() {
@@ -192,6 +191,7 @@ public class EditGroupPopupController {
 
 	@FXML
 	private void handleOK() {//change name doesnt work
+		updateAdminList(); 	
 		String validInput = isValidInput();
 		if (validInput.length() != 0) {
 			errorText.setVisible(true);
@@ -205,7 +205,39 @@ public class EditGroupPopupController {
 		//System.out.println("New group name: " + group.getValue().getName());
 		//db.editGroupName(group.getValue().getName(), nameField.getText());  // parameteres are oldName, newName			
 		//db.addGroupMembers(nameField.getText(), invited);// deletes the current members of the group and adds all currently selected
+		
+		//Trying to save data to DB. doesnt work. Kristoffer help!
+		
+		ArrayList<String> toBeMembers = new ArrayList<String>();
+		for(String member: memberList){
+			toBeMembers.add(member);
+		}
+		
+		System.out.println("OK-knapp clicked!");
+		System.out.println("Member list:: " + memberList);
+		System.out.println("Admin list: " + adminList);
+		
+		for(String admin: adminList){
+			toBeMembers.add(admin);
+		} 
 
+		System.out.println("All members in the group: " + toBeMembers);
+		
+		try {
+			//db.editGroupName(group.getValue().getName(), nameField.getText());  // parameteres are oldName, newName			
+			db.setGroupMembers(nameField.getText(), toBeMembers);// deletes the current members of the group and adds all currently selected
+			
+			for(String admin: adminList){
+				System.out.println("setting"+ admin + "to admin list");
+				db.editGroupAdminRights(group.getValue().getName(), admin, 1);
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("Member list in the database: " + group.getValue().getMembers());
+		System.out.println("Admin list in the database: " + group.getValue().getAdmins());
+		
 		popupStage.close();
 	}
 		//Check if you are an admin

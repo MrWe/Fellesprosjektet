@@ -483,4 +483,12 @@ public class DBConnection {
 		db.updateDB(q);
 	}
 
+	public void updateAppointment(String username, String description,
+			String from, String to, String place, String appointmentType,
+			int roomID, String groupName) {
+		
+		String q = "UPDATE APPOINTMENT SET field1=new-value1, field2=new-value2";
+		
+	}
+
 }

@@ -1,17 +1,28 @@
 package gui;
 
-import core.Appointment;
+import java.time.LocalDate;
+
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import core.Appointment;
 
 public class AppointmentSquarePane extends Pane {
 	
 	private Text text;
 	private String color;
 	private Appointment appointment;
+	private LocalDate date;
 	
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
 	public AppointmentSquarePane(Appointment appointment) {
 		super();
 		this.appointment = appointment;

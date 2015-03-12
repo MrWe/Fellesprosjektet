@@ -55,6 +55,19 @@ public class AppointmentPopupController {
 	private void addAppointment(String username, String description, String from, String to, String place, String appointmentType, int roomID, String groupName) throws SQLException {
 		db.addAppointment(username, description, from, to, place, appointmentType, roomID, groupName);
 	}
+	
+	private void updateAppointment(String description, String location, LocalDate date, LocalTime startTime, LocalTime endTime, 
+			ArrayList<String> invited, ArrayList<String> members, ArrayList<String> admins, String color, Group owner) throws SQLException {
+		
+		Appointment appointment = new Appointment(description, location, date, startTime, endTime, invited, members, admins, color, owner);
+//		csp.addAppointment(appointment);
+//		group.addAppointment(appointment);
+		
+		System.out.println(appointment);
+		
+		//db.updateAppointment(username, appointment.getDescription(), appointment.getDate().toString() + " " + appointment.getStartTime().toString() + ":00", appointment.getDate().toString() + " " + appointment.getEndTime().toString() + ":00", null, null, 1, group.getName());
+
+	}
 
 	public void setPopupStage(Stage popupStage) {
 		this.popupStage = popupStage;
@@ -75,9 +88,11 @@ public class AppointmentPopupController {
 			}
 		}
 		if (!editingExisting) {
+			LocalDate date = LocalDate.parse(csp.getDate().substring(6) + "-" + csp.getDate().substring(3, 5) + "-" + csp.getDate().substring(0, 2));
+
 			addAppointmentToCalendar(descriptionField.getText(),
 					locationField.getText(),
-					LocalDate.parse(csp.getDate().substring(6) + "-" + csp.getDate().substring(3, 5) + "-" + csp.getDate().substring(0, 2)),
+					date,
 					LocalTime.parse(startTimeField.getText()),
 					LocalTime.parse(endTimeField.getText()),
 					invited,
@@ -85,6 +100,7 @@ public class AppointmentPopupController {
 					new ArrayList<String>(),
 					colorField.getText(),
 					group,1);
+			asp.setDate(date);
 			popupStage.close();
 		} else {
 			asp.getAppointment().setDescription(descriptionField.getText());
@@ -96,11 +112,26 @@ public class AppointmentPopupController {
 			asp.getAppointment().setAdmins(new ArrayList<String>());
 			asp.getAppointment().setColor(colorField.getText());
 			asp.update();
+			
+			if (csp == null){System.out.println("!!!!!!!!");}
+			updateAppointment(descriptionField.getText(),
+					locationField.getText(),
+					asp.getDate(),
+					LocalTime.parse(startTimeField.getText()),
+					LocalTime.parse(endTimeField.getText()),
+					invited,
+					new ArrayList<String>(),
+					new ArrayList<String>(),
+					colorField.getText(),
+					group);
+			
 			popupStage.close();
 		}
 
 
 	}
+	
+	
 	
 	private void addAppointmentToCalendar(String description, String location, LocalDate date, LocalTime startTime, LocalTime endTime, 
 			ArrayList<String> invited, ArrayList<String> members, ArrayList<String> admins, String color, Group owner, int addToDatabase) throws SQLException {

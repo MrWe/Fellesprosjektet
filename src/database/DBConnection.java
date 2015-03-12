@@ -219,7 +219,7 @@ public class DBConnection {
 		String q = "SELECT usergroupID FROM USERGROUP WHERE groupName = '"
 				+ groupName
 				+ "';";
-		System.out.println(groupName);
+		System.out.println("Group Name:" + groupName + "          Src: DBConnection");
 		ResultSet rs = db.queryDB(q);
 		rs.next();
 		return Integer.parseInt(rs.getString(1));

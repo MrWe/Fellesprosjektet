@@ -27,6 +27,7 @@ public class MainApp extends Application {
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Kalender");
+	
 		initRootLayout();
 		initLoginLayout();
 		showLogin();
@@ -49,8 +50,10 @@ public class MainApp extends Application {
 			
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout, 1280, 720);
+			
 
 			primaryStage.setScene(scene);
+			//primaryStage.setFullScreen(true);
 			primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -66,7 +69,7 @@ public class MainApp extends Application {
 
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(loginLayout, 1280, 720);
-
+			//primaryStage.setFullScreen(true);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (IOException e) {

@@ -99,7 +99,7 @@ public class GroupPopupController {
 			}
 		}
 		treeView.getSelectionModel().select(newGroup);
-
+		treeView.setMaxHeight(treeView.getExpandedItemCount()*37);
 		popupStage.close();
 	}
 

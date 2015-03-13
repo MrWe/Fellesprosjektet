@@ -108,7 +108,8 @@ public class CalendarController {
 		}
 
 		ResultSet rs = null;
-		// Henter avtalene til gruppen som er markert. 
+		// Henter avtalene til gruppen som er markert.
+		System.out.println("calendar controller: " + group.getName());
 		if (!(group.getName().equals(""))) {
 			rs = dbConnection.getAppointmentsWithGroup(Integer.parseInt(group.getGroupID()));
 		}

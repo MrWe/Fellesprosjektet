@@ -112,6 +112,7 @@ public class MainApp extends Application {
 		loginLayout.setVisible(false);
 		initRootLayout();
 		showList();
+		showWelcome();
 		showToolbar();
 	}
 
@@ -130,7 +131,26 @@ public class MainApp extends Application {
 			controller.setMainApp(this);
 			//group.addAppointment(new Appointment("hei", "du", LocalDate.now(), LocalTime.NOON, LocalTime.NOON, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), "FFFFFF"));
 			controller.fillCalendar(group);
-			//controller.setKeyEventHandler(primaryStage.getScene());
+			controller.setKeyEventHandler(primaryStage.getScene());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void showWelcome() {
+		try {
+			// Load overview.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("/views/Welcome.fxml"));
+			AnchorPane welcome = (AnchorPane) loader.load();
+
+			// Set  overview into the center of root layout.
+			rootLayout.setCenter(welcome);
+
+			// Give the controller access to the main app.
+			WelcomeController controller = loader.getController();
+			controller.setMainApp(this);
+			controller.initText();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -166,7 +186,7 @@ public class MainApp extends Application {
 			ListController controller = loader.getController();
 			controller.setMainApp(this);
 			controller.init2();
-			controller.setKeyEventHandler(primaryStage.getScene());
+			//controller.setKeyEventHandler(primaryStage.getScene());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -25,11 +25,13 @@ public class ToolbarController {
 
 	@FXML
 	private void openHome() {
-		try {
-			mainApp.showCalendar(new Group("",false, "0", "0", new ArrayList<String>(), new ArrayList<String>()));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//		try {
+			//mainApp.showCalendar(new Group("",false, "0", "0", new ArrayList<String>(), new ArrayList<String>()));
+			//mainApp.login(mainApp.getUser().getUsername(), mainApp.getUser().getName());
+			mainApp.showWelcome();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 		System.out.println("Opened Home");
 	}
 

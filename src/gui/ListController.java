@@ -69,10 +69,9 @@ public class ListController {
 						// add the TreeItem of group j to the children of the TreeItem of grup i	
 						groups.get("" + i).getChildren().add(groups.get("" + j));
 						if (groups.get("" + j).getValue().isPrivateGroup()) {
-							treeView.getSelectionModel().clearSelection();
-							treeView.getSelectionModel().select(groups.get("" + j));
+							//treeView.getSelectionModel().select(groups.get("" + j));
 							System.out.println(groups.get("" + j).getValue());
-							mainApp.showCalendar(groups.get("" + j).getValue());
+							//mainApp.showCalendar(groups.get("" + j).getValue());
 						}
 					}
 				}
@@ -81,17 +80,6 @@ public class ListController {
 			e.printStackTrace();
 		}
 		// when a TreeItem in the TreeView is clicked
-		treeView.expandedItemCountProperty().addListener(new ChangeListener() {
-
-			@Override
-			public void changed(ObservableValue observable, Object oldValue,
-					Object newValue) {
-					System.out.println("expandedItemCountProperty: " + newValue);
-					treeView.getSelectionModel().select(treeView.getRoot());
-				
-			}
-		});
-
 		treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Group>>() {
 			@Override
 			public void changed(ObservableValue<? extends TreeItem<Group>> observableValue, TreeItem<Group> oldValue, TreeItem<Group> newValue) {
@@ -107,7 +95,11 @@ public class ListController {
 					editGroupBtn.setDisable(false);
 				}
 				try {
-					mainApp.showCalendar(newValue.getValue());
+					if (!newValue.getValue().equals(treeView.getRoot().getValue())) {						
+						mainApp.showCalendar(newValue.getValue());
+					} else {
+						System.out.println("root group has been declined selection");
+					}
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -123,7 +115,7 @@ public class ListController {
 			}
 		});
 	}
-	
+
 	
 	public void setKeyEventHandler(Scene scene)	{
 		EventHandler<KeyEvent> keyHandler = new EventHandler<KeyEvent>() {

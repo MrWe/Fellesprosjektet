@@ -9,17 +9,13 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.GridPane?>
 
-<AnchorPane prefWidth="1280.0" stylesheets="@../../bin/styles/calendarStyle.css"
-	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="gui.CalendarController">
+<AnchorPane prefWidth="1280.0" stylesheets="@../../bin/styles/calendarStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CalendarController">
 	<children>
-		<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+		<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<children>
 				<HBox alignment="CENTER">
 					<children>
-						<Button id="leftTriangle" minHeight="-Infinity" minWidth="-Infinity"
-							onAction="#goLeft" prefHeight="20.0" prefWidth="15.0">
+						<Button id="leftTriangle" minHeight="-Infinity" minWidth="-Infinity" onAction="#goLeft" prefHeight="20.0" prefWidth="15.0">
 							<HBox.margin>
 								<Insets bottom="1.0" right="20.0" />
 							</HBox.margin>
@@ -30,8 +26,7 @@
 								<Insets left="10.0" />
 							</HBox.margin>
 						</Text>
-						<Button id="rightTriangle" minHeight="-Infinity" minWidth="-Infinity"
-							onAction="#goRight" prefHeight="20.0" prefWidth="15.0">
+						<Button id="rightTriangle" minHeight="-Infinity" minWidth="-Infinity" onAction="#goRight" prefHeight="20.0" prefWidth="15.0">
 							<HBox.margin>
 								<Insets bottom="1.0" left="20.0" />
 							</HBox.margin>
@@ -40,16 +35,12 @@
 				</HBox>
 				<AnchorPane>
 					<children>
-						<GridPane fx:id="calendar" alignment="BOTTOM_CENTER"
-							style="-fx-border-color: #475947" AnchorPane.bottomAnchor="0.0"
-							AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0"
-							AnchorPane.topAnchor="35.0" />
+						<GridPane fx:id="calendar" alignment="BOTTOM_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0" />
 					</children>
 				</AnchorPane>
 			</children>
 		</VBox>
-		<HBox prefWidth="200.0" AnchorPane.leftAnchor="0.0"
-			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+		<HBox prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
 			<children>
 				<HBox alignment="CENTER_RIGHT" prefWidth="182.0">
 					<children>

@@ -1,3 +1,7 @@
+.theBackground {
+    -fx-background-color : #dcdcdc;
+}
+
 .bigFont{
     -fx-font-size: 20px;
     -fx-font-weight: bolder;
@@ -67,29 +71,29 @@
 
 
 .groupTree{
-	-fx-border-color: #292929;
+	-fx-border-color: #dcdcdc; 
 }
 
 .tree-view{
-
+	-fx-border-style: none; 
 }
 
 .tree-cell{
 	-fx-padding: 10 0 10 30;
-	-fx-background-color:#000000;
-	-fx-text-fill:#D5F2C2;
-	-fx-border-color: #000000;
+	-fx-background-color:#dcdcdc;
+	-fx-text-fill:#34495e;
+	-fx-border-style: none; 
 	-fx-border-width: 0;
 }
 
 .tree-cell:hover {
     -fx-background-color: #FFFFFF  ;
-    -fx-text-fill: #0C1F00 ;
+    -fx-text-fill: #34495e ;
 }
 
 .tree-cell:selected {
     -fx-background-color: #FFFFFF ;
-    -fx-text-fill: #0C1F00 ;
+    -fx-text-fill: #34495e ;
 }
 
  /*  -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 ); */

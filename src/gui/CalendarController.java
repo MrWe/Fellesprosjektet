@@ -52,7 +52,7 @@ public class CalendarController {
 				}
 				if (keyCode.getCode().equals(konamiCode[konamiCodeCounter])) {
 					if (konamiCodeCounter == 9) {
-						((BorderPane) scene.getRoot()).setCenter(new SecretPane());
+						((BorderPane) scene.getRoot()).setCenter(new SecretPane(scene));
 						AudioClip ac = new AudioClip(CalendarController.class.getResource("/res/secret.mp3").toString());
 						ac.play();
 					} else {

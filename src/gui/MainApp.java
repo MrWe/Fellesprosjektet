@@ -46,9 +46,9 @@ public class MainApp extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("/views/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
-			
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout, 1280, 720);
+			////////rootLayout.setCenter(new SecretPane(scene));
 
 			primaryStage.setScene(scene);
 			primaryStage.show();

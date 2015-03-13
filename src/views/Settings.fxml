@@ -143,7 +143,7 @@
 								<Insets right="10.0" />
 							</HBox.margin>
 						</Button>
-						<Button mnemonicParsing="false" text="Avbryt" onAction="#goHome">
+						<Button mnemonicParsing="false" text="Avbryt" onAction="#cancel">
 							<HBox.margin>
 								<Insets left="10.0" />
 							</HBox.margin>

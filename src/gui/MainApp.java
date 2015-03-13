@@ -112,7 +112,6 @@ public class MainApp extends Application {
 		loginLayout.setVisible(false);
 		initRootLayout();
 		showList();
-		showCalendar(new Group("", false, "0", "0", new ArrayList<String>(), new ArrayList<String>()));
 		showToolbar();
 	}
 
@@ -131,7 +130,7 @@ public class MainApp extends Application {
 			controller.setMainApp(this);
 			//group.addAppointment(new Appointment("hei", "du", LocalDate.now(), LocalTime.NOON, LocalTime.NOON, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), "FFFFFF"));
 			controller.fillCalendar(group);
-			controller.setKeyEventHandler(primaryStage.getScene());
+			//controller.setKeyEventHandler(primaryStage.getScene());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -167,6 +166,7 @@ public class MainApp extends Application {
 			ListController controller = loader.getController();
 			controller.setMainApp(this);
 			controller.init2();
+			controller.setKeyEventHandler(primaryStage.getScene());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -268,7 +268,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void showEditGroupPopup(TreeItem<Group> group) {
+	public void showEditGroupPopup(TreeView treeView, TreeItem<Group> group) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
@@ -288,7 +288,7 @@ public class MainApp extends Application {
 			controller.setPopupStage(popupStage);
 
 			//controller.setTreeView(treeView);
-			controller.fillPopup(group, user.getUsername());
+			controller.fillPopup(treeView, group, user.getUsername());
 			// Show the dialog and wait until the user closes it
 			popupStage.showAndWait();
 		} catch (IOException e) {

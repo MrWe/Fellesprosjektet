@@ -10,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class SecretPane extends Pane {
@@ -35,7 +34,7 @@ public class SecretPane extends Pane {
 
 	private void summonNyan() {
 		imageView.setImage(new Image("/Images/secret2.gif"));
-		Pane pane = new Pane();
+		Pane pane = new Pane(); 
 		pane.setTranslateX(300);
 		pane.setTranslateY(200);
 		pane.setPrefSize(256, 256);

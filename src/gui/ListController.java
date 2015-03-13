@@ -10,10 +10,17 @@ import core.Group;
 import database.DBConnection;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ListChangeListener.Change;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.TreeView.EditEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class ListController {
 
@@ -62,7 +69,9 @@ public class ListController {
 						// add the TreeItem of group j to the children of the TreeItem of grup i	
 						groups.get("" + i).getChildren().add(groups.get("" + j));
 						if (groups.get("" + j).getValue().isPrivateGroup()) {
+							treeView.getSelectionModel().clearSelection();
 							treeView.getSelectionModel().select(groups.get("" + j));
+							System.out.println(groups.get("" + j).getValue());
 							mainApp.showCalendar(groups.get("" + j).getValue());
 						}
 					}
@@ -72,6 +81,17 @@ public class ListController {
 			e.printStackTrace();
 		}
 		// when a TreeItem in the TreeView is clicked
+		treeView.expandedItemCountProperty().addListener(new ChangeListener() {
+
+			@Override
+			public void changed(ObservableValue observable, Object oldValue,
+					Object newValue) {
+					System.out.println("expandedItemCountProperty: " + newValue);
+					treeView.getSelectionModel().select(treeView.getRoot());
+				
+			}
+		});
+
 		treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Group>>() {
 			@Override
 			public void changed(ObservableValue<? extends TreeItem<Group>> observableValue, TreeItem<Group> oldValue, TreeItem<Group> newValue) {
@@ -80,7 +100,7 @@ public class ListController {
 				if (newValue == null) {
 					return;
 				}
-
+				System.out.println("selectedItemProperty listener: " + newValue.getValue().getName());
 				if(newValue.getValue().isPrivateGroup() == true){
 					editGroupBtn.setDisable(true);
 				}else{
@@ -93,6 +113,31 @@ public class ListController {
 				}
 			}
 		});
+		treeView.setOnEditCommit(new EventHandler<TreeView.EditEvent<Group>>() {
+
+			@Override
+			public void handle(EditEvent<Group> event) {
+				System.out.println("woho");
+				System.out.println(event);
+				
+			}
+		});
+	}
+	
+	
+	public void setKeyEventHandler(Scene scene)	{
+		EventHandler<KeyEvent> keyHandler = new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent keyCode) {
+				System.out.println(keyCode.getCode());
+				if (keyCode.getCode() == KeyCode.H) {
+					System.out.println("before: " + treeView.getSelectionModel().getSelectedItem().getValue().getName());
+					treeView.getSelectionModel().select(0);
+					System.out.println("after: " + treeView.getSelectionModel().getSelectedItem().getValue().getName());
+				}
+			}
+		};
+		scene.setOnKeyPressed(keyHandler);
 	}
 
 	public void setMainApp(MainApp mainApp) {
@@ -106,7 +151,7 @@ public class ListController {
 
 	@FXML
 	private void editGroup() {
-		mainApp.showEditGroupPopup(treeView.getSelectionModel().getSelectedItem());
+		mainApp.showEditGroupPopup(treeView, treeView.getSelectionModel().getSelectedItem());
 	}
 
 	@FXML

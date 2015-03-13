@@ -30,7 +30,7 @@ public class CalendarSquarePane extends Pane {
 		this.date = date;
 		this.mainApp = mainApp;
 		this.group = group;
-		text = new Text(date.substring(0, 2));
+		text = new Text(date.substring(8, 10));
 		text.setLayoutX(5);
 		text.setLayoutY(15);
 		text.setFill(Color.WHITE);

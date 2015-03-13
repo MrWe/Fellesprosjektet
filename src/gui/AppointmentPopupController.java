@@ -51,19 +51,6 @@ public class AppointmentPopupController {
 		db = new DBConnection();
 		allMembers = new ArrayList<String>(Arrays.asList("Kristoffer Lervik", "Trym Nilsen", "Hoang Hai Nguyen", "Erik Wiker", "Patricia Zemer", "Jens Stoltenberg", "Erna Solberg", "Kong Harald", "Madonna", "Will Smith", "Kanye West", "Julenissen", "Postman Pat"));
 	}
-	
-	private void updateAppointment(String description, String location, LocalDate date, LocalTime startTime, LocalTime endTime, 
-			ArrayList<String> invited, ArrayList<String> members, ArrayList<String> admins, String color, Group owner) throws SQLException {
-		
-		Appointment appointment = new Appointment(description, location, date, startTime, endTime, invited, members, admins, color, owner);
-//		csp.addAppointment(appointment);
-//		group.addAppointment(appointment);
-		
-		System.out.println(appointment);
-		
-		//db.updateAppointment(username, appointment.getDescription(), appointment.getDate().toString() + " " + appointment.getStartTime().toString() + ":00", appointment.getDate().toString() + " " + appointment.getEndTime().toString() + ":00", null, null, 1, group.getName());
-
-	}
 
 	public void setPopupStage(Stage popupStage) {
 		this.popupStage = popupStage;

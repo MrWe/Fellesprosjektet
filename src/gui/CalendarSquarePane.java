@@ -49,7 +49,7 @@ public class CalendarSquarePane extends Pane {
 		});																					//
 
 		// border between squares
-		this.setStyle("-fx-border-color: #475947;");
+		this.setStyle("-fx-border-color: #124364;");
 		//this.setStyle("-fx-border-width: 0.3;");
 		this.setOnMousePressed(new EventHandler<MouseEvent>() { // when a square is pressed
 			@Override

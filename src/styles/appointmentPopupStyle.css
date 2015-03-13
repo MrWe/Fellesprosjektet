@@ -22,8 +22,9 @@
     -fx-background-color : #000000;
 }
 
-
-
+.button:disabled {
+	-fx-opacity			 : 0.4;
+}
    
 .redButton {
 	-fx-opacity			 : 1;

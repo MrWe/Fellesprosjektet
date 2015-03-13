@@ -12,10 +12,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.ListView?>
 
-<AnchorPane styleClass="theBackground" maxHeight="-Infinity" maxWidth="-Infinity"
-	minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-	prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	stylesheets="@../../bin/styles/appointmentPopupStyle.css"
+<AnchorPane styleClass="theBackground" maxHeight="-Infinity"
+	maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+	prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
+	xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../../bin/styles/appointmentPopupStyle.css"
 	fx:controller="gui.AppointmentPopupController">
 	<children>
 		<VBox prefHeight="169.0" prefWidth="350.0" spacing="5"
@@ -117,9 +117,10 @@
 			spacing="5" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0"
 			AnchorPane.rightAnchor="0.0">
 			<children>
-				<Button styleClass="blackButton" defaultButton="true" mnemonicParsing="false"
-					onAction="#handleOk" prefHeight="24.0" prefWidth="89.0" text="OK" />
-				<Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#handleDelete"
+				<Button styleClass="blackButton" defaultButton="true"
+					mnemonicParsing="false" onAction="#handleOk" prefHeight="24.0"
+					prefWidth="89.0" text="OK" />
+				<Button styleClass="redButton" fx:id="deleteBtn" mnemonicParsing="false" onAction="#handleDelete"
 					prefHeight="24.0" prefWidth="89.0" text="Delete" />
 				<Button mnemonicParsing="false" onAction="#handleCancel"
 					prefHeight="24.0" prefWidth="89.0" text="Cancel" />

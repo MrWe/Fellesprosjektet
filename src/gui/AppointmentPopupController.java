@@ -71,7 +71,8 @@ public class AppointmentPopupController {
 			}
 		}
 		if (!editingExisting) {
-			LocalDate date = LocalDate.parse(csp.getDate().substring(6) + "-" + csp.getDate().substring(3, 5) + "-" + csp.getDate().substring(0, 2));
+			System.out.println(csp.getDate());
+			LocalDate date = LocalDate.parse(csp.getDate());
 
 			addAppointmentToCalendar(descriptionField.getText(),
 					locationField.getText(),
@@ -83,8 +84,6 @@ public class AppointmentPopupController {
 					new ArrayList<String>(),
 					colorField.getText(),
 					group,1,0);
-			//if (asp == null){System.out.println("!!!!!!!!!");}
-			//asp.setDate(date);
 			popupStage.close();
 		} else {
 			asp.getAppointment().setDescription(descriptionField.getText());
@@ -97,7 +96,6 @@ public class AppointmentPopupController {
 			asp.getAppointment().setColor(colorField.getText());
 			asp.update();
 			
-			if (csp == null){System.out.println("!!!!!!!!");}
 			addAppointmentToCalendar(descriptionField.getText(),
 					locationField.getText(),
 					asp.getDate(),
@@ -146,10 +144,11 @@ public class AppointmentPopupController {
 					1, 
 					group.getName());
 		//Used when appointments are retrieved from db
-		} else {
-			csp.addAppointment(appointment);
-			group.addAppointment(appointment);
-		}
+		} 
+//		else {
+//			csp.addAppointment(appointment);
+//			group.addAppointment(appointment);
+//		}
 	}
 
 	private String isValidInput() {

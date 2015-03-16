@@ -71,7 +71,7 @@ public class ListController {
 						if (groups.get("" + j).getValue().isPrivateGroup()) {
 							//treeView.getSelectionModel().select(groups.get("" + j));
 							System.out.println(groups.get("" + j).getValue());
-							//mainApp.showCalendar(groups.get("" + j).getValue());
+							mainApp.showCalendar(groups.get("" + j).getValue());
 						}
 					}
 				}

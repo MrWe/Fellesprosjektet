@@ -256,8 +256,6 @@ public class MainApp extends Application {
 				popupStage.setTitle("Lag gruppe");
 			} else if (createSub){
 				popupStage.setTitle("Lag subgruppe for " + group.getValue().getName());
-			} else {
-				popupStage.setTitle("Endre på:  " + group.getValue().getName());
 			}
 			popupStage.initModality(Modality.WINDOW_MODAL);
 			popupStage.initOwner(primaryStage);

@@ -11,6 +11,7 @@ import database.DBConnection;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -89,7 +90,7 @@ public class ListController {
 							privateGroup = groups.get("" + j);
 							treeView.getSelectionModel().select(groups.get("" + j));
 							System.out.println(groups.get("" + j).getValue());
-							//mainApp.showCalendar(groups.get("" + j).getValue());
+							mainApp.showCalendar(groups.get("" + j).getValue());
 						}
 					}
 				}
@@ -101,6 +102,13 @@ public class ListController {
 		treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Group>>() {
 			@Override
 			public void changed(ObservableValue<? extends TreeItem<Group>> observableValue, TreeItem<Group> oldValue, TreeItem<Group> newValue) {
+				System.out.println("selection listener " + oldValue + " " + newValue);
+				if (!treeView.getRoot().getChildren().contains(oldValue)) {
+					System.out.println("oldValue not contained");
+				}
+				if (!treeView.getRoot().getChildren().contains(newValue)) {
+					System.out.println("newValue not contained");
+				}
 				// show the calendar of the chosen group
 				//System.out.println("chose another group");
 				//treeView.setMaxHeight(treeView.getExpandedItemCount()*37);
@@ -122,7 +130,7 @@ public class ListController {
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
-				treeView.setMaxHeight(treeView.getExpandedItemCount()*37);
+				//treeView.setMaxHeight(treeView.getExpandedItemCount()*37);
 			}
 		});
 		treeView.setOnEditCommit(new EventHandler<TreeView.EditEvent<Group>>() {
@@ -134,23 +142,44 @@ public class ListController {
 
 			}
 		});
+		treeView.getRoot().getChildren().addListener(new ListChangeListener<TreeItem<Group>>() {
 
+			@Override
+			public void onChanged(ListChangeListener.Change<? extends TreeItem<Group>> c) {
+				c.next();
+				if (c.getRemovedSize() > 0) { // a group was removed
+					treeView.getSelectionModel().clearSelection();
+					treeView.getSelectionModel().select(privateGroup);
+				}
+				System.out.println("removed size: " + c.getRemovedSize());
+				
+			}
+		});
 
 		//treeView.setMaxHeight(treeView.getExpandedItemCount()*37);		
 		//why the hell doesnt the codes below work?
 		System.out.println(treeView);
-		treeView.getSelectionModel().getSelectedItem().expandedProperty().addListener(new ChangeListener<Boolean>() {
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				System.out.println("efef");
-				System.out.println("newValue = " + newValue);
-				BooleanProperty bb = (BooleanProperty) observable;
-				System.out.println("bb.getBean() = " + bb.getBean());
-				TreeItem t = (TreeItem) bb.getBean();
-				// Do whatever with t
-			}
-		});
+//		treeView.getSelectionModel().getSelectedItem().expandedProperty().addListener(new ChangeListener<Boolean>() {
+//			@Override
+//			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+//				System.out.println("efef");
+//				System.out.println("newValue = " + newValue);
+//				BooleanProperty bb = (BooleanProperty) observable;
+//				System.out.println("bb.getBean() = " + bb.getBean());
+//				TreeItem t = (TreeItem) bb.getBean();
+//				// Do whatever with t
+//			}
+//		});
 
+//		treeView.expandedItemCountProperty().addListener(new ChangeListener() {
+//
+//			@Override
+//			public void changed(ObservableValue observable, Object oldValue,
+//					Object newValue) {
+//				System.out.println(newValue);
+//				treeView.setMaxHeight(treeView.getExpandedItemCount()*37);
+//			}
+//		});
 		treeView.setMaxHeight(treeView.getExpandedItemCount()*37);
 	}
 	

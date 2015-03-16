@@ -79,6 +79,7 @@
 }
 
 .tree-cell{
+	-fx-padding: 10 0 10 30;
 	-fx-background-color:#dcdcdc;
 	-fx-text-fill:#34495e;
 	-fx-border-style: none; 
@@ -95,6 +96,4 @@
     -fx-text-fill: #34495e ;
 }
 
- /*  -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
-  * 	-fx-padding: 10 0 10 30;
-  */
+ /*  -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 ); */

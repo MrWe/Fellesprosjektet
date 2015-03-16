@@ -16,6 +16,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.TreeView.EditEvent;
@@ -68,8 +69,7 @@ public class ListController {
 //						// Do whatever with t
 //					}
 //				});
-				
-				
+				treeItem.setGraphic(new TreeItemGraphicPane("0000BB", false));
 				
 				
 				//System.out.println(treeItem.getValue().isPrivateGroup());
@@ -79,6 +79,7 @@ public class ListController {
 			root.setExpanded(true);
 			treeView.setRoot(root);
 			treeView.setShowRoot(false);
+			treeView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 			int higheshGroupID = db.getHighestGroupID(); // finds the highest usergroupID in the database
 			for (int i = 0; i <= higheshGroupID; i++) {
 				for (int j = 0; j <= higheshGroupID; j++) {
@@ -99,6 +100,19 @@ public class ListController {
 			e.printStackTrace();
 		}
 		// when a TreeItem in the TreeView is clicked
+		treeView.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<TreeItem<Group>>() {
+			@Override
+			public void onChanged(ListChangeListener.Change<? extends TreeItem<Group>> c) {
+				for (TreeItem<Group> treeItem : treeView.getRoot().getChildren()) {
+					if (treeView.getSelectionModel().getSelectedItems().contains(treeItem)) {
+						((TreeItemGraphicPane) treeItem.getGraphic()).setChecked(true);
+					} else {
+						((TreeItemGraphicPane) treeItem.getGraphic()).setChecked(false);
+					}
+				}
+			}
+			
+		});
 		treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Group>>() {
 			@Override
 			public void changed(ObservableValue<? extends TreeItem<Group>> observableValue, TreeItem<Group> oldValue, TreeItem<Group> newValue) {

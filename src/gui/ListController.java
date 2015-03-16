@@ -16,6 +16,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.TreeView.EditEvent;
@@ -68,7 +69,7 @@ public class ListController {
 //						// Do whatever with t
 //					}
 //				});
-				
+				treeItem.setGraphic(new TreeItemGraphicPane("0000BB"));
 				
 				
 				
@@ -79,6 +80,7 @@ public class ListController {
 			root.setExpanded(true);
 			treeView.setRoot(root);
 			treeView.setShowRoot(false);
+			treeView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 			int higheshGroupID = db.getHighestGroupID(); // finds the highest usergroupID in the database
 			for (int i = 0; i <= higheshGroupID; i++) {
 				for (int j = 0; j <= higheshGroupID; j++) {

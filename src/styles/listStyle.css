@@ -79,7 +79,6 @@
 }
 
 .tree-cell{
-	-fx-padding: 10 0 10 30;
 	-fx-background-color:#dcdcdc;
 	-fx-text-fill:#34495e;
 	-fx-border-style: none; 

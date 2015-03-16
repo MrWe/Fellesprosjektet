@@ -71,7 +71,7 @@ public class CalendarController {
 		currentYear = Calendar.getInstance().get(Calendar.YEAR);
 		currentMonth = Calendar.getInstance().get(Calendar.MONTH);
 
-		monthText.setText(new DateFormatSymbols().getMonths()[currentMonth]);
+		monthText.setText(new DateFormatSymbols().getMonths()[currentMonth].substring(0, 1).toUpperCase() + new DateFormatSymbols().getMonths()[currentMonth].substring(1));
 		yearText.setText("" + currentYear);
 
 		for (int i = 0; i < 7; i++) { // sets contraints on each of the 7 columns
@@ -171,7 +171,7 @@ public class CalendarController {
 		} else {
 			currentMonth--;
 		}
-		monthText.setText(new DateFormatSymbols().getMonths()[currentMonth]);
+		monthText.setText(new DateFormatSymbols().getMonths()[currentMonth].substring(0, 1).toUpperCase() + new DateFormatSymbols().getMonths()[currentMonth].substring(1));
 		try {
 			constructCalendar(group, currentYear, currentMonth);
 		} catch (SQLException e) {
@@ -188,7 +188,7 @@ public class CalendarController {
 		} else {
 			currentMonth++;
 		}
-		monthText.setText(new DateFormatSymbols().getMonths()[currentMonth]);
+		monthText.setText(new DateFormatSymbols().getMonths()[currentMonth].substring(0, 1).toUpperCase() + new DateFormatSymbols().getMonths()[currentMonth].substring(1));
 		try {
 			constructCalendar(group, currentYear, currentMonth);
 		} catch (SQLException e) {

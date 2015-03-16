@@ -87,9 +87,6 @@ public class ListController {
 						AllGroupsRS.getString(1), AllGroupsRS.getString(4),
 						groupMembers, groupAdmins));
 
-				//System.out.println(groupMembers);
-				//System.out.println(AllGroupsRS.getString(1) + " " + AllGroupsRS.getString(2) + " " + AllGroupsRS.getString(3) + " " + AllGroupsRS.getString(4));
-				TreeItem<Group> treeItem = new TreeItem<Group>(new Group(AllGroupsRS.getString(3), AllGroupsRS.getString(2).equals("1") ? true : false, AllGroupsRS.getString(1), AllGroupsRS.getString(4), groupMembers, groupAdmins));
 				
 //				treeItem.expandedProperty().addListener(new ChangeListener<Boolean>() {
 //					@Override
@@ -130,10 +127,6 @@ public class ListController {
 			root.setExpanded(true);
 			treeView.setRoot(root);
 			treeView.setShowRoot(false);
-
-			int higheshGroupID = db.getHighestGroupID(); // finds the highest
-															// usergroupID in
-															// the database
 
 			treeView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 			int higheshGroupID = db.getHighestGroupID(); // finds the highest usergroupID in the database

@@ -28,6 +28,7 @@ public class ListController {
 	@FXML private TreeView<Group> treeView;
 	//@FXML private TreeItem treeItem;
 	@FXML private Button editGroupBtn;
+	private TreeItem<Group> privateGroup;
 
 	@FXML
 	private void initialize() { // can't use this method since it is called before mainApp is set
@@ -85,6 +86,7 @@ public class ListController {
 						// add the TreeItem of group j to the children of the TreeItem of grup i	
 						groups.get("" + i).getChildren().add(groups.get("" + j));
 						if (groups.get("" + j).getValue().isPrivateGroup()) {
+							privateGroup = groups.get("" + j);
 							treeView.getSelectionModel().select(groups.get("" + j));
 							System.out.println(groups.get("" + j).getValue());
 							//mainApp.showCalendar(groups.get("" + j).getValue());
@@ -150,6 +152,11 @@ public class ListController {
 		});
 
 		treeView.setMaxHeight(treeView.getExpandedItemCount()*37);
+	}
+	
+	public void selectPrivateGroup() {
+		treeView.getSelectionModel().clearSelection();
+		treeView.getSelectionModel().select(privateGroup);
 	}
 
 

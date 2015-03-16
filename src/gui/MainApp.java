@@ -21,12 +21,13 @@ public class MainApp extends Application {
 	private BorderPane rootLayout;
 	private BorderPane loginLayout;
 	private User user;
+	private ListController listController;
 
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Kalender");
-	
+
 		initRootLayout();
 		initLoginLayout();
 		showLogin();
@@ -136,24 +137,9 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void showWelcome() {
-		try {
-			// Load overview.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("/views/Welcome.fxml"));
-			AnchorPane welcome = (AnchorPane) loader.load();
-
-			// Set  overview into the center of root layout.
-			rootLayout.setCenter(welcome);
-
-			// Give the controller access to the main app.
-			WelcomeController controller = loader.getController();
-			controller.setMainApp(this);
-			controller.initText();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		listController.selectPrivateGroup();
 	}
 
 	public void showToolbar() {
@@ -184,6 +170,7 @@ public class MainApp extends Application {
 			rootLayout.setLeft(list);
 
 			ListController controller = loader.getController();
+			this.listController = controller;
 			controller.setMainApp(this);
 			controller.init2();
 			controller.setKeyEventHandler(primaryStage.getScene());

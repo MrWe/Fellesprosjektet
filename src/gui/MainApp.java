@@ -53,7 +53,7 @@ public class MainApp extends Application {
 			
 
 			primaryStage.setScene(scene);
-			//primaryStage.setFullScreen(true);
+			primaryStage.setMaximized(true);
 			primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -69,7 +69,7 @@ public class MainApp extends Application {
 
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(loginLayout, 1280, 720);
-			//primaryStage.setFullScreen(true);
+			primaryStage.setMaximized(true);;
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (IOException e) {

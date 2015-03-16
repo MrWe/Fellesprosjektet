@@ -8,6 +8,7 @@ import java.util.Map;
 
 import core.Group;
 import database.DBConnection;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
@@ -27,6 +28,7 @@ public class ListController {
 	private MainApp mainApp;
 	private DBConnection db;
 	@FXML private TreeView<Group> treeView;
+	//@FXML private TreeItem treeItem;
 	@FXML private Button editGroupBtn;
 
 	@FXML
@@ -85,6 +87,7 @@ public class ListController {
 			public void changed(ObservableValue<? extends TreeItem<Group>> observableValue, TreeItem<Group> oldValue, TreeItem<Group> newValue) {
 				// show the calendar of the chosen group
 				//System.out.println("chose another group");
+				//treeView.setMaxHeight(treeView.getExpandedItemCount()*37);
 				if (newValue == null) {
 					return;
 				}
@@ -103,6 +106,7 @@ public class ListController {
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
+				treeView.setMaxHeight(treeView.getExpandedItemCount()*37);
 			}
 		});
 		treeView.setOnEditCommit(new EventHandler<TreeView.EditEvent<Group>>() {
@@ -130,7 +134,25 @@ public class ListController {
 			}
 		};
 		scene.setOnKeyPressed(keyHandler);
+
+		//treeView.setMaxHeight(treeView.getExpandedItemCount()*37);		
+		//why the hell doesnt the codes below work? 
+		treeView.getSelectionModel().getSelectedItem().expandedProperty().addListener(new ChangeListener<Boolean>() {
+		    @Override
+		    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+		       System.out.println("efef");
+		    	System.out.println("newValue = " + newValue);
+		        BooleanProperty bb = (BooleanProperty) observable;
+		        System.out.println("bb.getBean() = " + bb.getBean());
+		        TreeItem t = (TreeItem) bb.getBean();
+		        // Do whatever with t
+		    }
+		});
+		
+		treeView.setMaxHeight(treeView.getExpandedItemCount()*37);
+		
 	}
+	
 
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;

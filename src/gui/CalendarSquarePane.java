@@ -30,7 +30,7 @@ public class CalendarSquarePane extends Pane {
 		this.date = date;
 		this.mainApp = mainApp;
 		this.group = group;
-		text = new Text(date.substring(0, 2));
+		text = new Text(date.substring(8, 10));
 		text.setLayoutX(5);
 		text.setLayoutY(15);
 		text.setFill(Color.WHITE);
@@ -49,7 +49,7 @@ public class CalendarSquarePane extends Pane {
 		});																					//
 
 		// border between squares
-		this.setStyle("-fx-border-color: #475947;");
+		this.setStyle("-fx-border-color: #124364;");
 		//this.setStyle("-fx-border-width: 0.3;");
 		this.setOnMousePressed(new EventHandler<MouseEvent>() { // when a square is pressed
 			@Override
@@ -91,7 +91,7 @@ public class CalendarSquarePane extends Pane {
 	}
 
 	public void addAppointment(Appointment appointment) {
-		AppointmentSquarePane asp = new AppointmentSquarePane(appointment);
+		AppointmentSquarePane asp = new AppointmentSquarePane(appointment, date);
 		appointmentList.getChildren().add(asp);
 		observableAppointments.add(asp.getAppointment());
 	}

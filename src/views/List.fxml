@@ -10,34 +10,33 @@
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane stylesheets="@../../bin/styles/listStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ListController">
+<AnchorPane styleClass="theBackground" minWidth="243.0" prefWidth="243.0" stylesheets="@../../bin/styles/listStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ListController">
 	<children>
-		<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="250.0" text="MY GROUPS" AnchorPane.topAnchor="0.0">
+		<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="243.0" text="MY GROUPS" AnchorPane.topAnchor="0.0">
 		</Label>
-		<HBox prefHeight="100.0" prefWidth="200.0" />
 
-		<TreeView fx:id="treeView" fixedCellSize="0.0" focusTraversable="false" prefWidth="250.0" AnchorPane.bottomAnchor="81.0" AnchorPane.topAnchor="30.0" />
+		<TreeView fx:id="treeView" focusTraversable="false" prefWidth="243.0" AnchorPane.topAnchor="30.0" />
 		<Separator orientation="horizontal" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" />
 
-		<HBox AnchorPane.bottomAnchor="40.0">
+		<HBox AnchorPane.bottomAnchor="38.0">
 			<children>
-				<Button maxHeight="40.0" minWidth="248.0" mnemonicParsing="false" onAction="#newGroup" prefHeight="38.0" styleClass="bigFont" text="New Group">
+				<Button maxHeight="40.0" minWidth="243.0" mnemonicParsing="false" onAction="#newGroup" prefHeight="38.0" styleClass="bigFont" text="New Group">
 					<HBox.margin>
-						<Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+						<Insets />
 					</HBox.margin>
 				</Button>
 			</children>
 		</HBox>
 		<HBox AnchorPane.bottomAnchor="0.0">
 			<children>
-				<Button fx:id="editGroupBtn" focusTraversable="false" onAction="#editGroup" prefHeight="38.0" prefWidth="123.0" text="Edit Group">
+				<Button fx:id="editGroupBtn" focusTraversable="false" onAction="#editGroup" prefHeight="38.0" prefWidth="121.5" text="Edit Group">
 					<HBox.margin>
-						<Insets bottom="1.0" left="1.0" top="1.0" />
+						<Insets />
 					</HBox.margin>
 				</Button>
-				<Button focusTraversable="false" onAction="#newSubGroup" prefHeight="38.0" prefWidth="123.0" text="New Subgroup">
+				<Button focusTraversable="false" onAction="#newSubGroup" prefHeight="38.0" prefWidth="121.0" text="New Subgroup">
 					<HBox.margin>
-						<Insets bottom="1.0" left="1.0" top="1.0" />
+						<Insets />
 					</HBox.margin>
 				</Button>
 			</children>

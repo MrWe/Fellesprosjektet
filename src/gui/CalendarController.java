@@ -120,7 +120,7 @@ public class CalendarController {
 				//et annet format
 				String date2 = (c1.getTime().getYear() + 1900) + "-" + String.format("%02d", (c1.getTime().getMonth() + 1)) + "-" + String.format("%02d", c1.getTime().getDate());
 
-				CalendarSquarePane csp = new CalendarSquarePane(mainApp, date, group);
+				CalendarSquarePane csp = new CalendarSquarePane(mainApp, date2, group);
 
 				if (!(group.getName().equals(""))) {	
 					while (rs != null && rs.next()) {

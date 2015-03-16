@@ -1,27 +1,52 @@
+.theBackground {
+    -fx-background-color : #dcdcdc;
+}
+
 .bigFont{
     -fx-font-size: 20px;
     -fx-font-weight: bolder;
     }
 
-.button {
+/* .button {
 	-fx-opacity			 : 1;
     -fx-background-color : #295A09;
     -fx-text-fill        : #D5F2C2;
     -fx-font-weight      : 900;
     
-    }
+    } 
+    .button:hover {
+    -fx-background-color : #0C1F00;
+   }*/
     
 .button:disabled {
-	-fx-opacity			 : 0.5;
+	-fx-opacity			 : 0.2;
 }
 
-.button:hover {
-    -fx-background-color : #0C1F00;
+
+.button {
+    -fx-background-color : #2980b9;
+    -fx-text-fill        : #FFFFFF;
+    -fx-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    -fx-border-width: 2px;
+    -fx-border-color: transparent transparent #2475ab transparent;
+    -fx-background-insets: 0,0,0,0;
+    -fx-background-radius: 0,0,0,0;
+  	-fx-effect: innershadow( three-pass-box , #2475ab , 2 , 0.0 , 2 , 0 );
    }
    
+.button:hover {
+    -fx-background-color : #34495e;
+    -fx-effect: innershadow( three-pass-box , #263849 , 2 , 0.0 , 2 , 0 );
+    -fx-border-width: 1px;
+    -fx-border-color: #263849 #263849 #263849 #263849; 
+    -fx-effect: innershadow( three-pass-box , transparent , 0 , 0.0 , 0 , 0 );
+   }
+
+
+   
 .label{
-	-fx-background-color : #D5F2C2;
-	-fx-fill        : #0C1F00;
+	-fx-background-color : #3498db;
+	-fx-fill        : #34495e;
     -fx-font-weight      : 900;
 }
 
@@ -46,29 +71,29 @@
 
 
 .groupTree{
-	-fx-border-color: #292929;
+	-fx-border-color: #dcdcdc; 
 }
 
 .tree-view{
-
+	-fx-border-style: none; 
 }
 
 .tree-cell{
 	-fx-padding: 10 0 10 30;
-	-fx-background-color:#000000;
-	-fx-text-fill:#D5F2C2;
-	-fx-border-color: #000000;
+	-fx-background-color:#dcdcdc;
+	-fx-text-fill:#34495e;
+	-fx-border-style: none; 
 	-fx-border-width: 0;
 }
 
 .tree-cell:hover {
     -fx-background-color: #FFFFFF  ;
-    -fx-text-fill: #0C1F00 ;
+    -fx-text-fill: #34495e ;
 }
 
 .tree-cell:selected {
     -fx-background-color: #FFFFFF ;
-    -fx-text-fill: #0C1F00 ;
+    -fx-text-fill: #34495e ;
 }
 
  /*  -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 ); */

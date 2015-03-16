@@ -180,6 +180,7 @@ public class AppointmentPopupController {
 	@FXML
 	private void handleDelete() {
 		((VBox) asp.getParent()).getChildren().remove(asp);
+		db.deleteAppointment(asp.getAppointment().getAppointmentID());
 		asp.getAppointment().getOwner().removeAppointment(asp.getAppointment());
 		popupStage.close();
 	}

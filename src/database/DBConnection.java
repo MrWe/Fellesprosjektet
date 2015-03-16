@@ -499,4 +499,9 @@ public class DBConnection {
 		db.updateDB(q);
 	}
 
+	public void deleteAppointment(String appointmentId) {
+		String q = "DELETE FROM APPOINTMENT WHERE appointmentID ='"+appointmentId+"';";
+		db.updateDB(q);
+	}
+
 }

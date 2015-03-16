@@ -1,14 +1,10 @@
 package gui;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import core.Group;
 
 public class ToolbarController {
 
@@ -25,11 +21,14 @@ public class ToolbarController {
 
 	@FXML
 	private void openHome() {
-		try {
-			mainApp.showCalendar(new Group("",false, "0", "0", new ArrayList<String>(), new ArrayList<String>()));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//		try {
+			//mainApp.showCalendar(new Group("",false, "0", "0", new ArrayList<String>(), new ArrayList<String>()));
+			//mainApp.login(mainApp.getUser().getUsername(), mainApp.getUser().getName());
+			mainApp.showWelcome();
+		//mainApp.showList();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 		System.out.println("Opened Home");
 	}
 

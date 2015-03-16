@@ -52,7 +52,7 @@ public class CalendarController {
 				}
 				if (keyCode.getCode().equals(konamiCode[konamiCodeCounter])) {
 					if (konamiCodeCounter == 9) {
-						((BorderPane) scene.getRoot()).setCenter(new SecretPane());
+						((BorderPane) scene.getRoot()).setCenter(new SecretPane(scene));
 						AudioClip ac = new AudioClip(CalendarController.class.getResource("/res/secret.mp3").toString());
 						ac.play();
 					} else {
@@ -108,7 +108,8 @@ public class CalendarController {
 		}
 
 		ResultSet rs = null;
-		// Henter avtalene til gruppen som er markert. 
+		// Henter avtalene til gruppen som er markert.
+		System.out.println("calendar controller: " + group.getName());
 		if (!(group.getName().equals(""))) {
 			rs = dbConnection.getAppointmentsWithGroup(Integer.parseInt(group.getGroupID()));
 		}

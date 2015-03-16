@@ -99,7 +99,6 @@ public class GroupPopupController {
 			}
 		}
 		treeView.getSelectionModel().select(newGroup);
-		treeView.setMaxHeight(treeView.getExpandedItemCount()*37);
 		popupStage.close();
 	}
 
@@ -160,7 +159,7 @@ public class GroupPopupController {
 		members.setCellFactory(forListView);
 
 		try {
-			System.out.println(mainApp.getUser().getUsername() + " " + group.getValue().getName());
+			//System.out.println(mainApp.getUser().getUsername() + " " + group.getValue().getName());
 			if (createSub) {
 				if (isPrivate) {
 					memberListText.setText("Kan ikke lage subgrupper\nav private grupper.");

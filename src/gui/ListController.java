@@ -111,7 +111,6 @@ public class ListController {
 				}
 				// show the calendar of the chosen group
 				//System.out.println("chose another group");
-				//treeView.setMaxHeight(treeView.getExpandedItemCount()*37);
 				if (newValue == null) {
 					return;
 				}
@@ -130,7 +129,8 @@ public class ListController {
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
-				//treeView.setMaxHeight(treeView.getExpandedItemCount()*37);
+//				treeView.setMinHeight(treeView.getExpandedItemCount()*37 + 2);
+//				treeView.setMaxHeight(treeView.getExpandedItemCount()*37 + 2);
 			}
 		});
 		treeView.setOnEditCommit(new EventHandler<TreeView.EditEvent<Group>>() {
@@ -171,15 +171,16 @@ public class ListController {
 //			}
 //		});
 
-//		treeView.expandedItemCountProperty().addListener(new ChangeListener() {
-//
-//			@Override
-//			public void changed(ObservableValue observable, Object oldValue,
-//					Object newValue) {
-//				System.out.println(newValue);
-//				treeView.setMaxHeight(treeView.getExpandedItemCount()*37);
-//			}
-//		});
+		treeView.expandedItemCountProperty().addListener(new ChangeListener() {
+
+			@Override
+			public void changed(ObservableValue observable, Object oldValue,
+					Object newValue) {
+				System.out.println(oldValue + " " + newValue);
+				treeView.setMinHeight(((int) oldValue)*37 + 2);
+				treeView.setMaxHeight(((int) oldValue)*37 + 2);
+			}
+		});
 		treeView.setMaxHeight(treeView.getExpandedItemCount()*37);
 	}
 	

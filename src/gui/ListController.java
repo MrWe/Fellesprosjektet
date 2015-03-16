@@ -11,8 +11,6 @@ import database.DBConnection;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ListChangeListener.Change;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -51,11 +49,27 @@ public class ListController {
 					}else{
 						groupAdmins.add(groupMembersRS.getString(1));
 					}
-					
+
 				}
 				//System.out.println(groupMembers);
 				//System.out.println(AllGroupsRS.getString(1) + " " + AllGroupsRS.getString(2) + " " + AllGroupsRS.getString(3) + " " + AllGroupsRS.getString(4));
 				TreeItem<Group> treeItem = new TreeItem<Group>(new Group(AllGroupsRS.getString(3), AllGroupsRS.getString(2).equals("1") ? true : false, AllGroupsRS.getString(1), AllGroupsRS.getString(4), groupMembers, groupAdmins));
+				
+//				treeItem.expandedProperty().addListener(new ChangeListener<Boolean>() {
+//					@Override
+//					public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+//						System.out.println("efef");
+//						System.out.println("newValue = " + newValue);
+//						BooleanProperty bb = (BooleanProperty) observable;
+//						System.out.println("bb.getBean() = " + bb.getBean());
+//						TreeItem t = (TreeItem) bb.getBean();
+//						// Do whatever with t
+//					}
+//				});
+				
+				
+				
+				
 				//System.out.println(treeItem.getValue().isPrivateGroup());
 				groups.put(AllGroupsRS.getString(1), treeItem);
 			}
@@ -71,9 +85,9 @@ public class ListController {
 						// add the TreeItem of group j to the children of the TreeItem of grup i	
 						groups.get("" + i).getChildren().add(groups.get("" + j));
 						if (groups.get("" + j).getValue().isPrivateGroup()) {
-							//treeView.getSelectionModel().select(groups.get("" + j));
+							treeView.getSelectionModel().select(groups.get("" + j));
 							System.out.println(groups.get("" + j).getValue());
-							mainApp.showCalendar(groups.get("" + j).getValue());
+							//mainApp.showCalendar(groups.get("" + j).getValue());
 						}
 					}
 				}
@@ -115,12 +129,30 @@ public class ListController {
 			public void handle(EditEvent<Group> event) {
 				System.out.println("woho");
 				System.out.println(event);
-				
+
 			}
 		});
+
+
+		//treeView.setMaxHeight(treeView.getExpandedItemCount()*37);		
+		//why the hell doesnt the codes below work?
+		System.out.println(treeView);
+		treeView.getSelectionModel().getSelectedItem().expandedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				System.out.println("efef");
+				System.out.println("newValue = " + newValue);
+				BooleanProperty bb = (BooleanProperty) observable;
+				System.out.println("bb.getBean() = " + bb.getBean());
+				TreeItem t = (TreeItem) bb.getBean();
+				// Do whatever with t
+			}
+		});
+
+		treeView.setMaxHeight(treeView.getExpandedItemCount()*37);
 	}
 
-	
+
 	public void setKeyEventHandler(Scene scene)	{
 		EventHandler<KeyEvent> keyHandler = new EventHandler<KeyEvent>() {
 			@Override
@@ -135,24 +167,9 @@ public class ListController {
 		};
 		scene.setOnKeyPressed(keyHandler);
 
-		//treeView.setMaxHeight(treeView.getExpandedItemCount()*37);		
-		//why the hell doesnt the codes below work? 
-		treeView.getSelectionModel().getSelectedItem().expandedProperty().addListener(new ChangeListener<Boolean>() {
-		    @Override
-		    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-		       System.out.println("efef");
-		    	System.out.println("newValue = " + newValue);
-		        BooleanProperty bb = (BooleanProperty) observable;
-		        System.out.println("bb.getBean() = " + bb.getBean());
-		        TreeItem t = (TreeItem) bb.getBean();
-		        // Do whatever with t
-		    }
-		});
-		
-		treeView.setMaxHeight(treeView.getExpandedItemCount()*37);
-		
+
 	}
-	
+
 
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;

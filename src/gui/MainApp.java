@@ -2,7 +2,6 @@ package gui;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -113,7 +112,7 @@ public class MainApp extends Application {
 		loginLayout.setVisible(false);
 		initRootLayout();
 		showList();
-		//showWelcome();
+		showWelcome();
 		showToolbar();
 	}
 
@@ -132,7 +131,7 @@ public class MainApp extends Application {
 			controller.setMainApp(this);
 			//group.addAppointment(new Appointment("hei", "du", LocalDate.now(), LocalTime.NOON, LocalTime.NOON, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), "FFFFFF"));
 			controller.fillCalendar(group);
-			controller.setKeyEventHandler(primaryStage.getScene());
+			//controller.setKeyEventHandler(primaryStage.getScene());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -187,7 +186,7 @@ public class MainApp extends Application {
 			ListController controller = loader.getController();
 			controller.setMainApp(this);
 			controller.init2();
-			//controller.setKeyEventHandler(primaryStage.getScene());
+			controller.setKeyEventHandler(primaryStage.getScene());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

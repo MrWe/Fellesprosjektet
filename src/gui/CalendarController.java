@@ -149,7 +149,6 @@ public class CalendarController {
 								group);
 						appointment.setAppointmentID(rs.getString(1));
 						memberRs.beforeFirst(); 
-						System.out.println("1111111111");
 						csp.addAppointment(appointment);
 					}
 				}

@@ -19,12 +19,12 @@
    }*/
     
 .button:disabled {
-	-fx-opacity			 : 0.2;
+	-fx-opacity			 : 0.6;
 }
 
 
 .button {
-    -fx-background-color : #2980b9;
+	 -fx-background-color : #2980b9;
     -fx-text-fill        : #FFFFFF;
     -fx-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
     -fx-border-width: 2px;
@@ -32,15 +32,15 @@
     -fx-background-insets: 0,0,0,0;
     -fx-background-radius: 0,0,0,0;
   	-fx-effect: innershadow( three-pass-box , #2475ab , 2 , 0.0 , 2 , 0 );
-   }
-   
+}
+
 .button:hover {
     -fx-background-color : #34495e;
-    -fx-effect: innershadow( three-pass-box , #263849 , 2 , 0.0 , 2 , 0 );
-    -fx-border-width: 1px;
-    -fx-border-color: #263849 #263849 #263849 #263849; 
-    -fx-effect: innershadow( three-pass-box , transparent , 0 , 0.0 , 0 , 0 );
+    -fx-effect: innershadow( three-pass-box , #34495e , 2 , 0.0 , 2 , 0 );
+    -fx-border-width: 2px;
+    -fx-border-color: #34495e #34495e #34495e #34495e; 
    }
+
 
 
    

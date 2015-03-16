@@ -1,15 +1,14 @@
+/* OLD theme
 .button {
 	-fx-opacity			 : 1;
     -fx-background-color : #295A09;
     -fx-text-fill        : #D5F2C2;
     -fx-font-weight      : 900;
-    
-    }
-
-.button:hover {
+    * 
+    * .button:hover {
     -fx-background-color : #0C1F00;
    }
-
+   
 .blackButton {
 	-fx-opacity			 : 1;
     -fx-background-color : #292929;
@@ -19,13 +18,9 @@
 }
 
 .blackButton:hover {
-    -fx-background-color : #000000;
-}
-
-.button:disabled {
-	-fx-opacity			 : 0.4;
-}
-   
+    	-fx-background-color : #000000;
+	} 
+	
 .redButton {
 	-fx-opacity			 : 1;
     -fx-background-color : #ff0000;
@@ -36,6 +31,68 @@
 
 .redButton:hover {
     -fx-background-color : #b30000;
+
+   } 
+	
+    */
+    
+.button {
+	 -fx-background-color : #2980b9;
+    -fx-text-fill        : #FFFFFF;
+    -fx-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    -fx-border-width: 2px;
+    -fx-border-color: transparent transparent #2475ab transparent;
+    -fx-background-insets: 0,0,0,0;
+    -fx-background-radius: 0,0,0,0;
+  	-fx-effect: innershadow( three-pass-box , #2475ab , 2 , 0.0 , 2 , 0 );
+}
+
+.button:hover {
+    -fx-background-color : #34495e;
+    -fx-effect: innershadow( three-pass-box , #34495e , 2 , 0.0 , 2 , 0 );
+    -fx-border-width: 2px;
+    -fx-border-color: #34495e #34495e #34495e #34495e; 
+   }
+
+.blackButton {
+	-fx-background-color : #292929;
+    -fx-text-fill        : #ffffff;
+    -fx-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    -fx-border-width: 2px;
+    -fx-border-color: transparent transparent #292929 transparent;
+    -fx-background-insets: 0,0,0,0;
+    -fx-background-radius: 0,0,0,0;
+  	-fx-effect: innershadow( three-pass-box , #292929 , 2 , 0.0 , 2 , 0 );
+}
+
+.blackButton:hover {
+    -fx-background-color : #000000;
+    -fx-effect: innershadow( three-pass-box , #000000 , 2 , 0.0 , 2 , 0 );
+    -fx-border-width: 2px;
+    -fx-border-color: #000000 #000000 #000000 #000000; 
+}
+
+.button:disabled {
+	-fx-opacity			 : 0.4;
+}
+   
+.redButton {
+	-fx-background-color : #ff0000;
+    -fx-text-fill        : #ffffff;
+    -fx-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    -fx-border-width: 2px;
+    -fx-border-color: transparent transparent #ff0000 transparent;
+    -fx-background-insets: 0,0,0,0;
+    -fx-background-radius: 0,0,0,0;
+  	-fx-effect: innershadow( three-pass-box , #ff0000 , 2 , 0.0 , 2 , 0 );
+    
+}
+
+.redButton:hover {
+    -fx-background-color : #b30000;
+    -fx-effect: innershadow( three-pass-box , #b30000 , 2 , 0.0 , 2 , 0 );
+    -fx-border-width: 2px;
+    -fx-border-color: #b30000 #b30000 #b30000 #b30000; 
 
    }
 
@@ -50,7 +107,7 @@
 }
 
 .theBackground{
-	-fx-background-color : #D5F2C2;
+	-fx-background-color : #dcdcdc;
 }
 
 .list-cell:filled:selected:focused, .list-cell:filled:selected {

@@ -149,12 +149,8 @@ public class CalendarController {
 								group);
 						appointment.setAppointmentID(rs.getString(1));
 						memberRs.beforeFirst(); 
+						System.out.println("1111111111");
 						csp.addAppointment(appointment);
-					}
-				}
-				for (Appointment appointment : group.getAppointments()) { // for each of the groups appointments
-					if (appointment.getDate().toString().equals(date2)) { // if the date of the appointment equals the current date in the for-loop
-						csp.addAppointment(appointment);				  // add the appointment to the calendar square corresponding to the current date in the for-loop
 					}
 				}
 				calendar.add(csp, j, i); // adds the calendar square to the calendar gridPane

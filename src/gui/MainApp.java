@@ -132,7 +132,7 @@ public class MainApp extends Application {
 			controller.setMainApp(this);
 			//group.addAppointment(new Appointment("hei", "du", LocalDate.now(), LocalTime.NOON, LocalTime.NOON, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), "FFFFFF"));
 			controller.fillCalendar(group);
-			//controller.setKeyEventHandler(primaryStage.getScene());
+			controller.setKeyEventHandler(primaryStage.getScene());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -173,7 +173,7 @@ public class MainApp extends Application {
 			this.listController = controller;
 			controller.setMainApp(this);
 			controller.init2();
-			controller.setKeyEventHandler(primaryStage.getScene());
+			//controller.setKeyEventHandler(primaryStage.getScene());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

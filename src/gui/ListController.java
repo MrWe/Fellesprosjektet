@@ -69,8 +69,7 @@ public class ListController {
 //						// Do whatever with t
 //					}
 //				});
-				treeItem.setGraphic(new TreeItemGraphicPane("0000BB"));
-				
+				treeItem.setGraphic(new TreeItemGraphicPane("0000BB", true));
 				
 				
 				//System.out.println(treeItem.getValue().isPrivateGroup());

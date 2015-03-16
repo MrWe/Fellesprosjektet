@@ -76,7 +76,7 @@ public class ListController {
 					}
 
 				}
-<<<<<<< HEAD
+
 				// System.out.println(groupMembers);
 				// System.out.println(AllGroupsRS.getString(1) + " " +
 				// AllGroupsRS.getString(2) + " " + AllGroupsRS.getString(3) +
@@ -86,7 +86,7 @@ public class ListController {
 								.equals("1") ? true : false,
 						AllGroupsRS.getString(1), AllGroupsRS.getString(4),
 						groupMembers, groupAdmins));
-=======
+
 				//System.out.println(groupMembers);
 				//System.out.println(AllGroupsRS.getString(1) + " " + AllGroupsRS.getString(2) + " " + AllGroupsRS.getString(3) + " " + AllGroupsRS.getString(4));
 				TreeItem<Group> treeItem = new TreeItem<Group>(new Group(AllGroupsRS.getString(3), AllGroupsRS.getString(2).equals("1") ? true : false, AllGroupsRS.getString(1), AllGroupsRS.getString(4), groupMembers, groupAdmins));
@@ -102,10 +102,6 @@ public class ListController {
 //						// Do whatever with t
 //					}
 //				});
-				treeItem.setGraphic(new TreeItemGraphicPane("0000BB"));
->>>>>>> origin/master
-				
-				treeItem.setGraphic(new ImageView(new Image("Images/box.png")));
 				// treeItem.expandedProperty().addListener(new
 				// ChangeListener<Boolean>() {
 				// @Override
@@ -121,6 +117,12 @@ public class ListController {
 				// });
 
 				// System.out.println(treeItem.getValue().isPrivateGroup());
+
+				treeItem.setGraphic(new TreeItemGraphicPane("0000BB", true));
+				
+				
+				//System.out.println(treeItem.getValue().isPrivateGroup());
+
 				groups.put(AllGroupsRS.getString(1), treeItem);
 			}
 			TreeItem<Group> root = groups.get("0"); // The root group is the one
@@ -128,14 +130,14 @@ public class ListController {
 			root.setExpanded(true);
 			treeView.setRoot(root);
 			treeView.setShowRoot(false);
-<<<<<<< HEAD
+
 			int higheshGroupID = db.getHighestGroupID(); // finds the highest
 															// usergroupID in
 															// the database
-=======
+
 			treeView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 			int higheshGroupID = db.getHighestGroupID(); // finds the highest usergroupID in the database
->>>>>>> origin/master
+
 			for (int i = 0; i <= higheshGroupID; i++) {
 				for (int j = 0; j <= higheshGroupID; j++) {
 					// if USERGROUP_usergroupID of group j equals the

@@ -72,7 +72,7 @@ public class GroupPopupController {
 				invited.add(clo.getName());
 			}
 		}
-		
+
 		Group group = new Group(nameField.getText(), false, "0", "0", invited, admins);
 		TreeItem<Group> newGroup = new TreeItem<Group>(group);
 		if (createSub) {				// if creating a new subgroup
@@ -159,29 +159,39 @@ public class GroupPopupController {
 		ListCell<CheckListObject>> forListView = CheckBoxListCell.forListView(getProperty);
 		members.setCellFactory(forListView);
 
-		if (createSub) {
-			if (isPrivate) {
-				memberListText.setText("Kan ikke lage subgrupper\nav private grupper.");
-				OKBtn.setDisable(true);
-				nameField.setDisable(true);
-			} else {
-				for (String member : this.group.getValue().getMembers()) {
-					memberList.add(new CheckListObject(member));
-				}
-				this.members.getChildren().add(members);
-			}
-		} else {
-			rs = db.getAllUsers();
-			try {
-				while (rs.next()) {
-					if(!rs.getString(4).equals(mainApp.getUser().getName())){
-						memberList.add(new CheckListObject(rs.getString(4)));
+		try {
+			System.out.println(mainApp.getUser().getUsername() + " " + group.getValue().getName());
+			if (createSub) {
+				if (isPrivate) {
+					memberListText.setText("Kan ikke lage subgrupper\nav private grupper.");
+					OKBtn.setDisable(true);
+					nameField.setDisable(true);
+				} else if (!db.isAdmin(mainApp.getUser().getUsername(), group.getValue().getName())) {
+					memberListText.setText("Må være admin av gruppe for\n å lage subgruppe");
+					nameField.setDisable(true);
+					OKBtn.setDisable(true);
+				} else {
+					for (String member : this.group.getValue().getMembers()) {
+						memberList.add(new CheckListObject(member));
 					}
+					this.members.getChildren().add(members);
 				}
-				this.members.getChildren().add(members);
-			} catch (SQLException e) {
-				e.printStackTrace();
+			} else {
+				rs = db.getAllUsers();
+				try {
+					while (rs.next()) {
+						if(!rs.getString(4).equals(mainApp.getUser().getName())){
+							memberList.add(new CheckListObject(rs.getString(4)));
+						}
+					}
+					this.members.getChildren().add(members);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 

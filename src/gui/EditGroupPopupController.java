@@ -14,6 +14,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -35,6 +36,7 @@ public class EditGroupPopupController {
 	@FXML private Label memberListText, invitableMemberListText;
 	@FXML private Button OKBtn, inviteBtn, deleteMemberButton, deleteAdminButton, makeAdminButton,deleteGroupButton;
 	private TreeItem<Group> group;
+	private TreeView<Group> treeView;
 	private DBConnection db;
 
 	@FXML
@@ -119,6 +121,11 @@ public class EditGroupPopupController {
 		ListCell<CheckListObject>> forListView = CheckBoxListCell.forListView(getProperty);
 		invitableMembers.setCellFactory(forListView);
 
+		System.out.println("name " + group.getValue().getName());
+		System.out.println("group :" + group);
+		System.out.println("getparent :" + group.getParent());
+		System.out.println("getvalue " + group.getParent().getValue());
+		System.out.println("getmembers " + group.getParent().getValue().getMembers());
 		for (String member : group.getParent().getValue().getMembers()) {
 			CheckListObject clo = new CheckListObject(member);
 			if (!group.getValue().getMembers().contains(member) && !group.getValue().getAdmins().contains(member)) {
@@ -238,7 +245,7 @@ public class EditGroupPopupController {
 		popupStage.close();
 	}
 
-	public void fillPopup(TreeItem<Group> group, String username) { // called whenever the popup is opened
+	public void fillPopup(TreeView treeView, TreeItem<Group> group, String username) { // called whenever the popup is opened
 		try {
 			if (!db.isAdmin(username, group.getValue().getName())) { // if not admin
 				invitableMembers.setDisable(true);
@@ -252,6 +259,7 @@ public class EditGroupPopupController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		this.treeView = treeView;
 		this.group = group;
 
 		updateAdminList(); 				//for admins 

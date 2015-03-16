@@ -2,7 +2,6 @@ package gui;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,12 +21,13 @@ public class MainApp extends Application {
 	private BorderPane rootLayout;
 	private BorderPane loginLayout;
 	private User user;
+	private ListController listController;
 
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Kalender");
-	
+
 		initRootLayout();
 		initLoginLayout();
 		showLogin();
@@ -47,10 +47,8 @@ public class MainApp extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("/views/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
-			
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout, 1280, 720);
-			
 
 			primaryStage.setScene(scene);
 			//primaryStage.setFullScreen(true);
@@ -115,7 +113,7 @@ public class MainApp extends Application {
 		loginLayout.setVisible(false);
 		initRootLayout();
 		showList();
-		showCalendar(new Group("", false, "0", "0", new ArrayList<String>(), new ArrayList<String>()));
+		showWelcome();
 		showToolbar();
 	}
 
@@ -134,10 +132,14 @@ public class MainApp extends Application {
 			controller.setMainApp(this);
 			//group.addAppointment(new Appointment("hei", "du", LocalDate.now(), LocalTime.NOON, LocalTime.NOON, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), "FFFFFF"));
 			controller.fillCalendar(group);
-			controller.setKeyEventHandler(primaryStage.getScene());
+			//controller.setKeyEventHandler(primaryStage.getScene());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void showWelcome() {
+		listController.selectPrivateGroup();
 	}
 
 	public void showToolbar() {
@@ -168,8 +170,10 @@ public class MainApp extends Application {
 			rootLayout.setLeft(list);
 
 			ListController controller = loader.getController();
+			this.listController = controller;
 			controller.setMainApp(this);
 			controller.init2();
+			controller.setKeyEventHandler(primaryStage.getScene());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -252,8 +256,6 @@ public class MainApp extends Application {
 				popupStage.setTitle("Lag gruppe");
 			} else if (createSub){
 				popupStage.setTitle("Lag subgruppe for " + group.getValue().getName());
-			} else {
-				popupStage.setTitle("Endre på:  " + group.getValue().getName());
 			}
 			popupStage.initModality(Modality.WINDOW_MODAL);
 			popupStage.initOwner(primaryStage);
@@ -271,7 +273,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void showEditGroupPopup(TreeItem<Group> group) {
+	public void showEditGroupPopup(TreeView treeView, TreeItem<Group> group) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
@@ -291,7 +293,7 @@ public class MainApp extends Application {
 			controller.setPopupStage(popupStage);
 
 			//controller.setTreeView(treeView);
-			controller.fillPopup(group, user.getUsername());
+			controller.fillPopup(treeView, group, user.getUsername());
 			// Show the dialog and wait until the user closes it
 			popupStage.showAndWait();
 		} catch (IOException e) {

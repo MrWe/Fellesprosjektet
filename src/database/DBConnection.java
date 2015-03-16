@@ -268,16 +268,6 @@ public class DBConnection {
 		db.updateDB(q);
 	}
 
-	public static void main(String[] args) {
-		DBConnection db = new DBConnection();
-		try {
-			db.createGroup("testheihei123", 0, 0, "krislerv");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 	/**
 	 * Inserts an appointment into the database
 	 * 

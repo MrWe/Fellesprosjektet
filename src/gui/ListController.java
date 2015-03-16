@@ -11,10 +11,16 @@ import database.DBConnection;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.TreeView.EditEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class ListController {
 
@@ -23,6 +29,7 @@ public class ListController {
 	@FXML private TreeView<Group> treeView;
 	//@FXML private TreeItem treeItem;
 	@FXML private Button editGroupBtn;
+	private TreeItem<Group> privateGroup;
 
 	@FXML
 	private void initialize() { // can't use this method since it is called before mainApp is set
@@ -44,11 +51,27 @@ public class ListController {
 					}else{
 						groupAdmins.add(groupMembersRS.getString(1));
 					}
-					
+
 				}
 				//System.out.println(groupMembers);
 				//System.out.println(AllGroupsRS.getString(1) + " " + AllGroupsRS.getString(2) + " " + AllGroupsRS.getString(3) + " " + AllGroupsRS.getString(4));
 				TreeItem<Group> treeItem = new TreeItem<Group>(new Group(AllGroupsRS.getString(3), AllGroupsRS.getString(2).equals("1") ? true : false, AllGroupsRS.getString(1), AllGroupsRS.getString(4), groupMembers, groupAdmins));
+				
+//				treeItem.expandedProperty().addListener(new ChangeListener<Boolean>() {
+//					@Override
+//					public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+//						System.out.println("efef");
+//						System.out.println("newValue = " + newValue);
+//						BooleanProperty bb = (BooleanProperty) observable;
+//						System.out.println("bb.getBean() = " + bb.getBean());
+//						TreeItem t = (TreeItem) bb.getBean();
+//						// Do whatever with t
+//					}
+//				});
+				
+				
+				
+				
 				//System.out.println(treeItem.getValue().isPrivateGroup());
 				groups.put(AllGroupsRS.getString(1), treeItem);
 			}
@@ -64,7 +87,9 @@ public class ListController {
 						// add the TreeItem of group j to the children of the TreeItem of grup i	
 						groups.get("" + i).getChildren().add(groups.get("" + j));
 						if (groups.get("" + j).getValue().isPrivateGroup()) {
+							privateGroup = groups.get("" + j);
 							treeView.getSelectionModel().select(groups.get("" + j));
+							System.out.println(groups.get("" + j).getValue());
 							mainApp.showCalendar(groups.get("" + j).getValue());
 						}
 					}
@@ -77,45 +102,110 @@ public class ListController {
 		treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Group>>() {
 			@Override
 			public void changed(ObservableValue<? extends TreeItem<Group>> observableValue, TreeItem<Group> oldValue, TreeItem<Group> newValue) {
+				System.out.println("selection listener " + oldValue + " " + newValue);
+				if (!treeView.getRoot().getChildren().contains(oldValue)) {
+					System.out.println("oldValue not contained");
+				}
+				if (!treeView.getRoot().getChildren().contains(newValue)) {
+					System.out.println("newValue not contained");
+				}
 				// show the calendar of the chosen group
 				//System.out.println("chose another group");
 				//treeView.setMaxHeight(treeView.getExpandedItemCount()*37);
 				if (newValue == null) {
 					return;
 				}
-
+				System.out.println("selectedItemProperty listener: " + newValue.getValue().getName());
 				if(newValue.getValue().isPrivateGroup() == true){
 					editGroupBtn.setDisable(true);
 				}else{
 					editGroupBtn.setDisable(false);
 				}
 				try {
-					mainApp.showCalendar(newValue.getValue());
+					if (!newValue.getValue().equals(treeView.getRoot().getValue())) {						
+						mainApp.showCalendar(newValue.getValue());
+					} else {
+						System.out.println("root group has been declined selection");
+					}
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
-				treeView.setMaxHeight(treeView.getExpandedItemCount()*37);
+				//treeView.setMaxHeight(treeView.getExpandedItemCount()*37);
+			}
+		});
+		treeView.setOnEditCommit(new EventHandler<TreeView.EditEvent<Group>>() {
+
+			@Override
+			public void handle(EditEvent<Group> event) {
+				System.out.println("woho");
+				System.out.println(event);
+
+			}
+		});
+		treeView.getRoot().getChildren().addListener(new ListChangeListener<TreeItem<Group>>() {
+
+			@Override
+			public void onChanged(ListChangeListener.Change<? extends TreeItem<Group>> c) {
+				c.next();
+				if (c.getRemovedSize() > 0) { // a group was removed
+					treeView.getSelectionModel().clearSelection();
+					treeView.getSelectionModel().select(privateGroup);
+				}
+				System.out.println("removed size: " + c.getRemovedSize());
+				
 			}
 		});
 
 		//treeView.setMaxHeight(treeView.getExpandedItemCount()*37);		
-		//why the hell doesnt the codes below work? 
-		treeView.getSelectionModel().getSelectedItem().expandedProperty().addListener(new ChangeListener<Boolean>() {
-		    @Override
-		    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-		       System.out.println("efef");
-		    	System.out.println("newValue = " + newValue);
-		        BooleanProperty bb = (BooleanProperty) observable;
-		        System.out.println("bb.getBean() = " + bb.getBean());
-		        TreeItem t = (TreeItem) bb.getBean();
-		        // Do whatever with t
-		    }
-		});
-		
+		//why the hell doesnt the codes below work?
+		System.out.println(treeView);
+//		treeView.getSelectionModel().getSelectedItem().expandedProperty().addListener(new ChangeListener<Boolean>() {
+//			@Override
+//			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+//				System.out.println("efef");
+//				System.out.println("newValue = " + newValue);
+//				BooleanProperty bb = (BooleanProperty) observable;
+//				System.out.println("bb.getBean() = " + bb.getBean());
+//				TreeItem t = (TreeItem) bb.getBean();
+//				// Do whatever with t
+//			}
+//		});
+
+//		treeView.expandedItemCountProperty().addListener(new ChangeListener() {
+//
+//			@Override
+//			public void changed(ObservableValue observable, Object oldValue,
+//					Object newValue) {
+//				System.out.println(newValue);
+//				treeView.setMaxHeight(treeView.getExpandedItemCount()*37);
+//			}
+//		});
 		treeView.setMaxHeight(treeView.getExpandedItemCount()*37);
-		
 	}
 	
+	public void selectPrivateGroup() {
+		treeView.getSelectionModel().clearSelection();
+		treeView.getSelectionModel().select(privateGroup);
+	}
+
+
+	public void setKeyEventHandler(Scene scene)	{
+		EventHandler<KeyEvent> keyHandler = new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent keyCode) {
+				System.out.println(keyCode.getCode());
+				if (keyCode.getCode() == KeyCode.H) {
+					System.out.println("before: " + treeView.getSelectionModel().getSelectedItem().getValue().getName());
+					treeView.getSelectionModel().select(0);
+					System.out.println("after: " + treeView.getSelectionModel().getSelectedItem().getValue().getName());
+				}
+			}
+		};
+		scene.setOnKeyPressed(keyHandler);
+
+
+	}
+
 
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
@@ -128,7 +218,7 @@ public class ListController {
 
 	@FXML
 	private void editGroup() {
-		mainApp.showEditGroupPopup(treeView.getSelectionModel().getSelectedItem());
+		mainApp.showEditGroupPopup(treeView, treeView.getSelectionModel().getSelectedItem());
 	}
 
 	@FXML

@@ -76,7 +76,11 @@ public class SettingsController {
 	}
 
 	@FXML
-	private void goHome() throws SQLException {
-		mainApp.showCalendar(new Group("", false, "0", "0", new ArrayList<String>(), new ArrayList<String>()));
+	private void cancel() throws SQLException {
+		emailField.setText("");
+		oldPasswordField.setText("");
+		newPasswordField.setText("");
+		repeatNewPasswordField.setText("");
+		errorText.setText("");
 	}
 }

@@ -83,7 +83,9 @@ public class AppointmentPopupController {
 					new ArrayList<String>(),
 					new ArrayList<String>(),
 					colorField.getText(),
-					group,1,0);
+					group,
+					1,
+					0);
 			popupStage.close();
 		} else {
 			asp.getAppointment().setDescription(descriptionField.getText());

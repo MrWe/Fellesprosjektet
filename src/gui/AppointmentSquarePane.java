@@ -26,8 +26,6 @@ public class AppointmentSquarePane extends Pane {
 	public AppointmentSquarePane(Appointment appointment, String date) {
 		super();
 		this.date = LocalDate.parse(date);
-		System.out.println("---------");
-		System.out.println(date);
 		this.appointment = appointment;
 		color = appointment.getColor();
 		text = new Text(appointment.getStartTime().toString() + " " + appointment.getDescription());

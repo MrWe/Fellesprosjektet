@@ -325,7 +325,9 @@ public class DBConnection {
 				+ lastId
 				+ ");";
 		System.out.println(qu);
+		
 		db.updateDB(qu);
+		addAlarm(from, appointmentType, userId, lastId);
 	}
 
 	public String getLastAppointmentID() throws SQLException {
@@ -340,6 +342,7 @@ public class DBConnection {
 		return db.queryDB(q);
 	}
 
+
 	// Doesnt retrieve userID from calendar. Needs fix.
 	public void addAppointmentMembers(int appointmentID, ArrayList<String> members) throws SQLException {
 		for (String member : members) {
@@ -353,7 +356,19 @@ public class DBConnection {
 					+ appointmentID
 					+ ");";
 			db.updateDB(q);
+					
 		}
+	}
+	
+	public void updateAcceptedAppointmentMembers(int appointmentID, String member) throws SQLException{
+		int userID = getUserID(member);
+		String q = "UPDATE APPOINTMENTMEMBER SET status='a' WHERE APPOINTMENT_appointmentID = "
+				+ appointmentID
+				+ " AND "
+				+ "USER_userID = "
+				+ userID
+				+ ";";
+		db.updateDB(q);
 	}
 
 	//Returns ArrayList with all available rooms at the given time and date
@@ -476,6 +491,7 @@ public class DBConnection {
 		db.updateDB(q);
 	}
 	
+
 	public int getFullNameUserID(String name) throws SQLException {
 		String q = "SELECT userID from USER WHERE fullName = '"
 				+ name
@@ -483,6 +499,36 @@ public class DBConnection {
 		ResultSet rs = db.queryDB(q);
 		rs.next();
 		return Integer.parseInt(rs.getString("userID"));
+	}
+
+
+	/*
+	 * Returns alerts for current user.
+	 */
+	public ResultSet getAlert(String username) throws SQLException {
+		int userID = getUserID(username);
+		String q = "SELECT * FROM ALARM WHERE USER_userID = '" 
+				+ userID + "';";
+		return db.queryDB(q);
+		
+	}
+	/*
+	 * addAlarm() is called from appointment methods
+	 */
+	public void addAlarm(String time, String type, int userID, String appointmentID) throws SQLException{
+		
+		String q = "INSERT INTO ALARM(time, type, USER_userID, APPOINTMENT_appointmentID) VALUES('"
+				+ time
+				+ "','"
+				+ type
+				+ "','"
+				+ userID
+				+ "','"
+				+ appointmentID
+				+ "');";
+		
+
+		db.updateDB(q);
 	}
 
 	
@@ -495,6 +541,8 @@ public class DBConnection {
 		String q = "DELETE FROM USERGROUP WHERE usergroupID = '" + groupID + "';";
 		db.updateDB(q);
 	}
+	
+
 
 	public void updateAppointment(String appointmentId, String description,
 			String from, String to, String place, String appointmentType,

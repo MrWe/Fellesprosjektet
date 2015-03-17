@@ -203,13 +203,9 @@ public class AppointmentPopupController {
 
 		ResultSet rs = db.getGroupMembers(group.getGroupID());
 		try {
-<<<<<<< HEAD
-			while (rs.next()) {
-				allMembers.add(rs.getString(1));
-=======
+
 			while(rs.next()){
 				allMembers.add(rs.getString("fullName"));
->>>>>>> origin/master
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

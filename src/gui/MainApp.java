@@ -185,6 +185,11 @@ public class MainApp extends Application {
 			AnchorPane notification = (AnchorPane) loader.load();
 
 			rootLayout.setCenter(notification);
+			
+			NotificationController controller = loader.getController();
+			controller.setMainApp(this);
+			controller.init2();
+			
 
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -10,82 +10,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="500.0" prefWidth="700.0" stylesheets="@../../bin/styles/settingsStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.NotificationController">
-	<children>
-		<VBox prefHeight="500.0" prefWidth="700.0">
-			<children>
-				<HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0">
-					<children>
-						<Text id="bold-white-text" strokeType="OUTSIDE" strokeWidth="0.0" text="Today">
-							<HBox.margin>
-								<Insets left="20.0" />
-							</HBox.margin>
-						</Text>
-						<HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="643.0">
-							<children>
-								<Text id="fill-white" strokeType="OUTSIDE" strokeWidth="0.0" text="Accept">
-									<HBox.margin>
-										<Insets right="20.0" />
-									</HBox.margin>
-								</Text>
-								<Text id="fill-white" strokeType="OUTSIDE" strokeWidth="0.0" text="Decline">
-									<HBox.margin>
-										<Insets right="20.0" />
-									</HBox.margin>
-								</Text>
-								<Text id="fill-white" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
-									<HBox.margin>
-										<Insets right="20.0" />
-									</HBox.margin>
-								</Text>
-							</children>
-						</HBox>
-					</children>
-				</HBox>
-				<HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
-					<children>
-						<Text id="fill-white" strokeType="OUTSIDE" strokeWidth="0.0" text="Time">
-							<HBox.margin>
-								<Insets left="50.0" />
-							</HBox.margin>
-						</Text>
-						<Line id="fill-white" endY="40.0" fill="WHITE" startY="10.0" stroke="WHITE">
-							<HBox.margin>
-								<Insets left="40.0" />
-							</HBox.margin>
-						</Line>
-						<Text id="fill-white" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Description">
-							<HBox.margin>
-								<Insets left="20.0" />
-							</HBox.margin>
-						</Text>
-						<HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="580.0">
-							<children>
-								<ImageView fitHeight="30.0" fitWidth="30.0">
-									<image>
-										<Image url="@../../../../Fellesprosjektet/Design/Icon/check_icon.png" />
-									</image>
-									<HBox.margin>
-										<Insets right="28.0" />
-									</HBox.margin>
-								</ImageView>
-								<ImageView fitHeight="30.0" fitWidth="30.0">
-									<image>
-										<Image url="@../../../../Fellesprosjektet/Design/Icon/decline_icon.png" />
-									</image>
-									<HBox.margin>
-										<Insets right="33.0" />
-									</HBox.margin>
-								</ImageView>
-								<CheckBox mnemonicParsing="false">
-									<HBox.margin>
-										<Insets right="18.0" />
-									</HBox.margin>
-								</CheckBox>
-							</children>
-						</HBox>
-					</children>
-				</HBox>
-			</children>
-		</VBox>
-	</children>
+   <children>
+      <TableView fx:id="notification" layoutX="-1.0" prefHeight="500.0" prefWidth="700.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+        <columns>
+          	<TableColumn fx:id="date" prefWidth="75.0" text="Date" />
+          	<TableColumn fx:id="time" prefWidth="75.0" text="Time" />
+            <TableColumn minWidth="325.0" prefWidth="75.0" />
+            <TableColumn fx:id="accept" prefWidth="75.0" text="Accept" />
+            <TableColumn fx:id="decline" prefWidth="75.0" text="Decline" />
+            <TableColumn fx:id="submit" prefWidth="75.0" text="Submit" />
+        </columns>
+      </TableView>
+   </children>
 </AnchorPane>

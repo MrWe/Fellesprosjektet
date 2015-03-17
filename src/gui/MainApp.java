@@ -241,6 +241,36 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	public void showEditAppointmentPopup(CalendarSquarePane csp, AppointmentSquarePane asp, Group group) {
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("/views/EditAppointmentPopup.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage popupStage = new Stage();
+			if (csp != null) {				
+				popupStage.setTitle("Edit avtale for " + csp.getDate());
+			} else {
+				popupStage.setTitle("Edit avtale for " + asp.getAppointment().getDate());
+			}
+			popupStage.initModality(Modality.WINDOW_MODAL);
+			popupStage.initOwner(primaryStage);
+			popupStage.setResizable(false);
+			Scene scene = new Scene(page);
+			popupStage.setScene(scene);
+			EditAppointmentPopupController controller = loader.getController();
+			controller.setPopupStage(popupStage);
+			controller.fillPopup(csp, asp, group, getUser().getUsername());
+
+			// Show the dialog and wait until the user closes it
+			popupStage.showAndWait();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void showGroupPopup(TreeView<Group> treeView, TreeItem<Group> group, boolean createSub) {
 		try {

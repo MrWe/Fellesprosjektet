@@ -38,20 +38,18 @@ public class ListController {
 		Map<String, TreeItem<Group>> groups = new HashMap<String, TreeItem<Group>>(); // HashMap that contains the usergroupID of a group and a TreeItem containing the group
 		try {
 			while (AllGroupsRS.next()) { // fills the HashMap with all the groups from the database
-				ResultSet groupMembersRS = db.getGroupMembers(AllGroupsRS.getString(1)); // gets all groupmembers of the current group
+				ResultSet groupMembersRS = db.getGroupMembers(AllGroupsRS.getString("usergroupID")); // gets all groupmembers of the current group
 				ArrayList<String> groupMembers = new ArrayList<String>();
 				ArrayList<String> groupAdmins = new ArrayList<String>();
 				while (groupMembersRS.next()) {
-					if(groupMembersRS.getString(2).equals("0")){
-						groupMembers.add(groupMembersRS.getString(1));
+					if(groupMembersRS.getString("groupAdmin").equals("0")){
+						groupMembers.add(groupMembersRS.getString("fullName"));
 					}else{
-						groupAdmins.add(groupMembersRS.getString(1));
+						groupAdmins.add(groupMembersRS.getString("fullName"));
 					}
 
 				}
-				//System.out.println(groupMembers);
-				//System.out.println(AllGroupsRS.getString(1) + " " + AllGroupsRS.getString(2) + " " + AllGroupsRS.getString(3) + " " + AllGroupsRS.getString(4));
-				TreeItem<Group> treeItem = new TreeItem<Group>(new Group(AllGroupsRS.getString(3), AllGroupsRS.getString(2).equals("1") ? true : false, AllGroupsRS.getString(1), AllGroupsRS.getString(4), groupMembers, groupAdmins));
+				TreeItem<Group> treeItem = new TreeItem<Group>(new Group(AllGroupsRS.getString("groupName"), AllGroupsRS.getString("isPrivate").equals("1") ? true : false, AllGroupsRS.getString("usergroupID"), AllGroupsRS.getString("USERGROUP_usergroupID"), groupMembers, groupAdmins));
 				
 //				treeItem.expandedProperty().addListener(new ChangeListener<Boolean>() {
 //					@Override
@@ -67,7 +65,7 @@ public class ListController {
 				
 				
 				//System.out.println(treeItem.getValue().isPrivateGroup());
-				groups.put(AllGroupsRS.getString(1), treeItem);
+				groups.put(AllGroupsRS.getString("usergroupID"), treeItem);
 			}
 			TreeItem<Group> root = groups.get("0"); // The root group is the one with usergroupID = 0
 			root.setExpanded(true);

@@ -40,7 +40,7 @@ public class SettingsController {
 			try {
 				ResultSet rs = db.getLoginInfo(mainApp.getUser().getUsername());
 				rs.next();
-				if (rs.getString(2).equals(oldPasswordField.getText()) && newPasswordField.getText().equals(repeatNewPasswordField.getText())) {
+				if (rs.getString("pswd").equals(oldPasswordField.getText()) && newPasswordField.getText().equals(repeatNewPasswordField.getText())) {
 					db.setPassword(mainApp.getUser().getUsername(), newPasswordField.getText());
 				}
 			} catch (SQLException e) {
@@ -60,7 +60,7 @@ public class SettingsController {
 		try {
 			ResultSet rs = db.getLoginInfo(mainApp.getUser().getUsername());
 			rs.next();
-			if (!rs.getString(2).equals(oldPasswordField.getText()) && newPasswordField.getText().length() != 0) {
+			if (!rs.getString("pswd").equals(oldPasswordField.getText()) && newPasswordField.getText().length() != 0) {
 				errorText += "Gammelt passord stemmer ikke\n";
 			}
 		} catch (SQLException e) {

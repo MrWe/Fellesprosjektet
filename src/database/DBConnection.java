@@ -127,7 +127,7 @@ public class DBConnection {
 		String q = "SELECT * FROM USER WHERE userID = " + userId;
 		ResultSet rs = db.queryDB(q);
 		rs.next();
-		return rs.getString(4);
+		return rs.getString("fullName");
 	}
 
 	/**
@@ -143,7 +143,7 @@ public class DBConnection {
 				+ "';";
 		ResultSet rs = db.queryDB(q);
 		rs.next();
-		return Integer.parseInt(rs.getString(1));
+		return Integer.parseInt(rs.getString("userID"));
 	}
 
 	/**
@@ -192,8 +192,11 @@ public class DBConnection {
 				+ "WHERE Calendar.USER.userID = Calendar.USER_has_USERGROUP.USER_userID "
 				+ "AND Calendar.USERGROUP.usergroupID = Calendar.USER_has_USERGROUP.USERGROUP_usergroupID "
 				+ "AND username = '" + username + "';";
+		System.out.println(q);
 		return db.queryDB(q);
 	}
+	
+	
 
 	/**
 	 * Returns the id of the group with the highest id, as an int
@@ -205,7 +208,13 @@ public class DBConnection {
 		String q = "select MAX(usergroupID)from USERGROUP;";
 		ResultSet rs = db.queryDB(q);
 		rs.next();
-		return Integer.parseInt(rs.getString(1));
+		return Integer.parseInt(rs.getString("MAX(usergroupID)"));
+	}
+	
+	public static void main(String[] args) {
+		DBConnection db = new DBConnection();
+			System.out.println(db.getAllGroupsOfUser("krislerv"));
+
 	}
 
 	/**
@@ -222,14 +231,14 @@ public class DBConnection {
 		System.out.println("Group Name:" + groupName + "          Src: DBConnection");
 		ResultSet rs = db.queryDB(q);
 		rs.next();
-		return Integer.parseInt(rs.getString(1));
+		return Integer.parseInt(rs.getString("usergroupID"));
 	}
 
 	public String getLastGroupID() throws SQLException {
 		String q = "SELECT MAX(usergroupID) from USERGROUP;";
 		ResultSet rs = db.queryDB(q);
 		rs.next();
-		return rs.getString(1);
+		return rs.getString("MAX(usergroupID)");
 	}
 
 	public ResultSet getAppointmentMembers(String appointmentId) {
@@ -323,7 +332,7 @@ public class DBConnection {
 		String q = "SELECT MAX(appointmentID) from APPOINTMENT;";
 		ResultSet rs = db.queryDB(q);
 		rs.next();
-		return rs.getString(1);
+		return rs.getString("MAX(appointmentID)");
 	}
 
 	public ResultSet getAppointmentsWithGroup(int group) {
@@ -355,10 +364,10 @@ public class DBConnection {
 		ResultSet rs = db.queryDB(q);
 		ArrayList<String> al = new ArrayList<String>();
 		while(rs.next()) {
-			if (ChronoUnit.MINUTES.between(to, LocalTime.parse(rs.getString(2).substring(11, 16))) >=
+			if (ChronoUnit.MINUTES.between(to, LocalTime.parse(rs.getString("timeFrom").substring(11, 16))) >=
 					0 
-					|| ChronoUnit.MINUTES.between(from, LocalTime.parse(rs.getString(3).substring(11, 16))) <= 0) {
-				String name = rs.getString(1);
+					|| ChronoUnit.MINUTES.between(from, LocalTime.parse(rs.getString("timeTo").substring(11, 16))) <= 0) {
+				String name = rs.getString("roomName");
 				if (!al.contains(name)) {
 					al.add(name);
 				}
@@ -379,7 +388,7 @@ public class DBConnection {
 		ResultSet rs = getAllUsers();
 		Map<String, String> memberIDs = new HashMap<String, String>();
 		while (rs.next()) {
-			memberIDs.put(rs.getString(4), rs.getString(1));
+			memberIDs.put(rs.getString("fullName"), rs.getString("userID"));
 		}
 		for (String member : members) {
 			String q = "INSERT INTO USER_has_USERGROUP(groupAdmin, USER_userID, USERGROUP_usergroupID) VALUES ('"
@@ -439,7 +448,7 @@ public class DBConnection {
 		int groupID = getGroupID(groupName);
 		String q = "SELECT groupAdmin from USER_has_USERGROUP where USER_userID = " + userID + " and USERGROUP_usergroupID = " + groupID + ";";
 		ResultSet rs = db.queryDB(q);
-		if (rs.next() && rs.getString(1).equals("1")) {
+		if (rs.next() && rs.getString("groupAdmin").equals("1")) {
 			return true;
 		}
 		return false;
@@ -448,7 +457,7 @@ public class DBConnection {
 	public boolean isPrivateGroup(String groupName) throws SQLException	{
 		String q = "SELECT isPrivate FROM USERGROUP WHERE groupName = '" + groupName + "';";
 		ResultSet rs = db.queryDB(q);
-		if (rs.next() && rs.getString(1).equals("1")) {
+		if (rs.next() && rs.getString("isPrivate").equals("1")) {
 			return true;
 		}
 		return false;
@@ -473,7 +482,7 @@ public class DBConnection {
 				+ "';";
 		ResultSet rs = db.queryDB(q);
 		rs.next();
-		return Integer.parseInt(rs.getString(1));
+		return Integer.parseInt(rs.getString("userID"));
 	}
 
 	

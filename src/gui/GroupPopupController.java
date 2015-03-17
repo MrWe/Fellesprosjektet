@@ -41,8 +41,6 @@ public class GroupPopupController {
 	private DBConnection db;
 	private MainApp mainApp;
 
-
-
 	@FXML
 	private void initialize() {
 		db = new DBConnection();
@@ -132,7 +130,7 @@ public class GroupPopupController {
 		ResultSet rs = db.getPrivateGroup(mainApp.getUser().getUsername());
 		try {
 			rs.next();
-			if (group != null && rs.getString(2).equals(group.getValue().getName())) {
+			if (group != null && rs.getString("groupName").equals(group.getValue().getName())) {
 				isPrivate = true;
 				System.out.println("isPrivate true");
 			} else {
@@ -159,7 +157,6 @@ public class GroupPopupController {
 		members.setCellFactory(forListView);
 
 		try {
-			//System.out.println(mainApp.getUser().getUsername() + " " + group.getValue().getName());
 			if (createSub) {
 				if (isPrivate) {
 					memberListText.setText("Kan ikke lage subgrupper\nav private grupper.");
@@ -171,7 +168,9 @@ public class GroupPopupController {
 					OKBtn.setDisable(true);
 				} else {
 					for (String member : this.group.getValue().getMembers()) {
-						memberList.add(new CheckListObject(member));
+						if (!member.equals(mainApp.getUser().getName())) {							
+							memberList.add(new CheckListObject(member));
+						}
 					}
 					this.members.getChildren().add(members);
 				}
@@ -179,8 +178,8 @@ public class GroupPopupController {
 				rs = db.getAllUsers();
 				try {
 					while (rs.next()) {
-						if(!rs.getString(4).equals(mainApp.getUser().getName())){
-							memberList.add(new CheckListObject(rs.getString(4)));
+						if(!rs.getString("fullName").equals(mainApp.getUser().getName())){
+							memberList.add(new CheckListObject(rs.getString("fullName")));
 						}
 					}
 					this.members.getChildren().add(members);

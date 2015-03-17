@@ -18,7 +18,7 @@ import javafx.scene.text.Text;
 
 public class CalendarSquarePane extends Pane {
 
-	private Text text;				// displays the date
+	public Text text;				// displays the date
 	private MainApp mainApp;
 	private VBox appointmentList;	// list of AppointmentSquarePane-objects
 	private Group group;			// the group that is currently selected in the list of groups
@@ -100,6 +100,10 @@ public class CalendarSquarePane extends Pane {
 	@Override
 	public String toString() {
 		return super.toString() + " " + date;
+	}
+	
+	public Text getText(){
+		return text;
 	}
 
 }

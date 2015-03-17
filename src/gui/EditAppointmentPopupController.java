@@ -5,11 +5,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import core.Appointment;
-import core.Group;
-import database.DBConnection;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -26,11 +22,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import core.Appointment;
+import core.Group;
+import database.DBConnection;
 
-public class AppointmentPopupController {
-
-	// @FXML private Text text;
-	@FXML
+public class EditAppointmentPopupController {
 	private TextArea descriptionField;
 	@FXML
 	private ComboBox<String> locationField;
@@ -45,13 +41,12 @@ public class AppointmentPopupController {
 	@FXML
 	private Text errorText;
 	private Stage popupStage;
-	private ObservableList<CheckListObject> memberList = FXCollections
-			.observableArrayList();
-	private ArrayList<String> allMembers; // temporary until database is up
+	private ObservableList<CheckListObject> memberList, invitableMemberList = FXCollections.observableArrayList();
+	private ArrayList<String> allMembers; // temporary until database is up 
 	private CalendarSquarePane csp;
 	private AppointmentSquarePane asp;
 	@FXML
-	private VBox members;
+	private ListView<String> members, invitableMembers;
 	private boolean editingExisting;
 	private Group group;
 	private DBConnection db;
@@ -201,58 +196,57 @@ public class AppointmentPopupController {
 		this.username = username;
 		this.group = group;
 
-		ResultSet rs = db.getGroupMembers(group.getGroupID());
-		try {
-			while (rs.next()) {
-				allMembers.add(rs.getString(1));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		memberList.clear();
-		members.getChildren().clear();
-
-		ListView<CheckListObject> members = new ListView<CheckListObject>();
-		members.setPrefSize(200, 250);
-		members.setEditable(true);
-		members.setItems(memberList);
-		Callback<CheckListObject, ObservableValue<Boolean>> getProperty = new Callback<CheckListObject, ObservableValue<Boolean>>() {
-			public BooleanProperty call(CheckListObject object) {
-				return object.selectedProperty();
-			}
-		};
-		Callback<ListView<CheckListObject>, ListCell<CheckListObject>> forListView = CheckBoxListCell
-				.forListView(getProperty);
-		members.setCellFactory(forListView);
-
-		if (csp != null) {
-			deleteBtn.setDisable(true);
-			editingExisting = false;
-			this.csp = csp;
-			for (String member : allMembers) {
-				memberList.add(new CheckListObject(member));
-			}
-			this.members.getChildren().add(members);
-		} else {
-			deleteBtn.setDisable(false);
-			editingExisting = true;
-			this.asp = asp;
-			descriptionField.setText(asp.getAppointment().getDescription());
-			locationField.setPromptText(asp.getAppointment().getLocation());
-			startTimeField.setText(asp.getAppointment().getStartTime()
-					.toString());
-			endTimeField.setText(asp.getAppointment().getEndTime().toString());
-			colorField.setText(asp.getAppointment().getColor());
-			for (String member : allMembers) {
-				CheckListObject clo = new CheckListObject(member);
-				if (asp.getAppointment().getInvited().contains(member)) {
-					clo.setSelectedProperty(true);
-				}
-				memberList.add(clo);
-			}
-			this.members.getChildren().add(members);
-		}
+//		ResultSet rs = db.getGroupMembers(group.getGroupID());
+//		try {
+//			while (rs.next()) {
+//				allMembers.add(rs.getString(1));
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//
+//		memberList.clear();
+//
+//		ListView<CheckListObject> members = new ListView<CheckListObject>();
+//		members.setPrefSize(200, 250);
+//		members.setEditable(true);
+//		members.setItems(memberList);
+//		Callback<CheckListObject, ObservableValue<Boolean>> getProperty = new Callback<CheckListObject, ObservableValue<Boolean>>() {
+//			public BooleanProperty call(CheckListObject object) {
+//				return object.selectedProperty();
+//			}
+//		};
+//		Callback<ListView<CheckListObject>, ListCell<CheckListObject>> forListView = CheckBoxListCell
+//				.forListView(getProperty);
+//		members.setCellFactory(forListView);
+//
+//		if (csp != null) {
+//			deleteBtn.setDisable(true);
+//			editingExisting = false;
+//			this.csp = csp;
+//			for (String member : allMembers) {
+//				memberList.add(new CheckListObject(member));
+//			}
+//			this.members.getChildren().add(members);
+//		} else {
+//			deleteBtn.setDisable(false);
+//			editingExisting = true;
+//			this.asp = asp;
+//			descriptionField.setText(asp.getAppointment().getDescription());
+//			locationField.setPromptText(asp.getAppointment().getLocation());
+//			startTimeField.setText(asp.getAppointment().getStartTime()
+//					.toString());
+//			endTimeField.setText(asp.getAppointment().getEndTime().toString());
+//			colorField.setText(asp.getAppointment().getColor());
+//			for (String member : allMembers) {
+//				CheckListObject clo = new CheckListObject(member);
+//				if (asp.getAppointment().getInvited().contains(member)) {
+//					clo.setSelectedProperty(true);
+//				}
+//				memberList.add(clo);
+//			}
+//			this.members.getChildren().add(members);
+//		}
 
 	}
 

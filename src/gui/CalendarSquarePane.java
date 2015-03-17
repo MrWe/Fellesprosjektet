@@ -86,8 +86,9 @@ public class CalendarSquarePane extends Pane {
 		mainApp.showAppointmentPopup(this, null, group);
 	}
 
+	//edit en appointment
 	private void showPopup(AppointmentSquarePane asp) {
-		mainApp.showAppointmentPopup(null, asp, group);
+		mainApp.showEditAppointmentPopup(null, asp, group);
 	}
 
 	public void addAppointment(Appointment appointment) {

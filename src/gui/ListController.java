@@ -30,6 +30,8 @@ public class ListController {
 	@FXML private TreeView<Group> treeView;
 	//@FXML private TreeItem treeItem;
 	@FXML private Button editGroupBtn;
+	@FXML private Button newSubGroupBtn;
+	
 	private TreeItem<Group> privateGroup;
 
 	@FXML
@@ -38,6 +40,7 @@ public class ListController {
 
 	public void init2() {
 		editGroupBtn.setDisable(true); //dårlig løsning til editBtn
+		newSubGroupBtn.setDisable(true);
 		db = new DBConnection();
 		ResultSet AllGroupsRS = db.getAllGroupsOfUser(mainApp.getUser().getUsername());
 		Map<String, TreeItem<Group>> groups = new HashMap<String, TreeItem<Group>>(); // HashMap that contains the usergroupID of a group and a TreeItem containing the group
@@ -131,9 +134,16 @@ public class ListController {
 				System.out.println("selectedItemProperty listener: " + newValue.getValue().getName());
 				if(newValue.getValue().isPrivateGroup() == true){
 					editGroupBtn.setDisable(true);
+					newSubGroupBtn.setDisable(true);
 				}else{
 					editGroupBtn.setDisable(false);
+					newSubGroupBtn.setDisable(false);
 				}
+				
+				if(!newValue.getValue().getAdmins().contains(mainApp.getUser().getName())){
+					newSubGroupBtn.setDisable(true);
+				};
+				
 				try {
 					if (!newValue.getValue().equals(treeView.getRoot().getValue())) {						
 						mainApp.showCalendar(newValue.getValue());

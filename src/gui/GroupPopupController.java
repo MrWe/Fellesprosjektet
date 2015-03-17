@@ -41,8 +41,6 @@ public class GroupPopupController {
 	private DBConnection db;
 	private MainApp mainApp;
 
-
-
 	@FXML
 	private void initialize() {
 		db = new DBConnection();
@@ -159,7 +157,6 @@ public class GroupPopupController {
 		members.setCellFactory(forListView);
 
 		try {
-			//System.out.println(mainApp.getUser().getUsername() + " " + group.getValue().getName());
 			if (createSub) {
 				if (isPrivate) {
 					memberListText.setText("Kan ikke lage subgrupper\nav private grupper.");
@@ -171,7 +168,9 @@ public class GroupPopupController {
 					OKBtn.setDisable(true);
 				} else {
 					for (String member : this.group.getValue().getMembers()) {
-						memberList.add(new CheckListObject(member));
+						if (!member.equals(mainApp.getUser().getName())) {							
+							memberList.add(new CheckListObject(member));
+						}
 					}
 					this.members.getChildren().add(members);
 				}

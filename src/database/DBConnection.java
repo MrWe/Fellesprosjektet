@@ -236,6 +236,11 @@ public class DBConnection {
 		String q = "SELECT * FROM APPOINTMENTMEMBER WHERE APPOINTMENT_appointmentID = " + appointmentId;
 		return db.queryDB(q);
 	}
+	
+	public ResultSet getAppointmentMemberNames(int appointmentId) {
+		String q = "SELECT fullName FROM APPOINTMENTMEMBER JOIN USER WHERE USER_userID = userID AND APPOINTMENT_appointmentID = " + appointmentId;
+		return db.queryDB(q);
+	}
 
 	/**
 	 * Inserts a new group into the database

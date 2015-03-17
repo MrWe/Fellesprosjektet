@@ -52,7 +52,7 @@ public class EditAppointmentPopupController {
 
 	@FXML
 	private VBox invitableMembers;
-	
+	@FXML
 	private ListView<String> members;
 	private boolean editingExisting;
 	private Group group;
@@ -198,15 +198,20 @@ public class EditAppointmentPopupController {
 	}
 
 	private void updateMemberList() {
+		
 		members.setEditable(true);
 		members.setItems(memberList);
 		memberList.clear();
 
-		ResultSet rs = db.getAppointmentMembers(Integer.parseInt(asp
+		System.out.println("groupID" +  Integer.parseInt(asp
 				.getAppointment().getAppointmentID()));
+		
+		ResultSet rs = db.getAppointmentMemberNames(Integer.parseInt(asp
+				.getAppointment().getAppointmentID()));
+		
 		try {
 			while (rs.next()) {
-				memberList.add(rs.getString(1));
+				memberList.add(rs.getString("fullName"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -235,8 +240,9 @@ public class EditAppointmentPopupController {
 											// opened
 		this.username = username;
 		this.group = group;
-
-		// updateMemberList();
+		this.asp = asp;
+		
+		updateMemberList();
 
 		this.username = username;
 		this.group = group;

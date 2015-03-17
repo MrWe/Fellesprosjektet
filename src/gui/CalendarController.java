@@ -153,37 +153,37 @@ public class CalendarController {
 
 				if (!(group.getName().equals(""))) {
 					while (rs != null && rs.next()) {
-						if (!date2.equals(rs.getString(3).substring(0, 10))) {
+						if (!date2.equals(rs.getString("timeFrom").substring(0, 10))) {
 							continue;
 						}
 						ResultSet memberRs = dbConnection
-								.getAppointmentMembers(rs.getInt(1));
+								.getAppointmentMembers(rs.getInt("appointmentID"));
 						ArrayList<String> members = new ArrayList<String>();
 						ArrayList<String> admins = new ArrayList<String>();
 						ArrayList<String> invited = new ArrayList<String>();
 						while (memberRs.next()) {
-							if (memberRs.getString(1) == "a") {
+							if (memberRs.getString("status") == "a") {
 								members.add(dbConnection.getUsername(memberRs
-										.getInt(3)));
+										.getInt("USER_userID")));
 							}
-							if (memberRs.getString(1) == "i") {
+							if (memberRs.getString("status") == "i") {
 								invited.add(dbConnection.getUsername(memberRs
-										.getInt(3)));
+										.getInt("USER_userID")));
 							}
-							if (memberRs.getInt(2) == 1) {
+							if (memberRs.getInt("isAdmin") == 1) {
 								admins.add(dbConnection.getUsername(memberRs
-										.getInt(3)));
+										.getInt("USER_userID")));
 							}
 						}
 						Appointment appointment = new Appointment(
-								rs.getString(2), rs.getString(5),
-								LocalDate.parse(rs.getString(3)
+								rs.getString("description"), rs.getString("place"),
+								LocalDate.parse(rs.getString("timeFrom")
 										.substring(0, 10)), LocalTime.parse(rs
-										.getString(3).substring(11, 16)),
-								LocalTime.parse(rs.getString(4).substring(11,
+										.getString("timeFrom").substring(11, 16)),
+								LocalTime.parse(rs.getString("timeTo").substring(11,
 										16)), invited, members, admins,
-								rs.getString(11), group);
-						appointment.setAppointmentID(rs.getString(1));
+								rs.getString("color"), group);
+						appointment.setAppointmentID(rs.getString("appointmentID"));
 						memberRs.beforeFirst();
 						csp.addAppointment(appointment);
 					}

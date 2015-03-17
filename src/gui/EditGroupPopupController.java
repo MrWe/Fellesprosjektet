@@ -81,7 +81,8 @@ public class EditGroupPopupController {
 		for (String member : group.getValue().getMembers()) {
 			memberList.add(member);
 		}
-
+		
+		
 		//skjuler admins i memberList
 		for(String admin: group.getValue().getAdmins()){
 			//for(String member: memberList){

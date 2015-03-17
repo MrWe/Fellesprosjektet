@@ -41,7 +41,8 @@ public class EditAppointmentPopupController {
 	@FXML
 	private Text errorText;
 	private Stage popupStage;
-	private ObservableList<CheckListObject> memberList, invitableMemberList = FXCollections.observableArrayList();
+	private ObservableList<CheckListObject> invitableMemberList = FXCollections.observableArrayList();
+	private ObservableList<String> memberList = FXCollections.observableArrayList();
 	private ArrayList<String> allMembers; // temporary until database is up 
 	private CalendarSquarePane csp;
 	private AppointmentSquarePane asp;
@@ -76,7 +77,7 @@ public class EditAppointmentPopupController {
 			return;
 		}
 		ArrayList<String> invited = new ArrayList<String>();
-		for (CheckListObject clo : memberList) {
+		for (CheckListObject clo : invitableMemberList) {
 			if (clo.getSelected()) {
 				invited.add(clo.getName());
 			}
@@ -190,6 +191,37 @@ public class EditAppointmentPopupController {
 		popupStage.close();
 	}
 
+	private void updateMemberList(){
+		members.setEditable(true);
+		members.setItems(memberList);
+		memberList.clear();
+		
+		ResultSet rs = db.getAppointmentMembers(asp.getAppointment().getAppointmentID());
+		try {
+			while (rs.next()) {
+				memberList.add(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+//		//System.out.println("Group members:" + group.getValue().getMembers());
+//		for (String member : asp.getValue().getMembers()) {
+//			memberList.add(member);
+//		}
+//
+//		//skjuler admins i memberList
+//		for(String admin: group.getValue().getAdmins()){
+//			//for(String member: memberList){
+//			for (String member : group.getValue().getMembers()) {
+//				if(member.equals(admin)){
+//					memberList.remove(member);
+//				}
+//			}
+//		}
+
+	}
+	
 	public void fillPopup(CalendarSquarePane csp, AppointmentSquarePane asp,
 			Group group, String username) { // called whenever the popup is
 											// opened

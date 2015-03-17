@@ -232,6 +232,11 @@ public class DBConnection {
 		return rs.getString(1);
 	}
 
+	public ResultSet getAppointmentMembers(String appointmentId) {
+		String q = "SELECT * FROM APPOINTMENTMEMBER WHERE APPOINTMENT_appointmentID = " + appointmentId;
+		return db.queryDB(q);
+	}
+	
 	public ResultSet getAppointmentMembers(int appointmentId) {
 		String q = "SELECT * FROM APPOINTMENTMEMBER WHERE APPOINTMENT_appointmentID = " + appointmentId;
 		return db.queryDB(q);

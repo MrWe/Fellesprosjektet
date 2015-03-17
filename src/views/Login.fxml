@@ -69,7 +69,7 @@
 				<Text fx:id="errorText" />
 				<HBox spacing="5">
 					<children>
-						<Button defaultButton="true" mnemonicParsing="false"
+						<Button defaultButton="true" mnemonicParsing="false" fx:id="login"
 							onAction="#login" prefHeight="48" prefWidth="180.0" text="Logg inn">
 							<font>
 								<Font size="13.0" />

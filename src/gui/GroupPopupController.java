@@ -130,7 +130,7 @@ public class GroupPopupController {
 		ResultSet rs = db.getPrivateGroup(mainApp.getUser().getUsername());
 		try {
 			rs.next();
-			if (group != null && rs.getString(2).equals(group.getValue().getName())) {
+			if (group != null && rs.getString("groupName").equals(group.getValue().getName())) {
 				isPrivate = true;
 				System.out.println("isPrivate true");
 			} else {
@@ -178,8 +178,8 @@ public class GroupPopupController {
 				rs = db.getAllUsers();
 				try {
 					while (rs.next()) {
-						if(!rs.getString(4).equals(mainApp.getUser().getName())){
-							memberList.add(new CheckListObject(rs.getString(4)));
+						if(!rs.getString("fullName").equals(mainApp.getUser().getName())){
+							memberList.add(new CheckListObject(rs.getString("fullName")));
 						}
 					}
 					this.members.getChildren().add(members);

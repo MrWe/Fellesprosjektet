@@ -40,8 +40,8 @@ public class LoginController {
 		try {
 			ResultSet rs = db.getLoginInfo(usernameField.getText()); // gets all database entries with the given username
 			if (rs.next()) {								  // if a database entry with the username exists
-				if (rs.getString(2).equals(passwordField.getText())) { // if the password given matches the password in the database
-					mainApp.login(usernameField.getText(),rs.getString(3));
+				if (rs.getString("pswd").equals(passwordField.getText())) { // if the password given matches the password in the database
+					mainApp.login(usernameField.getText(),rs.getString("fullName"));
 				} else {
 					errorText.setText("Error logging in"); // if password is wrong
 				}

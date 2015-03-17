@@ -19,6 +19,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import core.Appointment;
 import core.Group;
@@ -26,12 +27,18 @@ import database.DBConnection;
 
 public class CalendarController {
 
-	@FXML private Text monthText;
-	@FXML private Text yearText;
-	@FXML private GridPane calendar;
-	@FXML private Group group;
+	@FXML
+	private Text monthText;
+	@FXML
+	private Text yearText;
+	@FXML
+	private GridPane calendar;
+	@FXML
+	private Group group;
 	private int currentYear, currentMonth;
-	private KeyCode[] konamiCode= {KeyCode.UP, KeyCode.UP, KeyCode.DOWN, KeyCode.DOWN, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.B, KeyCode.A};
+	private KeyCode[] konamiCode = { KeyCode.UP, KeyCode.UP, KeyCode.DOWN,
+			KeyCode.DOWN, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.LEFT,
+			KeyCode.RIGHT, KeyCode.B, KeyCode.A };
 	private int konamiCodeCounter;
 
 	private MainApp mainApp;
@@ -52,8 +59,10 @@ public class CalendarController {
 				}
 				if (keyCode.getCode().equals(konamiCode[konamiCodeCounter])) {
 					if (konamiCodeCounter == 9) {
-						((BorderPane) scene.getRoot()).setCenter(new SecretPane(scene));
-						AudioClip ac = new AudioClip(CalendarController.class.getResource("/res/secret.mp3").toString());
+						((BorderPane) scene.getRoot())
+								.setCenter(new SecretPane(scene));
+						AudioClip ac = new AudioClip(CalendarController.class
+								.getResource("/res/secret.mp3").toString());
 						ac.play();
 					} else {
 						konamiCodeCounter++;
@@ -74,7 +83,8 @@ public class CalendarController {
 		monthText.setText(new DateFormatSymbols().getMonths()[currentMonth]);
 		yearText.setText("" + currentYear);
 
-		for (int i = 0; i < 7; i++) { // sets contraints on each of the 7 columns
+		for (int i = 0; i < 7; i++) { // sets contraints on each of the 7
+										// columns
 			ColumnConstraints columnConstraints = new ColumnConstraints();
 			columnConstraints.setFillWidth(true);
 			columnConstraints.setHgrow(Priority.ALWAYS);
@@ -93,7 +103,8 @@ public class CalendarController {
 	}
 
 	@SuppressWarnings("deprecation")
-	private void constructCalendar(Group group, int year, int month) throws SQLException {
+	private void constructCalendar(Group group, int year, int month)
+			throws SQLException {
 		calendar.getChildren().clear();
 
 		Calendar c1 = Calendar.getInstance();
@@ -101,7 +112,9 @@ public class CalendarController {
 
 		int day = c1.get(Calendar.DAY_OF_WEEK);
 		c1.add(Calendar.DATE, -1);
-		day = c1.get(Calendar.DAY_OF_WEEK); // the last monday of the month before the current month (first date to make a square for)
+		day = c1.get(Calendar.DAY_OF_WEEK); // the last monday of the month
+											// before the current month (first
+											// date to make a square for)
 		while (day != 2) {
 			c1.add(Calendar.DATE, -1);
 			day = c1.get(Calendar.DAY_OF_WEEK);
@@ -111,49 +124,69 @@ public class CalendarController {
 		// Henter avtalene til gruppen som er markert.
 		System.out.println("calendar controller: " + group.getName());
 		if (!(group.getName().equals(""))) {
-			rs = dbConnection.getAppointmentsWithGroup(Integer.parseInt(group.getGroupID()));
+			rs = dbConnection.getAppointmentsWithGroup(Integer.parseInt(group
+					.getGroupID()));
 		}
-		for (int i = 0; i < 6; i++) {		// for each date: create string on the format dd/mm/yyyy and yyyy-mm-dd
-			for (int j = 0; j < 7; j++){	// and create a new CalendarSquarePane object for each of them
-				String date = String.format("%02d", c1.getTime().getDate()) + "/" + String.format("%02d", (c1.getTime().getMonth() + 1)) + "/" + (c1.getTime().getYear() + 1900);
+		for (int i = 0; i < 6; i++) { // for each date: create string on the
+										// format dd/mm/yyyy and yyyy-mm-dd
+			for (int j = 0; j < 7; j++) { // and create a new CalendarSquarePane
+											// object for each of them
+				String date = String.format("%02d", c1.getTime().getDate())
+						+ "/"
+						+ String.format("%02d", (c1.getTime().getMonth() + 1))
+						+ "/" + (c1.getTime().getYear() + 1900);
 
-				//et annet format
-				String date2 = (c1.getTime().getYear() + 1900) + "-" + String.format("%02d", (c1.getTime().getMonth() + 1)) + "-" + String.format("%02d", c1.getTime().getDate());
+				// et annet format
+				String date2 = (c1.getTime().getYear() + 1900) + "-"
+						+ String.format("%02d", (c1.getTime().getMonth() + 1))
+						+ "-" + String.format("%02d", c1.getTime().getDate());
 
-				CalendarSquarePane csp = new CalendarSquarePane(mainApp, date2, group);
+				CalendarSquarePane csp = new CalendarSquarePane(mainApp, date2,
+						group);
+				if(j>=5){
+					csp.setStyle("-fx-background-color:#85c1e9; -fx-border-color:#000000; -fx-border-width: 0.3 px;");
+					csp.getText().setFill(Color.BLACK);
+				}
 
-				if (!(group.getName().equals(""))) {	
+				if (!(group.getName().equals(""))) {
 					while (rs != null && rs.next()) {
 						if (!date2.equals(rs.getString(3).substring(0, 10))) {
 							continue;
 						}
-						ResultSet memberRs = dbConnection.getAppointmentMembers(rs.getInt(1));
+						ResultSet memberRs = dbConnection
+								.getAppointmentMembers(rs.getInt(1));
 						ArrayList<String> members = new ArrayList<String>();
 						ArrayList<String> admins = new ArrayList<String>();
 						ArrayList<String> invited = new ArrayList<String>();
 						while (memberRs.next()) {
-							if (memberRs.getString(1) == "a") {members.add(dbConnection.getUsername(memberRs.getInt(3)));}
-							if (memberRs.getString(1) == "i") {invited.add(dbConnection.getUsername(memberRs.getInt(3)));}
+							if (memberRs.getString(1) == "a") {
+								members.add(dbConnection.getUsername(memberRs
+										.getInt(3)));
+							}
+							if (memberRs.getString(1) == "i") {
+								invited.add(dbConnection.getUsername(memberRs
+										.getInt(3)));
+							}
 							if (memberRs.getInt(2) == 1) {
-								admins.add(dbConnection.getUsername(memberRs.getInt(3)));
+								admins.add(dbConnection.getUsername(memberRs
+										.getInt(3)));
 							}
 						}
-						Appointment appointment = new Appointment(rs.getString(2), 
-								rs.getString(5),
-								LocalDate.parse(rs.getString(3).substring(0, 10)),
-								LocalTime.parse(rs.getString(3).substring(11, 16)),
-								LocalTime.parse(rs.getString(4).substring(11, 16)),
-								invited,
-								members,
-								admins,
-								rs.getString(11),
-								group);
+						Appointment appointment = new Appointment(
+								rs.getString(2), rs.getString(5),
+								LocalDate.parse(rs.getString(3)
+										.substring(0, 10)), LocalTime.parse(rs
+										.getString(3).substring(11, 16)),
+								LocalTime.parse(rs.getString(4).substring(11,
+										16)), invited, members, admins,
+								rs.getString(11), group);
 						appointment.setAppointmentID(rs.getString(1));
-						memberRs.beforeFirst(); 
+						memberRs.beforeFirst();
 						csp.addAppointment(appointment);
 					}
 				}
-				calendar.add(csp, j, i); // adds the calendar square to the calendar gridPane
+				calendar.add(csp, j, i); // adds the calendar square to the
+											// calendar gridPane
 				c1.add(Calendar.DATE, 1); // increase date by 1
 				if (rs != null) {
 					rs.beforeFirst();

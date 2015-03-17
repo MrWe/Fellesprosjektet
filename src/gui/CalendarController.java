@@ -143,9 +143,12 @@ public class CalendarController {
 
 				CalendarSquarePane csp = new CalendarSquarePane(mainApp, date2,
 						group);
-				if(j>=5){
-					csp.setStyle("-fx-background-color:#85c1e9; -fx-border-color:#000000; -fx-border-width: 0.3 px;");
+				if (j >= 5) {
+					csp.setStyle("-fx-background-color:#e6e6e6; -fx-border-color:#dcdcdc"); //-fx-border-color:#dcdcdc;
 					csp.getText().setFill(Color.BLACK);
+				}else{
+					csp.setStyle("-fx-background-color:#6e6e6e; -fx-border-color:#7c7c7c");
+					csp.getText().setFill(Color.WHITE);
 				}
 
 				if (!(group.getName().equals(""))) {

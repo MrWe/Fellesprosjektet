@@ -1,5 +1,6 @@
 package gui;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -49,7 +50,7 @@ public class AppointmentPopupController {
 	@FXML
 	private void initialize() throws SQLException {
 		db = new DBConnection();
-		allMembers = new ArrayList<String>(Arrays.asList("Kristoffer Lervik", "Trym Nilsen", "Hoang Hai Nguyen", "Erik Wiker", "Patricia Zemer", "Jens Stoltenberg", "Erna Solberg", "Kong Harald", "Madonna", "Will Smith", "Kanye West", "Julenissen", "Postman Pat"));
+		allMembers = new ArrayList<String>();
 	}
 
 	public void setPopupStage(Stage popupStage) {
@@ -189,6 +190,16 @@ public class AppointmentPopupController {
 	public void fillPopup(CalendarSquarePane csp, AppointmentSquarePane asp, Group group, String username) { // called whenever the popup is opened
 		this.username = username;
 		this.group = group;
+		
+		ResultSet rs = db.getGroupMembers(group.getGroupID());
+		try {
+			while(rs.next()){
+				allMembers.add(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		memberList.clear();
 		members.getChildren().clear();
 

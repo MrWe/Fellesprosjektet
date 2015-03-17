@@ -439,6 +439,15 @@ public class DBConnection {
 		}
 		return false;
 	}
+	
+	public boolean isPrivateGroup(String groupName) throws SQLException	{
+		String q = "SELECT isPrivate FROM USERGROUP WHERE groupName = '" + groupName + "';";
+		ResultSet rs = db.queryDB(q);
+		if (rs.next() && rs.getString(1).equals("1")) {
+			return true;
+		}
+		return false;
+	}
 
 	public void editGroupAdminRights(String groupName, String username, int adminStatus) throws SQLException {
 		int groupID = getGroupID(groupName);

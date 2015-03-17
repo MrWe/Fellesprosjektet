@@ -91,7 +91,6 @@ public class CalendarSquarePane extends Pane {
 	}
 
 	public void addAppointment(Appointment appointment) {
-		System.out.println("addAppointment hei");
 		AppointmentSquarePane asp = new AppointmentSquarePane(appointment, date);
 		appointmentList.getChildren().add(asp);
 		observableAppointments.add(asp.getAppointment());

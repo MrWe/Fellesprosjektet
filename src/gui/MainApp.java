@@ -113,7 +113,6 @@ public class MainApp extends Application {
 		loginLayout.setVisible(false);
 		initRootLayout();
 		showList();
-		showWelcome();
 		showToolbar();
 	}
 

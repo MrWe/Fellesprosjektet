@@ -8,20 +8,13 @@ import java.util.Map;
 
 import core.Group;
 import database.DBConnection;
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.control.TreeView.EditEvent;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 public class ListController {
 
@@ -39,7 +32,6 @@ public class ListController {
 	}
 
 	public void init2() {
-		editGroupBtn.setDisable(true); //dårlig løsning til editBtn
 		newSubGroupBtn.setDisable(true);
 		db = new DBConnection();
 		ResultSet AllGroupsRS = db.getAllGroupsOfUser(mainApp.getUser().getUsername());
@@ -72,7 +64,6 @@ public class ListController {
 //						// Do whatever with t
 //					}
 //				});
-				treeItem.setGraphic(new TreeItemGraphicPane("0000BB", false));
 				
 				
 				//System.out.println(treeItem.getValue().isPrivateGroup());
@@ -82,7 +73,6 @@ public class ListController {
 			root.setExpanded(true);
 			treeView.setRoot(root);
 			treeView.setShowRoot(false);
-			treeView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 			int higheshGroupID = db.getHighestGroupID(); // finds the highest usergroupID in the database
 			for (int i = 0; i <= higheshGroupID; i++) {
 				for (int j = 0; j <= higheshGroupID; j++) {
@@ -93,7 +83,6 @@ public class ListController {
 						if (groups.get("" + j).getValue().isPrivateGroup()) {
 							privateGroup = groups.get("" + j);
 							treeView.getSelectionModel().select(groups.get("" + j));
-							System.out.println(groups.get("" + j).getValue());
 							mainApp.showCalendar(groups.get("" + j).getValue());
 						}
 					}
@@ -102,20 +91,6 @@ public class ListController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		// when a TreeItem in the TreeView is clicked
-		treeView.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<TreeItem<Group>>() {
-			@Override
-			public void onChanged(ListChangeListener.Change<? extends TreeItem<Group>> c) {
-				for (TreeItem<Group> treeItem : treeView.getRoot().getChildren()) {
-					if (treeView.getSelectionModel().getSelectedItems().contains(treeItem)) {
-						((TreeItemGraphicPane) treeItem.getGraphic()).setChecked(true);
-					} else {
-						((TreeItemGraphicPane) treeItem.getGraphic()).setChecked(false);
-					}
-				}
-			}
-			
-		});
 		treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Group>>() {
 			@Override
 			public void changed(ObservableValue<? extends TreeItem<Group>> observableValue, TreeItem<Group> oldValue, TreeItem<Group> newValue) {
@@ -133,7 +108,6 @@ public class ListController {
 				}
 				System.out.println("selectedItemProperty listener: " + newValue.getValue().getName());
 				if(newValue.getValue().isPrivateGroup() == true){
-					editGroupBtn.setDisable(true);
 					newSubGroupBtn.setDisable(true);
 				}else{
 					editGroupBtn.setDisable(false);
@@ -157,15 +131,6 @@ public class ListController {
 //				treeView.setMaxHeight(treeView.getExpandedItemCount()*37 + 2);
 			}
 		});
-		treeView.setOnEditCommit(new EventHandler<TreeView.EditEvent<Group>>() {
-
-			@Override
-			public void handle(EditEvent<Group> event) {
-				System.out.println("woho");
-				System.out.println(event);
-
-			}
-		});
 		treeView.getRoot().getChildren().addListener(new ListChangeListener<TreeItem<Group>>() {
 
 			@Override
@@ -182,7 +147,6 @@ public class ListController {
 
 		//treeView.setMaxHeight(treeView.getExpandedItemCount()*37);		
 		//why the hell doesnt the codes below work?
-		System.out.println(treeView);
 //		treeView.getSelectionModel().getSelectedItem().expandedProperty().addListener(new ChangeListener<Boolean>() {
 //			@Override
 //			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -212,25 +176,6 @@ public class ListController {
 		treeView.getSelectionModel().clearSelection();
 		treeView.getSelectionModel().select(privateGroup);
 	}
-
-
-	public void setKeyEventHandler(Scene scene)	{
-		EventHandler<KeyEvent> keyHandler = new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent keyCode) {
-				System.out.println(keyCode.getCode());
-				if (keyCode.getCode() == KeyCode.H) {
-					System.out.println("before: " + treeView.getSelectionModel().getSelectedItem().getValue().getName());
-					treeView.getSelectionModel().select(0);
-					System.out.println("after: " + treeView.getSelectionModel().getSelectedItem().getValue().getName());
-				}
-			}
-		};
-		scene.setOnKeyPressed(keyHandler);
-
-
-	}
-
 
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;

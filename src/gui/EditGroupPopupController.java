@@ -227,6 +227,11 @@ public class EditGroupPopupController {
 
 		System.out.println("All members in the group: " + toBeMembers);
 		
+		if (!nameField.getText().equals(group.getValue().getName())) {
+			db.editGroupName(group.getValue().getName(), nameField.getText());
+			group.getValue().setName(nameField.getText());
+		}
+		
 		try {
 			//db.editGroupName(group.getValue().getName(), nameField.getText());  // parameteres are oldName, newName			
 			db.setGroupMembers(nameField.getText(), toBeMembers);// deletes the current members of the group and adds all currently selected
@@ -247,7 +252,14 @@ public class EditGroupPopupController {
 
 	public void fillPopup(TreeView treeView, TreeItem<Group> group, String username) { // called whenever the popup is opened
 		try {
-			if (!db.isAdmin(username, group.getValue().getName())) { // if not admin
+			if (db.isPrivateGroup(group.getValue().getName())) {
+				invitableMembers.setDisable(true);
+				inviteBtn.setDisable(true);
+				deleteMemberButton.setDisable(true);
+				deleteAdminButton.setDisable(true);
+				makeAdminButton.setDisable(true);
+				deleteGroupButton.setDisable(true);
+			} else if (!db.isAdmin(username, group.getValue().getName())) { // if not admin
 				invitableMembers.setDisable(true);
 				nameField.setDisable(true);
 				inviteBtn.setDisable(true);

@@ -210,12 +210,7 @@ public class DBConnection {
 		rs.next();
 		return Integer.parseInt(rs.getString("MAX(usergroupID)"));
 	}
-	
-	public static void main(String[] args) {
-		DBConnection db = new DBConnection();
-			System.out.println(db.getAllGroupsOfUser("krislerv"));
 
-	}
 
 	/**
 	 * Returns the id of the group with the specified name as an int
@@ -337,7 +332,13 @@ public class DBConnection {
 
 	public ResultSet getAppointmentsWithGroup(int group) {
 		String q = "SELECT * FROM APPOINTMENT AS A JOIN USERGROUP AS U ON(A.USERGROUP_usergroupID = U.usergroupID) WHERE A.USERGROUP_usergroupID = " + group;
+		System.out.println(q);
 		return db.queryDB(q);
+	}
+	
+	public static void main(String[] args) {
+		DBConnection db = new DBConnection();
+		db.getAppointmentsWithGroup(1);
 	}
 
 	// Doesnt retrieve userID from calendar. Needs fix.

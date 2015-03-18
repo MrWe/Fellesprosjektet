@@ -79,11 +79,11 @@
 				<HBox>
 					<children>
 						<Label prefWidth="100.0" text="Farge" />
-						<TextField fx:id="colorField" prefWidth="60.0" promptText="0066FF">
+						<ColorPicker fx:id="colorPicker" prefWidth="150" promptText="Velg farge">
 							<HBox.margin>
 								<Insets left="10.0" />
 							</HBox.margin>
-						</TextField>
+						</ColorPicker>
 					</children>
 				</HBox>
 				<Text fx:id="errorText" />

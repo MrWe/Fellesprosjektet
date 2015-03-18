@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -27,6 +28,7 @@ import core.Group;
 import database.DBConnection;
 
 public class EditAppointmentPopupController {
+	@FXML
 	private TextArea descriptionField;
 	@FXML
 	private ComboBox<String> locationField;
@@ -35,7 +37,7 @@ public class EditAppointmentPopupController {
 	@FXML
 	private TextField endTimeField;
 	@FXML
-	private TextField colorField;
+	private ColorPicker colorPicker;
 	@FXML
 	private Button deleteBtn;
 	@FXML
@@ -91,7 +93,7 @@ public class EditAppointmentPopupController {
 					LocalTime.parse(startTimeField.getText()),
 					LocalTime.parse(endTimeField.getText()), invited,
 					new ArrayList<String>(), new ArrayList<String>(),
-					colorField.getText(), group, 1, 0);
+					colorPicker.getValue().toString().substring(2, 8).toUpperCase(), group, 1, 0);
 			popupStage.close();
 		} else {
 			asp.getAppointment().setDescription(descriptionField.getText());
@@ -103,7 +105,7 @@ public class EditAppointmentPopupController {
 			asp.getAppointment().setInvited(invited);
 			asp.getAppointment().setMembers(new ArrayList<String>());
 			asp.getAppointment().setAdmins(new ArrayList<String>());
-			asp.getAppointment().setColor(colorField.getText());
+			asp.getAppointment().setColor(colorPicker.getValue().toString().substring(2, 8).toUpperCase());
 			asp.update();
 
 			addAppointmentToCalendar(descriptionField.getText(),
@@ -111,7 +113,7 @@ public class EditAppointmentPopupController {
 					LocalTime.parse(startTimeField.getText()),
 					LocalTime.parse(endTimeField.getText()), invited,
 					new ArrayList<String>(), new ArrayList<String>(),
-					colorField.getText(), group, 0, 1);
+					colorPicker.getValue().toString().substring(2, 8).toUpperCase(), group, 0, 1);
 
 			popupStage.close();
 		}
@@ -137,7 +139,7 @@ public class EditAppointmentPopupController {
 							+ appointment.getStartTime().toString() + ":00",
 					appointment.getDate().toString() + " "
 							+ appointment.getEndTime().toString() + ":00",
-					null, null, 1, group.getName());
+					null, null, 1, group.getName(), color);
 			appointment.setAppointmentID(db.getLastAppointmentID());
 			// Used when editingExisting is true
 		} else if (changeAppointment == 1) {
@@ -171,7 +173,7 @@ public class EditAppointmentPopupController {
 		if (!endTimeField.getText().matches("[0-9][0-9][:][0-9][0-9]")) {
 			errorText += "Ugyldig sluttid\n";
 		}
-		if (!colorField.getText().matches(
+		if (!colorPicker.getValue().toString().substring(2, 8).toUpperCase().matches(
 				"[0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F]")) {
 			errorText += "Ugyldig farge\n";
 		}

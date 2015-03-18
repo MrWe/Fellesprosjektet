@@ -182,11 +182,7 @@ public class CalendarController {
 										.getString("timeFrom").substring(11, 16)),
 								LocalTime.parse(rs.getString("timeTo").substring(11,
 										16)), invited, members, admins,
-<<<<<<< HEAD
 								rs.getString("appColor"), group);
-=======
-								rs.getString("grpColor"), group);
->>>>>>> editAppointmentPopUP
 						appointment.setAppointmentID(rs.getString("appointmentID"));
 						memberRs.beforeFirst();
 						csp.addAppointment(appointment);

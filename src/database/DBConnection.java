@@ -289,9 +289,9 @@ public class DBConnection {
 	 * @param usergroupID the database id of the group
 	 * @throws SQLException 
 	 */
-	public void addAppointment(String username, String description, String from, String to, String place, String appointmentType, int roomID, String groupName) throws SQLException {
+	public void addAppointment(String username, String description, String from, String to, String place, String appointmentType, int roomID, String groupName, String color) throws SQLException {
 		int groupID = getGroupID(groupName);
-		String q = "INSERT INTO APPOINTMENT(description, timeFrom, timeTo, place, appointmentType, ROOM_roomID, USERGROUP_usergroupID) VALUES ('"
+		String q = "INSERT INTO APPOINTMENT(description, timeFrom, timeTo, place, appointmentType, ROOM_roomID, USERGROUP_usergroupID, appColor) VALUES ('"
 				+ description
 				+ "','"
 				+ from
@@ -305,6 +305,8 @@ public class DBConnection {
 				+ roomID
 				+ "','"
 				+ groupID
+				+ "','"
+				+ color
 				+ "');";
 		db.updateDB(q);
 

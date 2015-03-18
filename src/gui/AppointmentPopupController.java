@@ -141,7 +141,7 @@ public class AppointmentPopupController {
 							+ appointment.getStartTime().toString() + ":00",
 					appointment.getDate().toString() + " "
 							+ appointment.getEndTime().toString() + ":00",
-					null, null, 1, group.getName());
+					null, null, 1, group.getName(), color);
 			appointment.setAppointmentID(db.getLastAppointmentID());
 			// Used when editingExisting is true
 		} else if (changeAppointment == 1) {

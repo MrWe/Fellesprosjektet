@@ -49,6 +49,7 @@
                         <Insets left="11.0" />
                      </HBox.margin>
                   </ComboBox>
+				  <Button mnemonicParsing="false" onAction="#handleFindRoom" prefHeight="24.0" prefWidth="89.0" styleClass="blueButton" text="Delete"/>
 					</children>
 				</HBox>
 				<HBox>

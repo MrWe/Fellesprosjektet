@@ -240,14 +240,14 @@ public class DBConnection {
 		rs.next();
 		return rs.getString("MAX(usergroupID)");
 	}
-
-	public ResultSet getAppointmentMembers(String appointmentId) {
+	
+	public ResultSet getAppointmentMembers(int appointmentId) {
 		String q = "SELECT * FROM APPOINTMENTMEMBER WHERE APPOINTMENT_appointmentID = " + appointmentId;
 		return db.queryDB(q);
 	}
 	
-	public ResultSet getAppointmentMembers(int appointmentId) {
-		String q = "SELECT * FROM APPOINTMENTMEMBER WHERE APPOINTMENT_appointmentID = " + appointmentId;
+	public ResultSet getAppointmentMemberNames(int appointmentId) {
+		String q = "SELECT fullName FROM APPOINTMENTMEMBER JOIN USER WHERE USER_userID = userID AND APPOINTMENT_appointmentID = " + appointmentId;
 		return db.queryDB(q);
 	}
 

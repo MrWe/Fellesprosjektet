@@ -246,6 +246,11 @@ public class DBConnection {
 		return db.queryDB(q);
 	}
 	
+	public void deleteAppointmentMember(int userId, int appointmentId) throws SQLException{
+		String q = "DELETE FROM APPOINTMENTMEMBER WHERE USER_userID='" + userId + "' AND APPOINTMENT_appointmentID='" + appointmentId + "';";
+		db.updateDB(q);
+	}
+	
 	public ResultSet getAppointmentMembers(int appointmentId) {
 		String q = "SELECT * FROM APPOINTMENTMEMBER WHERE APPOINTMENT_appointmentID = " + appointmentId;
 		return db.queryDB(q);
@@ -327,7 +332,6 @@ public class DBConnection {
 		System.out.println(qu);
 		
 		db.updateDB(qu);
-		addAlarm(from, appointmentType, userId, lastId);
 	}
 
 	public String getLastAppointmentID() throws SQLException {
@@ -360,8 +364,7 @@ public class DBConnection {
 		}
 	}
 	
-	public void updateAcceptedAppointmentMembers(int appointmentID, String member) throws SQLException{
-		int userID = getUserID(member);
+	public void updateAcceptedAppointmentMembers(int appointmentID, int userID) throws SQLException{
 		String q = "UPDATE APPOINTMENTMEMBER SET status='a' WHERE APPOINTMENT_appointmentID = "
 				+ appointmentID
 				+ " AND "
@@ -512,22 +515,39 @@ public class DBConnection {
 		return db.queryDB(q);
 		
 	}
+	
+	public ResultSet getUserIdFromFullname(String fullname){
+		String q = "SELECT userID FROM USER WHERE fullName='" + fullname + "';";
+		return db.queryDB(q);
+	}
+	
 	/*
-	 * addAlarm() is called from appointment methods
+	 * addAlarm() is called from appointmentPopupController
 	 */
-	public void addAlarm(String time, String type, int userID, String appointmentID) throws SQLException{
-		
-		String q = "INSERT INTO ALARM(time, type, USER_userID, APPOINTMENT_appointmentID) VALUES('"
-				+ time
-				+ "','"
-				+ type
-				+ "','"
-				+ userID
-				+ "','"
-				+ appointmentID
-				+ "');";
-		
-
+	public void addAlarm(String time, String type, ArrayList<String> users, String appointmentID) throws SQLException{
+		System.out.println("Entered DBConnection.addAlarm");
+		System.out.println(users.size());
+		for(String user : users){
+			System.out.println("User: " + user);
+			ResultSet rs = getUserIdFromFullname(user);
+			rs.next();
+			int userID = rs.getInt(1);
+			String q = "INSERT INTO ALARM(time, type, USER_userID, APPOINTMENT_appointmentID) VALUES('"
+					+ time
+					+ "','"
+					+ type
+					+ "','"
+					+ userID
+					+ "','"
+					+ appointmentID
+					+ "');";
+			
+			db.updateDB(q);
+		}
+	}
+	
+	public void deleteAlarm(int id){
+		String q = "DELETE FROM ALARM WHERE alarmID=" + id;
 		db.updateDB(q);
 	}
 

@@ -1,27 +1,45 @@
 package gui;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
-
 public class Alert {
 	
-	private SimpleStringProperty dateString;
-	private SimpleStringProperty timeString;
-	
-	
+	private String dateString;
+	private String timeString;
+	private int userId;
+	private int AppointmentId;
+	private int id;
 
-	public Alert(String date, String time){
-		this.dateString = new SimpleStringProperty(date);
-		this.timeString = new SimpleStringProperty(time);
-	}
 	
-	public StringProperty getDateString(){
+	
+	public Alert(int id, String dateText, String timeText, int userId, int  appointmentId) {
+		this.dateString = dateText;
+		this.timeString = timeText;
+		this.userId = userId;
+		this.AppointmentId = appointmentId;
+		this.id = id;
+	}
+
+	public String getDateString(){
 		return dateString;
 	}
 	
-	public StringProperty getTimeString(){
+	public String getTimeString(){
 		return timeString;
+	}
+
+	public int getUserId(){
+		return userId;
+	}
+	
+	public int getAppointmentId(){
+		return AppointmentId;
+	}
+	
+	public int getID(){
+		return id;
+	}
+	
+	public String toString(){
+		return "Invited to appointment on " + dateString + " " + timeString;
 	}
 	
 }

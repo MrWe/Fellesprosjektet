@@ -130,6 +130,7 @@ public class AppointmentPopupController {
 
 		Appointment appointment = new Appointment(description, location, date,
 				startTime, endTime, invited, members, admins, color, owner);
+		
 
 		// Used when a new appointment is created
 		if (addToDatabase == 1) {
@@ -143,6 +144,14 @@ public class AppointmentPopupController {
 							+ appointment.getEndTime().toString() + ":00",
 					null, null, 1, group.getName());
 			appointment.setAppointmentID(db.getLastAppointmentID());
+			//TODO delete test arraylist, replace with members
+			ArrayList<String> test = new ArrayList<String>();
+			test.add("Erik");
+			test.add("Kristoffer Lervik");
+			
+			System.out.println(appointment.getDate().toString() + " " + appointment.getStartTime().toString() + ":00");
+			db.addAlarm(appointment.getDate().toString() + " " + appointment.getStartTime().toString() + ":00", "App", test, appointment.getAppointmentID()); 
+			// har lagd ny appointment
 			// Used when editingExisting is true
 		} else if (changeAppointment == 1) {
 			String appointmentId = asp.getAppointment().getAppointmentID();
@@ -153,6 +162,7 @@ public class AppointmentPopupController {
 					appointment.getDate().toString() + " "
 							+ appointment.getEndTime().toString() + ":00",
 					null, null, 1, group.getName());
+			// har oppdatert appointment
 			// Used when appointments are retrieved from db
 		}
 		// else {

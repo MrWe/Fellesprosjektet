@@ -11,15 +11,9 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="700.0" stylesheets="@../../bin/styles/settingsStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.NotificationController">
    <children>
-      <TableView fx:id="notification" layoutX="-1.0" prefHeight="500.0" prefWidth="700.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
-        <columns>
-          	<TableColumn fx:id="date" prefWidth="75.0" text="Date" />
-          	<TableColumn fx:id="time" prefWidth="75.0" text="Time" />
-            <TableColumn minWidth="325.0" prefWidth="75.0" />
-            <TableColumn fx:id="accept" prefWidth="75.0" text="Accept" />
-            <TableColumn fx:id="decline" prefWidth="75.0" text="Decline" />
-            <TableColumn fx:id="submit" prefWidth="75.0" text="Submit" />
-        </columns>
-      </TableView>
+      <ListView fx:id="notification" layoutX="-1.0" prefHeight="500.0" prefWidth="700.0" AnchorPane.bottomAnchor="100" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+      </ListView>
+      <Button fx:id="acceptBtn" layoutX="41.0" layoutY="460.0" mnemonicParsing="false" text="Accept" AnchorPane.bottomAnchor="50"  />
+      <Button fx:id="declineBtn" layoutX="159.0" layoutY="460.0" mnemonicParsing="false" text="Decline" AnchorPane.bottomAnchor="50" />
    </children>
 </AnchorPane>

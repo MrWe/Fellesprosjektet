@@ -131,6 +131,14 @@ public class DBConnection {
 		rs.next();
 		return Integer.parseInt(rs.getString("userID"));
 	}
+	
+	public int getUserIDFromFullName(String fullname) throws SQLException{
+		String q = "SELECT userID from USER WHERE fullname = '" + fullname
+				+ "';";
+		ResultSet rs = db.queryDB(q);
+		rs.next();
+		return Integer.parseInt(rs.getString("userID"));
+	}
 
 	/**
 	 * Returns a ResultSet with all the information of all the users
@@ -337,7 +345,7 @@ public class DBConnection {
 	public void addAppointmentMembers(int appointmentID,
 			ArrayList<String> members) throws SQLException {
 		for (String member : members) {
-			int userID = getUserID(member);
+			int userID = getUserIDFromFullName(member);
 			String q = "INSERT INTO APPOINTMENTMEMBER(status, isAdmin, USER_userID, APPOINTMENT_appointmentID) VALUES ('"
 					+ "i'," + 0 + "," + userID + "," + appointmentID + ");";
 			db.updateDB(q);

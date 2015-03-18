@@ -93,12 +93,13 @@ public class AppointmentPopupController {
 //		if (!editingExisting) {
 			System.out.println(csp.getDate());
 			LocalDate date = LocalDate.parse(csp.getDate());
-
+			System.out.println("invited: " + invited);
+			
 			addAppointmentToCalendar(descriptionField.getText(),
 					locationField.getPromptText(), date,
 					LocalTime.parse(startTimeField.getText()),
 					LocalTime.parse(endTimeField.getText()), invited,
-					new ArrayList<String>(), new ArrayList<String>(),
+					invited, new ArrayList<String>(),
 					colorPicker.getValue().toString().substring(2, 8).toUpperCase(), group, 1, 0);
 			popupStage.close();
 //		} else {
@@ -148,9 +149,9 @@ public class AppointmentPopupController {
 					null, null, 1, group.getName(), color);
 			appointment.setAppointmentID(db.getLastAppointmentID());
 			
-			System.out.println("Appointment id: " + appointment.getAppointmentID());
+			System.out.println("Appointment id: " + db.getLastAppointmentID());
 			System.out.println("Appointment members: " + members);
-			db.addAppointmentMembers(Integer.parseInt(appointment.getAppointmentID()), members);
+			db.addAppointmentMembers(Integer.parseInt(db.getLastAppointmentID()), members);
 			
 
 	}
@@ -199,7 +200,7 @@ public class AppointmentPopupController {
 	private void handleCancel() {
 		popupStage.close();
 	}
-	
+
 	@FXML
 	public void handleFindRoom() throws SQLException {
 		if (validTime()) {

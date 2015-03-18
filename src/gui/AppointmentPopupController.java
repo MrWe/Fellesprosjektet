@@ -5,7 +5,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
+
+
+
 
 import core.Appointment;
 import core.Group;
@@ -16,6 +18,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -23,6 +26,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -39,7 +43,7 @@ public class AppointmentPopupController {
 	@FXML
 	private TextField endTimeField;
 	@FXML
-	private TextField colorField;
+	private ColorPicker colorPicker;
 	@FXML
 	private Button deleteBtn;
 	@FXML
@@ -95,7 +99,7 @@ public class AppointmentPopupController {
 					LocalTime.parse(startTimeField.getText()),
 					LocalTime.parse(endTimeField.getText()), invited,
 					new ArrayList<String>(), new ArrayList<String>(),
-					colorField.getText(), group, 1, 0);
+					colorPicker.getValue().toString().substring(2, 8).toUpperCase(), group, 1, 0);
 			popupStage.close();
 		} else {
 			asp.getAppointment().setDescription(descriptionField.getText());
@@ -107,7 +111,7 @@ public class AppointmentPopupController {
 			asp.getAppointment().setInvited(invited);
 			asp.getAppointment().setMembers(new ArrayList<String>());
 			asp.getAppointment().setAdmins(new ArrayList<String>());
-			asp.getAppointment().setColor(colorField.getText());
+			asp.getAppointment().setColor(colorPicker.getValue().toString().substring(2, 8).toUpperCase());
 			asp.update();
 
 			addAppointmentToCalendar(descriptionField.getText(),
@@ -115,7 +119,7 @@ public class AppointmentPopupController {
 					LocalTime.parse(startTimeField.getText()),
 					LocalTime.parse(endTimeField.getText()), invited,
 					new ArrayList<String>(), new ArrayList<String>(),
-					colorField.getText(), group, 0, 1);
+					colorPicker.getValue().toString().substring(2, 8).toUpperCase(), group, 0, 1);
 
 			popupStage.close();
 		}
@@ -175,7 +179,7 @@ public class AppointmentPopupController {
 		if (!endTimeField.getText().matches("[0-9][0-9][:][0-9][0-9]")) {
 			errorText += "Ugyldig sluttid\n";
 		}
-		if (!colorField.getText().matches(
+		if (!colorPicker.getValue().toString().substring(2, 8).toUpperCase().matches(
 				"[0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F]")) {
 			errorText += "Ugyldig farge\n";
 		}
@@ -244,7 +248,7 @@ public class AppointmentPopupController {
 			startTimeField.setText(asp.getAppointment().getStartTime()
 					.toString());
 			endTimeField.setText(asp.getAppointment().getEndTime().toString());
-			colorField.setText(asp.getAppointment().getColor());
+			colorPicker.setValue(Color.valueOf(asp.getAppointment().getColor()));
 			for (String member : allMembers) {
 				CheckListObject clo = new CheckListObject(member);
 				if (asp.getAppointment().getInvited().contains(member)) {

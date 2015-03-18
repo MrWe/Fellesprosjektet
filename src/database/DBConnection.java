@@ -223,7 +223,6 @@ public class DBConnection {
 		String q = "SELECT usergroupID FROM USERGROUP WHERE groupName = '"
 				+ groupName
 				+ "';";
-		System.out.println("Group Name:" + groupName + "          Src: DBConnection");
 		ResultSet rs = db.queryDB(q);
 		rs.next();
 		return Integer.parseInt(rs.getString("usergroupID"));
@@ -335,13 +334,7 @@ public class DBConnection {
 
 	public ResultSet getAppointmentsWithGroup(int group) {
 		String q = "SELECT * FROM APPOINTMENT AS A JOIN USERGROUP AS U ON(A.USERGROUP_usergroupID = U.usergroupID) WHERE A.USERGROUP_usergroupID = " + group;
-		System.out.println(q);
 		return db.queryDB(q);
-	}
-	
-	public static void main(String[] args) {
-		DBConnection db = new DBConnection();
-		db.getAppointmentsWithGroup(1);
 	}
 
 	// Doesnt retrieve userID from calendar. Needs fix.

@@ -39,26 +39,13 @@
 				</HBox>
 				<HBox>
 					<children>
-						<Label prefWidth="100.0" text="Sted">
-							<HBox.margin>
-								<Insets />
-							</HBox.margin>
-						</Label>
-						<ComboBox fx:id="locationField" prefWidth="150.0" promptText="Velg Room">
-							<HBox.margin>
-								<Insets left="11.0" />
-							</HBox.margin>
-						</ComboBox>
-					</children>
-				</HBox>
-				<HBox>
-					<children>
 						<Label prefWidth="100.0" text="Starttid">
 							<HBox.margin>
 								<Insets top="3.0" />
 							</HBox.margin>
 						</Label>
-						<TextField fx:id="startTimeField" prefWidth="50" promptText="15:15">
+						<TextField fx:id="startTimeField" prefWidth="50"
+							promptText="15:15">
 							<HBox.margin>
 								<Insets left="10.0" />
 							</HBox.margin>
@@ -68,11 +55,38 @@
 				<HBox>
 					<children>
 						<Label prefWidth="100.0" text="Sluttid" />
-						<TextField fx:id="endTimeField" prefWidth="50" promptText="15:15">
+						<TextField fx:id="endTimeField" prefWidth="50"
+							promptText="15:15">
 							<HBox.margin>
 								<Insets left="10.0" />
 							</HBox.margin>
 						</TextField>
+					</children>
+				</HBox>
+				<HBox>
+					<children>
+						<Label prefWidth="100.0" text="Sted">
+							<HBox.margin>
+								<Insets />
+							</HBox.margin>
+						</Label>
+						<Button mnemonicParsing="false" onAction="#handleFindRoom"
+							prefHeight="24.0" prefWidth="89.0" styleClass="findRoomButton"
+							text="Finn rom">
+							<HBox.margin>
+								<Insets left="11.0" />
+							</HBox.margin>
+						</Button>
+					</children>
+				</HBox>
+				<HBox>
+					<children>
+						<ComboBox fx:id="locationField" prefWidth="150.0"
+							promptText="Velg Room">
+							<HBox.margin>
+								<Insets left="111.0" />
+							</HBox.margin>
+						</ComboBox>
 					</children>
 				</HBox>
 				<HBox>

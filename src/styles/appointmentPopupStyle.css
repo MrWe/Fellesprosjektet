@@ -36,6 +36,11 @@
 	
     */
     
+    
+    
+
+
+
 .button {
 	 -fx-background-color : #2980b9;
     -fx-text-fill        : #FFFFFF;
@@ -53,6 +58,25 @@
     -fx-border-width: 2px;
     -fx-border-color: #34495e #34495e #34495e #34495e; 
    }
+
+.findRoomButton {
+  -fx-text-fill        : #454545;
+  -fx-font-weight: 900;
+  -fx-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  -fx-background-color : #ecf0f1;
+  -fx-border-color: transparent transparent #ecf0f1 transparent;
+  -fx-background-insets: 0,0,0,0;
+  -fx-background-radius: 0,0,0,0;
+  -fx-effect: innershadow( three-pass-box , #ecf0f1 , 2 , 0.0 , 2 , 0 );
+}
+.findRoomButton:hover {
+   -fx-background-color : #34495e;
+   -fx-text-fill        : #FFFFFF;
+   -fx-effect: innershadow( three-pass-box , #34495e , 2 , 0.0 , 2 , 0 );
+   -fx-border-width: 2px;
+   -fx-border-color: #34495e #34495e #34495e #34495e;
+}
+
 
 .blackButton {
 	-fx-background-color : #292929;

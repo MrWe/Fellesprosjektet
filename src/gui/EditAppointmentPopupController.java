@@ -184,7 +184,38 @@ public class EditAppointmentPopupController {
 	private void handleCancel() {
 		popupStage.close();
 	}
-
+	
+	
+	@FXML
+	public void handleFindRoom() throws SQLException {
+		if (validTime()) {
+			ArrayList<String> rooms = db.getAvailableRooms(csp.getDate(), LocalTime.parse(startTimeField.getText()+":00"), LocalTime.parse(endTimeField.getText()+":00"));
+			System.out.println(rooms);
+			locationField.setItems(FXCollections.observableArrayList(rooms));
+		} else {
+			locationField.setItems(null);
+		}
+	}
+	
+	private boolean validTime() {
+		String start = startTimeField.getText();
+		String end = endTimeField.getText();
+		if (start.matches("[0-9][0-9][:][0-9][0-9]") && end.matches("[0-9][0-9][:][0-9][0-9]") && 
+				(
+						Integer.parseInt(end.substring(0, 2)) > Integer.parseInt(start.substring(0, 2))
+						|| 
+								((Integer.parseInt(end.substring(0, 2)) == Integer.parseInt(start.substring(0, 2)))
+								&& (Integer.parseInt(end.substring(3, 5)) > Integer.parseInt(start.substring(3, 5))))
+				)
+				) {
+			return true;
+		}
+		else {
+			System.out.println("Wrong input");
+			return false;
+			}
+	}
+	
 	@FXML
 	private void handleDelete() {
 		((VBox) asp.getParent()).getChildren().remove(asp);

@@ -134,7 +134,6 @@ public class AppointmentPopupController {
 
 	}
 	
-
 	private String isValidInput() {
 		String errorText = "";
 		if (descriptionField.getText().equals("")) {

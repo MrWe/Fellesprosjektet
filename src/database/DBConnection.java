@@ -257,12 +257,10 @@ public class DBConnection {
 	 */
 	public void createGroup(String groupName, int isPrivate, int superGroupID,
 			String username) throws SQLException {
-		String q = "INSERT INTO USERGROUP(isPrivate, groupName, color, USERGROUP_usergroupID) VALUES ('"
+		String q = "INSERT INTO USERGROUP(isPrivate, groupName, USERGROUP_usergroupID) VALUES ('"
 				+ isPrivate
 				+ "','"
 				+ groupName
-				+ "','"
-				+ "FFFFFF"
 				+ "','"
 				+ superGroupID + "');";
 		db.updateDB(q);

@@ -13,9 +13,7 @@ public class SettingsController {
 	private MainApp mainApp;
 	private DBConnection db;
 	@FXML private TextField emailField;
-	@FXML private PasswordField oldPasswordField;
-	@FXML private PasswordField newPasswordField;
-	@FXML private PasswordField	 repeatNewPasswordField;
+	@FXML private PasswordField oldPasswordField, newPasswordField, repeatNewPasswordField;
 	@FXML private Text errorText;
 
 	@FXML

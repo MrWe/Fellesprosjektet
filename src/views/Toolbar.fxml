@@ -42,9 +42,6 @@
 							</image>
 						</ImageView>
 					</graphic>
-					<HBox.margin>
-						<Insets />
-					</HBox.margin>
 				</Button>
 			</children>
 			<padding>
@@ -63,9 +60,6 @@
 							</image>
 						</ImageView>
 					</graphic>
-					<HBox.margin>
-						<Insets />
-					</HBox.margin>
 				</Button>
 			</children>
          <padding>

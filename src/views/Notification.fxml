@@ -9,11 +9,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0" stylesheets="@../../bin/styles/settingsStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.NotificationController">
-   <children>
-      <ListView fx:id="notification" layoutX="-1.0" prefHeight="500.0" prefWidth="700.0" AnchorPane.bottomAnchor="100" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
-      </ListView>
-      <Button fx:id="acceptBtn" layoutX="41.0" layoutY="460.0" mnemonicParsing="false" text="Accept" AnchorPane.bottomAnchor="50"  />
-      <Button fx:id="declineBtn" layoutX="159.0" layoutY="460.0" mnemonicParsing="false" text="Decline" AnchorPane.bottomAnchor="50" />
-   </children>
+<AnchorPane prefHeight="500.0" prefWidth="700.0"
+	stylesheets="@../../bin/styles/settingsStyle.css" xmlns="http://javafx.com/javafx/8"
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.NotificationController">
+	<children>
+		<ListView fx:id="notification" layoutX="-1.0" prefHeight="500.0"
+			prefWidth="700.0" AnchorPane.bottomAnchor="100"
+			AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+			AnchorPane.topAnchor="0">
+		</ListView>
+		<Button fx:id="acceptBtn" layoutX="41.0" layoutY="460.0"
+			mnemonicParsing="false" text="Accept" AnchorPane.bottomAnchor="50" />
+		<Button fx:id="declineBtn" layoutX="159.0" layoutY="460.0"
+			mnemonicParsing="false" text="Decline" AnchorPane.bottomAnchor="50" />
+	</children>
 </AnchorPane>

@@ -29,28 +29,18 @@ import javafx.util.Callback;
 
 public class AppointmentPopupController {
 
-	@FXML
-	private TextArea descriptionField;
-	@FXML
-	private ComboBox<String> locationField;
-	@FXML
-	private TextField startTimeField;
-	@FXML
-	private TextField endTimeField;
-	@FXML
-	private ColorPicker colorPicker;
-	@FXML
-	private Button deleteBtn;
-	@FXML
-	private Text errorText;
+	@FXML private TextArea descriptionField;
+	@FXML private ComboBox<String> locationField;
+	@FXML private TextField startTimeField, endTimeField;
+	@FXML private ColorPicker colorPicker;
+	@FXML private Button deleteBtn;
+	@FXML private Text errorText;
 	private Stage popupStage;
-	private ObservableList<CheckListObject> memberList = FXCollections
-			.observableArrayList();
+	private ObservableList<CheckListObject> memberList = FXCollections.observableArrayList();
 	private ArrayList<String> allMembers; // temporary until database is up
 	private CalendarSquarePane csp;
 	private AppointmentSquarePane asp;
-	@FXML
-	private VBox members;
+	@FXML private VBox members;
 	private Group group;
 	private DBConnection db;
 	private String username;
@@ -72,13 +62,8 @@ public class AppointmentPopupController {
 	}
 
 	@FXML
-	private void handleOk() throws SQLException { // when OK is clicked, create
-		// a new appointment with
-		// the info given and give
-		// it to the
-		// CalendarSquarePane that
-		// opened the popup
-		String validInput = isValidInput();
+	private void handleOk() throws SQLException { // when OK is clicked, create a new appointment with the info given and give
+		String validInput = isValidInput();		  // it to the CalendarSquarePane that opened the popup
 		if (validInput.length() != 0) {
 			errorText.setVisible(true);
 			errorText.setText(validInput);
@@ -92,12 +77,19 @@ public class AppointmentPopupController {
 		}
 		LocalDate date = LocalDate.parse(csp.getDate());
 
-		addAppointmentToCalendar(descriptionField.getText(),
-				locationField.getPromptText(), date,
+		addAppointmentToCalendar(
+				descriptionField.getText(),
+				locationField.getPromptText(), 
+				date,
 				LocalTime.parse(startTimeField.getText()),
-				LocalTime.parse(endTimeField.getText()), invited,
-				invited, admins,
-				colorPicker.getValue().toString().substring(2, 8).toUpperCase(), group, 1, 0);
+				LocalTime.parse(endTimeField.getText()), 
+				invited,
+				invited, 
+				admins,
+				colorPicker.getValue().toString().substring(2, 8).toUpperCase(), 
+				group, 
+				1, 
+				0);
 		popupStage.close();
 	}
 
@@ -107,22 +99,40 @@ public class AppointmentPopupController {
 			ArrayList<String> admins, String color, Group owner,
 			int addToDatabase, int changeAppointment) throws SQLException {
 
-		Appointment appointment = new Appointment(description, location, date,
-				startTime, endTime, invited, members, admins, color, owner);
-
+		Appointment appointment = new Appointment(
+				description, 
+				location, 
+				date,
+				startTime, 
+				endTime, 
+				invited, 
+				members, 
+				admins, 
+				color, 
+				owner);
 		csp.addAppointment(appointment);
 		group.addAppointment(appointment);
 
-		db.addAppointment(username, appointment.getDescription(),
-				appointment.getDate().toString() + " "
-						+ appointment.getStartTime().toString() + ":00",
-						appointment.getDate().toString() + " "
-								+ appointment.getEndTime().toString() + ":00",
-								null, null, db.getRoomId(locationField.getValue()), group.getName(), color);
+		db.addAppointment(
+				username, 
+				appointment.getDescription(),
+				appointment.getDate().toString() + " " + appointment.getStartTime().toString() + ":00",
+				appointment.getDate().toString() + " " + appointment.getEndTime().toString() + ":00",
+				null, 
+				null, 
+				db.getRoomId(locationField.getValue()), 
+				group.getName(), 
+				color);
 		appointment.setAppointmentID(db.getLastAppointmentID());
 
-		db.addAppointmentMembers(Integer.parseInt(db.getLastAppointmentID()), members);
-		db.addAlarm(appointment.getDate().toString() + " " + appointment.getStartTime().toString() + ":00", "App", members, appointment.getAppointmentID());
+		db.addAppointmentMembers(
+				Integer.parseInt(db.getLastAppointmentID()), 
+				members);
+		db.addAlarm(
+				appointment.getDate().toString() + " " + appointment.getStartTime().toString() + ":00", 
+				"App", 
+				members, 
+				appointment.getAppointmentID());
 	}
 
 	private String isValidInput() {
@@ -192,8 +202,7 @@ public class AppointmentPopupController {
 		popupStage.close();
 	}
 
-	public void fillPopup(CalendarSquarePane csp, AppointmentSquarePane asp,
-			Group group, String username) throws SQLException { // called whenever the popup is opened
+	public void fillPopup(CalendarSquarePane csp, AppointmentSquarePane asp, Group group, String username) throws SQLException { // called whenever the popup is opened
 		this.username = username;
 		this.group = group;
 		this.csp = csp;

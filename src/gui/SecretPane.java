@@ -44,35 +44,20 @@ public class SecretPane extends Pane {
 		double rng2 = rng.nextDouble();
 		double xInfluence = rng.nextDouble() > 0.5 ? rng2 : -rng2;
 		double yInfluence = rng.nextDouble() > 0.5 ? 1 - rng2 : -(1 - rng2);
-		
 		if (Math.abs(yInfluence) > Math.abs(xInfluence)) {
 			pane.setTranslateX(rng.nextInt(400) + 400);
-			if (yInfluence < 0) {
-				pane.setTranslateY(scene.getHeight() + 200);
-			} else {
-				pane.setTranslateY(-200);
-			}
+			pane.setTranslateY(yInfluence < 0 ? scene.getHeight() + 200 : -200);
 		} else {
 			pane.setTranslateY(rng.nextInt(300) + 200);
-			if (xInfluence < 0) {
-				pane.setTranslateX(scene.getWidth() + 200);
-			} else {
-				pane.setTranslateX(-400);
-			}
+			pane.setTranslateX(xInfluence < 0 ? scene.getWidth() + 200 : -400);
 		}
-		if (xInfluence < 0) {
-			imageView.setScaleY(-1);
-		} else {
-			imageView.setScaleY(1);
-		}
+		imageView.setScaleY(xInfluence < 0 ? -1 : 1);
 		deg = Math.toDegrees(Math.atan(yInfluence/xInfluence));
 		if (xInfluence < 0) {
 			deg = 180 + deg;
 		}
 		pane.setRotate(deg);
-
 		timerDelay = 15;
-
 		Timeline timer = new Timeline(new KeyFrame(Duration.millis(timerDelay), new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -82,8 +67,6 @@ public class SecretPane extends Pane {
 		}));
 		timer.setCycleCount(Timeline.INDEFINITE);
 		timer.play();
-
 	}
-
 
 }

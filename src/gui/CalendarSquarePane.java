@@ -20,17 +20,17 @@ import javafx.scene.text.Text;
 
 public class CalendarSquarePane extends Pane {
 
-	public Text text;				// displays the date
+	public Text text;	// displays the date
 	private MainApp mainApp;
 	private VBox appointmentList;	// list of AppointmentSquarePane-objects
 	private ScrollPane scrollPane;
-	private Group group;			// the group that is currently selected in the list of groups
+	private Group group;	// the group that is currently selected in the list of groups
 	private String date;
 	private Rectangle clipRectangle;
 
 	public CalendarSquarePane(MainApp mainApp, String date, Group group, boolean today) {
 		super();
-		if (today) {			
+		if (today) {
 			Arc arc = new Arc(0, 0, 20, 20, -90, 90);
 			arc.setType(ArcType.ROUND);
 			arc.setFill(Paint.valueOf("RED"));

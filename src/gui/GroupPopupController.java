@@ -35,9 +35,8 @@ public class GroupPopupController {
 	@FXML private Label memberListText;
 	@FXML private Button OKBtn;
 	private TreeView<Group> treeView;
-	private boolean createSub;
-	private boolean isPrivate;
 	private TreeItem<Group> group;
+	private boolean createSub, isPrivate;
 	private DBConnection db;
 	private MainApp mainApp;
 
@@ -62,18 +61,16 @@ public class GroupPopupController {
 			errorText.setText(validInput);
 			return;
 		}
-
 		ArrayList<String> admins = new ArrayList<String>(Arrays.asList(mainApp.getUser().getName()));
 		ArrayList<String> invited = new ArrayList<String>();
-		for (CheckListObject clo : memberList) {			// gets all the names that have been selected in the list of members
+		for (CheckListObject clo : memberList) {	// gets all the names that have been selected in the list of members
 			if (clo.getSelected()) {
 				invited.add(clo.getName());
 			}
 		}
-
 		Group group = new Group(nameField.getText(), false, "0", "0", invited, admins);
 		TreeItem<Group> newGroup = new TreeItem<Group>(group);
-		if (createSub) {				// if creating a new subgroup
+		if (createSub) {	// if creating a new subgroup
 			this.group.getChildren().add(newGroup);
 			try {
 				int superGroupID = db.getGroupID(this.group.getValue().getName());	// finds the usergroupID of the selected group when the popup was opened
@@ -84,7 +81,7 @@ public class GroupPopupController {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		} else {						// if creating a new group
+		} else {	// if creating a new group
 			treeView.getRoot().getChildren().add(newGroup);
 			try {
 				db.createGroup(nameField.getText(), 0, 0, mainApp.getUser().getUsername()); // 0 is the id of the root group
@@ -129,8 +126,6 @@ public class GroupPopupController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-
 		//for members
 		ListView<CheckListObject> members = new ListView<CheckListObject>();
 		members.setEditable(true);
@@ -145,7 +140,6 @@ public class GroupPopupController {
 		Callback<ListView<CheckListObject>, 
 		ListCell<CheckListObject>> forListView = CheckBoxListCell.forListView(getProperty);
 		members.setCellFactory(forListView);
-
 		try {
 			if (createSub) {
 				if (isPrivate) {
@@ -182,6 +176,5 @@ public class GroupPopupController {
 			e.printStackTrace();
 		}
 	}
-
 
 }

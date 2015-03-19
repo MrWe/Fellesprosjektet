@@ -49,7 +49,7 @@ public class EditGroupPopupController {
 	@FXML
 	private void handleInvite() { //handle the invite button
 		ArrayList<String> invited = new ArrayList<String>();
-		for (CheckListObject clo : invitableMemberList) {			// gets all the names that have been selected in the list of members
+		for (CheckListObject clo : invitableMemberList) {	// gets all the names that have been selected in the list of members
 			if (clo.getSelected()) {
 				invited.add(clo.getName());
 			}

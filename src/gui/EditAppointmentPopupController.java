@@ -30,44 +30,30 @@ import core.Group;
 import database.DBConnection;
 
 public class EditAppointmentPopupController {
-	@FXML
-	private TextArea descriptionField;
-	@FXML
-	private ComboBox<String> locationField;
-	@FXML
-	private TextField startTimeField;
-	@FXML
-	private TextField endTimeField;
-	@FXML
-	private ColorPicker colorPicker;
-	@FXML
-	private Button deleteBtn;
-	@FXML
-	private Text errorText;
+	@FXML private TextArea descriptionField;
+	@FXML private ComboBox<String> locationField;
+	@FXML private TextField startTimeField, endTimeField;
+	@FXML private ColorPicker colorPicker;
+	@FXML private Button deleteBtn;
+	@FXML private Text errorText;
 	private Stage popupStage;
 	private ObservableList<CheckListObject> invitableMemberList = FXCollections.observableArrayList();
 	private ObservableList<String> memberList = FXCollections.observableArrayList();
-	private ArrayList<String> allMembers; // temporary until database is up 
+	private ArrayList<String> allMembers, admins;
 	private CalendarSquarePane csp;
 	private AppointmentSquarePane asp;
-	@FXML
-	private ListView<String> members;
-	@FXML
-	private VBox invitableMembers;
+	@FXML private ListView<String> members;
+	@FXML private VBox invitableMembers;
 	private Group group;
 	private DBConnection db;
-	@FXML
-	private Button slettMedlemBtn;
-	@FXML
-	private Button inviteMedlemBtn;
-	private ArrayList<String> admins = new ArrayList<String>();
-	@FXML
-	private Label adminLabel;
+	@FXML private Button slettMedlemBtn, inviteMedlemBtn;
+	@FXML private Label adminLabel;
 
 	@FXML
 	private void initialize() throws SQLException {
 		db = new DBConnection();
 		allMembers = new ArrayList<String>();
+		admins = new ArrayList<String>();
 	}
 
 	public void setPopupStage(Stage popupStage) {
@@ -93,14 +79,11 @@ public class EditAppointmentPopupController {
 
 	@FXML
 	private void handleInviteMedlemBtn(){
-
 		ArrayList<String> invited = new ArrayList<String>();
-
 		for (String member: memberList){
 			invited.add(member);
 		}
-
-		for (CheckListObject clo : invitableMemberList) {			// gets all the names that have been selected in the list of members
+		for (CheckListObject clo : invitableMemberList) {	// gets all the names that have been selected in the list of members
 			if (clo.getSelected()) {
 				invited.add(clo.getName());
 			}
@@ -112,32 +95,23 @@ public class EditAppointmentPopupController {
 	}
 
 	@FXML
-	private void handleOk() throws SQLException { // when OK is clicked, create
-		// a new appointment with
-		// the info given and give
-		// it to the
-		// CalendarSquarePane that
-		// opened the popup
+	private void handleOk() throws SQLException {
 		String validInput = isValidInput();
 		if (validInput.length() != 0) {
 			errorText.setVisible(true);
 			errorText.setText(validInput);
 			return;
 		}
-
 		ArrayList<String> members = new ArrayList<String>();
 		for (String member : memberList) {
 			if(!admins.contains(member)){
 				members.add(member);
 			}
 		}
-
 		asp.getAppointment().setDescription(descriptionField.getText());
 		asp.getAppointment().setLocation(locationField.getPromptText());
-		asp.getAppointment().setStartTime(
-				LocalTime.parse(startTimeField.getText()));
-		asp.getAppointment().setEndTime(
-				LocalTime.parse(endTimeField.getText()));
+		asp.getAppointment().setStartTime(LocalTime.parse(startTimeField.getText()));
+		asp.getAppointment().setEndTime(LocalTime.parse(endTimeField.getText()));
 		asp.getAppointment().setInvited(members);
 		asp.getAppointment().setMembers(members);
 		asp.getAppointment().setAdmins(new ArrayList<String>());
@@ -146,12 +120,19 @@ public class EditAppointmentPopupController {
 		
 		asp.getAppointment().setAdmins(admins);
 		
-		addAppointmentToCalendar(descriptionField.getText(),
-				locationField.getPromptText(), asp.getDate(),
+		addAppointmentToCalendar(
+				descriptionField.getText(),
+				locationField.getPromptText(), 
+				asp.getDate(),
 				LocalTime.parse(startTimeField.getText()),
-				LocalTime.parse(endTimeField.getText()), members,
-				members, asp.getAppointment().getAdmins(),
-				colorPicker.getValue().toString().substring(2, 8).toUpperCase(), group, 0, 1);
+				LocalTime.parse(endTimeField.getText()), 
+				members,
+				members, 
+				asp.getAppointment().getAdmins(),
+				colorPicker.getValue().toString().substring(2, 8).toUpperCase(), 
+				group, 
+				0, 
+				1);
 		popupStage.close();
 	}
 
@@ -161,19 +142,30 @@ public class EditAppointmentPopupController {
 			ArrayList<String> admins, String color, Group owner,
 			int addToDatabase, int changeAppointment) throws SQLException {
 
-		Appointment appointment = new Appointment(description, location, date,
-				startTime, endTime, invited, members, admins, color, owner);
+		Appointment appointment = new Appointment(
+				description, 
+				location, 
+				date,
+				startTime, 
+				endTime, 
+				invited, 
+				members, 
+				admins, 
+				color, 
+				owner);
 
 		String appointmentId = asp.getAppointment().getAppointmentID();
-		db.updateAppointment(appointmentId, appointment.getDescription(),
-				appointment.getDate().toString() + " "
-						+ appointment.getStartTime().toString() + ":00",
-						appointment.getDate().toString() + " "
-								+ appointment.getEndTime().toString() + ":00",
-								null, null, db.getRoomId(locationField.getValue()), group.getName());
+		db.updateAppointment(
+				appointmentId, 
+				appointment.getDescription(),
+				appointment.getDate().toString() + " "	+ appointment.getStartTime().toString() + ":00",
+				appointment.getDate().toString() + " " + appointment.getEndTime().toString() + ":00",
+				null, 
+				null, 
+				db.getRoomId(locationField.getValue()), 
+				group.getName());
 		db.setAppointmentMembers(Integer.parseInt(asp.getAppointment().getAppointmentID()), members);
 		db.addAppointmentAdmins(Integer.parseInt(asp.getAppointment().getAppointmentID()), admins);
-		// Used when appointments are retrieved from db
 	}
 
 	private String isValidInput() {
@@ -253,7 +245,6 @@ public class EditAppointmentPopupController {
 	}
 
 	private void updateInviteList(){
-
 		invitableMembers.getChildren().clear();
 		invitableMemberList.clear();
 		ListView<CheckListObject> invitableMembers = new ListView<CheckListObject>();	

@@ -24,15 +24,13 @@
 				</HBox>
 				<HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
 					<children>
-						<Text id="fill-white" strokeType="OUTSIDE" strokeWidth="0.0" text="E-post adresse">
+						<Text id="fill-white" strokeType="OUTSIDE" strokeWidth="0.0"
+							text="E-post adresse">
 							<HBox.margin>
 								<Insets left="10.0" />
 							</HBox.margin>
 						</Text>
-						<TextField  fx:id = "emailField" prefWidth="300.0">
-							<opaqueInsets>
-								<Insets />
-							</opaqueInsets>
+						<TextField fx:id="emailField" prefWidth="300.0">
 							<HBox.margin>
 								<Insets left="65.0" />
 							</HBox.margin>
@@ -44,7 +42,8 @@
 				</HBox>
 				<HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
 					<children>
-						<Text id="bold-white-text" strokeType="OUTSIDE" strokeWidth="0.0" text="Varsel innstillinger" />
+						<Text id="bold-white-text" strokeType="OUTSIDE" strokeWidth="0.0"
+							text="Varsel innstillinger" />
 					</children>
 					<padding>
 						<Insets left="10.0" />
@@ -70,7 +69,8 @@
 				</HBox>
 				<HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
 					<children>
-						<Text id="bold-white-text" strokeType="OUTSIDE" strokeWidth="0.0" text="Endre passord" />
+						<Text id="bold-white-text" strokeType="OUTSIDE" strokeWidth="0.0"
+							text="Endre passord" />
 					</children>
 					<padding>
 						<Insets left="10.0" />
@@ -78,15 +78,13 @@
 				</HBox>
 				<HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
 					<children>
-						<Text id="fill-white" strokeType="OUTSIDE" strokeWidth="0.0" text="Gammelt passord">
+						<Text id="fill-white" strokeType="OUTSIDE" strokeWidth="0.0"
+							text="Gammelt passord">
 							<HBox.margin>
 								<Insets left="10.0" />
 							</HBox.margin>
 						</Text>
 						<PasswordField fx:id="oldPasswordField" prefWidth="300.0">
-							<opaqueInsets>
-								<Insets />
-							</opaqueInsets>
 							<HBox.margin>
 								<Insets left="50.0" />
 							</HBox.margin>
@@ -98,15 +96,13 @@
 				</HBox>
 				<HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
 					<children>
-						<Text id="fill-white" strokeType="OUTSIDE" strokeWidth="0.0" text="Nytt passord">
+						<Text id="fill-white" strokeType="OUTSIDE" strokeWidth="0.0"
+							text="Nytt passord">
 							<HBox.margin>
 								<Insets left="10.0" />
 							</HBox.margin>
 						</Text>
 						<PasswordField fx:id="newPasswordField" prefWidth="300.0">
-							<opaqueInsets>
-								<Insets />
-							</opaqueInsets>
 							<HBox.margin>
 								<Insets left="80.0" />
 							</HBox.margin>
@@ -118,15 +114,14 @@
 				</HBox>
 				<HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
 					<children>
-						<Text id="fill-white" strokeType="OUTSIDE" strokeWidth="0.0" text="Gjenta nytt passord">
+						<Text id="fill-white" strokeType="OUTSIDE" strokeWidth="0.0"
+							text="Gjenta nytt passord">
 							<HBox.margin>
 								<Insets left="10.0" />
 							</HBox.margin>
 						</Text>
-						<PasswordField fx:id="repeatNewPasswordField" prefWidth="300.0">
-							<opaqueInsets>
-								<Insets />
-							</opaqueInsets>
+						<PasswordField fx:id="repeatNewPasswordField"
+							prefWidth="300.0">
 							<HBox.margin>
 								<Insets left="40.0" />
 							</HBox.margin>
@@ -151,13 +146,14 @@
 					</children>
 				</HBox>
 				<HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
-				<children>
-					<Text fx:id="errorText" id="fill-white" strokeType="OUTSIDE" strokeWidth="0.0" text="asdf">
+					<children>
+						<Text fx:id="errorText" id="fill-white" strokeType="OUTSIDE"
+							strokeWidth="0.0" text="asdf">
 							<HBox.margin>
 								<Insets left="10.0" />
 							</HBox.margin>
 						</Text>
-				</children>
+					</children>
 				</HBox>
 			</children>
 		</VBox>

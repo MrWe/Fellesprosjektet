@@ -611,6 +611,7 @@ public class DBConnection {
 	}
 	
 	public int getRoomId(String name) throws SQLException {
+		System.out.println(name);
 		String q ="SELECT roomID FROM ROOM WHERE roomName ='"+name+"';";
 		ResultSet room = db.queryDB(q);
 		room.next();

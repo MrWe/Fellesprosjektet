@@ -138,6 +138,7 @@
 				<Button mnemonicParsing="false" onAction="#handleCancel" prefHeight="24.0" prefWidth="89.0" text="Cancel" />
 			</children>
 		</HBox>
+      <Label fx:id="adminLabel" layoutX="20.0" layoutY="20.0" text="Admin:" />
 
 	</children>
 </AnchorPane>

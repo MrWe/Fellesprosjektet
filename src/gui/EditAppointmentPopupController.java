@@ -131,17 +131,19 @@ public class EditAppointmentPopupController {
 			errorText.setText(validInput);
 			return;
 		}
-		ArrayList<String> invited = new ArrayList<String>();
-		for (CheckListObject clo : invitableMemberList) {
-			if (clo.getSelected()) {
-				invited.add(clo.getName());
-			}
-		}
+//		ArrayList<String> invited = new ArrayList<String>();
+//		for (CheckListObject clo : invitableMemberList) {
+//				invited.add(clo.getName());
+//		}
 		
 		ArrayList<String> members = new ArrayList<String>();
 		for (String member : memberList) {
 			members.add(member);
 		}
+		
+		System.out.println("Ok Clicked");
+		//System.out.println("invited: " + invited);
+		System.out.println("members: " + members);
 
 		asp.getAppointment().setDescription(descriptionField.getText());
 		asp.getAppointment().setLocation(locationField.getPromptText());
@@ -149,7 +151,7 @@ public class EditAppointmentPopupController {
 				LocalTime.parse(startTimeField.getText()));
 		asp.getAppointment().setEndTime(
 				LocalTime.parse(endTimeField.getText()));
-		asp.getAppointment().setInvited(invited);
+		asp.getAppointment().setInvited(members);
 		asp.getAppointment().setMembers(members);
 		asp.getAppointment().setAdmins(new ArrayList<String>());
 		asp.getAppointment().setColor(colorPicker.getValue().toString().substring(2, 8).toUpperCase());
@@ -158,8 +160,8 @@ public class EditAppointmentPopupController {
 		addAppointmentToCalendar(descriptionField.getText(),
 				locationField.getPromptText(), asp.getDate(),
 				LocalTime.parse(startTimeField.getText()),
-				LocalTime.parse(endTimeField.getText()), invited,
-				new ArrayList<String>(), new ArrayList<String>(),
+				LocalTime.parse(endTimeField.getText()), members,
+				members, new ArrayList<String>(),
 				colorPicker.getValue().toString().substring(2, 8).toUpperCase(), group, 0, 1);
 
 		popupStage.close();
@@ -176,20 +178,8 @@ public class EditAppointmentPopupController {
 		Appointment appointment = new Appointment(description, location, date,
 				startTime, endTime, invited, members, admins, color, owner);
 
-		// Used when a new appointment is created
-		if (addToDatabase == 1) {
-			csp.addAppointment(appointment);
-			group.addAppointment(appointment);
-			System.out.println("groupName " + group.getName());
-			db.addAppointment(username, appointment.getDescription(),
-					appointment.getDate().toString() + " "
-							+ appointment.getStartTime().toString() + ":00",
-							appointment.getDate().toString() + " "
-									+ appointment.getEndTime().toString() + ":00",
-									null, null, 1, group.getName(), color);
-			appointment.setAppointmentID(db.getLastAppointmentID());
-			// Used when editingExisting is true
-		} else if (changeAppointment == 1) {
+
+			System.out.println("happens");
 			String appointmentId = asp.getAppointment().getAppointmentID();
 			System.out.println(appointment);
 			db.updateAppointment(appointmentId, appointment.getDescription(),
@@ -198,8 +188,11 @@ public class EditAppointmentPopupController {
 							appointment.getDate().toString() + " "
 									+ appointment.getEndTime().toString() + ":00",
 									null, null, 1, group.getName());
+			System.out.println("Appointment id: " + asp.getAppointment().getAppointmentID());
+			System.out.println("Appointment members: " + members);
+			db.setAppointmentMembers(Integer.parseInt(asp.getAppointment().getAppointmentID()), members);
 			// Used when appointments are retrieved from db
-		}
+		
 		// else {
 		// csp.addAppointment(appointment);
 		// group.addAppointment(appointment);
@@ -211,9 +204,9 @@ public class EditAppointmentPopupController {
 		if (descriptionField.getText().equals("")) {
 			errorText += "Beskrivelse kan ikke v�re tom\n";
 		}
-		if (locationField.getValue().equals("")) {
-			errorText += "Sted kan ikke v�re tom\n";
-		}
+//		if (locationField.getValue().equals("")) {
+//			errorText += "Sted kan ikke v�re tom\n";
+//		}
 		if (!startTimeField.getText().matches("[0-9][0-9][:][0-9][0-9]")) {
 			errorText += "Ugyldig starttid\n";
 		}

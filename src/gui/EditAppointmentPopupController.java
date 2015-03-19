@@ -97,6 +97,24 @@ public class EditAppointmentPopupController {
 	
 	@FXML
 	private void handleInviteMedlemBtn(){
+		
+		ArrayList<String> invited = new ArrayList<String>();
+		
+		for (String member: memberList){
+			invited.add(member);
+		}
+		
+		for (CheckListObject clo : invitableMemberList) {			// gets all the names that have been selected in the list of members
+			if (clo.getSelected()) {
+				invited.add(clo.getName());
+			}
+		}
+	
+		
+		asp.getAppointment().setMembers(invited);
+		
+		updateMemberList();
+		updateInviteList();
 		System.out.println("inviting an appointment member");
 	}
 	

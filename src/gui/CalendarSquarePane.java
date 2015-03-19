@@ -1,5 +1,6 @@
 package gui;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,9 +57,17 @@ public class CalendarSquarePane extends Pane {
 			public void handle(MouseEvent event) {
 				//.out.println(event.getSource() + " " + event.getTarget());
 				if (event.getTarget() instanceof AppointmentSquarePane) {
-					showPopup((AppointmentSquarePane) event.getTarget());
+					try {
+						showPopup((AppointmentSquarePane) event.getTarget());
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
 				} else {					
-					showPopup();
+					try {
+						showPopup();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		});		
@@ -82,12 +91,12 @@ public class CalendarSquarePane extends Pane {
 		return date;
 	}
 
-	private void showPopup() {
+	private void showPopup() throws SQLException {
 		mainApp.showAppointmentPopup(this, null, group);
 	}
 
 	//edit en appointment
-	private void showPopup(AppointmentSquarePane asp) {
+	private void showPopup(AppointmentSquarePane asp) throws SQLException {
 		mainApp.showEditAppointmentPopup(null, asp, group);
 	}
 

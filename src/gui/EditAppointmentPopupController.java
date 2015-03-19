@@ -153,7 +153,7 @@ public class EditAppointmentPopupController {
 							+ appointment.getStartTime().toString() + ":00",
 							appointment.getDate().toString() + " "
 									+ appointment.getEndTime().toString() + ":00",
-									null, null, 1, group.getName());
+									null, null, db.getRoomId(locationField.getValue()), group.getName());
 			// Used when appointments are retrieved from db
 		}
 		// else {
@@ -192,7 +192,14 @@ public class EditAppointmentPopupController {
 	@FXML
 	public void handleFindRoom() throws SQLException {
 		if (validTime()) {
-			ArrayList<String> rooms = db.getAvailableRooms(csp.getDate(), LocalTime.parse(startTimeField.getText()+":00"), LocalTime.parse(endTimeField.getText()+":00"));
+			System.out.println(csp);
+			ArrayList<String> rooms = new ArrayList<String>();
+			if (csp != null) {
+				rooms = db.getAvailableRooms(csp.getDate(), LocalTime.parse(startTimeField.getText()+":00"), LocalTime.parse(endTimeField.getText()+":00"));
+			}else {
+				rooms = db.getAvailableRooms(asp.getDate().toString(), LocalTime.parse(startTimeField.getText()+":00"), LocalTime.parse(endTimeField.getText()+":00"));
+			}
+			
 			System.out.println(rooms);
 			locationField.setItems(FXCollections.observableArrayList(rooms));
 		} else {
@@ -252,7 +259,7 @@ public class EditAppointmentPopupController {
 	}
 
 	public void fillPopup(CalendarSquarePane csp, AppointmentSquarePane asp,
-			Group group, String username) { // called whenever the popup is
+			Group group, String username) throws SQLException { // called whenever the popup is
 		// opened
 		//updateMemberList();
 
@@ -290,7 +297,7 @@ public class EditAppointmentPopupController {
 		this.asp = asp;
 		System.out.println("appointmen: " + asp.getAppointment().getDescription());
 		descriptionField.setText(asp.getAppointment().getDescription());
-		locationField.setPromptText(asp.getAppointment().getLocation());
+		locationField.setPromptText(db.getRoomFromAppointmentId(asp.getAppointment().getAppointmentID()));
 		startTimeField.setText(asp.getAppointment().getStartTime()
 				.toString());
 		endTimeField.setText(asp.getAppointment().getEndTime().toString());

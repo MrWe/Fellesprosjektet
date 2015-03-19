@@ -186,6 +186,7 @@ public class CalendarController {
 						appointment.setAppointmentID(rs.getString("appointmentID"));
 						memberRs.beforeFirst();
 						csp.addAppointment(appointment);
+						
 					}
 				}
 				calendar.add(csp, j, i); // adds the calendar square to the

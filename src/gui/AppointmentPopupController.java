@@ -90,7 +90,6 @@ public class AppointmentPopupController {
 				invited.add(clo.getName());
 			}
 		}
-//		if (!editingExisting) {
 			System.out.println(csp.getDate());
 			LocalDate date = LocalDate.parse(csp.getDate());
 			System.out.println("invited: " + invited);
@@ -102,29 +101,6 @@ public class AppointmentPopupController {
 					invited, new ArrayList<String>(),
 					colorPicker.getValue().toString().substring(2, 8).toUpperCase(), group, 1, 0);
 			popupStage.close();
-//		} else {
-//			asp.getAppointment().setDescription(descriptionField.getText());
-//			asp.getAppointment().setLocation(locationField.getPromptText());
-//			asp.getAppointment().setStartTime(
-//					LocalTime.parse(startTimeField.getText()));
-//			asp.getAppointment().setEndTime(
-//					LocalTime.parse(endTimeField.getText()));
-//			asp.getAppointment().setInvited(invited);
-//			asp.getAppointment().setMembers(new ArrayList<String>());
-//			asp.getAppointment().setAdmins(new ArrayList<String>());
-//			asp.getAppointment().setColor(colorPicker.getValue().toString().substring(2, 8).toUpperCase());
-//			asp.update();
-//
-//			addAppointmentToCalendar(descriptionField.getText(),
-//					locationField.getPromptText(), asp.getDate(),
-//					LocalTime.parse(startTimeField.getText()),
-//					LocalTime.parse(endTimeField.getText()), invited,
-//					new ArrayList<String>(), new ArrayList<String>(),
-//					colorPicker.getValue().toString().substring(2, 8).toUpperCase(), group, 0, 1);
-//
-//			popupStage.close();
-//		}
-
 	}
 
 	private void addAppointmentToCalendar(String description, String location,
@@ -154,9 +130,10 @@ public class AppointmentPopupController {
 			System.out.println("Appointment id: " + db.getLastAppointmentID());
 			System.out.println("Appointment members: " + members);
 			db.addAppointmentMembers(Integer.parseInt(db.getLastAppointmentID()), members);
-			
+			//db.addAlarm(appointment.getDate().toString() + " " + appointment.getStartTime().toString() + ":00", "App", members, appointment.getAppointmentID());
 
 	}
+	
 
 	private String isValidInput() {
 		String errorText = "";

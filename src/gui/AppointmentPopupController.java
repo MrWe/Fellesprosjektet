@@ -90,39 +90,40 @@ public class AppointmentPopupController {
 				invited.add(clo.getName());
 			}
 		}
-		if (!editingExisting) {
+//		if (!editingExisting) {
 			System.out.println(csp.getDate());
 			LocalDate date = LocalDate.parse(csp.getDate());
-
+			System.out.println("invited: " + invited);
+			
 			addAppointmentToCalendar(descriptionField.getText(),
 					locationField.getPromptText(), date,
 					LocalTime.parse(startTimeField.getText()),
 					LocalTime.parse(endTimeField.getText()), invited,
-					new ArrayList<String>(), new ArrayList<String>(),
+					invited, new ArrayList<String>(),
 					colorPicker.getValue().toString().substring(2, 8).toUpperCase(), group, 1, 0);
 			popupStage.close();
-		} else {
-			asp.getAppointment().setDescription(descriptionField.getText());
-			asp.getAppointment().setLocation(locationField.getPromptText());
-			asp.getAppointment().setStartTime(
-					LocalTime.parse(startTimeField.getText()));
-			asp.getAppointment().setEndTime(
-					LocalTime.parse(endTimeField.getText()));
-			asp.getAppointment().setInvited(invited);
-			asp.getAppointment().setMembers(new ArrayList<String>());
-			asp.getAppointment().setAdmins(new ArrayList<String>());
-			asp.getAppointment().setColor(colorPicker.getValue().toString().substring(2, 8).toUpperCase());
-			asp.update();
-
-			addAppointmentToCalendar(descriptionField.getText(),
-					locationField.getPromptText(), asp.getDate(),
-					LocalTime.parse(startTimeField.getText()),
-					LocalTime.parse(endTimeField.getText()), invited,
-					new ArrayList<String>(), new ArrayList<String>(),
-					colorPicker.getValue().toString().substring(2, 8).toUpperCase(), group, 0, 1);
-
-			popupStage.close();
-		}
+//		} else {
+//			asp.getAppointment().setDescription(descriptionField.getText());
+//			asp.getAppointment().setLocation(locationField.getPromptText());
+//			asp.getAppointment().setStartTime(
+//					LocalTime.parse(startTimeField.getText()));
+//			asp.getAppointment().setEndTime(
+//					LocalTime.parse(endTimeField.getText()));
+//			asp.getAppointment().setInvited(invited);
+//			asp.getAppointment().setMembers(new ArrayList<String>());
+//			asp.getAppointment().setAdmins(new ArrayList<String>());
+//			asp.getAppointment().setColor(colorPicker.getValue().toString().substring(2, 8).toUpperCase());
+//			asp.update();
+//
+//			addAppointmentToCalendar(descriptionField.getText(),
+//					locationField.getPromptText(), asp.getDate(),
+//					LocalTime.parse(startTimeField.getText()),
+//					LocalTime.parse(endTimeField.getText()), invited,
+//					new ArrayList<String>(), new ArrayList<String>(),
+//					colorPicker.getValue().toString().substring(2, 8).toUpperCase(), group, 0, 1);
+//
+//			popupStage.close();
+//		}
 
 	}
 
@@ -132,15 +133,15 @@ public class AppointmentPopupController {
 			ArrayList<String> admins, String color, Group owner,
 			int addToDatabase, int changeAppointment) throws SQLException {
 
-		Appointment appointment = new Appointment(description, location, date,
+			Appointment appointment = new Appointment(description, location, date,
 				startTime, endTime, invited, members, admins, color, owner);
 		
 
-		// Used when a new appointment is created
-		if (addToDatabase == 1) {
+			System.out.println("happens");
 			csp.addAppointment(appointment);
 			group.addAppointment(appointment);
 			System.out.println("groupName " + group.getName());
+			
 			db.addAppointment(username, appointment.getDescription(),
 					appointment.getDate().toString() + " "
 							+ appointment.getStartTime().toString() + ":00",
@@ -148,31 +149,13 @@ public class AppointmentPopupController {
 							+ appointment.getEndTime().toString() + ":00",
 					null, null, 1, group.getName(), color);
 			appointment.setAppointmentID(db.getLastAppointmentID());
-			//TODO delete test arraylist, replace with members
-			ArrayList<String> test = new ArrayList<String>();
-			test.add("Erik");
-			test.add("Kristoffer Lervik");
+
 			
-			System.out.println(appointment.getDate().toString() + " " + appointment.getStartTime().toString() + ":00");
-			db.addAlarm(appointment.getDate().toString() + " " + appointment.getStartTime().toString() + ":00", "App", test, appointment.getAppointmentID()); 
-			// har lagd ny appointment
-			// Used when editingExisting is true
-		} else if (changeAppointment == 1) {
-			String appointmentId = asp.getAppointment().getAppointmentID();
-			System.out.println(appointment);
-			db.updateAppointment(appointmentId, appointment.getDescription(),
-					appointment.getDate().toString() + " "
-							+ appointment.getStartTime().toString() + ":00",
-					appointment.getDate().toString() + " "
-							+ appointment.getEndTime().toString() + ":00",
-					null, null, 1, group.getName());
-			// har oppdatert appointment
-			// Used when appointments are retrieved from db
-		}
-		// else {
-		// csp.addAppointment(appointment);
-		// group.addAppointment(appointment);
-		// }
+			System.out.println("Appointment id: " + db.getLastAppointmentID());
+			System.out.println("Appointment members: " + members);
+			db.addAppointmentMembers(Integer.parseInt(db.getLastAppointmentID()), members);
+			
+
 	}
 
 	private String isValidInput() {
@@ -219,7 +202,7 @@ public class AppointmentPopupController {
 	private void handleCancel() {
 		popupStage.close();
 	}
-	
+
 	@FXML
 	public void handleFindRoom() throws SQLException {
 		if (validTime()) {

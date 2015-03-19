@@ -122,11 +122,11 @@
 						<Insets />
 					</VBox.margin>
 				</Label>
-            <ListView fx:id="invitableMembers" prefHeight="250.0" prefWidth="240.0">
+            <VBox fx:id="invitableMembers" prefHeight="250.0" prefWidth="240.0">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
-            </ListView>
+            </VBox>
 			</children>
 		</VBox>
 		<HBox alignment="CENTER" layoutX="-13.0" layoutY="334.0" prefWidth="919.0" AnchorPane.bottomAnchor="60.0">

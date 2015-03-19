@@ -17,50 +17,50 @@ public class DBConnection {
 	}
 
 	/**
-	 * Returns a ResultSet with username and password for the username specified.
+	 * Returns a ResultSet with username and password for the username
+	 * specified.
 	 * 
-	 * @param username username of the user
+	 * @param username
+	 *            username of the user
 	 * @return a ResultSet with username and password for the username specified
 	 */
 	public ResultSet getLoginInfo(String username) {
 		String q = "SELECT username, pswd, fullName FROM USER WHERE username = '"
-				+ username
-				+ "';";
+				+ username + "';";
 		return db.queryDB(q);
 	}
 
 	public void setEmail(String username, String email) {
-		String q = "UPDATE USER SET email = '"
-				+ email
-				+ "' WHERE username = '"
-				+ username
-				+ "';";
+		String q = "UPDATE USER SET email = '" + email + "' WHERE username = '"
+				+ username + "';";
 		db.updateDB(q);
 	}
 
 	public void setPassword(String username, String password) {
-		String q = "UPDATE USER SET pswd = '"
-				+ password
-				+ "' WHERE username = '"
-				+ username
-				+ "';";
+		String q = "UPDATE USER SET pswd = '" + password
+				+ "' WHERE username = '" + username + "';";
 		db.updateDB(q);
 	}
 
 	/**
-	 * Inserts a new user into the database, 
-	 * then adds the user to the root group, 
-	 * then adds a private group for the user, 
-	 * then adds the user to the private calendar.
+	 * Inserts a new user into the database, then adds the user to the root
+	 * group, then adds a private group for the user, then adds the user to the
+	 * private calendar.
 	 * 
-	 * @param username username of the user
-	 * @param pswd password of the user
-	 * @param fullName full Name of the user
-	 * @param birthday birthday of the user
-	 * @param email email of the user
+	 * @param username
+	 *            username of the user
+	 * @param pswd
+	 *            password of the user
+	 * @param fullName
+	 *            full Name of the user
+	 * @param birthday
+	 *            birthday of the user
+	 * @param email
+	 *            email of the user
 	 * @throws SQLException
 	 */
-	public void registerUser(String username, String pswd, String fullName, String birthday, String email) throws SQLException {
+	public void registerUser(String username, String pswd, String fullName,
+			String birthday, String email) throws SQLException {
 		// inserts a user into the database
 		String q = "INSERT INTO USER(username, pswd, fullName, birthday, email) VALUES ('"
 				+ username
@@ -70,20 +70,13 @@ public class DBConnection {
 				+ fullName
 				+ "','"
 				+ birthday
-				+ "','"
-				+ email
-				+ "');";
+				+ "','" + email + "');";
 		db.updateDB(q);
 
 		// adds the user t workbeo the root group
 		int userID = getUserID(username);
 		q = "INSERT INTO USER_has_USERGROUP(groupAdmin, USER_userID, USERGROUP_usergroupID) VALUES ('"
-				+ 0
-				+ "','"
-				+ userID
-				+ "','"
-				+ 0
-				+ "');";
+				+ 0 + "','" + userID + "','" + 0 + "');";
 		db.updateDB(q);
 
 		// inserts a new private group for the user
@@ -94,32 +87,25 @@ public class DBConnection {
 				+ "','"
 				+ "FFFFFF"
 				+ "','"
-				+ 0
-				+ "');";
+				+ 0 + "');";
 		db.updateDB(q);
 
 		// adds the user to the group
 		int groupID = getGroupID(username + "Private");
 		q = "INSERT INTO USER_has_USERGROUP(groupAdmin, USER_userID, USERGROUP_usergroupID) VALUES ('"
-				+ 1
-				+ "','"
-				+ userID
-				+ "','"
-				+ groupID
-				+ "');";
+				+ 1 + "','" + userID + "','" + groupID + "');";
 		db.updateDB(q);
 	}
 
 	/**
 	 * Returns a ResultSet with all the info on a user
 	 * 
-	 * @param username username of the user
+	 * @param username
+	 *            username of the user
 	 * @return a ResultSet with all the info on a user
 	 */
 	public ResultSet getUser(String username) {
-		String q = "SELECT * FROM USER WHERE username = '"
-				+ username
-				+"';";
+		String q = "SELECT * FROM USER WHERE username = '" + username + "';";
 		return db.queryDB(q);
 	}
 
@@ -133,13 +119,21 @@ public class DBConnection {
 	/**
 	 * Returns the userID of the specified username as an int
 	 * 
-	 * @param username username of the user
+	 * @param username
+	 *            username of the user
 	 * @return the userID of the specified username as an int
 	 * @throws SQLException
 	 */
 	public int getUserID(String username) throws SQLException {
-		String q = "SELECT userID from USER WHERE username = '"
-				+ username
+		String q = "SELECT userID from USER WHERE username = '" + username
+				+ "';";
+		ResultSet rs = db.queryDB(q);
+		rs.next();
+		return Integer.parseInt(rs.getString("userID"));
+	}
+	
+	public int getUserIDFromFullName(String fullname) throws SQLException{
+		String q = "SELECT userID from USER WHERE fullname = '" + fullname
 				+ "';";
 		ResultSet rs = db.queryDB(q);
 		rs.next();
@@ -167,24 +161,29 @@ public class DBConnection {
 	}
 
 	/**
-	 * Returns a ResultSet with the id and name of the private group of the specified user
+	 * Returns a ResultSet with the id and name of the private group of the
+	 * specified user
 	 * 
-	 * @param username username of the user
-	 * @return a ResultSet with the id and name of the private group of the specified user
+	 * @param username
+	 *            username of the user
+	 * @return a ResultSet with the id and name of the private group of the
+	 *         specified user
 	 */
 	public ResultSet getPrivateGroup(String username) {
 		String q = "select usergroupID, groupName from Calendar.USER inner join Calendar.USER_has_USERGROUP inner join Calendar.USERGROUP "
 				+ "where userID = USER_userID and usergroupID = USER_has_USERGROUP.USERGROUP_usergroupID "
-				+ "and isPrivate = 1 "
-				+ "and username = '" + username + "';";
+				+ "and isPrivate = 1 " + "and username = '" + username + "';";
 		return db.queryDB(q);
 	}
 
 	/**
-	 * Returns a ResultSet with all the info of all the groups where the specified user is a member
+	 * Returns a ResultSet with all the info of all the groups where the
+	 * specified user is a member
 	 * 
-	 * @param username username of the specified user
-	 * @return a ResultSet with all the info of all the groups where the specified user is a member
+	 * @param username
+	 *            username of the specified user
+	 * @return a ResultSet with all the info of all the groups where the
+	 *         specified user is a member
 	 */
 	public ResultSet getAllGroupsOfUser(String username) {
 		String q = "SELECT usergroupID, isPrivate, groupName, Calendar.USERGROUP.USERGROUP_usergroupID "
@@ -195,8 +194,6 @@ public class DBConnection {
 		System.out.println(q);
 		return db.queryDB(q);
 	}
-	
-	
 
 	/**
 	 * Returns the id of the group with the highest id, as an int
@@ -211,11 +208,11 @@ public class DBConnection {
 		return Integer.parseInt(rs.getString("MAX(usergroupID)"));
 	}
 
-
 	/**
 	 * Returns the id of the group with the specified name as an int
 	 * 
-	 * @param groupName name of the group specified
+	 * @param groupName
+	 *            name of the group specified
 	 * @return the id of the group with the specified name as an int
 	 * @throws SQLException
 	 */
@@ -223,7 +220,7 @@ public class DBConnection {
 		String q = "SELECT usergroupID FROM USERGROUP WHERE groupName = '"
 				+ groupName
 				+ "';";
-		System.out.println("Group Name:" + groupName + "          Src: DBConnection");
+
 		ResultSet rs = db.queryDB(q);
 		rs.next();
 		return Integer.parseInt(rs.getString("usergroupID"));
@@ -236,10 +233,12 @@ public class DBConnection {
 		return rs.getString("MAX(usergroupID)");
 	}
 
-	public ResultSet getAppointmentMembers(String appointmentId) {
-		String q = "SELECT * FROM APPOINTMENTMEMBER WHERE APPOINTMENT_appointmentID = " + appointmentId;
+	public ResultSet getAppointmentMemberNames(int appointmentId) {
+		String q = "SELECT fullName FROM APPOINTMENTMEMBER JOIN USER WHERE USER_userID = userID AND APPOINTMENT_appointmentID = "
+				+ appointmentId;
 		return db.queryDB(q);
 	}
+
 	
 	public void deleteAppointmentMember(int userId, int appointmentId) throws SQLException{
 		String q = "DELETE FROM APPOINTMENTMEMBER WHERE USER_userID='" + userId + "' AND APPOINTMENT_appointmentID='" + appointmentId + "';";
@@ -247,18 +246,23 @@ public class DBConnection {
 	}
 	
 	public ResultSet getAppointmentMembers(int appointmentId) {
-		String q = "SELECT * FROM APPOINTMENTMEMBER WHERE APPOINTMENT_appointmentID = " + appointmentId;
+		String q = "SELECT * FROM APPOINTMENTMEMBER WHERE APPOINTMENT_appointmentID = "
+				+ appointmentId;
 		return db.queryDB(q);
 	}
 
 	/**
 	 * Inserts a new group into the database
 	 * 
-	 * @param groupName name of the group
-	 * @param isPrivate if the group is private
-	 * @param superGroupID the id of the supergroup, 0 is the id of the root
+	 * @param groupName
+	 *            name of the group
+	 * @param isPrivate
+	 *            if the group is private
+	 * @param superGroupID
+	 *            the id of the supergroup, 0 is the id of the root
 	 */
-	public void createGroup(String groupName, int isPrivate, int superGroupID, String username) throws SQLException {
+	public void createGroup(String groupName, int isPrivate, int superGroupID,
+			String username) throws SQLException {
 		String q = "INSERT INTO USERGROUP(isPrivate, groupName, color, USERGROUP_usergroupID) VALUES ('"
 				+ isPrivate
 				+ "','"
@@ -266,35 +270,38 @@ public class DBConnection {
 				+ "','"
 				+ "FFFFFF"
 				+ "','"
-				+ superGroupID
-				+ "');";
+				+ superGroupID + "');";
 		db.updateDB(q);
 
 		String groupID = getLastGroupID();
 		int userID = getUserID(username);
 		q = "INSERT INTO USER_has_USERGROUP(groupAdmin, USER_userID, USERGROUP_usergroupID) values ("
-				+ 1
-				+ ","
-				+ userID
-				+ ","
-				+ groupID
-				+ ");";
+				+ 1 + "," + userID + "," + groupID + ");";
 		db.updateDB(q);
 	}
 
 	/**
 	 * Inserts an appointment into the database
 	 * 
-	 * @param description description of the appointment
-	 * @param from start time of the appointment
-	 * @param to end time of the appointment
-	 * @param place room the appointment takes place
-	 * @param appointmentType type of appointment
-	 * @param roomID the database id of the room
-	 * @param usergroupID the database id of the group
-	 * @throws SQLException 
+	 * @param description
+	 *            description of the appointment
+	 * @param from
+	 *            start time of the appointment
+	 * @param to
+	 *            end time of the appointment
+	 * @param place
+	 *            room the appointment takes place
+	 * @param appointmentType
+	 *            type of appointment
+	 * @param roomID
+	 *            the database id of the room
+	 * @param usergroupID
+	 *            the database id of the group
+	 * @throws SQLException
 	 */
-	public void addAppointment(String username, String description, String from, String to, String place, String appointmentType, int roomID, String groupName, String color) throws SQLException {
+	public void addAppointment(String username, String description,
+			String from, String to, String place, String appointmentType,
+			int roomID, String groupName, String color) throws SQLException {
 		int groupID = getGroupID(groupName);
 		String q = "INSERT INTO APPOINTMENT(description, timeFrom, timeTo, place, appointmentType, ROOM_roomID, USERGROUP_usergroupID, appColor) VALUES ('"
 				+ description
@@ -310,22 +317,13 @@ public class DBConnection {
 				+ roomID
 				+ "','"
 				+ groupID
-				+ "','"
-				+ color
-				+ "');";
+				+ "','" + color + "');";
 		db.updateDB(q);
 
-		String lastId = getLastAppointmentID(); 
+		String lastId = getLastAppointmentID();
 		int userId = getUserID(username);
 		String qu = "INSERT INTO APPOINTMENTMEMBER(status, isAdmin, USER_userID, APPOINTMENT_appointmentID) Values ('"
-				+ "i"
-				+ "',"
-				+ 1
-				+ ","
-				+ userId
-				+ ","
-				+ lastId
-				+ ");";
+				+ "i" + "'," + 1 + "," + userId + "," + lastId + ");";
 		System.out.println(qu);
 		
 		db.updateDB(qu);
@@ -339,11 +337,12 @@ public class DBConnection {
 	}
 
 	public ResultSet getAppointmentsWithGroup(int group) {
-		String q = "SELECT * FROM APPOINTMENT AS A JOIN USERGROUP AS U ON(A.USERGROUP_usergroupID = U.usergroupID) WHERE A.USERGROUP_usergroupID = " + group;
+		String q = "SELECT * FROM APPOINTMENT AS A JOIN USERGROUP AS U ON(A.USERGROUP_usergroupID = U.usergroupID) WHERE A.USERGROUP_usergroupID = "
+				+ group;
 		System.out.println(q);
 		return db.queryDB(q);
 	}
-	
+
 	public static void main(String[] args) {
 		DBConnection db = new DBConnection();
 		db.getAppointmentsWithGroup(1);
@@ -351,17 +350,12 @@ public class DBConnection {
 
 
 	// Doesnt retrieve userID from calendar. Needs fix.
-	public void addAppointmentMembers(int appointmentID, ArrayList<String> members) throws SQLException {
+	public void addAppointmentMembers(int appointmentID,
+			ArrayList<String> members) throws SQLException {
 		for (String member : members) {
-			int userID = getUserID(member);
+			int userID = getUserIDFromFullName(member);
 			String q = "INSERT INTO APPOINTMENTMEMBER(status, isAdmin, USER_userID, APPOINTMENT_appointmentID) VALUES ('"
-					+ "i',"
-					+ 0
-					+ ","
-					+ userID
-					+ ","
-					+ appointmentID
-					+ ");";
+					+ "i'," + 0 + "," + userID + "," + appointmentID + ");";
 			db.updateDB(q);
 					
 		}
@@ -377,17 +371,24 @@ public class DBConnection {
 		db.updateDB(q);
 	}
 
-	//Returns ArrayList with all available rooms at the given time and date
-	public ArrayList<String> getAvailableRooms(String date, LocalTime from, LocalTime to) throws SQLException {
+	// Returns ArrayList with all available rooms at the given time and date
+	public ArrayList<String> getAvailableRooms(String date, LocalTime from,
+			LocalTime to) throws SQLException {
 		String q = "SELECT R.roomName, A.timeFrom, A.timeTo "
 				+ "FROM ROOM as R JOIN APPOINTMENT AS A ON(R.roomID = A.ROOM_roomID)"
 				+ "WHERE DATE_FORMAT(A.timeFrom, '%Y-%m-%d') = '" + date + "';";
 		ResultSet rs = db.queryDB(q);
 		ArrayList<String> al = new ArrayList<String>();
-		while(rs.next()) {
-			if (ChronoUnit.MINUTES.between(to, LocalTime.parse(rs.getString("timeFrom").substring(11, 16))) >=
-					0 
-					|| ChronoUnit.MINUTES.between(from, LocalTime.parse(rs.getString("timeTo").substring(11, 16))) <= 0) {
+		while (rs.next()) {
+			if (ChronoUnit.MINUTES
+					.between(
+							to,
+							LocalTime.parse(rs.getString("timeFrom").substring(
+									11, 16))) >= 0
+					|| ChronoUnit.MINUTES.between(
+							from,
+							LocalTime.parse(rs.getString("timeTo").substring(
+									11, 16))) <= 0) {
 				String name = rs.getString("roomName");
 				if (!al.contains(name)) {
 					al.add(name);
@@ -398,13 +399,17 @@ public class DBConnection {
 	}
 
 	/**
-	 * For each member in the ArrayList, insert the user into the group specified with groupName
+	 * For each member in the ArrayList, insert the user into the group
+	 * specified with groupName
 	 * 
-	 * @param groupName the name of the group
-	 * @param members list of the members to be added
+	 * @param groupName
+	 *            the name of the group
+	 * @param members
+	 *            list of the members to be added
 	 * @throws SQLException
 	 */
-	public void addGroupMembers(String groupName, ArrayList<String> members) throws SQLException {
+	public void addGroupMembers(String groupName, ArrayList<String> members)
+			throws SQLException {
 		int groupID = getGroupID(groupName);
 		ResultSet rs = getAllUsers();
 		Map<String, String> memberIDs = new HashMap<String, String>();
@@ -413,37 +418,38 @@ public class DBConnection {
 		}
 		for (String member : members) {
 			String q = "INSERT INTO USER_has_USERGROUP(groupAdmin, USER_userID, USERGROUP_usergroupID) VALUES ('"
-					+ 0
-					+ "',"
-					+ memberIDs.get(member)
-					+ ",'"
-					+ groupID
-					+ "');";
+					+ 0 + "'," + memberIDs.get(member) + ",'" + groupID + "');";
 			db.updateDB(q);
 		}
 	}
 
 	/**
-	 * Deletes all current memberships of a group, then inserts every person in the list into the group
+	 * Deletes all current memberships of a group, then inserts every person in
+	 * the list into the group
 	 * 
-	 * @param groupName the name of the group
-	 * @param members list of the members to be added
+	 * @param groupName
+	 *            the name of the group
+	 * @param members
+	 *            list of the members to be added
 	 * @throws SQLException
 	 */
-	public void setGroupMembers(String groupName, ArrayList<String> members) throws SQLException {
+	public void setGroupMembers(String groupName, ArrayList<String> members)
+			throws SQLException {
 		int groupID = getGroupID(groupName);
 		String q = "DELETE FROM USER_has_USERGROUP WHERE USERGROUP_usergroupID='"
-				+ groupID
-				+"';";
+				+ groupID + "';";
 		db.updateDB(q);
 		addGroupMembers(groupName, members);
 	}
 
 	/**
-	 * Returns a ResultSet with the full name of every member of the group specified
+	 * Returns a ResultSet with the full name of every member of the group
+	 * specified
 	 * 
-	 * @param groupID the id of the group specified
-	 * @return a ResultSet with the full name of every member of the group specified
+	 * @param groupID
+	 *            the id of the group specified
+	 * @return a ResultSet with the full name of every member of the group
+	 *         specified
 	 */
 	public ResultSet getGroupMembers(String groupID) {
 		String q = "select fullName, groupAdmin from Calendar.USER_has_USERGROUP join Calendar.USERGROUP join Calendar.USER "
@@ -456,27 +462,33 @@ public class DBConnection {
 	/**
 	 * Updates the name of the group specified
 	 * 
-	 * @param oldName the old name of the group
-	 * @param newName the new name of the group
+	 * @param oldName
+	 *            the old name of the group
+	 * @param newName
+	 *            the new name of the group
 	 */
 	public void editGroupName(String oldName, String newName) {
-		String q = "UPDATE USERGROUP SET groupName = '" + newName + "' WHERE groupName = '" + oldName + "';";
+		String q = "UPDATE USERGROUP SET groupName = '" + newName
+				+ "' WHERE groupName = '" + oldName + "';";
 		db.updateDB(q);
 	}
 
-	public boolean isAdmin(String username, String groupName) throws SQLException {
+	public boolean isAdmin(String username, String groupName)
+			throws SQLException {
 		int userID = getUserID(username);
 		int groupID = getGroupID(groupName);
-		String q = "SELECT groupAdmin from USER_has_USERGROUP where USER_userID = " + userID + " and USERGROUP_usergroupID = " + groupID + ";";
+		String q = "SELECT groupAdmin from USER_has_USERGROUP where USER_userID = "
+				+ userID + " and USERGROUP_usergroupID = " + groupID + ";";
 		ResultSet rs = db.queryDB(q);
 		if (rs.next() && rs.getString("groupAdmin").equals("1")) {
 			return true;
 		}
 		return false;
 	}
-	
-	public boolean isPrivateGroup(String groupName) throws SQLException	{
-		String q = "SELECT isPrivate FROM USERGROUP WHERE groupName = '" + groupName + "';";
+
+	public boolean isPrivateGroup(String groupName) throws SQLException {
+		String q = "SELECT isPrivate FROM USERGROUP WHERE groupName = '"
+				+ groupName + "';";
 		ResultSet rs = db.queryDB(q);
 		if (rs.next() && rs.getString("isPrivate").equals("1")) {
 			return true;
@@ -484,28 +496,24 @@ public class DBConnection {
 		return false;
 	}
 
-	public void editGroupAdminRights(String groupName, String username, int adminStatus) throws SQLException {
+	public void editGroupAdminRights(String groupName, String username,
+			int adminStatus) throws SQLException {
 		int groupID = getGroupID(groupName);
 		int userID = getFullNameUserID(username);
-		String q = "UPDATE USER_has_USERGROUP SET groupAdmin = '"
-				+ adminStatus
-				+ "' WHERE USERGROUP_usergroupID = "
-				+ groupID
-				+ " AND USER_userID = "
-				+ userID
-				+ ";";
+		String q = "UPDATE USER_has_USERGROUP SET groupAdmin = '" + adminStatus
+				+ "' WHERE USERGROUP_usergroupID = " + groupID
+				+ " AND USER_userID = " + userID + ";";
 		db.updateDB(q);
 	}
-	
+
 
 	public int getFullNameUserID(String name) throws SQLException {
-		String q = "SELECT userID from USER WHERE fullName = '"
-				+ name
-				+ "';";
+		String q = "SELECT userID from USER WHERE fullName = '" + name + "';";
 		ResultSet rs = db.queryDB(q);
 		rs.next();
 		return Integer.parseInt(rs.getString("userID"));
 	}
+
 
 
 	/*
@@ -556,12 +564,15 @@ public class DBConnection {
 
 	
 	/**
-	 * Deletes the specified group from the database. Because of the ON DELETE CASCADE property, all subgroups will also be deleted
+	 * Deletes the specified group from the database. Because of the ON DELETE
+	 * CASCADE property, all subgroups will also be deleted
 	 * 
-	 * @param groupID group name of the group to be deleted
+	 * @param groupID
+	 *            group name of the group to be deleted
 	 */
 	public void deleteGroup(String groupID) {
-		String q = "DELETE FROM USERGROUP WHERE usergroupID = '" + groupID + "';";
+		String q = "DELETE FROM USERGROUP WHERE usergroupID = '" + groupID
+				+ "';";
 		db.updateDB(q);
 	}
 	
@@ -571,20 +582,18 @@ public class DBConnection {
 			String from, String to, String place, String appointmentType,
 			int roomID, String groupName) throws SQLException {
 		int groupID = getGroupID(groupName);
-		String q = "UPDATE APPOINTMENT SET description='"+description
-				+"',timeFrom='"+from
-				+"',timeTo='"+to
-				+"',place="+place
-				+",appointmentType="+appointmentType
-				+",ROOM_roomID="+roomID
-				+",USERGROUP_usergroupID="+groupID
-				+" WHERE appointmentID = "+appointmentId+";";
+		String q = "UPDATE APPOINTMENT SET description='" + description
+				+ "',timeFrom='" + from + "',timeTo='" + to + "',place="
+				+ place + ",appointmentType=" + appointmentType
+				+ ",ROOM_roomID=" + roomID + ",USERGROUP_usergroupID="
+				+ groupID + " WHERE appointmentID = " + appointmentId + ";";
 		System.out.println(q);
 		db.updateDB(q);
 	}
 
 	public void deleteAppointment(String appointmentId) {
-		String q = "DELETE FROM APPOINTMENT WHERE appointmentID ='"+appointmentId+"';";
+		String q = "DELETE FROM APPOINTMENT WHERE appointmentID ='"
+				+ appointmentId + "';";
 		db.updateDB(q);
 	}
 

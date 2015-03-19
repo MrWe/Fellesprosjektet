@@ -19,6 +19,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxListCell;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -49,7 +50,9 @@ public class EditAppointmentPopupController {
 	private CalendarSquarePane csp;
 	private AppointmentSquarePane asp;
 	@FXML
-	private ListView<String> members, invitableMembers;
+	private ListView<String> members;
+	@FXML
+	private VBox invitableMembers;
 	private boolean editingExisting;
 	private Group group;
 	private DBConnection db;
@@ -67,11 +70,11 @@ public class EditAppointmentPopupController {
 
 	@FXML
 	private void handleOk() throws SQLException { // when OK is clicked, create
-													// a new appointment with
-													// the info given and give
-													// it to the
-													// CalendarSquarePane that
-													// opened the popup
+		// a new appointment with
+		// the info given and give
+		// it to the
+		// CalendarSquarePane that
+		// opened the popup
 		String validInput = isValidInput();
 		if (validInput.length() != 0) {
 			errorText.setVisible(true);
@@ -137,9 +140,9 @@ public class EditAppointmentPopupController {
 			db.addAppointment(username, appointment.getDescription(),
 					appointment.getDate().toString() + " "
 							+ appointment.getStartTime().toString() + ":00",
-					appointment.getDate().toString() + " "
-							+ appointment.getEndTime().toString() + ":00",
-					null, null, 1, group.getName(), color);
+							appointment.getDate().toString() + " "
+									+ appointment.getEndTime().toString() + ":00",
+									null, null, 1, group.getName(), color);
 			appointment.setAppointmentID(db.getLastAppointmentID());
 			// Used when editingExisting is true
 		} else if (changeAppointment == 1) {
@@ -148,9 +151,9 @@ public class EditAppointmentPopupController {
 			db.updateAppointment(appointmentId, appointment.getDescription(),
 					appointment.getDate().toString() + " "
 							+ appointment.getStartTime().toString() + ":00",
-					appointment.getDate().toString() + " "
-							+ appointment.getEndTime().toString() + ":00",
-					null, null, 1, group.getName());
+							appointment.getDate().toString() + " "
+									+ appointment.getEndTime().toString() + ":00",
+									null, null, 1, group.getName());
 			// Used when appointments are retrieved from db
 		}
 		// else {
@@ -184,8 +187,8 @@ public class EditAppointmentPopupController {
 	private void handleCancel() {
 		popupStage.close();
 	}
-	
-	
+
+
 	@FXML
 	public void handleFindRoom() throws SQLException {
 		if (validTime()) {
@@ -196,7 +199,7 @@ public class EditAppointmentPopupController {
 			locationField.setItems(null);
 		}
 	}
-	
+
 	private boolean validTime() {
 		String start = startTimeField.getText();
 		String end = endTimeField.getText();
@@ -204,18 +207,18 @@ public class EditAppointmentPopupController {
 				(
 						Integer.parseInt(end.substring(0, 2)) > Integer.parseInt(start.substring(0, 2))
 						|| 
-								((Integer.parseInt(end.substring(0, 2)) == Integer.parseInt(start.substring(0, 2)))
+						((Integer.parseInt(end.substring(0, 2)) == Integer.parseInt(start.substring(0, 2)))
 								&& (Integer.parseInt(end.substring(3, 5)) > Integer.parseInt(start.substring(3, 5))))
-				)
+						)
 				) {
 			return true;
 		}
 		else {
 			System.out.println("Wrong input");
 			return false;
-			}
+		}
 	}
-	
+
 	@FXML
 	private void handleDelete() {
 		((VBox) asp.getParent()).getChildren().remove(asp);
@@ -228,90 +231,79 @@ public class EditAppointmentPopupController {
 		members.setEditable(true);
 		members.setItems(memberList);
 		memberList.clear();
-		
-		ResultSet rs = db.getAppointmentMembers(asp.getAppointment().getAppointmentID());
-		try {
-			while (rs.next()) {
-				memberList.add(rs.getString(1));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-//		//System.out.println("Group members:" + group.getValue().getMembers());
-//		for (String member : asp.getValue().getMembers()) {
-//			memberList.add(member);
-//		}
-//
-//		//skjuler admins i memberList
-//		for(String admin: group.getValue().getAdmins()){
-//			//for(String member: memberList){
-//			for (String member : group.getValue().getMembers()) {
-//				if(member.equals(admin)){
-//					memberList.remove(member);
-//				}
-//			}
-//		}
 
-	}
-	
-	public void fillPopup(CalendarSquarePane csp, AppointmentSquarePane asp,
-			Group group, String username) { // called whenever the popup is
-											// opened
-		this.username = username;
-		this.group = group;
+		members.setEditable(true);
+		members.setItems(memberList);
+		memberList.clear();
 
-//		ResultSet rs = db.getGroupMembers(group.getGroupID());
+		System.out.println("groupID" +  Integer.parseInt(asp
+				.getAppointment().getAppointmentID()));
+		
+//		ResultSet rs = db.getAppointmentMemberNames(Integer.parseInt(asp
+//				.getAppointment().getAppointmentID()));
+//		
 //		try {
 //			while (rs.next()) {
-//				allMembers.add(rs.getString(1));
+//				memberList.add(rs.getString("fullName"));
 //			}
 //		} catch (SQLException e) {
 //			e.printStackTrace();
 //		}
-//
-//		memberList.clear();
-//
-//		ListView<CheckListObject> members = new ListView<CheckListObject>();
-//		members.setPrefSize(200, 250);
-//		members.setEditable(true);
-//		members.setItems(memberList);
-//		Callback<CheckListObject, ObservableValue<Boolean>> getProperty = new Callback<CheckListObject, ObservableValue<Boolean>>() {
-//			public BooleanProperty call(CheckListObject object) {
-//				return object.selectedProperty();
-//			}
-//		};
-//		Callback<ListView<CheckListObject>, ListCell<CheckListObject>> forListView = CheckBoxListCell
-//				.forListView(getProperty);
-//		members.setCellFactory(forListView);
-//
-//		if (csp != null) {
-//			deleteBtn.setDisable(true);
-//			editingExisting = false;
-//			this.csp = csp;
-//			for (String member : allMembers) {
-//				memberList.add(new CheckListObject(member));
-//			}
-//			this.members.getChildren().add(members);
-//		} else {
-//			deleteBtn.setDisable(false);
-//			editingExisting = true;
-//			this.asp = asp;
-//			descriptionField.setText(asp.getAppointment().getDescription());
-//			locationField.setPromptText(asp.getAppointment().getLocation());
-//			startTimeField.setText(asp.getAppointment().getStartTime()
-//					.toString());
-//			endTimeField.setText(asp.getAppointment().getEndTime().toString());
-//			colorField.setText(asp.getAppointment().getColor());
-//			for (String member : allMembers) {
-//				CheckListObject clo = new CheckListObject(member);
-//				if (asp.getAppointment().getInvited().contains(member)) {
-//					clo.setSelectedProperty(true);
-//				}
-//				memberList.add(clo);
-//			}
-//			this.members.getChildren().add(members);
-//		}
+	}
+
+	public void fillPopup(CalendarSquarePane csp, AppointmentSquarePane asp,
+			Group group, String username) { // called whenever the popup is
+		// opened
+		//updateMemberList();
+
+		this.username = username;
+		this.group = group;
+
+		ResultSet rs = db.getGroupMembers(group.getGroupID());
+		try {
+			while (rs.next()) {
+				allMembers.add(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+
+
+		invitableMemberList.clear();
+		invitableMembers.getChildren().clear();
+
+		ListView<CheckListObject> invitableMembers = new ListView<CheckListObject>();
+		invitableMembers.setEditable(true);
+		invitableMembers.setItems(invitableMemberList);
+		Callback<CheckListObject, ObservableValue<Boolean>> getProperty = new Callback<CheckListObject, ObservableValue<Boolean>>() {
+			public BooleanProperty call(CheckListObject object) {
+				return object.selectedProperty();
+			}
+		};
+		Callback<ListView<CheckListObject>, ListCell<CheckListObject>> forListView = CheckBoxListCell
+				.forListView(getProperty);
+		invitableMembers.setCellFactory(forListView);
+
+		deleteBtn.setDisable(false);
+		editingExisting = true;
+		this.asp = asp;
+		System.out.println("appointmen: " + asp.getAppointment().getDescription());
+		descriptionField.setText(asp.getAppointment().getDescription());
+		locationField.setPromptText(asp.getAppointment().getLocation());
+		startTimeField.setText(asp.getAppointment().getStartTime()
+				.toString());
+		endTimeField.setText(asp.getAppointment().getEndTime().toString());
+		//colorField.setText(asp.getAppointment().getColor());
+		for (String member : allMembers) {
+			CheckListObject clo = new CheckListObject(member);
+			if (asp.getAppointment().getInvited().contains(member)) {
+				clo.setSelectedProperty(true);
+			}
+			invitableMemberList.add(clo);
+		}
+		this.invitableMembers.getChildren().add(invitableMembers);
+
 
 	}
 

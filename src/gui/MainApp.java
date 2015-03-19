@@ -4,12 +4,16 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import core.Group;
@@ -217,6 +221,18 @@ public class MainApp extends Application {
 		showLogin();
 	}
 
+	private void setEscapeKeyEventHandler(Stage stage) {
+		EventHandler<KeyEvent> keyHandler = new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent keyCode) {
+				if (keyCode.getCode() == KeyCode.ESCAPE) {
+					stage.close();
+				}
+			}
+		};
+		stage.getScene().setOnKeyPressed(keyHandler);
+	}
+
 	public void showAppointmentPopup(CalendarSquarePane csp, AppointmentSquarePane asp, Group group) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
@@ -236,6 +252,7 @@ public class MainApp extends Application {
 			popupStage.setResizable(false);
 			Scene scene = new Scene(page);
 			popupStage.setScene(scene);
+			setEscapeKeyEventHandler(popupStage);
 			AppointmentPopupController controller = loader.getController();
 			controller.setPopupStage(popupStage);
 			controller.fillPopup(csp, asp, group, getUser().getUsername());
@@ -246,7 +263,7 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void showEditAppointmentPopup(CalendarSquarePane csp, AppointmentSquarePane asp, Group group) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
@@ -266,6 +283,7 @@ public class MainApp extends Application {
 			popupStage.setResizable(false);
 			Scene scene = new Scene(page);
 			popupStage.setScene(scene);
+			setEscapeKeyEventHandler(popupStage);
 			EditAppointmentPopupController controller = loader.getController();
 			controller.setPopupStage(popupStage);
 			controller.fillPopup(csp, asp, group, getUser().getUsername());
@@ -296,6 +314,7 @@ public class MainApp extends Application {
 			popupStage.setResizable(false);
 			Scene scene = new Scene(page);
 			popupStage.setScene(scene);
+			setEscapeKeyEventHandler(popupStage);
 			GroupPopupController controller = loader.getController();
 			controller.setPopupStage(popupStage);
 			controller.setTreeView(treeView);
@@ -322,6 +341,7 @@ public class MainApp extends Application {
 			popupStage.setResizable(false);
 			Scene scene = new Scene(page);
 			popupStage.setScene(scene);
+			setEscapeKeyEventHandler(popupStage);
 			EditGroupPopupController controller = loader.getController();
 
 			controller.setPopupStage(popupStage);

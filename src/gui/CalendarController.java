@@ -40,7 +40,7 @@ public class CalendarController {
 			KeyCode.DOWN, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.LEFT,
 			KeyCode.RIGHT, KeyCode.B, KeyCode.A };
 	private int konamiCodeCounter;
-
+	private ArrayList<String> appointmentIDs;
 	private MainApp mainApp;
 	private DBConnection dbConnection = new DBConnection();
 
@@ -126,7 +126,7 @@ public class CalendarController {
 		if (!(group.getName().equals(""))) {
 			appointmentsRS = dbConnection.getAppointmentsWithGroup(Integer.parseInt(group
 					.getGroupID()));
-			ArrayList<String> appointmentIDs = new ArrayList<String>();
+			appointmentIDs = new ArrayList<String>();
 			while (appointmentsRS.next()) {
 				appointmentIDs.add(appointmentsRS.getString("appointmentID"));
 			}
@@ -161,6 +161,10 @@ public class CalendarController {
 						if (!date2.equals(appointmentsRS.getString("timeFrom").substring(0, 10))) {
 							continue;
 						}
+						if( allAppointmentMembers.next() && !(allAppointmentMembers.getString("status").equals("a") || allAppointmentMembers.getString("isAdmin").equals("1"))){
+							continue;
+						}
+						allAppointmentMembers.previous();
 						ArrayList<String> members = new ArrayList<String>();
 						ArrayList<String> admins = new ArrayList<String>();
 						ArrayList<String> invited = new ArrayList<String>();
@@ -181,8 +185,7 @@ public class CalendarController {
 										.getInt("USER_userID")));
 							}
 						}
-						
-						
+
 						Appointment appointment = new Appointment(
 								appointmentsRS.getString("description"), appointmentsRS.getString("place"),
 								LocalDate.parse(appointmentsRS.getString("timeFrom")
@@ -194,8 +197,8 @@ public class CalendarController {
 						appointment.setAppointmentID(appointmentsRS.getString("appointmentID"));
 						allAppointmentMembers.beforeFirst();
 						csp.addAppointment(appointment);
-
 					}
+
 				}
 				calendar.add(csp, j, i); // adds the calendar square to the
 				// calendar gridPane

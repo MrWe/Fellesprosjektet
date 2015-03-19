@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import core.User;
+
 public class DBConnection {
 
 	private DB db;
@@ -378,12 +380,8 @@ public class DBConnection {
 	}
 
 	public void updateAcceptedAppointmentMembers(int appointmentID, int userID) throws SQLException{
-		String q = "UPDATE APPOINTMENTMEMBER SET status='a' WHERE APPOINTMENT_appointmentID = "
-				+ appointmentID
-				+ " AND "
-				+ "USER_userID = "
-				+ userID
-				+ ";";
+		String q = "INSERT INTO APPOINTMENTMEMBER(status, isAdmin, USER_userID, APPOINTMENT_appointmentID) VALUES ('"
+				+ "a'," + 0 + "," + userID + "," + appointmentID + ");";
 		db.updateDB(q);
 	}
 
@@ -574,6 +572,23 @@ public class DBConnection {
 	public void deleteAlarm(int id){
 		String q = "DELETE FROM ALARM WHERE alarmID=" + id;
 		db.updateDB(q);
+	}
+	
+	public boolean hasAcceptedAppointment(String username, String appointmentID) throws SQLException{
+		int appointmentiD = Integer.parseInt(appointmentID);
+		int userID = getUserID(username);
+		String q = "SELECT status FROM APPOINTMENTMEMBER WHERE USER_userID='" + userID + "' AND APPOINTMENT_appointmentID='" + appointmentiD + "';";
+		
+		ResultSet rs = db.queryDB(q);
+		try{
+			if(rs.getString(1).toLowerCase().equals("a")){
+				return true;
+			}
+			return false;
+			}
+		catch (SQLException e){
+			return false;
+		}
 	}
 
 	/**

@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import core.Alert;
 import javafx.event.ActionEvent;
 import database.DBConnection;
 import javafx.collections.FXCollections;
@@ -81,6 +82,7 @@ public class NotificationController {
 		db.updateAcceptedAppointmentMembers(alert.getAppointmentId(), alert.getUserId());
 		
 		
+		//db.addAppointmentMembers(Integer.parseInt(db.getLastAppointmentID()), members);
 		
 		removeAlert(alert.getID(), index);
 	}
@@ -93,8 +95,7 @@ public class NotificationController {
 		}
 		Alert alert = alerts.get(index);
 		
-			db.deleteAppointmentMember(alert.getUserId(), alert.getAppointmentId());
-			removeAlert(alert.getID(), index);
+		removeAlert(alert.getID(), index);
 
 	}
 	

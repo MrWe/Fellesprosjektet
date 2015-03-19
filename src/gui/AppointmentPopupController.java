@@ -123,7 +123,6 @@ public class AppointmentPopupController {
 
 		db.addAppointmentMembers(Integer.parseInt(db.getLastAppointmentID()), members);
 		db.addAlarm(appointment.getDate().toString() + " " + appointment.getStartTime().toString() + ":00", "App", members, appointment.getAppointmentID());
-
 	}
 
 	private String isValidInput() {

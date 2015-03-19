@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import core.Alert;
 import javafx.event.ActionEvent;
 import database.DBConnection;
 import javafx.collections.FXCollections;

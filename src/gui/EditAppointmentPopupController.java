@@ -147,7 +147,9 @@ public class EditAppointmentPopupController {
 
 		ArrayList<String> members = new ArrayList<String>();
 		for (String member : memberList) {
-			members.add(member);
+			if(!admins.contains(member)){
+				members.add(member);
+			}
 		}
 
 		System.out.println("Ok Clicked");
@@ -165,13 +167,15 @@ public class EditAppointmentPopupController {
 		asp.getAppointment().setAdmins(new ArrayList<String>());
 		asp.getAppointment().setColor(colorPicker.getValue().toString().substring(2, 8).toUpperCase());
 		asp.update();
-
+		
 		System.out.println("admins to be added: " + admins);
+		asp.getAppointment().setAdmins(admins);
+		
 		addAppointmentToCalendar(descriptionField.getText(),
 				locationField.getPromptText(), asp.getDate(),
 				LocalTime.parse(startTimeField.getText()),
 				LocalTime.parse(endTimeField.getText()), members,
-				members, admins,
+				members, asp.getAppointment().getAdmins(),
 				colorPicker.getValue().toString().substring(2, 8).toUpperCase(), group, 0, 1);
 
 		popupStage.close();
@@ -198,6 +202,7 @@ public class EditAppointmentPopupController {
 		System.out.println("Appointment id: " + asp.getAppointment().getAppointmentID());
 		System.out.println("Appointment members: " + members);
 		db.setAppointmentMembers(Integer.parseInt(asp.getAppointment().getAppointmentID()), members);
+		db.addAppointmentAdmins(Integer.parseInt(asp.getAppointment().getAppointmentID()), admins);
 		// Used when appointments are retrieved from db
 
 

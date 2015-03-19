@@ -250,6 +250,19 @@ public class DBConnection {
 				+ appointmentId;
 		return db.queryDB(q);
 	}
+	
+	public ResultSet getAllAppointmentMembers(ArrayList<String> appointmentIDs) {
+		System.out.println("---");
+		System.out.println(appointmentIDs);
+		String idList = appointmentIDs.toString().substring(1, appointmentIDs.toString().length()-1);
+		System.out.println(idList);
+		String q = "SELECT * FROM APPOINTMENTMEMBER WHERE APPOINTMENT_appointmentID IN ("
+				+ idList
+				+ ");";
+		System.out.println(q);
+		System.out.println("+++");
+		return db.queryDB(q);
+	}
 
 	/**
 	 * Inserts a new group into the database
@@ -353,6 +366,17 @@ public class DBConnection {
 			int userID = getUserIDFromFullName(member);
 			String q = "INSERT INTO APPOINTMENTMEMBER(status, isAdmin, USER_userID, APPOINTMENT_appointmentID) VALUES ('"
 					+ "i'," + 0 + "," + userID + "," + appointmentID + ");";
+			db.updateDB(q);
+					
+		}
+	}
+	
+	public void addAppointmentAdmins(int appointmentID,
+			ArrayList<String> members) throws SQLException {
+		for (String member : members) {
+			int userID = getUserIDFromFullName(member);
+			String q = "INSERT INTO APPOINTMENTMEMBER(status, isAdmin, USER_userID, APPOINTMENT_appointmentID) VALUES ('"
+					+ "i'," + 1 + "," + userID + "," + appointmentID + ");";
 			db.updateDB(q);
 					
 		}

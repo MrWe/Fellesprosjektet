@@ -210,12 +210,7 @@ public class DBConnection {
 		rs.next();
 		return Integer.parseInt(rs.getString("MAX(usergroupID)"));
 	}
-	
-	public static void main(String[] args) {
-		DBConnection db = new DBConnection();
-			System.out.println(db.getAllGroupsOfUser("krislerv"));
 
-	}
 
 	/**
 	 * Returns the id of the group with the specified name as an int
@@ -299,9 +294,9 @@ public class DBConnection {
 	 * @param usergroupID the database id of the group
 	 * @throws SQLException 
 	 */
-	public void addAppointment(String username, String description, String from, String to, String place, String appointmentType, int roomID, String groupName) throws SQLException {
+	public void addAppointment(String username, String description, String from, String to, String place, String appointmentType, int roomID, String groupName, String color) throws SQLException {
 		int groupID = getGroupID(groupName);
-		String q = "INSERT INTO APPOINTMENT(description, timeFrom, timeTo, place, appointmentType, ROOM_roomID, USERGROUP_usergroupID) VALUES ('"
+		String q = "INSERT INTO APPOINTMENT(description, timeFrom, timeTo, place, appointmentType, ROOM_roomID, USERGROUP_usergroupID, appColor) VALUES ('"
 				+ description
 				+ "','"
 				+ from
@@ -315,6 +310,8 @@ public class DBConnection {
 				+ roomID
 				+ "','"
 				+ groupID
+				+ "','"
+				+ color
 				+ "');";
 		db.updateDB(q);
 
@@ -343,7 +340,13 @@ public class DBConnection {
 
 	public ResultSet getAppointmentsWithGroup(int group) {
 		String q = "SELECT * FROM APPOINTMENT AS A JOIN USERGROUP AS U ON(A.USERGROUP_usergroupID = U.usergroupID) WHERE A.USERGROUP_usergroupID = " + group;
+		System.out.println(q);
 		return db.queryDB(q);
+	}
+	
+	public static void main(String[] args) {
+		DBConnection db = new DBConnection();
+		db.getAppointmentsWithGroup(1);
 	}
 
 

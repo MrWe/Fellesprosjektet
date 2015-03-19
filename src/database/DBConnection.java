@@ -359,6 +359,15 @@ public class DBConnection {
 		}
 	}
 	
+	public void setAppointmentMembers(int appointmentID,
+			ArrayList<String> members) throws SQLException {
+		for (String member : members) {
+			String q = "DELETE FROM APPOINTMENTMEMBER WHERE APPOINTMENT_appointmentID =" + appointmentID + ";";
+			db.updateDB(q);
+			addAppointmentMembers(appointmentID, members);
+		}
+	}
+	
 	public void updateAcceptedAppointmentMembers(int appointmentID, int userID) throws SQLException{
 		String q = "UPDATE APPOINTMENTMEMBER SET status='a' WHERE APPOINTMENT_appointmentID = "
 				+ appointmentID

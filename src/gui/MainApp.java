@@ -255,6 +255,7 @@ public class MainApp extends Application {
 			setEscapeKeyEventHandler(popupStage);
 			AppointmentPopupController controller = loader.getController();
 			controller.setPopupStage(popupStage);
+			controller.setMainApp(this);
 			controller.fillPopup(csp, asp, group, getUser().getUsername());
 
 			// Show the dialog and wait until the user closes it

@@ -133,21 +133,13 @@ public class CalendarController {
 			appointmentsRS.beforeFirst();
 			allAppointmentMembers = dbConnection.getAllAppointmentMembers(appointmentIDs);
 		}
-		for (int i = 0; i < 6; i++) { // for each date: create string on the
-			// format dd/mm/yyyy and yyyy-mm-dd
-			for (int j = 0; j < 7; j++) { // and create a new CalendarSquarePane
-				// object for each of them
-				String date = String.format("%02d", c1.getTime().getDate())
-						+ "/"
-						+ String.format("%02d", (c1.getTime().getMonth() + 1))
-						+ "/" + (c1.getTime().getYear() + 1900);
-
-				// et annet format
-				String date2 = (c1.getTime().getYear() + 1900) + "-"
+		for (int i = 0; i < 6; i++) { // for each date: create string on the format dd/mm/yyyy and yyyy-mm-dd
+			for (int j = 0; j < 7; j++) { // and create a new CalendarSquarePane object for each of them
+				String date = (c1.getTime().getYear() + 1900) + "-"
 						+ String.format("%02d", (c1.getTime().getMonth() + 1))
 						+ "-" + String.format("%02d", c1.getTime().getDate());
-				CalendarSquarePane csp = new CalendarSquarePane(mainApp, date2,
-						group, date2.equals(LocalDate.now().toString()) ? true : false);
+				CalendarSquarePane csp = new CalendarSquarePane(mainApp, date,
+						group, date.equals(LocalDate.now().toString()) ? true : false);
 				if (j >= 5) {
 					csp.setStyle("-fx-background-color:#e6e6e6; -fx-border-color:#dcdcdc"); //-fx-border-color:#dcdcdc;
 					csp.getText().setFill(Color.BLACK);
@@ -158,7 +150,7 @@ public class CalendarController {
 
 				if (!(group.getName().equals(""))) {
 					while (appointmentsRS != null && appointmentsRS.next()) {
-						if (!date2.equals(appointmentsRS.getString("timeFrom").substring(0, 10))) {
+						if (!date.equals(appointmentsRS.getString("timeFrom").substring(0, 10))) {
 							continue;
 						}
 						if( allAppointmentMembers.next() && !(allAppointmentMembers.getString("status").equals("a") || allAppointmentMembers.getString("isAdmin").equals("1"))){

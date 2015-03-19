@@ -61,6 +61,8 @@ public class EditAppointmentPopupController {
 	private Button slettMedlemBtn;
 	@FXML
 	private Button inviteMedlemBtn;
+	private ArrayList<String> admins = new ArrayList<String>();
+	private MainApp mainApp;
 
 	@FXML
 	private void initialize() throws SQLException {
@@ -70,6 +72,10 @@ public class EditAppointmentPopupController {
 
 	public void setPopupStage(Stage popupStage) {
 		this.popupStage = popupStage;
+	}
+
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
 	}
 
 	@FXML
@@ -131,16 +137,16 @@ public class EditAppointmentPopupController {
 			errorText.setText(validInput);
 			return;
 		}
-//		ArrayList<String> invited = new ArrayList<String>();
-//		for (CheckListObject clo : invitableMemberList) {
-//				invited.add(clo.getName());
-//		}
-		
+		//		ArrayList<String> invited = new ArrayList<String>();
+		//		for (CheckListObject clo : invitableMemberList) {
+		//				invited.add(clo.getName());
+		//		}
+
 		ArrayList<String> members = new ArrayList<String>();
 		for (String member : memberList) {
 			members.add(member);
 		}
-		
+
 		System.out.println("Ok Clicked");
 		//System.out.println("invited: " + invited);
 		System.out.println("members: " + members);
@@ -179,20 +185,20 @@ public class EditAppointmentPopupController {
 				startTime, endTime, invited, members, admins, color, owner);
 
 
-			System.out.println("happens");
-			String appointmentId = asp.getAppointment().getAppointmentID();
-			System.out.println(appointment);
-			db.updateAppointment(appointmentId, appointment.getDescription(),
-					appointment.getDate().toString() + " "
-							+ appointment.getStartTime().toString() + ":00",
-							appointment.getDate().toString() + " "
-									+ appointment.getEndTime().toString() + ":00",
-									null, null, 1, group.getName());
-			System.out.println("Appointment id: " + asp.getAppointment().getAppointmentID());
-			System.out.println("Appointment members: " + members);
-			db.setAppointmentMembers(Integer.parseInt(asp.getAppointment().getAppointmentID()), members);
-			// Used when appointments are retrieved from db
-		
+		System.out.println("happens");
+		String appointmentId = asp.getAppointment().getAppointmentID();
+		System.out.println(appointment);
+		db.updateAppointment(appointmentId, appointment.getDescription(),
+				appointment.getDate().toString() + " "
+						+ appointment.getStartTime().toString() + ":00",
+						appointment.getDate().toString() + " "
+								+ appointment.getEndTime().toString() + ":00",
+								null, null, 1, group.getName());
+		System.out.println("Appointment id: " + asp.getAppointment().getAppointmentID());
+		System.out.println("Appointment members: " + members);
+		db.setAppointmentMembers(Integer.parseInt(asp.getAppointment().getAppointmentID()), members);
+		// Used when appointments are retrieved from db
+
 		// else {
 		// csp.addAppointment(appointment);
 		// group.addAppointment(appointment);
@@ -204,9 +210,9 @@ public class EditAppointmentPopupController {
 		if (descriptionField.getText().equals("")) {
 			errorText += "Beskrivelse kan ikke v�re tom\n";
 		}
-//		if (locationField.getValue().equals("")) {
-//			errorText += "Sted kan ikke v�re tom\n";
-//		}
+		//		if (locationField.getValue().equals("")) {
+		//			errorText += "Sted kan ikke v�re tom\n";
+		//		}
 		if (!startTimeField.getText().matches("[0-9][0-9][:][0-9][0-9]")) {
 			errorText += "Ugyldig starttid\n";
 		}
@@ -336,6 +342,10 @@ public class EditAppointmentPopupController {
 		this.group = group;
 		this.asp = asp;
 
+		//setAdmin
+	
+		admins = asp.getAppointment().getAdmins();
+
 		//set naavarende members
 		ResultSet rs = db.getAppointmentMemberNames(Integer.parseInt(asp
 				.getAppointment().getAppointmentID()));
@@ -347,7 +357,14 @@ public class EditAppointmentPopupController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		System.out.println("MemberList : " + memberList);
+		System.out.println("AdminList : " + admins);
+		
+
+		
 		asp.getAppointment().setMembers(memberList);
+
 
 		//update
 		updateMemberList();

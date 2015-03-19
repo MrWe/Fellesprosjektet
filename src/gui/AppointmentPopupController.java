@@ -212,6 +212,7 @@ public class AppointmentPopupController {
 		this.username = username;
 		this.group = group;
 		this.csp = csp;
+		this.asp = asp;
 		
 		ResultSet rs = db.getGroupMembers(group.getGroupID());
 		try {
@@ -242,7 +243,6 @@ public class AppointmentPopupController {
 		
 		
 		String admin = mainApp.getUser().getName();
-		System.out.println("mainApp.getUser().getName()" + mainApp.getUser().getName());
 		admins.add(admin);
 		//asp.getAppointment().setAdmins(admins);
 		

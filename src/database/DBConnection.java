@@ -607,12 +607,23 @@ public class DBConnection {
 	
 	public int getRoomId(String name) throws SQLException {
 		String q ="SELECT roomID FROM ROOM WHERE roomName ='"+name+"';";
-		return db.queryDB(q).getInt("roomID");
+		ResultSet room = db.queryDB(q);
+		room.next();
+		return room.getInt("roomID");
 	}
 	
 	public String getRoomName(int id) throws SQLException {
 		String q ="SELECT roomName FROM ROOM WHERE roomID ='"+id+"';";
-		return db.queryDB(q).getString("roomName");
+		ResultSet room = db.queryDB(q);
+		room.next();
+		return room.getString("roomName");
+	}
+	
+	public String getRoomFromAppointmentId(String id) throws SQLException {
+		String q = "SELECT R.roomName FROM APPOINTMENT AS A JOIN ROOM AS R ON A.ROOM_roomID = R.roomID WHERE appointmentID='"+id+"';";
+		ResultSet rs = db.queryDB(q);
+		rs.next();
+		return rs.getString("roomName");
 	}
 
 }

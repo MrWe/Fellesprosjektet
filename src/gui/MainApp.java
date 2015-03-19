@@ -233,7 +233,7 @@ public class MainApp extends Application {
 		stage.getScene().setOnKeyPressed(keyHandler);
 	}
 
-	public void showAppointmentPopup(CalendarSquarePane csp, AppointmentSquarePane asp, Group group) {
+	public void showAppointmentPopup(CalendarSquarePane csp, AppointmentSquarePane asp, Group group) throws SQLException {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
@@ -264,7 +264,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void showEditAppointmentPopup(CalendarSquarePane csp, AppointmentSquarePane asp, Group group) {
+	public void showEditAppointmentPopup(CalendarSquarePane csp, AppointmentSquarePane asp, Group group) throws SQLException {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();

@@ -118,6 +118,7 @@ public class AppointmentPopupController {
 			group.addAppointment(appointment);
 			System.out.println("groupName " + group.getName());
 			
+			
 			db.addAppointment(username, appointment.getDescription(),
 					appointment.getDate().toString() + " "
 							+ appointment.getStartTime().toString() + ":00",
@@ -199,7 +200,7 @@ public class AppointmentPopupController {
 	}
 
 	public void fillPopup(CalendarSquarePane csp, AppointmentSquarePane asp,
-			Group group, String username) { // called whenever the popup is
+			Group group, String username) throws SQLException { // called whenever the popup is
 											// opened
 		this.username = username;
 		this.group = group;
@@ -243,7 +244,7 @@ public class AppointmentPopupController {
 			editingExisting = true;
 			this.asp = asp;
 			descriptionField.setText(asp.getAppointment().getDescription());
-			locationField.setPromptText(asp.getAppointment().getLocation());
+			locationField.setPromptText(db.getRoomFromAppointmentId(asp.getAppointment().getAppointmentID()));
 			startTimeField.setText(asp.getAppointment().getStartTime()
 					.toString());
 			endTimeField.setText(asp.getAppointment().getEndTime().toString());

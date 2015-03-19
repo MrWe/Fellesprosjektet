@@ -1,5 +1,10 @@
 package gui;
 
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import core.Appointment;
 import core.Group;
 import javafx.event.EventHandler;
@@ -38,10 +43,17 @@ public class CalendarSquarePane extends Pane {
 			@Override
 			public void handle(MouseEvent event) {
 				if (event.getTarget() instanceof AppointmentSquarePane) {
-					showPopup((AppointmentSquarePane) event.getTarget());
+					try {
+						showPopup((AppointmentSquarePane) event.getTarget());
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
 				} else {					
-					showPopup();
-					System.out.println(appointmentList.getHeight() + " " +scrollPane.getHeight());
+					try {
+						showPopup();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		});	
@@ -72,11 +84,13 @@ public class CalendarSquarePane extends Pane {
 		return date;
 	}
 
-	private void showPopup() {
+	private void showPopup() throws SQLException {
 		mainApp.showAppointmentPopup(this, null, group);
 	}
 
-	private void showPopup(AppointmentSquarePane asp) {
+	//edit en appointment
+	private void showPopup(AppointmentSquarePane asp) throws SQLException {
+
 		mainApp.showEditAppointmentPopup(null, asp, group);
 	}
 

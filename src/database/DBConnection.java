@@ -376,23 +376,33 @@ public class DBConnection {
 				+ "FROM ROOM as R JOIN APPOINTMENT AS A ON(R.roomID = A.ROOM_roomID)"
 				+ "WHERE DATE_FORMAT(A.timeFrom, '%Y-%m-%d') = '" + date + "';";
 		ResultSet rs = db.queryDB(q);
+		System.out.println("---------");
+		System.out.println(rs.next());
 		ArrayList<String> al = new ArrayList<String>();
+		String getAllRooms = "SELECT roomName FROM ROOM;";
+		ResultSet rooms = db.queryDB(getAllRooms);
+		while (rooms.next()) {
+			al.add(rooms.getString("roomName"));
+		}
+		System.out.println(al);
 		while (rs.next()) {
-			if (ChronoUnit.MINUTES
+			if (!(ChronoUnit.MINUTES
 					.between(
 							to,
 							LocalTime.parse(rs.getString("timeFrom").substring(
-									11, 16))) >= 0
-					|| ChronoUnit.MINUTES.between(
+									11, 16))) >= 0)
+					&& !(ChronoUnit.MINUTES.between(
 							from,
 							LocalTime.parse(rs.getString("timeTo").substring(
-									11, 16))) <= 0) {
+									11, 16))) <= 0)) {
 				String name = rs.getString("roomName");
-				if (!al.contains(name)) {
-					al.add(name);
+				if (al.contains(name)) {
+					al.remove(name);
 				}
 			}
 		}
+		System.out.println("++++++++++");
+		System.out.println(al);
 		return al;
 	}
 
@@ -593,6 +603,16 @@ public class DBConnection {
 		String q = "DELETE FROM APPOINTMENT WHERE appointmentID ='"
 				+ appointmentId + "';";
 		db.updateDB(q);
+	}
+	
+	public int getRoomId(String name) throws SQLException {
+		String q ="SELECT roomID FROM ROOM WHERE roomName ='"+name+"';";
+		return db.queryDB(q).getInt("roomID");
+	}
+	
+	public String getRoomName(int id) throws SQLException {
+		String q ="SELECT roomName FROM ROOM WHERE roomID ='"+id+"';";
+		return db.queryDB(q).getString("roomName");
 	}
 
 }

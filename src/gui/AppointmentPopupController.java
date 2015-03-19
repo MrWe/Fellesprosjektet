@@ -123,7 +123,7 @@ public class AppointmentPopupController {
 							+ appointment.getStartTime().toString() + ":00",
 					appointment.getDate().toString() + " "
 							+ appointment.getEndTime().toString() + ":00",
-					null, null, 1, group.getName(), color);
+					null, null, db.getRoomId(locationField.getValue()), group.getName(), color);
 			appointment.setAppointmentID(db.getLastAppointmentID());
 
 			

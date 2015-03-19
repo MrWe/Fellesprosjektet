@@ -358,6 +358,17 @@ public class DBConnection {
 		}
 	}
 	
+	public void addAppointmentAdmins(int appointmentID,
+			ArrayList<String> members) throws SQLException {
+		for (String member : members) {
+			int userID = getUserIDFromFullName(member);
+			String q = "INSERT INTO APPOINTMENTMEMBER(status, isAdmin, USER_userID, APPOINTMENT_appointmentID) VALUES ('"
+					+ "i'," + 1 + "," + userID + "," + appointmentID + ");";
+			db.updateDB(q);
+					
+		}
+	}
+	
 	public void setAppointmentMembers(int appointmentID,
 			ArrayList<String> members) throws SQLException {
 		for (String member : members) {

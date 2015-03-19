@@ -241,7 +241,6 @@ public class DBConnection {
 		return db.queryDB(q);
 	}
 
-	
 	public void deleteAppointmentMember(int userId, int appointmentId) throws SQLException{
 		String q = "DELETE FROM APPOINTMENTMEMBER WHERE USER_userID='" + userId + "' AND APPOINTMENT_appointmentID='" + appointmentId + "';";
 		db.updateDB(q);
@@ -254,15 +253,15 @@ public class DBConnection {
 	}
 	
 	public ResultSet getAllAppointmentMembers(ArrayList<String> appointmentIDs) {
-		System.out.println("---");
-		System.out.println(appointmentIDs);
-		String idList = appointmentIDs.toString().substring(1, appointmentIDs.toString().length()-1);
-		System.out.println(idList);
-		String q = "SELECT * FROM APPOINTMENTMEMBER WHERE APPOINTMENT_appointmentID IN ("
-				+ idList
-				+ ");";
-		System.out.println(q);
-		System.out.println("+++");
+		String q = "";
+		if (appointmentIDs.size() != 0) {
+			String idList = appointmentIDs.toString().substring(1, appointmentIDs.toString().length()-1);
+			q = "SELECT * FROM APPOINTMENTMEMBER WHERE APPOINTMENT_appointmentID IN ("
+					+ idList
+					+ ");";
+		} else {
+			q = "SELECT * FROM APPOINTMENTMEMBER WHERE APPOINTMENT_appointmentID = -1;";
+		}
 		return db.queryDB(q);
 	}
 
@@ -352,13 +351,7 @@ public class DBConnection {
 	public ResultSet getAppointmentsWithGroup(int group) {
 		String q = "SELECT * FROM APPOINTMENT AS A JOIN USERGROUP AS U ON(A.USERGROUP_usergroupID = U.usergroupID) WHERE A.USERGROUP_usergroupID = "
 				+ group;
-		System.out.println(q);
 		return db.queryDB(q);
-	}
-
-	public static void main(String[] args) {
-		DBConnection db = new DBConnection();
-		db.getAppointmentsWithGroup(1);
 	}
 
 	// Doesnt retrieve userID from calendar. Needs fix.

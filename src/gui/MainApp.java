@@ -13,7 +13,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.media.AudioClip;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import core.Group;
@@ -133,7 +132,6 @@ public class MainApp extends Application {
 			// Give the controller access to the main app.
 			CalendarController controller = loader.getController();
 			controller.setMainApp(this);
-			//group.addAppointment(new Appointment("hei", "du", LocalDate.now(), LocalTime.NOON, LocalTime.NOON, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), "FFFFFF"));
 			controller.fillCalendar(group);
 			controller.setKeyEventHandler(primaryStage.getScene());
 		} catch (IOException e) {
@@ -149,8 +147,7 @@ public class MainApp extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("/views/Toolbar.fxml"));
-
-
+			
 			AnchorPane toolbar = (AnchorPane) loader.load();
 
 			rootLayout.setTop(toolbar);
@@ -158,7 +155,6 @@ public class MainApp extends Application {
 			ToolbarController controller = loader.getController();
 
 			controller.setMainApp(this);
-			//controller.setKeyEventHandler(primaryStage.getScene());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -176,7 +172,6 @@ public class MainApp extends Application {
 			this.listController = controller;
 			controller.setMainApp(this);
 			controller.init2();
-			//controller.setKeyEventHandler(primaryStage.getScene());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -189,12 +184,10 @@ public class MainApp extends Application {
 			AnchorPane notification = (AnchorPane) loader.load();
 
 			rootLayout.setCenter(notification);
-			
+
 			NotificationController controller = loader.getController();
 			controller.setMainApp(this);
 			controller.init2();
-			
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -348,7 +341,6 @@ public class MainApp extends Application {
 
 			controller.setPopupStage(popupStage);
 
-			//controller.setTreeView(treeView);
 			controller.fillPopup(treeView, group, user.getUsername());
 			// Show the dialog and wait until the user closes it
 			popupStage.showAndWait();

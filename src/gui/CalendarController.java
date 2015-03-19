@@ -123,7 +123,6 @@ public class CalendarController {
 		ResultSet appointmentsRS = null;
 		ResultSet allAppointmentMembers = null;
 		// Henter avtalene til gruppen som er markert.
-		System.out.println("calendar controller: " + group.getName());
 		if (!(group.getName().equals(""))) {
 			appointmentsRS = dbConnection.getAppointmentsWithGroup(Integer.parseInt(group
 					.getGroupID()));
@@ -147,9 +146,8 @@ public class CalendarController {
 				String date2 = (c1.getTime().getYear() + 1900) + "-"
 						+ String.format("%02d", (c1.getTime().getMonth() + 1))
 						+ "-" + String.format("%02d", c1.getTime().getDate());
-
 				CalendarSquarePane csp = new CalendarSquarePane(mainApp, date2,
-						group);
+						group, date2.equals(LocalDate.now().toString()) ? true : false);
 				if (j >= 5) {
 					csp.setStyle("-fx-background-color:#e6e6e6; -fx-border-color:#dcdcdc"); //-fx-border-color:#dcdcdc;
 					csp.getText().setFill(Color.BLACK);

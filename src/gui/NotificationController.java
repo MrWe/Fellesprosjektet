@@ -98,7 +98,8 @@ public class NotificationController {
 		Alert alert = alerts.get(index);
 		db.updateAcceptedAppointmentMembers(alert.getAppointmentId(), alert.getUserId());
 		
-		
+		//db.addAppointmentMembers(Integer.parseInt(db.getLastAppointmentID()), members);
+
 		
 		removeAlert(alert.getID(), index);
 	}

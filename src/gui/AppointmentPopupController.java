@@ -127,10 +127,9 @@ public class AppointmentPopupController {
 					null, null, db.getRoomId(locationField.getValue()), group.getName(), color);
 			appointment.setAppointmentID(db.getLastAppointmentID());
 
-			
 			System.out.println("Appointment id: " + db.getLastAppointmentID());
 			System.out.println("Appointment members: " + members);
-			db.addAppointmentMembers(Integer.parseInt(db.getLastAppointmentID()), members);
+			
 			db.addAlarm(appointment.getDate().toString() + " " + appointment.getStartTime().toString() + ":00", "App", members, appointment.getAppointmentID());
 
 	}

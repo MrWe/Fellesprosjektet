@@ -367,6 +367,10 @@ public class DBConnection {
 				+ userID
 				+ ";";
 		db.updateDB(q);
+		
+		q = "INSERT INTO APPOINTMENTMEMBER(status, isAdmin, USER_userID, APPOINTMENT_appointmentID) VALUES ('"
+				+ "a'," + 0 + "," + userID + "," + appointmentID + ");";
+		db.updateDB(q);
 	}
 
 	// Returns ArrayList with all available rooms at the given time and date

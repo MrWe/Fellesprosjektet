@@ -469,6 +469,20 @@ public class DBConnection {
 		return db.queryDB(q);
 	}
 
+	public ResultSet getAllGroupMembers(ArrayList<String> groupIDs) {
+		String q = "";
+		if (groupIDs.size() != 0) {
+			String idList = groupIDs.toString().substring(1, groupIDs.toString().length()-1);
+			q = "select fullName, groupAdmin, groupName from Calendar.USER_has_USERGROUP join Calendar.USERGROUP join Calendar.USER "
+					+ "WHERE Calendar.USER_has_USERGROUP.USERGROUP_usergroupID = Calendar.USERGROUP.usergroupID "
+					+ "AND Calendar.USER_has_USERGROUP.USER_userID = Calendar.USER.userID "
+					+ "AND Calendar.USERGROUP.usergroupID IN (" + idList + ");";
+		} else {
+			q = "SELECT * FROM USER WHERE userID = -1;";
+		}
+		return db.queryDB(q);
+	}
+
 	/**
 	 * Updates the name of the group specified
 	 * 
@@ -564,19 +578,19 @@ public class DBConnection {
 		String q = "DELETE FROM ALARM WHERE alarmID=" + id;
 		db.updateDB(q);
 	}
-	
+
 	public boolean hasAcceptedAppointment(String username, String appointmentID) throws SQLException{
 		int appointmentiD = Integer.parseInt(appointmentID);
 		int userID = getUserID(username);
 		String q = "SELECT status FROM APPOINTMENTMEMBER WHERE USER_userID='" + userID + "' AND APPOINTMENT_appointmentID='" + appointmentiD + "';";
-		
+
 		ResultSet rs = db.queryDB(q);
 		try{
 			if(rs.getString(1).toLowerCase().equals("a")){
 				return true;
 			}
 			return false;
-			}
+		}
 		catch (SQLException e){
 			return false;
 		}

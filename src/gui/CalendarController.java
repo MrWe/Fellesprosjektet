@@ -27,22 +27,20 @@ import database.DBConnection;
 
 public class CalendarController {
 
-	@FXML private Text monthText;
-	@FXML private Text yearText;
+	@FXML private Text monthText, yearText;
 	@FXML private GridPane calendar;
 	@FXML private Group group;
-	private int currentYear, currentMonth;
+	private int currentYear, currentMonth, konamiCodeCounter;
 	private KeyCode[] konamiCode = { 
 			KeyCode.UP, KeyCode.UP, KeyCode.DOWN, KeyCode.DOWN, 
 			KeyCode.LEFT, KeyCode.RIGHT, KeyCode.LEFT, KeyCode.RIGHT, 
 			KeyCode.B, KeyCode.A};
-	private int konamiCodeCounter;
-	private ArrayList<String> appointmentIDs;
 	private MainApp mainApp;
-	private DBConnection dbConnection = new DBConnection();
+	private DBConnection dbConnection;
 
 	@FXML
 	private void initialize() {
+		dbConnection = new DBConnection();
 	}
 
 	public void setKeyEventHandler(Scene scene) {
@@ -115,7 +113,7 @@ public class CalendarController {
 		ResultSet allAppointmentMembers = null;	// all members of all appointments of the current group
 		if (!(group.getName().equals(""))) {
 			appointmentsRS = dbConnection.getAppointmentsWithGroup(Integer.parseInt(group.getGroupID()));
-			appointmentIDs = new ArrayList<String>();
+			ArrayList<String> appointmentIDs = new ArrayList<String>();
 			while (appointmentsRS.next()) {
 				appointmentIDs.add(appointmentsRS.getString("appointmentID"));
 			}
@@ -124,8 +122,8 @@ public class CalendarController {
 		}
 		for (int i = 0; i < 6; i++) { // for each week
 			for (int j = 0; j < 7; j++) { // for each day of the week
-				String date = (
-						c1.getTime().getYear() + 1900) // year
+				String date = 
+						(c1.getTime().getYear() + 1900) // year
 						+ "-"
 						+ String.format("%02d", (c1.getTime().getMonth() + 1)) // month
 						+ "-" 

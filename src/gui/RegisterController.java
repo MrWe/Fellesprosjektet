@@ -40,7 +40,12 @@ public class RegisterController {
 			errorText.setText(validInput);
 		} else {
 			try {
-				db.registerUser(usernameField.getText(), passwordField.getText(), fullNameField.getText(), birthdayDatePicker.getValue().toString(), emailField.getText());
+				db.registerUser(
+						usernameField.getText(), 
+						passwordField.getText(), 
+						fullNameField.getText(), 
+						birthdayDatePicker.getValue().toString(), 
+						emailField.getText());
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

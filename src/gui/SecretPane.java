@@ -69,9 +69,6 @@ public class SecretPane extends Pane {
 		if (xInfluence < 0) {
 			deg = 180 + deg;
 		}
-
-		System.out.println(xInfluence + " " + yInfluence);
-		System.out.println(deg);
 		pane.setRotate(deg);
 
 		timerDelay = 15;

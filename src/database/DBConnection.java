@@ -131,7 +131,7 @@ public class DBConnection {
 		rs.next();
 		return Integer.parseInt(rs.getString("userID"));
 	}
-	
+
 	public int getUserIDFromFullName(String fullname) throws SQLException{
 		String q = "SELECT userID from USER WHERE fullname = '" + fullname
 				+ "';";
@@ -191,7 +191,6 @@ public class DBConnection {
 				+ "WHERE Calendar.USER.userID = Calendar.USER_has_USERGROUP.USER_userID "
 				+ "AND Calendar.USERGROUP.usergroupID = Calendar.USER_has_USERGROUP.USERGROUP_usergroupID "
 				+ "AND username = '" + username + "';";
-		System.out.println(q);
 		return db.queryDB(q);
 	}
 
@@ -243,13 +242,13 @@ public class DBConnection {
 		String q = "DELETE FROM APPOINTMENTMEMBER WHERE USER_userID='" + userId + "' AND APPOINTMENT_appointmentID='" + appointmentId + "';";
 		db.updateDB(q);
 	}
-	
+
 	public ResultSet getAppointmentMembers(int appointmentId) {
 		String q = "SELECT * FROM APPOINTMENTMEMBER WHERE APPOINTMENT_appointmentID = "
 				+ appointmentId;
 		return db.queryDB(q);
 	}
-	
+
 	public ResultSet getAllAppointmentMembers(ArrayList<String> appointmentIDs) {
 		String q = "";
 		if (appointmentIDs.size() != 0) {
@@ -334,8 +333,6 @@ public class DBConnection {
 		int userId = getUserID(username);
 		String qu = "INSERT INTO APPOINTMENTMEMBER(status, isAdmin, USER_userID, APPOINTMENT_appointmentID) Values ('"
 				+ "i" + "'," + 1 + "," + userId + "," + lastId + ");";
-		System.out.println(qu);
-		
 		db.updateDB(qu);
 	}
 
@@ -360,10 +357,10 @@ public class DBConnection {
 			String q = "INSERT INTO APPOINTMENTMEMBER(status, isAdmin, USER_userID, APPOINTMENT_appointmentID) VALUES ('"
 					+ "i'," + 0 + "," + userID + "," + appointmentID + ");";
 			db.updateDB(q);
-					
+
 		}
 	}
-	
+
 	public void addAppointmentAdmins(int appointmentID,
 			ArrayList<String> members) throws SQLException {
 		for (String member : members) {
@@ -371,19 +368,15 @@ public class DBConnection {
 			String q = "INSERT INTO APPOINTMENTMEMBER(status, isAdmin, USER_userID, APPOINTMENT_appointmentID) VALUES ('"
 					+ "i'," + 1 + "," + userID + "," + appointmentID + ");";
 			db.updateDB(q);
-					
 		}
 	}
-	
-	public void setAppointmentMembers(int appointmentID,
-			ArrayList<String> members) throws SQLException {
-		for (String member : members) {
-			String q = "DELETE FROM APPOINTMENTMEMBER WHERE APPOINTMENT_appointmentID =" + appointmentID + ";";
-			db.updateDB(q);
-			addAppointmentMembers(appointmentID, members);
-		}
+
+	public void setAppointmentMembers(int appointmentID, ArrayList<String> members) throws SQLException {
+		String q = "DELETE FROM APPOINTMENTMEMBER WHERE APPOINTMENT_appointmentID =" + appointmentID + ";";
+		db.updateDB(q);
+		addAppointmentMembers(appointmentID, members);
 	}
-	
+
 	public void updateAcceptedAppointmentMembers(int appointmentID, int userID) throws SQLException{
 		String q = "UPDATE APPOINTMENTMEMBER SET status='a' WHERE APPOINTMENT_appointmentID = "
 				+ appointmentID
@@ -401,33 +394,28 @@ public class DBConnection {
 				+ "FROM ROOM as R JOIN APPOINTMENT AS A ON(R.roomID = A.ROOM_roomID)"
 				+ "WHERE DATE_FORMAT(A.timeFrom, '%Y-%m-%d') = '" + date + "';";
 		ResultSet rs = db.queryDB(q);
-		System.out.println("---------");
-		System.out.println(rs.next());
 		ArrayList<String> al = new ArrayList<String>();
 		String getAllRooms = "SELECT roomName FROM ROOM;";
 		ResultSet rooms = db.queryDB(getAllRooms);
 		while (rooms.next()) {
 			al.add(rooms.getString("roomName"));
 		}
-		System.out.println(al);
 		while (rs.next()) {
 			if (!(ChronoUnit.MINUTES
 					.between(
 							to,
 							LocalTime.parse(rs.getString("timeFrom").substring(
 									11, 16))) >= 0)
-					&& !(ChronoUnit.MINUTES.between(
-							from,
-							LocalTime.parse(rs.getString("timeTo").substring(
-									11, 16))) <= 0)) {
+									&& !(ChronoUnit.MINUTES.between(
+											from,
+											LocalTime.parse(rs.getString("timeTo").substring(
+													11, 16))) <= 0)) {
 				String name = rs.getString("roomName");
 				if (al.contains(name)) {
 					al.remove(name);
 				}
 			}
 		}
-		System.out.println("++++++++++");
-		System.out.println(al);
 		return al;
 	}
 
@@ -539,15 +527,12 @@ public class DBConnection {
 		db.updateDB(q);
 	}
 
-
 	public int getFullNameUserID(String name) throws SQLException {
 		String q = "SELECT userID from USER WHERE fullName = '" + name + "';";
 		ResultSet rs = db.queryDB(q);
 		rs.next();
 		return Integer.parseInt(rs.getString("userID"));
 	}
-
-
 
 	/*
 	 * Returns alerts for current user.
@@ -557,22 +542,19 @@ public class DBConnection {
 		String q = "SELECT * FROM ALARM WHERE USER_userID = '" 
 				+ userID + "';";
 		return db.queryDB(q);
-		
+
 	}
-	
+
 	public ResultSet getUserIdFromFullname(String fullname){
 		String q = "SELECT userID FROM USER WHERE fullName='" + fullname + "';";
 		return db.queryDB(q);
 	}
-	
+
 	/*
 	 * addAlarm() is called from appointmentPopupController
 	 */
 	public void addAlarm(String time, String type, ArrayList<String> users, String appointmentID) throws SQLException{
-		System.out.println("Entered DBConnection.addAlarm");
-		System.out.println(users.size());
 		for(String user : users){
-			System.out.println("User: " + user);
 			ResultSet rs = getUserIdFromFullname(user);
 			rs.next();
 			int userID = rs.getInt(1);
@@ -585,17 +567,15 @@ public class DBConnection {
 					+ "','"
 					+ appointmentID
 					+ "');";
-			
 			db.updateDB(q);
 		}
 	}
-	
+
 	public void deleteAlarm(int id){
 		String q = "DELETE FROM ALARM WHERE alarmID=" + id;
 		db.updateDB(q);
 	}
 
-	
 	/**
 	 * Deletes the specified group from the database. Because of the ON DELETE
 	 * CASCADE property, all subgroups will also be deleted
@@ -608,8 +588,6 @@ public class DBConnection {
 				+ "';";
 		db.updateDB(q);
 	}
-	
-
 
 	public void updateAppointment(String appointmentId, String description,
 			String from, String to, String place, String appointmentType,
@@ -620,7 +598,6 @@ public class DBConnection {
 				+ place + ",appointmentType=" + appointmentType
 				+ ",ROOM_roomID=" + roomID + ",USERGROUP_usergroupID="
 				+ groupID + " WHERE appointmentID = " + appointmentId + ";";
-		System.out.println(q);
 		db.updateDB(q);
 	}
 
@@ -629,22 +606,21 @@ public class DBConnection {
 				+ appointmentId + "';";
 		db.updateDB(q);
 	}
-	
+
 	public int getRoomId(String name) throws SQLException {
-		System.out.println(name);
 		String q ="SELECT roomID FROM ROOM WHERE roomName ='"+name+"';";
 		ResultSet room = db.queryDB(q);
 		room.next();
 		return room.getInt("roomID");
 	}
-	
+
 	public String getRoomName(int id) throws SQLException {
 		String q ="SELECT roomName FROM ROOM WHERE roomID ='"+id+"';";
 		ResultSet room = db.queryDB(q);
 		room.next();
 		return room.getString("roomName");
 	}
-	
+
 	public String getRoomFromAppointmentId(String id) throws SQLException {
 		String q = "SELECT R.roomName FROM APPOINTMENT AS A JOIN ROOM AS R ON A.ROOM_roomID = R.roomID WHERE appointmentID='"+id+"';";
 		ResultSet rs = db.queryDB(q);

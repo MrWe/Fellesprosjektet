@@ -1,6 +1,5 @@
 package gui;
 
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,35 +12,26 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 
-
-
-
 public class NotificationController {
 
 	private MainApp mainApp;
 	private DBConnection db;
-	
 	@FXML
 	private Button acceptBtn;
 	@FXML
 	private Button declineBtn;
-
 	@FXML private ListView<Object> notification;
 	private final ObservableList<Object> data =
 			FXCollections.observableArrayList();
 	private ArrayList<Alert> alerts = new ArrayList<Alert>();
-
-
-
+	
 	@FXML
 	private void initialize() {
 		db = new DBConnection();
 	}
 
 	public void init2(){
-
 		ResultSet rs = null;
-
 		try {
 			rs = getAlert(getUsername());
 			while(rs.next()){
@@ -51,21 +41,16 @@ public class NotificationController {
 				int userId = rs.getInt(4);
 				
 				int appointmentId = rs.getInt(5);
-				System.out.println(appointmentId);
 				
 				Alert temp = new Alert(id, dateText, timeText, userId, appointmentId);
 				
 				alerts.add(temp);
 				
 				data.add(temp.toString());
-				
-
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 
 		notification.setItems(data);
 		
@@ -76,18 +61,15 @@ public class NotificationController {
 				e.printStackTrace();
 			}
 		}));
-		
 		declineBtn.setOnAction((event -> {
 			try {
 				declineAppointment(event);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}));
 
 	}
-
 
 	public void acceptAppointment(ActionEvent event) throws SQLException{
 		

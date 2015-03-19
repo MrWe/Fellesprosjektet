@@ -147,11 +147,9 @@ public class MainApp extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("/views/Toolbar.fxml"));
-			
+		
 			AnchorPane toolbar = (AnchorPane) loader.load();
-
 			rootLayout.setTop(toolbar);
-
 			ToolbarController controller = loader.getController();
 
 			controller.setMainApp(this);
@@ -280,8 +278,7 @@ public class MainApp extends Application {
 			setEscapeKeyEventHandler(popupStage);
 			EditAppointmentPopupController controller = loader.getController();
 			controller.setPopupStage(popupStage);
-			controller.setMainApp(this);
-			controller.fillPopup(csp, asp, group, getUser().getUsername());
+			controller.fillPopup(csp, asp, group);
 
 			// Show the dialog and wait until the user closes it
 			popupStage.showAndWait();
@@ -321,7 +318,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void showEditGroupPopup(TreeView treeView, TreeItem<Group> group) {
+	public void showEditGroupPopup(TreeItem<Group> group) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
@@ -341,7 +338,7 @@ public class MainApp extends Application {
 
 			controller.setPopupStage(popupStage);
 
-			controller.fillPopup(treeView, group, user.getUsername());
+			controller.fillPopup(group, user.getUsername());
 			// Show the dialog and wait until the user closes it
 			popupStage.showAndWait();
 		} catch (IOException e) {

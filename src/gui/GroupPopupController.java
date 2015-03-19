@@ -113,13 +113,6 @@ public class GroupPopupController {
 
 	public void fillPopup(TreeItem<Group> group, boolean createSub, MainApp mainApp) { // called whenever the popup is opened		
 		this.mainApp = mainApp;
-		try {
-			if(group != null) {				
-				System.out.println("isAdmin " + db.isAdmin(mainApp.getUser().getUsername(), group.getValue().getName()));
-			}
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
 		this.createSub = createSub;
 		this.group = group;
 		memberList.clear();
@@ -130,7 +123,6 @@ public class GroupPopupController {
 			rs.next();
 			if (group != null && rs.getString("groupName").equals(group.getValue().getName())) {
 				isPrivate = true;
-				System.out.println("isPrivate true");
 			} else {
 				isPrivate = false;
 			}

@@ -133,7 +133,7 @@ public class ListController {
 
 	@FXML
 	private void editGroup() {
-		mainApp.showEditGroupPopup(treeView, treeView.getSelectionModel().getSelectedItem());
+		mainApp.showEditGroupPopup(treeView.getSelectionModel().getSelectedItem());
 	}
 
 	@FXML

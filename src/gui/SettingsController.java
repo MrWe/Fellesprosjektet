@@ -2,9 +2,6 @@ package gui;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-
-import core.Group;
 import database.DBConnection;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;

@@ -1,12 +1,10 @@
 package gui;
 
-<<<<<<< HEAD
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-=======
->>>>>>> d406bf75acf9fbb50e8a3e59f5a4bcedf02cbc26
 import core.Appointment;
 import core.Group;
 import javafx.event.EventHandler;
@@ -90,12 +88,9 @@ public class CalendarSquarePane extends Pane {
 		mainApp.showAppointmentPopup(this, null, group);
 	}
 
-<<<<<<< HEAD
 	//edit en appointment
 	private void showPopup(AppointmentSquarePane asp) throws SQLException {
-=======
-	private void showPopup(AppointmentSquarePane asp) {
->>>>>>> d406bf75acf9fbb50e8a3e59f5a4bcedf02cbc26
+
 		mainApp.showEditAppointmentPopup(null, asp, group);
 	}
 

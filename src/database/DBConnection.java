@@ -346,7 +346,6 @@ public class DBConnection {
 		db.getAppointmentsWithGroup(1);
 	}
 
-
 	// Doesnt retrieve userID from calendar. Needs fix.
 	public void addAppointmentMembers(int appointmentID,
 			ArrayList<String> members) throws SQLException {

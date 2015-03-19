@@ -73,7 +73,7 @@ public class DBConnection {
 				+ "','" + email + "');";
 		db.updateDB(q);
 
-		// adds the user t workbeo the root group
+		// adds the user to the root group
 		int userID = getUserID(username);
 		q = "INSERT INTO USER_has_USERGROUP(groupAdmin, USER_userID, USERGROUP_usergroupID) VALUES ('"
 				+ 0 + "','" + userID + "','" + 0 + "');";
@@ -90,7 +90,7 @@ public class DBConnection {
 				+ 0 + "');";
 		db.updateDB(q);
 
-		// adds the user to the group
+		// adds the user to the private group
 		int groupID = getGroupID(username + "Private");
 		q = "INSERT INTO USER_has_USERGROUP(groupAdmin, USER_userID, USERGROUP_usergroupID) VALUES ('"
 				+ 1 + "','" + userID + "','" + groupID + "');";
@@ -107,13 +107,6 @@ public class DBConnection {
 	public ResultSet getUser(String username) {
 		String q = "SELECT * FROM USER WHERE username = '" + username + "';";
 		return db.queryDB(q);
-	}
-
-	public String getUsername(int userId) throws SQLException {
-		String q = "SELECT * FROM USER WHERE userID = " + userId;
-		ResultSet rs = db.queryDB(q);
-		rs.next();
-		return rs.getString("fullName");
 	}
 
 	/**
@@ -253,7 +246,7 @@ public class DBConnection {
 		String q = "";
 		if (appointmentIDs.size() != 0) {
 			String idList = appointmentIDs.toString().substring(1, appointmentIDs.toString().length()-1);
-			q = "SELECT * FROM APPOINTMENTMEMBER WHERE APPOINTMENT_appointmentID IN ("
+			q = "SELECT * FROM APPOINTMENTMEMBER JOIN USER WHERE userID = USER_userID AND APPOINTMENT_appointmentID IN ("
 					+ idList
 					+ ");";
 		} else {

@@ -179,7 +179,20 @@ public class EditAppointmentPopupController {
 				startTime, endTime, invited, members, admins, color, owner);
 
 
-			System.out.println("happens");
+		// Used when a new appointment is created
+		if (addToDatabase == 1) {
+			csp.addAppointment(appointment);
+			group.addAppointment(appointment);
+			System.out.println("groupName " + group.getName());
+			db.addAppointment(username, appointment.getDescription(),
+					appointment.getDate().toString() + " "
+							+ appointment.getStartTime().toString() + ":00",
+							appointment.getDate().toString() + " "
+									+ appointment.getEndTime().toString() + ":00",
+									null, null, db.getRoomId(locationField.getValue()), group.getName(), color);
+			appointment.setAppointmentID(db.getLastAppointmentID());
+			// Used when editingExisting is true
+		} else if (changeAppointment == 1) {
 			String appointmentId = asp.getAppointment().getAppointmentID();
 			System.out.println(appointment);
 			db.updateAppointment(appointmentId, appointment.getDescription(),
@@ -187,10 +200,12 @@ public class EditAppointmentPopupController {
 							+ appointment.getStartTime().toString() + ":00",
 							appointment.getDate().toString() + " "
 									+ appointment.getEndTime().toString() + ":00",
-									null, null, 1, group.getName());
+									null, null, db.getRoomId(locationField.getValue()), group.getName());
 			System.out.println("Appointment id: " + asp.getAppointment().getAppointmentID());
 			System.out.println("Appointment members: " + members);
 			db.setAppointmentMembers(Integer.parseInt(asp.getAppointment().getAppointmentID()), members);
+		}
+
 			// Used when appointments are retrieved from db
 		
 		// else {
@@ -228,7 +243,12 @@ public class EditAppointmentPopupController {
 	@FXML
 	public void handleFindRoom() throws SQLException {
 		if (validTime()) {
-			ArrayList<String> rooms = db.getAvailableRooms(csp.getDate(), LocalTime.parse(startTimeField.getText()+":00"), LocalTime.parse(endTimeField.getText()+":00"));
+			ArrayList<String> rooms = new ArrayList<String>();
+			if (csp != null) {
+				rooms = db.getAvailableRooms(csp.getDate(), LocalTime.parse(startTimeField.getText()+":00"), LocalTime.parse(endTimeField.getText()+":00"));
+			} else {
+				rooms = db.getAvailableRooms(asp.getDate().toString(), LocalTime.parse(startTimeField.getText()+":00"), LocalTime.parse(endTimeField.getText()+":00"));
+			}
 			System.out.println(rooms);
 			locationField.setItems(FXCollections.observableArrayList(rooms));
 		} else {
@@ -329,7 +349,7 @@ public class EditAppointmentPopupController {
 	}
 
 	public void fillPopup(CalendarSquarePane csp, AppointmentSquarePane asp,
-			Group group, String username) { // called whenever the popup is
+			Group group, String username) throws SQLException { // called whenever the popup is
 		// opened
 
 		this.username = username;
@@ -357,7 +377,7 @@ public class EditAppointmentPopupController {
 		editingExisting = true;
 		//System.out.println("appointmen: " + asp.getAppointment().getDescription());
 		descriptionField.setText(asp.getAppointment().getDescription());
-		locationField.setPromptText(asp.getAppointment().getLocation());
+		locationField.setPromptText(db.getRoomFromAppointmentId(asp.getAppointment().getAppointmentID()));
 		startTimeField.setText(asp.getAppointment().getStartTime()
 				.toString());
 		endTimeField.setText(asp.getAppointment().getEndTime().toString());

@@ -190,7 +190,12 @@ public class AppointmentPopupController {
 	@FXML
 	public void handleFindRoom() throws SQLException {
 		if (validTime()) {
-			ArrayList<String> rooms = db.getAvailableRooms(csp.getDate(), LocalTime.parse(startTimeField.getText()+":00"), LocalTime.parse(endTimeField.getText()+":00"));
+			ArrayList<String> rooms = new ArrayList<String>();
+			if (csp != null) {
+				rooms = db.getAvailableRooms(csp.getDate(), LocalTime.parse(startTimeField.getText()+":00"), LocalTime.parse(endTimeField.getText()+":00"));
+			} else {
+				rooms = db.getAvailableRooms(asp.getDate().toString(), LocalTime.parse(startTimeField.getText()+":00"), LocalTime.parse(endTimeField.getText()+":00"));
+			}			
 			System.out.println(rooms);
 			locationField.setItems(FXCollections.observableArrayList(rooms));
 		} else {

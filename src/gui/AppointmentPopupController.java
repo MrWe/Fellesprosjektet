@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 
 
+
 import core.Appointment;
 import core.Group;
 import database.DBConnection;
@@ -60,6 +61,8 @@ public class AppointmentPopupController {
 	private Group group;
 	private DBConnection db;
 	private String username;
+	private MainApp mainApp;
+	private ArrayList<String> admins = new ArrayList<String>();
 
 	@FXML
 	private void initialize() throws SQLException {
@@ -67,6 +70,10 @@ public class AppointmentPopupController {
 		allMembers = new ArrayList<String>();
 	}
 
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
+	}
+	
 	public void setPopupStage(Stage popupStage) {
 		this.popupStage = popupStage;
 	}
@@ -98,7 +105,7 @@ public class AppointmentPopupController {
 					locationField.getPromptText(), date,
 					LocalTime.parse(startTimeField.getText()),
 					LocalTime.parse(endTimeField.getText()), invited,
-					invited, new ArrayList<String>(),
+					invited, admins,
 					colorPicker.getValue().toString().substring(2, 8).toUpperCase(), group, 1, 0);
 			popupStage.close();
 	}
@@ -204,7 +211,8 @@ public class AppointmentPopupController {
 											// opened
 		this.username = username;
 		this.group = group;
-
+		this.csp = csp;
+		
 		ResultSet rs = db.getGroupMembers(group.getGroupID());
 		try {
 
@@ -222,6 +230,7 @@ public class AppointmentPopupController {
 		members.setPrefSize(200, 250);
 		members.setEditable(true);
 		members.setItems(memberList);
+		
 		Callback<CheckListObject, ObservableValue<Boolean>> getProperty = new Callback<CheckListObject, ObservableValue<Boolean>>() {
 			public BooleanProperty call(CheckListObject object) {
 				return object.selectedProperty();
@@ -230,34 +239,48 @@ public class AppointmentPopupController {
 		Callback<ListView<CheckListObject>, ListCell<CheckListObject>> forListView = CheckBoxListCell
 				.forListView(getProperty);
 		members.setCellFactory(forListView);
-
-		if (csp != null) {
+		
+		
+		String admin = mainApp.getUser().getName();
+		System.out.println("mainApp.getUser().getName()" + mainApp.getUser().getName());
+		admins.add(admin);
+		//asp.getAppointment().setAdmins(admins);
+		
+//		if (csp != null) {
 			deleteBtn.setDisable(true);
 			editingExisting = false;
-			this.csp = csp;
+			
+			System.out.println("admins.get(0) " + admins.get(0));
+			
 			for (String member : allMembers) {
-				memberList.add(new CheckListObject(member));
-			}
-			this.members.getChildren().add(members);
-		} else {
-			deleteBtn.setDisable(false);
-			editingExisting = true;
-			this.asp = asp;
-			descriptionField.setText(asp.getAppointment().getDescription());
-			locationField.setPromptText(db.getRoomFromAppointmentId(asp.getAppointment().getAppointmentID()));
-			startTimeField.setText(asp.getAppointment().getStartTime()
-					.toString());
-			endTimeField.setText(asp.getAppointment().getEndTime().toString());
-			colorPicker.setValue(Color.valueOf(asp.getAppointment().getColor()));
-			for (String member : allMembers) {
-				CheckListObject clo = new CheckListObject(member);
-				if (asp.getAppointment().getInvited().contains(member)) {
-					clo.setSelectedProperty(true);
+				if(!member.equals(admins.get(0))){
+					memberList.add(new CheckListObject(member));
+					System.out.println(memberList);
 				}
-				memberList.add(clo);
+				
 			}
+			
 			this.members.getChildren().add(members);
-		}
+//		} else {
+//			deleteBtn.setDisable(false);
+//			editingExisting = true;
+//			this.asp = asp;
+//			descriptionField.setText(asp.getAppointment().getDescription());
+//			locationField.setPromptText(db.getRoomFromAppointmentId(asp.getAppointment().getAppointmentID()));
+//			startTimeField.setText(asp.getAppointment().getStartTime()
+//					.toString());
+//			endTimeField.setText(asp.getAppointment().getEndTime().toString());
+//			colorPicker.setValue(Color.valueOf(asp.getAppointment().getColor()));
+//			for (String member : allMembers) {
+//				CheckListObject clo = new CheckListObject(member);
+//				if (asp.getAppointment().getInvited().contains(member)) {
+//					clo.setSelectedProperty(true);
+//				}
+//				memberList.add(clo);
+//			}
+			
+			//this.members.getChildren().add(members);
+		
 
 	}
 

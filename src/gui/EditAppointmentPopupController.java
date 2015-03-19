@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
@@ -63,6 +64,8 @@ public class EditAppointmentPopupController {
 	private Button inviteMedlemBtn;
 	private ArrayList<String> admins = new ArrayList<String>();
 	private MainApp mainApp;
+	@FXML
+	private Label adminLabel;
 
 	@FXML
 	private void initialize() throws SQLException {
@@ -167,12 +170,10 @@ public class EditAppointmentPopupController {
 				locationField.getPromptText(), asp.getDate(),
 				LocalTime.parse(startTimeField.getText()),
 				LocalTime.parse(endTimeField.getText()), members,
-				members, new ArrayList<String>(),
+				members, admins,
 				colorPicker.getValue().toString().substring(2, 8).toUpperCase(), group, 0, 1);
 
 		popupStage.close();
-
-
 	}
 
 	private void addAppointmentToCalendar(String description, String location,
@@ -279,7 +280,9 @@ public class EditAppointmentPopupController {
 		//		System.out.println("groupID" +  asp.getAppointment().getAppointmentID());
 
 		for(String member: asp.getAppointment().getMembers()){
-			memberList.add(member);
+			if(!admins.contains(member)){
+				memberList.add(member);
+			}
 		}
 		System.out.println("Member List after updatedMemberList: " + memberList);
 	}
@@ -323,10 +326,11 @@ public class EditAppointmentPopupController {
 
 		for (String member : allMembers) {
 			CheckListObject clo = new CheckListObject(member);
-			if (!memberList.contains(member)) {
+			if (!memberList.contains(member) && !admins.contains(member)) {
 				invitableMemberList.add(clo);
 			}
 		}
+		
 
 		System.out.println("invitable Members:" + invitableMemberList);
 
@@ -361,8 +365,18 @@ public class EditAppointmentPopupController {
 		System.out.println("MemberList : " + memberList);
 		System.out.println("AdminList : " + admins);
 		
-
+//		ArrayList<String> memberWithoutAdmins = new ArrayList<String>();
+//		
+//		for(String member: memberList){
+//			for(String admin: admins){
+//				if(!member.equals(admin)){
+//					memberWithoutAdmins.add(member);
+//				}
+//			}
+//		}
 		
+
+		adminLabel.setText("Admin: " + admins.get(0));
 		asp.getAppointment().setMembers(memberList);
 
 

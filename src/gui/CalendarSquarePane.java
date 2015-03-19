@@ -1,10 +1,6 @@
 package gui;
 
-
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 import core.Appointment;
 import core.Group;
 import javafx.event.EventHandler;
@@ -26,6 +22,7 @@ public class CalendarSquarePane extends Pane {
 	private ScrollPane scrollPane;
 	private Group group;			// the group that is currently selected in the list of groups
 	private String date;
+	private Rectangle clipRectangle;
 
 	public CalendarSquarePane(MainApp mainApp, String date, Group group) {
 		super();
@@ -37,7 +34,6 @@ public class CalendarSquarePane extends Pane {
 		text.setLayoutY(15);
 		text.setFill(Color.WHITE);
 		this.getChildren().add(text);
-
 		this.setStyle("-fx-border-color: #124364;");
 		this.setOnMousePressed(new EventHandler<MouseEvent>() { // when a square is pressed
 			@Override
@@ -56,23 +52,20 @@ public class CalendarSquarePane extends Pane {
 					}
 				}
 			}
-		});	
-		appointmentList = new VBox();
-		scrollPane = new ScrollPane(appointmentList);
+		});
+		appointmentList = new VBox();	// list of appointment square panes
+		appointmentList.setAlignment(Pos.TOP_LEFT);
+		appointmentList.setSpacing(2);
+		scrollPane = new ScrollPane(appointmentList); // scroll pane containing the list of appointment square panes
 		scrollPane.setLayoutY(20);
 		scrollPane.setPrefSize(74, 60);
 		scrollPane.setFocusTraversable(false);
-		appointmentList.setAlignment(Pos.TOP_LEFT);
 		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
 		scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
-		appointmentList.setSpacing(2);
-		
 		this.getChildren().add(scrollPane);
-
-		Rectangle clipRectangle = new Rectangle(); // makes sure the contents of a square is not shown when the square is too small to display it
+		clipRectangle = new Rectangle(); // makes sure the contents of a square is not shown when the square is too small to display it
 		this.setClip(clipRectangle);
 		this.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
-			text.setLayoutX(newValue.getWidth() - text.getLayoutBounds().getWidth() -2);
 			clipRectangle.setWidth(newValue.getWidth());
 			clipRectangle.setHeight(newValue.getHeight());
 			scrollPane.setPrefSize(newValue.getWidth(), newValue.getHeight() - 20);
@@ -88,9 +81,7 @@ public class CalendarSquarePane extends Pane {
 		mainApp.showAppointmentPopup(this, null, group);
 	}
 
-	//edit en appointment
 	private void showPopup(AppointmentSquarePane asp) throws SQLException {
-
 		mainApp.showEditAppointmentPopup(null, asp, group);
 	}
 

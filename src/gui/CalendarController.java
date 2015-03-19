@@ -60,7 +60,7 @@ public class CalendarController {
 				if (keyCode.getCode().equals(konamiCode[konamiCodeCounter])) {
 					if (konamiCodeCounter == 9) {
 						((BorderPane) scene.getRoot())
-								.setCenter(new SecretPane(scene));
+						.setCenter(new SecretPane(scene));
 						AudioClip ac = new AudioClip(CalendarController.class
 								.getResource("/res/secret.mp3").toString());
 						ac.play();
@@ -84,7 +84,7 @@ public class CalendarController {
 		yearText.setText("" + currentYear);
 
 		for (int i = 0; i < 7; i++) { // sets contraints on each of the 7
-										// columns
+			// columns
 			ColumnConstraints columnConstraints = new ColumnConstraints();
 			columnConstraints.setFillWidth(true);
 			columnConstraints.setHgrow(Priority.ALWAYS);
@@ -113,24 +113,31 @@ public class CalendarController {
 		int day = c1.get(Calendar.DAY_OF_WEEK);
 		c1.add(Calendar.DATE, -1);
 		day = c1.get(Calendar.DAY_OF_WEEK); // the last monday of the month
-											// before the current month (first
-											// date to make a square for)
+		// before the current month (first
+		// date to make a square for)
 		while (day != 2) {
 			c1.add(Calendar.DATE, -1);
 			day = c1.get(Calendar.DAY_OF_WEEK);
 		}
 
-		ResultSet rs = null;
+		ResultSet appointmentsRS = null;
+		ResultSet allAppointmentMembers = null;
 		// Henter avtalene til gruppen som er markert.
 		System.out.println("calendar controller: " + group.getName());
 		if (!(group.getName().equals(""))) {
-			rs = dbConnection.getAppointmentsWithGroup(Integer.parseInt(group
+			appointmentsRS = dbConnection.getAppointmentsWithGroup(Integer.parseInt(group
 					.getGroupID()));
+			ArrayList<String> appointmentIDs = new ArrayList<String>();
+			while (appointmentsRS.next()) {
+				appointmentIDs.add(appointmentsRS.getString("appointmentID"));
+			}
+			appointmentsRS.beforeFirst();
+			allAppointmentMembers = dbConnection.getAllAppointmentMembers(appointmentIDs);
 		}
 		for (int i = 0; i < 6; i++) { // for each date: create string on the
-										// format dd/mm/yyyy and yyyy-mm-dd
+			// format dd/mm/yyyy and yyyy-mm-dd
 			for (int j = 0; j < 7; j++) { // and create a new CalendarSquarePane
-											// object for each of them
+				// object for each of them
 				String date = String.format("%02d", c1.getTime().getDate())
 						+ "/"
 						+ String.format("%02d", (c1.getTime().getMonth() + 1))
@@ -152,48 +159,51 @@ public class CalendarController {
 				}
 
 				if (!(group.getName().equals(""))) {
-					while (rs != null && rs.next()) {
-						if (!date2.equals(rs.getString("timeFrom").substring(0, 10))) {
+					while (appointmentsRS != null && appointmentsRS.next()) {
+						if (!date2.equals(appointmentsRS.getString("timeFrom").substring(0, 10))) {
 							continue;
 						}
-						ResultSet memberRs = dbConnection
-								.getAppointmentMembers(rs.getInt("appointmentID"));
 						ArrayList<String> members = new ArrayList<String>();
 						ArrayList<String> admins = new ArrayList<String>();
 						ArrayList<String> invited = new ArrayList<String>();
-						while (memberRs.next()) {
-							if (memberRs.getString("status") == "a") {
-								members.add(dbConnection.getUsername(memberRs
+						while (allAppointmentMembers.next()) {
+							if (!allAppointmentMembers.getString("APPOINTMENT_appointmentID").equals(appointmentsRS.getString("appointmentID"))) {
+								continue;
+							}
+							if (allAppointmentMembers.getString("status") == "a") {
+								members.add(dbConnection.getUsername(allAppointmentMembers
 										.getInt("USER_userID")));
 							}
-							if (memberRs.getString("status") == "i") {
-								invited.add(dbConnection.getUsername(memberRs
+							if (allAppointmentMembers.getString("status") == "i") {
+								invited.add(dbConnection.getUsername(allAppointmentMembers
 										.getInt("USER_userID")));
 							}
-							if (memberRs.getInt("isAdmin") == 1) {
-								admins.add(dbConnection.getUsername(memberRs
+							if (allAppointmentMembers.getInt("isAdmin") == 1) {
+								admins.add(dbConnection.getUsername(allAppointmentMembers
 										.getInt("USER_userID")));
 							}
 						}
-						Appointment appointment = new Appointment(
-								rs.getString("description"), rs.getString("place"),
-								LocalDate.parse(rs.getString("timeFrom")
-										.substring(0, 10)), LocalTime.parse(rs
-										.getString("timeFrom").substring(11, 16)),
-								LocalTime.parse(rs.getString("timeTo").substring(11,
-										16)), invited, members, admins,
-								rs.getString("appColor"), group);
-						appointment.setAppointmentID(rs.getString("appointmentID"));
-						memberRs.beforeFirst();
-						csp.addAppointment(appointment);
 						
+						
+						Appointment appointment = new Appointment(
+								appointmentsRS.getString("description"), appointmentsRS.getString("place"),
+								LocalDate.parse(appointmentsRS.getString("timeFrom")
+										.substring(0, 10)), LocalTime.parse(appointmentsRS
+												.getString("timeFrom").substring(11, 16)),
+												LocalTime.parse(appointmentsRS.getString("timeTo").substring(11,
+														16)), invited, members, admins,
+														appointmentsRS.getString("appColor"), group);
+						appointment.setAppointmentID(appointmentsRS.getString("appointmentID"));
+						allAppointmentMembers.beforeFirst();
+						csp.addAppointment(appointment);
+
 					}
 				}
 				calendar.add(csp, j, i); // adds the calendar square to the
-											// calendar gridPane
+				// calendar gridPane
 				c1.add(Calendar.DATE, 1); // increase date by 1
-				if (rs != null) {
-					rs.beforeFirst();
+				if (appointmentsRS != null) {
+					appointmentsRS.beforeFirst();
 				}
 			}
 		}

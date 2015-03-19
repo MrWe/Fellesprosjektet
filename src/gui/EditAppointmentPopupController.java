@@ -166,6 +166,7 @@ public class EditAppointmentPopupController {
 		asp.getAppointment().setColor(colorPicker.getValue().toString().substring(2, 8).toUpperCase());
 		asp.update();
 
+		System.out.println("admins to be added: " + admins);
 		addAppointmentToCalendar(descriptionField.getText(),
 				locationField.getPromptText(), asp.getDate(),
 				LocalTime.parse(startTimeField.getText()),
@@ -185,38 +186,6 @@ public class EditAppointmentPopupController {
 		Appointment appointment = new Appointment(description, location, date,
 				startTime, endTime, invited, members, admins, color, owner);
 
-
-<<<<<<< HEAD
-		// Used when a new appointment is created
-		if (addToDatabase == 1) {
-			csp.addAppointment(appointment);
-			group.addAppointment(appointment);
-			System.out.println("groupName " + group.getName());
-			db.addAppointment(username, appointment.getDescription(),
-					appointment.getDate().toString() + " "
-							+ appointment.getStartTime().toString() + ":00",
-							appointment.getDate().toString() + " "
-									+ appointment.getEndTime().toString() + ":00",
-									null, null, db.getRoomId(locationField.getValue()), group.getName(), color);
-			appointment.setAppointmentID(db.getLastAppointmentID());
-			// Used when editingExisting is true
-		} else if (changeAppointment == 1) {
-			String appointmentId = asp.getAppointment().getAppointmentID();
-			System.out.println(appointment);
-			db.updateAppointment(appointmentId, appointment.getDescription(),
-					appointment.getDate().toString() + " "
-							+ appointment.getStartTime().toString() + ":00",
-							appointment.getDate().toString() + " "
-									+ appointment.getEndTime().toString() + ":00",
-									null, null, db.getRoomId(locationField.getValue()), group.getName());
-			System.out.println("Appointment id: " + asp.getAppointment().getAppointmentID());
-			System.out.println("Appointment members: " + members);
-			db.setAppointmentMembers(Integer.parseInt(asp.getAppointment().getAppointmentID()), members);
-		}
-
-			// Used when appointments are retrieved from db
-		
-=======
 		System.out.println("happens");
 		String appointmentId = asp.getAppointment().getAppointmentID();
 		System.out.println(appointment);
@@ -225,13 +194,13 @@ public class EditAppointmentPopupController {
 						+ appointment.getStartTime().toString() + ":00",
 						appointment.getDate().toString() + " "
 								+ appointment.getEndTime().toString() + ":00",
-								null, null, 1, group.getName());
+								null, null, db.getRoomId(locationField.getValue()), group.getName());
 		System.out.println("Appointment id: " + asp.getAppointment().getAppointmentID());
 		System.out.println("Appointment members: " + members);
 		db.setAppointmentMembers(Integer.parseInt(asp.getAppointment().getAppointmentID()), members);
 		// Used when appointments are retrieved from db
 
->>>>>>> notShowingAdminAppointment
+
 		// else {
 		// csp.addAppointment(appointment);
 		// group.addAppointment(appointment);
@@ -367,7 +336,7 @@ public class EditAppointmentPopupController {
 				invitableMemberList.add(clo);
 			}
 		}
-		
+
 
 		System.out.println("invitable Members:" + invitableMemberList);
 
@@ -384,7 +353,7 @@ public class EditAppointmentPopupController {
 		this.asp = asp;
 
 		//setAdmin
-	
+
 		admins = asp.getAppointment().getAdmins();
 
 		//set naavarende members
@@ -398,20 +367,20 @@ public class EditAppointmentPopupController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		System.out.println("MemberList : " + memberList);
 		System.out.println("AdminList : " + admins);
-		
-//		ArrayList<String> memberWithoutAdmins = new ArrayList<String>();
-//		
-//		for(String member: memberList){
-//			for(String admin: admins){
-//				if(!member.equals(admin)){
-//					memberWithoutAdmins.add(member);
-//				}
-//			}
-//		}
-		
+
+		//		ArrayList<String> memberWithoutAdmins = new ArrayList<String>();
+		//		
+		//		for(String member: memberList){
+		//			for(String admin: admins){
+		//				if(!member.equals(admin)){
+		//					memberWithoutAdmins.add(member);
+		//				}
+		//			}
+		//		}
+
 
 		adminLabel.setText("Admin: " + admins.get(0));
 		asp.getAppointment().setMembers(memberList);

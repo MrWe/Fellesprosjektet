@@ -377,7 +377,7 @@ public class EditAppointmentPopupController {
 		editingExisting = true;
 		//System.out.println("appointmen: " + asp.getAppointment().getDescription());
 		descriptionField.setText(asp.getAppointment().getDescription());
-		locationField.setPromptText(db.getRoomFromAppointmentId(asp.getAppointment().getAppointmentID()));
+		locationField.setValue(db.getRoomFromAppointmentId(asp.getAppointment().getAppointmentID()));
 		startTimeField.setText(asp.getAppointment().getStartTime()
 				.toString());
 		endTimeField.setText(asp.getAppointment().getEndTime().toString());

@@ -251,7 +251,7 @@ public class EditGroupPopupController {
 		popupStage.close();
 	}
 
-	public void fillPopup(TreeView treeView, TreeItem<Group> group, String username) { // called whenever the popup is opened
+	public void fillPopup(TreeView<Group> treeView, TreeItem<Group> group, String username) { // called whenever the popup is opened
 		try {
 			if (db.isPrivateGroup(group.getValue().getName())) {
 				invitableMembers.setDisable(true);

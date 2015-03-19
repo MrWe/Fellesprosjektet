@@ -1,6 +1,7 @@
 package gui;
 
 import java.sql.SQLException;
+
 import core.Appointment;
 import core.Group;
 import javafx.event.EventHandler;
@@ -11,6 +12,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Arc;
+import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
@@ -24,8 +28,14 @@ public class CalendarSquarePane extends Pane {
 	private String date;
 	private Rectangle clipRectangle;
 
-	public CalendarSquarePane(MainApp mainApp, String date, Group group) {
+	public CalendarSquarePane(MainApp mainApp, String date, Group group, boolean today) {
 		super();
+		if (today) {			
+			Arc arc = new Arc(0, 0, 20, 20, -90, 90);
+			arc.setType(ArcType.ROUND);
+			arc.setFill(Paint.valueOf("RED"));
+			this.getChildren().add(arc);
+		}
 		this.date = date;
 		this.mainApp = mainApp;
 		this.group = group;

@@ -9,18 +9,23 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0"
-	stylesheets="@../../bin/styles/settingsStyle.css" xmlns="http://javafx.com/javafx/8"
-	xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.NotificationController">
+<AnchorPane prefHeight="500.0" prefWidth="700.0" stylesheets="@../../bin/styles/notificationStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.NotificationController">
 	<children>
-		<ListView fx:id="notification" layoutX="-1.0" prefHeight="500.0"
-			prefWidth="700.0" AnchorPane.bottomAnchor="100"
-			AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
-			AnchorPane.topAnchor="0" focusTraversable="false">
+		<ListView fx:id="notification" focusTraversable="false" minHeight="-Infinity" prefWidth="300.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="20.0">
 		</ListView>
-		<Button fx:id="acceptBtn" layoutX="41.0" layoutY="460.0"
-			mnemonicParsing="false" text="Accept" AnchorPane.bottomAnchor="50" focusTraversable="false" />
-		<Button fx:id="declineBtn" layoutX="159.0" layoutY="460.0"
-			mnemonicParsing="false" text="Decline" AnchorPane.bottomAnchor="50" focusTraversable="false" />
+		<HBox alignment="CENTER" prefHeight="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+			<children>
+				<Button fx:id="acceptBtn" focusTraversable="false" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="Accept">
+					<HBox.margin>
+						<Insets right="5.0" />
+					</HBox.margin>
+				</Button>
+				<Button fx:id="declineBtn" focusTraversable="false" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" styleClass="redButton" text="Decline">
+					<HBox.margin>
+						<Insets left="5.0" />
+					</HBox.margin>
+				</Button>
+			</children>
+		</HBox>
 	</children>
 </AnchorPane>

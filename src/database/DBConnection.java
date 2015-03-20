@@ -371,7 +371,7 @@ public class DBConnection {
 	}
 
 	public void updateAcceptedAppointmentMembers(int appointmentID, int userID) throws SQLException{
-		String q = "UPDATE APPOINTMENTMEMBER SET status='a' WHERE APPOINTMENT_appointmentID='" + appointmentID + "' AND USER_userID= '" + userID + "';";
+		String q = "UPDATE APPOINTMENTMEMBER SET status='a' WHERE APPOINTMENT_appointmentID=" + appointmentID + " AND USER_userID= " + userID + ";";
 		db.updateDB(q);
 	}
 

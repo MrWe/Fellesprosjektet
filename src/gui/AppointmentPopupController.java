@@ -197,7 +197,6 @@ public class AppointmentPopupController {
 		popupStage.close();
 	}
 
-	@FXML
 	public void handleFindRoom() throws SQLException {
 		if (validTime()) {
 			ArrayList<String> rooms = new ArrayList<String>();

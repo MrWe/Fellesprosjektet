@@ -45,7 +45,7 @@ public class EditAppointmentPopupController {
 	@FXML private VBox invitableMembers;
 	private Group group;
 	private DBConnection db;
-	@FXML private Button OKBtn, deleteBtn, slettMedlemBtn, inviteMedlemBtn, findRoomBtn;
+	@FXML private Button OKBtn, deleteBtn, slettMedlemBtn, inviteMedlemBtn;
 	@FXML private Label adminLabel;
 	private MainApp mainApp;
 
@@ -221,7 +221,6 @@ public class EditAppointmentPopupController {
 		popupStage.close();
 	}
 
-	@FXML
 	public void handleFindRoom() throws SQLException {
 		if (validTime()) {
 			ArrayList<String> rooms = new ArrayList<String>();
@@ -353,7 +352,6 @@ public class EditAppointmentPopupController {
 			invitableMembers.setDisable(true);
 			OKBtn.setDisable(true);
 			deleteBtn.setDisable(true);
-			findRoomBtn.setDisable(true);
 		}
 	}
 

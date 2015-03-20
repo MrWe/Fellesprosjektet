@@ -68,18 +68,9 @@
 								<Insets />
 							</HBox.margin>
 						</Label>
-						<Button fx:id="findRoomBtn" mnemonicParsing="false" onAction="#handleFindRoom" prefHeight="24.0" prefWidth="89.0" styleClass="findRoomButton" text="Finn rom">
-							<HBox.margin>
-								<Insets left="11.0" />
-							</HBox.margin>
-						</Button>
-					</children>
-				</HBox>
-				<HBox>
-					<children>
 						<ComboBox fx:id="locationField" prefWidth="150.0" promptText="Velg Room">
 							<HBox.margin>
-								<Insets left="111.0" />
+								<Insets left="10.0" />
 							</HBox.margin>
 						</ComboBox>
 					</children>

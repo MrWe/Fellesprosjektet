@@ -22,11 +22,13 @@ public class ToolbarController {
 
 	@FXML
 	private void openNotice() {
+		mainApp.deselectGroup();
 		mainApp.showNotification();
 	}
 
 	@FXML
 	private void openSettings() {
+		mainApp.deselectGroup();
 		mainApp.showSettings();
 	}
 

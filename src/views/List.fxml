@@ -23,7 +23,7 @@
 			AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" />
 		<HBox AnchorPane.bottomAnchor="38.0">
 			<children>
-				<Button focusTraversable="false" maxHeight="40.0" minWidth="243.0"
+				<Button fx:id="newGroupBtn" focusTraversable="false" maxHeight="40.0" minWidth="243.0"
 					mnemonicParsing="false" onAction="#newGroup" prefHeight="38.0"
 					styleClass="bigFont" text="New Group">
 				</Button>

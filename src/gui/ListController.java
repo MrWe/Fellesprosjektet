@@ -21,7 +21,7 @@ public class ListController {
 	private MainApp mainApp;
 	private DBConnection db;
 	@FXML private TreeView<Group> treeView;
-	@FXML private Button editGroupBtn, newSubGroupBtn;
+	@FXML private Button newGroupBtn, editGroupBtn, newSubGroupBtn;
 	private TreeItem<Group> privateGroup;
 
 	@FXML
@@ -92,8 +92,11 @@ public class ListController {
 					return;
 				}
 				if (newValue.getValue().isPrivateGroup() == true) {
+					newGroupBtn.setDisable(false);
+					editGroupBtn.setDisable(false);
 					newSubGroupBtn.setDisable(true);
 				} else {
+					newGroupBtn.setDisable(false);
 					editGroupBtn.setDisable(false);
 					newSubGroupBtn.setDisable(false);
 				}
@@ -125,6 +128,13 @@ public class ListController {
 	public void selectPrivateGroup() {
 		treeView.getSelectionModel().clearSelection();
 		treeView.getSelectionModel().select(privateGroup);
+	}
+	
+	public void deselectGroup() {
+		newGroupBtn.setDisable(true);
+		editGroupBtn.setDisable(true);
+		newSubGroupBtn.setDisable(true);
+		treeView.getSelectionModel().clearSelection();
 	}
 
 	public void setMainApp(MainApp mainApp) {

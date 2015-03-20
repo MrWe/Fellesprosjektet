@@ -82,8 +82,6 @@ public class NotificationController {
 			return;
 		}
 		Alert alert = alerts.get(index);
-		System.out.println(alerts.get(index));
-		System.out.println(alert.getAppointmentId() + "                  " + alert.getUserId());
 		db.deleteAppointmentMember(alert.getUserId(), alert.getAppointmentId());
 		removeAlert(alert.getID(), index);
 	}

@@ -71,7 +71,7 @@ public class NotificationController {
 			return;
 		}
 		Alert alert = alerts.get(index);
-		db.updateAcceptedAppointmentMembers(alert.getUserId(), alert.getAppointmentId());
+		db.updateAcceptedAppointmentMembers(alert.getAppointmentId(), alert.getUserId());
 		
 		removeAlert(alert.getID(), index);
 	}

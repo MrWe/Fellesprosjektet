@@ -34,7 +34,6 @@ public class EditAppointmentPopupController {
 	@FXML private ComboBox<String> locationField;
 	@FXML private TextField startTimeField, endTimeField;
 	@FXML private ColorPicker colorPicker;
-	@FXML private Button deleteBtn;
 	@FXML private Text errorText;
 	private Stage popupStage;
 	private ObservableList<CheckListObject> invitableMemberList = FXCollections.observableArrayList();
@@ -46,8 +45,9 @@ public class EditAppointmentPopupController {
 	@FXML private VBox invitableMembers;
 	private Group group;
 	private DBConnection db;
-	@FXML private Button slettMedlemBtn, inviteMedlemBtn;
+	@FXML private Button OKBtn, deleteBtn, slettMedlemBtn, inviteMedlemBtn, findRoomBtn;
 	@FXML private Label adminLabel;
+	private MainApp mainApp;
 
 	@FXML
 	private void initialize() throws SQLException {
@@ -58,6 +58,10 @@ public class EditAppointmentPopupController {
 
 	public void setPopupStage(Stage popupStage) {
 		this.popupStage = popupStage;
+	}
+	
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
 	}
 
 	@FXML
@@ -307,13 +311,26 @@ public class EditAppointmentPopupController {
 		updateMemberList();
 		updateInviteList();
 
-		deleteBtn.setDisable(false);
 		descriptionField.setText(asp.getAppointment().getDescription());
 		locationField.setValue(db.getRoomFromAppointmentId(asp.getAppointment().getAppointmentID()));
 		startTimeField.setText(asp.getAppointment().getStartTime()
 				.toString());
 		endTimeField.setText(asp.getAppointment().getEndTime().toString());
 		colorPicker.setValue(Color.valueOf(asp.getAppointment().getColor()));
+		
+		if (!admins.contains(mainApp.getUser().getName())) {
+			descriptionField.setEditable(false);
+			locationField.setDisable(true);
+			startTimeField.setEditable(false);
+			endTimeField.setEditable(false);
+			colorPicker.setDisable(true);
+			slettMedlemBtn.setDisable(true);
+			inviteMedlemBtn.setDisable(true);
+			invitableMembers.setDisable(true);
+			OKBtn.setDisable(true);
+			deleteBtn.setDisable(true);
+			findRoomBtn.setDisable(true);
+		}
 	}
 
 }

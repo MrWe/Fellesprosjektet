@@ -66,6 +66,7 @@ public class CalendarSquarePane extends Pane {
 		appointmentList = new VBox();	// list of appointment square panes
 		appointmentList.setAlignment(Pos.TOP_LEFT);
 		appointmentList.setSpacing(2);
+		appointmentList.setFocusTraversable(false);
 		scrollPane = new ScrollPane(appointmentList); // scroll pane containing the list of appointment square panes
 		scrollPane.setLayoutY(20);
 		scrollPane.setPrefSize(74, 60);
@@ -80,6 +81,12 @@ public class CalendarSquarePane extends Pane {
 			clipRectangle.setHeight(newValue.getHeight());
 			scrollPane.setPrefSize(newValue.getWidth(), newValue.getHeight() - 20);
 			appointmentList.setPrefWidth(newValue.getWidth());
+		});
+		this.focusedProperty().addListener((observable, oldValue, newValue) -> {
+			System.out.println(oldValue + " " + newValue);
+			if (newValue) {
+				this.getParent().requestFocus();
+			}
 		});
 	}
 

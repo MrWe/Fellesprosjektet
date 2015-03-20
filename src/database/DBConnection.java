@@ -80,7 +80,7 @@ public class DBConnection {
 		db.updateDB(q);
 
 		// inserts a new private group for the user
-		q = "INSERT INTO USERGROUP(isPrivate, groupName, color, USERGROUP_usergroupID) VALUES ('"
+		q = "INSERT INTO USERGROUP(isPrivate, groupName, grpColor, USERGROUP_usergroupID) VALUES ('"
 				+ 1
 				+ "','"
 				+ (username + "Private")

@@ -82,7 +82,7 @@ public class NotificationController {
 			return;
 		}
 		Alert alert = alerts.get(index);
-
+		db.deleteAppointmentMember(alert.getAppointmentId(), alert.getUserId());
 		removeAlert(alert.getID(), index);
 	}
 

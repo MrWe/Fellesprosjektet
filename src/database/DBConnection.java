@@ -616,7 +616,7 @@ public class DBConnection {
 				+ "',timeFrom='" + from + "',timeTo='" + to + "',place="
 				+ place + ",appointmentType=" + appointmentType
 				+ ",ROOM_roomID=" + roomID + ",USERGROUP_usergroupID="
-				+ groupID + ",appColor=" + color + " WHERE appointmentID = " + appointmentId + ";";
+				+ groupID + ",appColor='" + color + "' WHERE appointmentID = " + appointmentId + ";";
 		db.updateDB(q);
 	}
 

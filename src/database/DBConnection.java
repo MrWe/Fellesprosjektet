@@ -232,7 +232,7 @@ public class DBConnection {
 	}
 
 	public void deleteAppointmentMember(int userId, int appointmentId) throws SQLException{
-		String q = "DELETE FROM APPOINTMENTMEMBER WHERE USER_userID='" + userId + "' AND APPOINTMENT_appointmentID='" + appointmentId + "';";
+		String q = "DELETE FROM APPOINTMENTMEMBER WHERE USER_userID=" + userId + " AND APPOINTMENT_appointmentID=" + appointmentId + ";";
 		db.updateDB(q);
 	}
 

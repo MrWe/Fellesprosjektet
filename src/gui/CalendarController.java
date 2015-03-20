@@ -148,7 +148,11 @@ public class CalendarController {
 							continue;
 						}
 						// if you have not accepted the invitation to the appointment and not an admin: skip it
+						allAppointmentMembers.next();
+						System.out.println(allAppointmentMembers.getString("status") + " " + allAppointmentMembers.getString("isAdmin") + " " + allAppointmentMembers.getString("USER_userID") + " " + allAppointmentMembers.getString("APPOINTMENT_appointmentID")); 
+						allAppointmentMembers.previous();
 						if( allAppointmentMembers.next() 
+								
 								&& !(allAppointmentMembers.getString("status").equals("a") || allAppointmentMembers.getString("isAdmin").equals("1"))){
 							continue;
 						}

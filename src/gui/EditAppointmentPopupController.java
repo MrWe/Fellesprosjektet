@@ -243,7 +243,7 @@ public class EditAppointmentPopupController {
 		members.setItems(memberList);
 		memberList.clear();
 		try {
-			db.addAlarm(asp.getAppointment().getDate().toString(), "Appointment", asp.getAppointment().getMembers(), asp.getAppointment().getAppointmentID());
+			db.addAlarm(asp.getAppointment().getDate().toString() + " " + asp.getAppointment().getStartTime() + ":00", "App", asp.getAppointment().getMembers(), asp.getAppointment().getAppointmentID());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

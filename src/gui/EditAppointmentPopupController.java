@@ -94,6 +94,7 @@ public class EditAppointmentPopupController {
 		}
 		asp.getAppointment().setMembers(invited);
 
+
 		updateMemberList();
 		updateInviteList();
 	}
@@ -241,7 +242,12 @@ public class EditAppointmentPopupController {
 		members.setEditable(true);
 		members.setItems(memberList);
 		memberList.clear();
-
+		try {
+			db.addAlarm(asp.getAppointment().getDate().toString(), "Appointment", asp.getAppointment().getMembers(), asp.getAppointment().getAppointmentID());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		for(String member: asp.getAppointment().getMembers()){
 			if(!admins.contains(member)){
 				memberList.add(member);

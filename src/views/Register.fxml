@@ -94,7 +94,7 @@
 				</HBox>
 				<HBox>
 					<children>
-						<DatePicker fx:id="birthdayDatePicker" nodeOrientation="LEFT_TO_RIGHT" opacity="0.86" pickOnBounds="false" prefHeight="45.0" prefWidth="300.0" snapToPixel="false">
+						<DatePicker fx:id="birthdayDatePicker" nodeOrientation="LEFT_TO_RIGHT" opacity="0.86" pickOnBounds="false" prefHeight="45.0" prefWidth="300.0" snapToPixel="false" promptText="Fødselsdag">
 							<opaqueInsets>
 								<Insets />
 							</opaqueInsets>

@@ -46,6 +46,7 @@ public class RegisterController {
 						fullNameField.getText(), 
 						birthdayDatePicker.getValue().toString(), 
 						emailField.getText());
+				mainApp.showLogin();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

@@ -47,7 +47,7 @@
 		<HBox alignment="CENTER" AnchorPane.bottomAnchor="34.0"
 			AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 			<children>
-				<Text fx:id="errorText" text="Hei jeg er en tilbakemelding!">
+				<Text fx:id="errorText" text="">
 					<HBox.margin>
 						<Insets bottom="2.0" top="2.0" />
 					</HBox.margin>

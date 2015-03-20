@@ -148,11 +148,23 @@ public class CalendarController {
 							continue;
 						}
 						// if you have not accepted the invitation to the appointment and not an admin: skip it
-						if( allAppointmentMembers.next() 
-								&& !(allAppointmentMembers.getString("status").equals("a") || allAppointmentMembers.getString("isAdmin").equals("1"))){
+//						if( allAppointmentMembers.next() 
+//								&& !(allAppointmentMembers.getString("status").equals("a") || allAppointmentMembers.getString("isAdmin").equals("1"))){
+//							continue;
+//						}
+//						allAppointmentMembers.previous();
+						boolean userIsInAppointment = false;
+						while(allAppointmentMembers.next()) {
+							if (appointmentsRS.getString("appointmentID").equals(allAppointmentMembers.getString("APPOINTMENT_appointmentID"))
+									&& allAppointmentMembers.getString("username").equals(mainApp.getUser().getUsername()) 
+									&& (allAppointmentMembers.getString("status").equals("a") || allAppointmentMembers.getString("isAdmin").equals("1"))) {
+								userIsInAppointment = true;
+							}
+						}
+						allAppointmentMembers.beforeFirst();
+						if (!userIsInAppointment) {
 							continue;
 						}
-						allAppointmentMembers.previous();
 						ArrayList<String> members = new ArrayList<String>();
 						ArrayList<String> admins = new ArrayList<String>();
 						ArrayList<String> invited = new ArrayList<String>();

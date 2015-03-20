@@ -82,8 +82,7 @@ public class CalendarSquarePane extends Pane {
 			scrollPane.setPrefSize(newValue.getWidth(), newValue.getHeight() - 20);
 			appointmentList.setPrefWidth(newValue.getWidth());
 		});
-		this.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			System.out.println(oldValue + " " + newValue);
+		scrollPane.focusedProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue) {
 				this.getParent().requestFocus();
 			}

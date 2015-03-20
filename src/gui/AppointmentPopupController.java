@@ -51,6 +51,24 @@ public class AppointmentPopupController {
 	private void initialize() throws SQLException {
 		db = new DBConnection();
 		allMembers = new ArrayList<String>();
+		startTimeField.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (startTimeField.getText().matches("[0-9][0-9][:][0-9][0-9]") && endTimeField.getText().matches("[0-9][0-9][:][0-9][0-9]")) {
+				try {
+					handleFindRoom();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		endTimeField.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (startTimeField.getText().matches("[0-9][0-9][:][0-9][0-9]") && endTimeField.getText().matches("[0-9][0-9][:][0-9][0-9]")) {
+				try {
+					handleFindRoom();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	public void setMainApp(MainApp mainApp) {

@@ -85,7 +85,12 @@ public class EditGroupPopupController {
 
 		for (String admin : group.getValue().getAdmins()) {
 			adminList.add(admin);
-		};
+		}
+		if (adminList.size() < 2) {
+			deleteAdminButton.setDisable(true);
+		} else {
+			deleteAdminButton.setDisable(false);
+		}
 	}
 
 	private void updateInvitableMemberList(){
@@ -118,7 +123,13 @@ public class EditGroupPopupController {
 	@FXML
 	private void deleteAdmin(){
 		String admin = admins.getSelectionModel().getSelectedItem();
+		if (admin == null) {
+			return;
+		}
 		adminList.remove(admin);
+		if (adminList.size() == 1) {
+			deleteAdminButton.setDisable(true);
+		}
 		memberList.add(admin);
 		group.getValue().removeAdmin(admin);
 		updateMemberList();
@@ -129,7 +140,9 @@ public class EditGroupPopupController {
 	private void deleteMember(){
 		String memberToDelete = new String();
 		memberToDelete = members.getSelectionModel().getSelectedItem();
-
+		if (memberToDelete == null) {
+			return;
+		}
 		ArrayList<String> members = new ArrayList<String>();
 		for (String member : memberList) {
 			if(member != memberToDelete ){
@@ -152,7 +165,13 @@ public class EditGroupPopupController {
 	private void makeAdmin(){
 		String newAdmin = new String();
 		newAdmin = members.getSelectionModel().getSelectedItem();
+		if (newAdmin == null) {
+			return;
+		}
 		adminList.add(newAdmin);
+		if (adminList.size() > 1) {
+			deleteAdminButton.setDisable(false);
+		}
 		group.getValue().addAdmin(newAdmin);
 		updateMemberList();
 		updateInvitableMemberList();

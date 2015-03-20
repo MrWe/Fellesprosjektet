@@ -610,13 +610,13 @@ public class DBConnection {
 
 	public void updateAppointment(String appointmentId, String description,
 			String from, String to, String place, String appointmentType,
-			int roomID, String groupName) throws SQLException {
+			int roomID, String groupName, String color) throws SQLException {
 		int groupID = getGroupID(groupName);
 		String q = "UPDATE APPOINTMENT SET description='" + description
 				+ "',timeFrom='" + from + "',timeTo='" + to + "',place="
 				+ place + ",appointmentType=" + appointmentType
 				+ ",ROOM_roomID=" + roomID + ",USERGROUP_usergroupID="
-				+ groupID + " WHERE appointmentID = " + appointmentId + ";";
+				+ groupID + ",appColor=" + color + " WHERE appointmentID = " + appointmentId + ";";
 		db.updateDB(q);
 	}
 

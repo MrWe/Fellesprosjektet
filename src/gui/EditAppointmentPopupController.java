@@ -163,7 +163,8 @@ public class EditAppointmentPopupController {
 				null, 
 				null, 
 				db.getRoomId(locationField.getValue()), 
-				group.getName());
+				group.getName(),
+				appointment.getColor());
 		db.setAppointmentMembers(Integer.parseInt(asp.getAppointment().getAppointmentID()), members);
 		db.addAppointmentAdmins(Integer.parseInt(asp.getAppointment().getAppointmentID()), admins);
 	}

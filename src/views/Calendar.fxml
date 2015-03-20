@@ -9,7 +9,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.GridPane?>
 
-<AnchorPane prefWidth="1280.0" stylesheets="@../../bin/styles/calendarStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CalendarController">
+<AnchorPane prefWidth="1280.0" stylesheets="/styles/calendarStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CalendarController">
 	<children>
 		<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<children>

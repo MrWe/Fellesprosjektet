@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 
 <AnchorPane minWidth="243.0" prefWidth="243.0" styleClass="theBackground"
-	stylesheets="@../../bin/styles/listStyle.css" xmlns="http://javafx.com/javafx/8"
+	stylesheets="/styles/listStyle.css" xmlns="http://javafx.com/javafx/8"
 	xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ListController">
 	<children>
 		<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0"

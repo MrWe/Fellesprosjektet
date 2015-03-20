@@ -14,7 +14,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
 	minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
-	prefWidth="750.0" styleClass="theBackground" stylesheets="@../../bin/styles/groupPopupStyle.css"
+	prefWidth="750.0" styleClass="theBackground" stylesheets="/styles/groupPopupStyle.css"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="gui.EditGroupPopupController">
 	<children>

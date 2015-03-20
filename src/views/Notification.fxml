@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0" stylesheets="@../../bin/styles/notificationStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.NotificationController">
+<AnchorPane prefHeight="500.0" prefWidth="700.0" stylesheets="/styles/notificationStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.NotificationController">
 	<children>
 		<ListView fx:id="notification" focusTraversable="false" minHeight="-Infinity" prefWidth="300.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="20.0">
 		</ListView>

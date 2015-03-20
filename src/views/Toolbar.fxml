@@ -10,7 +10,7 @@
 <?import java.net.*?>
 <?import java.lang.*?>
 
-<AnchorPane styleClass="thebackground" stylesheets="@../../bin/styles/toolbarStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ToolbarController">
+<AnchorPane styleClass="thebackground" stylesheets="/styles/toolbarStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ToolbarController">
 	<children>
 		<HBox spacing="1.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0">
 			<children>

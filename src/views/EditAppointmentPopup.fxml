@@ -98,7 +98,7 @@
 		</VBox>
 		<VBox alignment="TOP_CENTER" layoutX="347.0" layoutY="7.0" minHeight="-Infinity" prefWidth="240.0" spacing="5" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="7.0">
 			<children>
-				<Label text="Avtales medlemmer">
+				<Label text="Avtale medlemmer">
 					<VBox.margin>
 						<Insets />
 					</VBox.margin>

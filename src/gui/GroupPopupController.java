@@ -37,12 +37,14 @@ public class GroupPopupController {
 	private TreeView<Group> treeView;
 	private TreeItem<Group> group;
 	private boolean createSub, isPrivate;
-	private DBConnection db;
+	//private DBConnection db;
 	private MainApp mainApp;
+	private ArrayList<String> allMembers = new ArrayList<String>(Arrays.asList("Kristoffer Lervik", "Erik Wiker"));
+	private ArrayList<String> allInvited = new ArrayList<String>(Arrays.asList("Hoang Hai Nguyen", "Trym Nilsen"));
 
 	@FXML
 	private void initialize() {
-		db = new DBConnection();
+		//db = new DBConnection();
 	}
 
 	public void setPopupStage(Stage popupStage) {
@@ -61,6 +63,7 @@ public class GroupPopupController {
 			errorText.setText(validInput);
 			return;
 		}
+		System.out.println("hei");
 		ArrayList<String> admins = new ArrayList<String>(Arrays.asList(mainApp.getUser().getName()));
 		ArrayList<String> invited = new ArrayList<String>();
 		for (CheckListObject clo : memberList) {	// gets all the names that have been selected in the list of members
@@ -68,30 +71,32 @@ public class GroupPopupController {
 				invited.add(clo.getName());
 			}
 		}
+		System.out.println("hei2");
 		Group group = new Group(nameField.getText(), false, "0", "0", invited, admins);
 		TreeItem<Group> newGroup = new TreeItem<Group>(group);
 		if (createSub) {	// if creating a new subgroup
 			this.group.getChildren().add(newGroup);
-			try {
-				int superGroupID = db.getGroupID(this.group.getValue().getName());	// finds the usergroupID of the selected group when the popup was opened
-				db.createGroup(nameField.getText(), 0, superGroupID, mainApp.getUser().getUsername());	// sets the USERGROUP_usergroupID field of the new group equal to the number above
-				group.setGroupID(db.getLastGroupID());
-				db.addGroupMembers(nameField.getText(), invited);
-				this.group.setExpanded(true);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				int superGroupID = db.getGroupID(this.group.getValue().getName());	// finds the usergroupID of the selected group when the popup was opened
+//				db.createGroup(nameField.getText(), 0, superGroupID, mainApp.getUser().getUsername());	// sets the USERGROUP_usergroupID field of the new group equal to the number above
+//				group.setGroupID(db.getLastGroupID());
+//				db.addGroupMembers(nameField.getText(), invited);
+//				this.group.setExpanded(true);
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
 		} else {	// if creating a new group
 			treeView.getRoot().getChildren().add(newGroup);
-			try {
-				db.createGroup(nameField.getText(), 0, 0, mainApp.getUser().getUsername()); // 0 is the id of the root group
-				group.setGroupID(db.getLastGroupID());
-				db.addGroupMembers(nameField.getText(), invited);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				db.createGroup(nameField.getText(), 0, 0, mainApp.getUser().getUsername()); // 0 is the id of the root group
+//				group.setGroupID(db.getLastGroupID());
+//				db.addGroupMembers(nameField.getText(), invited);
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
 		}
-		treeView.getSelectionModel().select(newGroup);
+		System.out.println("hei3");
+		//treeView.getSelectionModel().select(newGroup);
 		popupStage.close();
 	}
 
@@ -115,17 +120,17 @@ public class GroupPopupController {
 		memberList.clear();
 		members.getChildren().clear();
 
-		ResultSet rs = db.getPrivateGroup(mainApp.getUser().getUsername());
-		try {
-			rs.next();
-			if (group != null && rs.getString("groupName").equals(group.getValue().getName())) {
-				isPrivate = true;
-			} else {
-				isPrivate = false;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//		ResultSet rs = db.getPrivateGroup(mainApp.getUser().getUsername());
+//		try {
+//			rs.next();
+//			if (group != null && rs.getString("groupName").equals(group.getValue().getName())) {
+//				isPrivate = true;
+//			} else {
+//				isPrivate = false;
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 		//for members
 		ListView<CheckListObject> members = new ListView<CheckListObject>();
 		members.setEditable(true);
@@ -140,41 +145,41 @@ public class GroupPopupController {
 		Callback<ListView<CheckListObject>, 
 		ListCell<CheckListObject>> forListView = CheckBoxListCell.forListView(getProperty);
 		members.setCellFactory(forListView);
-		try {
+//		try {
 			if (createSub) {
 				if (isPrivate) {
 					memberListText.setText("Kan ikke lage subgrupper\nav private grupper.");
 					OKBtn.setDisable(true);
 					nameField.setDisable(true);
-				} else if (!db.isAdmin(mainApp.getUser().getUsername(), group.getValue().getName())) {
-					memberListText.setText("Må være admin av gruppe for\n å lage subgruppe");
-					nameField.setDisable(true);
-					OKBtn.setDisable(true);
-				} else {
-					for (String member : this.group.getValue().getMembers()) {
-						if (!member.equals(mainApp.getUser().getName())) {							
+//				} else if (!db.isAdmin(mainApp.getUser().getUsername(), group.getValue().getName())) {
+//					memberListText.setText("Må være admin av gruppe for\n å lage subgruppe");
+//					nameField.setDisable(true);
+//					OKBtn.setDisable(true);
+//				} else {
+					for (String member : allInvited) {
+					//	if (!member.equals(mainApp.getUser().getName())) {							
 							memberList.add(new CheckListObject(member));
-						}
+					//	}
 					}
 					this.members.getChildren().add(members);
 				}
 			} else {
-				rs = db.getAllUsers();
-				try {
-					while (rs.next()) {
-						if(!rs.getString("fullName").equals(mainApp.getUser().getName())){
-							memberList.add(new CheckListObject(rs.getString("fullName")));
-						}
+//				rs = db.getAllUsers();
+//				try {
+//					while (rs.next()) {
+					for (String name : allMembers) {
+						
+							memberList.add(new CheckListObject(name));
 					}
 					this.members.getChildren().add(members);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
 			}
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 }

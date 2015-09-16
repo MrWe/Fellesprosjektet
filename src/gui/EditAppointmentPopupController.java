@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ObservableValue;
@@ -44,14 +45,16 @@ public class EditAppointmentPopupController {
 	@FXML private ListView<String> members;
 	@FXML private VBox invitableMembers;
 	private Group group;
-	private DBConnection db;
+	//private DBConnection db;
 	@FXML private Button OKBtn, deleteBtn, slettMedlemBtn, inviteMedlemBtn;
 	@FXML private Label adminLabel;
 	private MainApp mainApp;
+	private ArrayList<String> allMemberss = new ArrayList<String>(Arrays.asList("Kristoffer Lervik", "Erik Wiker"));
+	private ArrayList<String> allInvited = new ArrayList<String>(Arrays.asList("Hoang Hai Nguyen", "Trym Nilsen"));
 
 	@FXML
 	private void initialize() throws SQLException {
-		db = new DBConnection();
+		//db = new DBConnection();
 		allMembers = new ArrayList<String>();
 		admins = new ArrayList<String>();
 		startTimeField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -156,12 +159,12 @@ public class EditAppointmentPopupController {
 				group, 
 				0, 
 				1);
-		try {
-			db.addAlarm(asp.getAppointment().getDate().toString() + " " + asp.getAppointment().getStartTime() + ":00", "App", asp.getAppointment().getMembers(), asp.getAppointment().getAppointmentID());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			db.addAlarm(asp.getAppointment().getDate().toString() + " " + asp.getAppointment().getStartTime() + ":00", "App", asp.getAppointment().getMembers(), asp.getAppointment().getAppointmentID());
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		popupStage.close();
 	}
 
@@ -184,18 +187,18 @@ public class EditAppointmentPopupController {
 				owner);
 
 		String appointmentId = asp.getAppointment().getAppointmentID();
-		db.updateAppointment(
-				appointmentId, 
-				appointment.getDescription(),
-				appointment.getDate().toString() + " "	+ appointment.getStartTime().toString() + ":00",
-				appointment.getDate().toString() + " " + appointment.getEndTime().toString() + ":00",
-				null, 
-				null, 
-				db.getRoomId(locationField.getValue()), 
-				group.getName(),
-				appointment.getColor());
-		db.setAppointmentMembers(Integer.parseInt(asp.getAppointment().getAppointmentID()), members);
-		db.addAppointmentAdmins(Integer.parseInt(asp.getAppointment().getAppointmentID()), admins);
+//		db.updateAppointment(
+//				appointmentId, 
+//				appointment.getDescription(),
+//				appointment.getDate().toString() + " "	+ appointment.getStartTime().toString() + ":00",
+//				appointment.getDate().toString() + " " + appointment.getEndTime().toString() + ":00",
+//				null, 
+//				null, 
+//				db.getRoomId(locationField.getValue()), 
+//				group.getName(),
+//				appointment.getColor());
+//		db.setAppointmentMembers(Integer.parseInt(asp.getAppointment().getAppointmentID()), members);
+//		db.addAppointmentAdmins(Integer.parseInt(asp.getAppointment().getAppointmentID()), admins);
 	}
 
 	private String isValidInput() {
@@ -222,17 +225,17 @@ public class EditAppointmentPopupController {
 	}
 
 	public void handleFindRoom() throws SQLException {
-		if (validTime()) {
-			ArrayList<String> rooms = new ArrayList<String>();
-			if (csp != null) {
-				rooms = db.getAvailableRooms(csp.getDate(), LocalTime.parse(startTimeField.getText()+":00"), LocalTime.parse(endTimeField.getText()+":00"));
-			} else {
-				rooms = db.getAvailableRooms(asp.getDate().toString(), LocalTime.parse(startTimeField.getText()+":00"), LocalTime.parse(endTimeField.getText()+":00"));
-			}
-			locationField.setItems(FXCollections.observableArrayList(rooms));
-		} else {
-			locationField.setItems(null);
-		}
+//		if (validTime()) {
+//			ArrayList<String> rooms = new ArrayList<String>();
+//			if (csp != null) {
+//				rooms = db.getAvailableRooms(csp.getDate(), LocalTime.parse(startTimeField.getText()+":00"), LocalTime.parse(endTimeField.getText()+":00"));
+//			} else {
+//				rooms = db.getAvailableRooms(asp.getDate().toString(), LocalTime.parse(startTimeField.getText()+":00"), LocalTime.parse(endTimeField.getText()+":00"));
+//			}
+//			locationField.setItems(FXCollections.observableArrayList(rooms));
+//		} else {
+//			locationField.setItems(null);
+//		}
 	}
 
 	private boolean validTime() {
@@ -256,7 +259,7 @@ public class EditAppointmentPopupController {
 	@FXML
 	private void handleDelete() {
 		((VBox) asp.getParent()).getChildren().remove(asp);
-		db.deleteAppointment(asp.getAppointment().getAppointmentID());
+		//db.deleteAppointment(asp.getAppointment().getAppointmentID());
 		asp.getAppointment().getOwner().removeAppointment(asp.getAppointment());
 		popupStage.close();
 	}
@@ -289,14 +292,18 @@ public class EditAppointmentPopupController {
 		invitableMembers.setCellFactory(forListView);
 
 		allMembers.clear();
-		ResultSet rs = db.getGroupMembers(group.getGroupID());
-		try {
-			while (rs.next()) {
-				allMembers.add(rs.getString(1));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+//		ResultSet rs = db.getGroupMembers(group.getGroupID());
+//		try {
+//			while (rs.next()) {
+//				allMembers.add(rs.getString(1));
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+		for (String name : allInvited) {
+			allMembers.add(name);
 		}
+		
 		for (String member : allMembers) {
 			CheckListObject clo = new CheckListObject(member);
 			if (!memberList.contains(member) && !admins.contains(member)) {
@@ -316,16 +323,19 @@ public class EditAppointmentPopupController {
 		admins = asp.getAppointment().getAdmins();
 
 		//set naavarende members
-		ResultSet rs = db.getAppointmentMemberNames(Integer.parseInt(asp
-				.getAppointment().getAppointmentID()));
+//		ResultSet rs = db.getAppointmentMemberNames(Integer.parseInt(asp
+//				.getAppointment().getAppointmentID()));
 		ArrayList<String> memberList = new ArrayList<String>();
-		try {
-			while (rs.next()) {
-				memberList.add(rs.getString("fullName"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		for (String name : allMemberss) {
+			memberList.add(name);
 		}
+//		try {
+//			while (rs.next()) {
+//				memberList.add(rs.getString("fullName"));
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 
 		adminLabel.setText("Admin: " + admins.get(0));
 		asp.getAppointment().setMembers(memberList);
@@ -335,7 +345,7 @@ public class EditAppointmentPopupController {
 		updateInviteList();
 
 		descriptionField.setText(asp.getAppointment().getDescription());
-		locationField.setValue(db.getRoomFromAppointmentId(asp.getAppointment().getAppointmentID()));
+		//locationField.setValue(db.getRoomFromAppointmentId(asp.getAppointment().getAppointmentID()));
 		startTimeField.setText(asp.getAppointment().getStartTime()
 				.toString());
 		endTimeField.setText(asp.getAppointment().getEndTime().toString());

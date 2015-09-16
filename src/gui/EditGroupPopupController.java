@@ -2,6 +2,7 @@ package gui;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ObservableValue;
@@ -35,11 +36,14 @@ public class EditGroupPopupController {
 	@FXML private Label memberListText, invitableMemberListText;
 	@FXML private Button OKBtn, inviteBtn, deleteMemberButton, deleteAdminButton, makeAdminButton,deleteGroupButton;
 	private TreeItem<Group> group;
-	private DBConnection db;
+	//private DBConnection db;
+	private ArrayList<String> allMembers = new ArrayList<String>(Arrays.asList("Kristoffer Lervik", "Erik Wiker"));
+	private ArrayList<String> allInvited = new ArrayList<String>(Arrays.asList("Hoang Hai Nguyen", "Trym Nilsen"));
+
 
 	@FXML
 	private void initialize() {// Setter opp dbConnection
-		db = new DBConnection();
+		//db = new DBConnection();
 	}
 
 	public void setPopupStage(Stage popupStage) {
@@ -65,7 +69,7 @@ public class EditGroupPopupController {
 		members.setEditable(true);
 		members.setItems(memberList);
 		memberList.clear();
-		for (String member : group.getValue().getMembers()) {
+		for (String member : allMembers) {
 			memberList.add(member);
 		}
 		//skjuler admins i memberList
@@ -109,11 +113,11 @@ public class EditGroupPopupController {
 		ListCell<CheckListObject>> forListView = CheckBoxListCell.forListView(getProperty);
 		invitableMembers.setCellFactory(forListView);
 
-		for (String member : group.getParent().getValue().getMembers()) {
+		for (String member : allInvited) {
 			CheckListObject clo = new CheckListObject(member);
-			if (!group.getValue().getMembers().contains(member) && !group.getValue().getAdmins().contains(member)) {
+//			if (!group.getValue().getMembers().contains(member) && !group.getValue().getAdmins().contains(member)) {
 				invitableMemberList.add(clo);
-			}
+//			}
 		}
 
 		this.invitableMembers.getChildren().clear();
@@ -156,8 +160,8 @@ public class EditGroupPopupController {
 
 	@FXML
 	private void handleDeleteGroupButton(){
-		db.deleteGroup(group.getValue().getGroupID());
-		group.getParent().getChildren().remove(group);
+//		db.deleteGroup(group.getValue().getGroupID());
+//		group.getParent().getChildren().remove(group);
 		popupStage.close();
 	}
 
@@ -201,43 +205,43 @@ public class EditGroupPopupController {
 		for(String admin: adminList){
 			toBeMembers.add(admin);
 		} 
-		if (!nameField.getText().equals(group.getValue().getName())) {
-			db.editGroupName(group.getValue().getName(), nameField.getText());
-			group.getValue().setName(nameField.getText());
-		}
-		try {
-			db.setGroupMembers(nameField.getText(), toBeMembers);// deletes the current members of the group and adds all currently selected
-			
-			for(String admin: adminList){
-				db.editGroupAdminRights(group.getValue().getName(), admin, 1);
-			}
-		}catch (SQLException e) {
-			e.printStackTrace();
-		}
+//		if (!nameField.getText().equals(group.getValue().getName())) {
+//			db.editGroupName(group.getValue().getName(), nameField.getText());
+//			group.getValue().setName(nameField.getText());
+//		}
+//		try {
+//			db.setGroupMembers(nameField.getText(), toBeMembers);// deletes the current members of the group and adds all currently selected
+//			
+//			for(String admin: adminList){
+//				db.editGroupAdminRights(group.getValue().getName(), admin, 1);
+//			}
+//		}catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 		popupStage.close();
 	}
 
 	public void fillPopup(TreeItem<Group> group, String username) { // called whenever the popup is opened
-		try {
-			if (db.isPrivateGroup(group.getValue().getName())) {
-				invitableMembers.setDisable(true);
-				inviteBtn.setDisable(true);
-				deleteMemberButton.setDisable(true);
-				deleteAdminButton.setDisable(true);
-				makeAdminButton.setDisable(true);
-				deleteGroupButton.setDisable(true);
-			} else if (!db.isAdmin(username, group.getValue().getName())) { // if not admin
-				invitableMembers.setDisable(true);
-				nameField.setDisable(true);
-				inviteBtn.setDisable(true);
-				deleteMemberButton.setDisable(true);
-				deleteAdminButton.setDisable(true);
-				makeAdminButton.setDisable(true);
-				deleteGroupButton.setDisable(true);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			if (db.isPrivateGroup(group.getValue().getName())) {
+//				invitableMembers.setDisable(true);
+//				inviteBtn.setDisable(true);
+//				deleteMemberButton.setDisable(true);
+//				deleteAdminButton.setDisable(true);
+//				makeAdminButton.setDisable(true);
+//				deleteGroupButton.setDisable(true);
+//			} else if (!db.isAdmin(username, group.getValue().getName())) { // if not admin
+//				invitableMembers.setDisable(true);
+//				nameField.setDisable(true);
+//				inviteBtn.setDisable(true);
+//				deleteMemberButton.setDisable(true);
+//				deleteAdminButton.setDisable(true);
+//				makeAdminButton.setDisable(true);
+//				deleteGroupButton.setDisable(true);
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 		this.group = group;
 
 		updateAdminList(); 				//for admins 

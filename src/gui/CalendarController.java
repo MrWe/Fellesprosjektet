@@ -36,11 +36,11 @@ public class CalendarController {
 			KeyCode.LEFT, KeyCode.RIGHT, KeyCode.LEFT, KeyCode.RIGHT, 
 			KeyCode.B, KeyCode.A};
 	private MainApp mainApp;
-	private DBConnection dbConnection;
+	//private DBConnection dbConnection;
 
 	@FXML
 	private void initialize() {
-		dbConnection = new DBConnection();
+		//dbConnection = new DBConnection();
 	}
 
 	public void setKeyEventHandler(Scene scene) {
@@ -109,17 +109,17 @@ public class CalendarController {
 			c1.add(Calendar.DATE, -1);
 			day = c1.get(Calendar.DAY_OF_WEEK); // this is the first day to create a calendar square for
 		}
-		ResultSet appointmentsRS = null;	// all appointments of the current group
-		ResultSet allAppointmentMembers = null;	// all members of all appointments of the current group
-		if (!(group.getName().equals(""))) {
-			appointmentsRS = dbConnection.getAppointmentsWithGroup(Integer.parseInt(group.getGroupID()));
-			ArrayList<String> appointmentIDs = new ArrayList<String>();
-			while (appointmentsRS.next()) {
-				appointmentIDs.add(appointmentsRS.getString("appointmentID"));
-			}
-			appointmentsRS.beforeFirst();
-			allAppointmentMembers = dbConnection.getAllAppointmentMembers(appointmentIDs);
-		}
+//		ResultSet appointmentsRS = null;	// all appointments of the current group
+//		ResultSet allAppointmentMembers = null;	// all members of all appointments of the current group
+//		if (!(group.getName().equals(""))) {
+//			appointmentsRS = dbConnection.getAppointmentsWithGroup(Integer.parseInt(group.getGroupID()));
+//			ArrayList<String> appointmentIDs = new ArrayList<String>();
+//			while (appointmentsRS.next()) {
+//				appointmentIDs.add(appointmentsRS.getString("appointmentID"));
+//			}
+//			appointmentsRS.beforeFirst();
+//			allAppointmentMembers = dbConnection.getAllAppointmentMembers(appointmentIDs);
+//		}
 		for (int i = 0; i < 6; i++) { // for each week
 			for (int j = 0; j < 7; j++) { // for each day of the week
 				String date = 
@@ -141,63 +141,63 @@ public class CalendarController {
 					csp.getText().setFill(Color.WHITE);
 				}
 
-				if (!(group.getName().equals(""))) {
-					while (appointmentsRS != null && appointmentsRS.next()) {
-						// if the appointment is not for the current date: skip it
-						if (!date.equals(appointmentsRS.getString("timeFrom").substring(0, 10))) {
-							continue;
-						}
-						// if you have not accepted the invitation to the appointment and not an admin: skip it
-						boolean userIsInAppointment = false;
-						while(allAppointmentMembers.next()) {
-							if (appointmentsRS.getString("appointmentID").equals(allAppointmentMembers.getString("APPOINTMENT_appointmentID"))
-									&& allAppointmentMembers.getString("username").equals(mainApp.getUser().getUsername()) 
-									&& (allAppointmentMembers.getString("status").equals("a") || allAppointmentMembers.getString("isAdmin").equals("1"))) {
-								userIsInAppointment = true;
-							}
-						}
-						allAppointmentMembers.beforeFirst();
-						if (!userIsInAppointment) {
-							continue;
-						}
-						ArrayList<String> members = new ArrayList<String>();
-						ArrayList<String> admins = new ArrayList<String>();
-						ArrayList<String> invited = new ArrayList<String>();
-						while (allAppointmentMembers.next()) {
-							if (!allAppointmentMembers.getString("APPOINTMENT_appointmentID").equals(appointmentsRS.getString("appointmentID"))) {
-								continue;
-							}
-							if (allAppointmentMembers.getString("status") == "a") {
-								members.add(allAppointmentMembers.getString("fullName"));
-							}
-							if (allAppointmentMembers.getString("status") == "i") {
-								invited.add(allAppointmentMembers.getString("fullName"));
-							}
-							if (allAppointmentMembers.getInt("isAdmin") == 1) {
-								admins.add(allAppointmentMembers.getString("fullName"));
-							}
-						}
-						Appointment appointment = new Appointment(
-								appointmentsRS.getString("description"), 
-								appointmentsRS.getString("place"),
-								LocalDate.parse(appointmentsRS.getString("timeFrom").substring(0, 10)), 
-								LocalTime.parse(appointmentsRS.getString("timeFrom").substring(11, 16)),
-								LocalTime.parse(appointmentsRS.getString("timeTo").substring(11, 16)),
-								invited,
-								members,
-								admins,
-								appointmentsRS.getString("appColor"), 
-								group);
-						appointment.setAppointmentID(appointmentsRS.getString("appointmentID"));
-						allAppointmentMembers.beforeFirst();
-						csp.addAppointment(appointment);
-					}
-				}
+//				if (!(group.getName().equals(""))) {
+//					while (appointmentsRS != null && appointmentsRS.next()) {
+//						// if the appointment is not for the current date: skip it
+//						if (!date.equals(appointmentsRS.getString("timeFrom").substring(0, 10))) {
+//							continue;
+//						}
+//						// if you have not accepted the invitation to the appointment and not an admin: skip it
+//						boolean userIsInAppointment = false;
+//						while(allAppointmentMembers.next()) {
+//							if (appointmentsRS.getString("appointmentID").equals(allAppointmentMembers.getString("APPOINTMENT_appointmentID"))
+//									&& allAppointmentMembers.getString("username").equals(mainApp.getUser().getUsername()) 
+//									&& (allAppointmentMembers.getString("status").equals("a") || allAppointmentMembers.getString("isAdmin").equals("1"))) {
+//								userIsInAppointment = true;
+//							}
+//						}
+//						allAppointmentMembers.beforeFirst();
+//						if (!userIsInAppointment) {
+//							continue;
+//						}
+//						ArrayList<String> members = new ArrayList<String>();
+//						ArrayList<String> admins = new ArrayList<String>();
+//						ArrayList<String> invited = new ArrayList<String>();
+//						while (allAppointmentMembers.next()) {
+//							if (!allAppointmentMembers.getString("APPOINTMENT_appointmentID").equals(appointmentsRS.getString("appointmentID"))) {
+//								continue;
+//							}
+//							if (allAppointmentMembers.getString("status") == "a") {
+//								members.add(allAppointmentMembers.getString("fullName"));
+//							}
+//							if (allAppointmentMembers.getString("status") == "i") {
+//								invited.add(allAppointmentMembers.getString("fullName"));
+//							}
+//							if (allAppointmentMembers.getInt("isAdmin") == 1) {
+//								admins.add(allAppointmentMembers.getString("fullName"));
+//							}
+//						}
+//						Appointment appointment = new Appointment(
+//								appointmentsRS.getString("description"), 
+//								appointmentsRS.getString("place"),
+//								LocalDate.parse(appointmentsRS.getString("timeFrom").substring(0, 10)), 
+//								LocalTime.parse(appointmentsRS.getString("timeFrom").substring(11, 16)),
+//								LocalTime.parse(appointmentsRS.getString("timeTo").substring(11, 16)),
+//								invited,
+//								members,
+//								admins,
+//								appointmentsRS.getString("appColor"), 
+//								group);
+//						appointment.setAppointmentID(appointmentsRS.getString("appointmentID"));
+//						allAppointmentMembers.beforeFirst();
+//						csp.addAppointment(appointment);
+//					}
+//				}
 				calendar.add(csp, j, i); // adds the calendar square to the calendar gridPane
 				c1.add(Calendar.DATE, 1); // increase date by 1
-				if (appointmentsRS != null) {
-					appointmentsRS.beforeFirst();
-				}
+//				if (appointmentsRS != null) {
+//					appointmentsRS.beforeFirst();
+//				}
 			}
 		}
 	}
